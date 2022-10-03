@@ -11,7 +11,7 @@ type Logger struct {
 	Encoding string `env:"LOG_ENCODING" envDefault:"json"`
 }
 
-type Model struct {
+type Config struct {
 	ServiceName        string `env:"SERVICE_NAME" envDefault:"golangUnitedSchool"`
 	Port               int    `env:"PORT" envDefault:"8080"`
 	Host               string `env:"HOST" envDefault:"0.0.0.0"`
@@ -19,8 +19,8 @@ type Model struct {
 	Logger             Logger
 }
 
-func Load() *Model {
-	var cfg Model
+func Load() *Config {
+	var cfg Config
 	if err := env.Parse(&cfg); err != nil {
 		log.Fatalf("can not load config: %s", err)
 	}

@@ -4,13 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lozovoya/GolangUnitedSchool/app/repository"
+	"github.com/lozovoya/GolangUnitedSchool/app/cases"
 	"go.uber.org/zap"
 )
 
 type PersonHandler struct {
-	repository repository.PostgreSQLRepository
-	logger     *zap.SugaredLogger
+	cases  *cases.UserCases
+	logger *zap.SugaredLogger
 }
 
 type PersonByIdQuery struct {
@@ -23,17 +23,18 @@ func (h PersonHandler) GetPersonById(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 	}
 
-	person, err := h.repository.GetPersonById(ctx, personQuery.ID)
-	if err!= nil {
+	person, err := h.cases.GetPersonById(ctx, personQuery.ID)
+	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 	}
 	ctx.JSON(http.StatusOK, person)
 }
 
-func NewPersonHandler(r repository.PostgreSQLRepository,
+func NewPersonHandler(
+	c *cases.UserCases,
 	logger *zap.SugaredLogger) *PersonHandler {
 	return &PersonHandler{
-		repository: r,
-		logger:     logger,
+		cases:  c,
+		logger: logger,
 	}
 }
