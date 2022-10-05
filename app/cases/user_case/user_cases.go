@@ -9,7 +9,7 @@ import (
 )
 
 type UserCases struct {
-	r      repository.Repository
+	r repository.Repository
 }
 
 // Realize User_case interface
@@ -25,6 +25,6 @@ func (c *UserCases) GetPersonById(ctx context.Context, id int64) (*domain.Person
 // NewUserCases construct UserCases
 func NewUserCases(r repository.Repository) *UserCases {
 	return &UserCases{
-		r:      r,
+		r: r,
 	}
 }

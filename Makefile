@@ -11,6 +11,7 @@ install-dep:
 
 lint:
 	@echo "Linting..."
+	go fmt ./...
 	golangci-lint run --skip-files ".*_gen.go" ./...
 	@echo "Done"
 

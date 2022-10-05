@@ -10,7 +10,7 @@ import (
 )
 
 type PostgreSQLRepository struct {
-	conn   *pgx.Conn
+	conn *pgx.Conn
 }
 
 func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
@@ -40,6 +40,6 @@ func NewPostgreSQLRepository(ctx context.Context,
 	}
 
 	return &PostgreSQLRepository{
-		conn:   conn,
+		conn: conn,
 	}
 }
