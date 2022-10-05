@@ -6,37 +6,34 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
-	"github.com/lozovoya/GolangUnitedSchool/app/repository"
-	"go.uber.org/zap"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain"
 )
 
 type PostgreSQLRepository struct {
 	conn   *pgx.Conn
-	logger *zap.SugaredLogger
 }
 
-func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*repository.DBPerson, error) {
+func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 	personQuery := psql.Select("*").From("person").Where(sq.Eq{"person_id": id})
 	sql, args, err := personQuery.ToSql()
 	if err != nil {
 		return nil, fmt.Errorf("GetPersonById: %w", err)
 	}
-	var person repository.DBPerson
+	var person DBPerson
 	err = r.conn.QueryRow(ctx, sql, args...).Scan(
 		&person.ID,
 		&person.FirstName,
 		&person.LastName,
 		&person.SurName)
 	if err != nil {
-		return nil, fmt.Errorf("GetPersonById: %w", err)
+		return nil, fmt.Errorf("PostgreSQLRepository.GetPersonById: %w", err)
 	}
-	return &person, nil
+	return DBPersonToPerson(&person), nil
 }
 
 func NewPostgreSQLRepository(ctx context.Context,
-	connectionString string,
-	logger *zap.SugaredLogger) *PostgreSQLRepository {
+	connectionString string) *PostgreSQLRepository {
 	conn, err := pgx.Connect(ctx, connectionString)
 	if err != nil {
 		panic(err)
@@ -44,6 +41,5 @@ func NewPostgreSQLRepository(ctx context.Context,
 
 	return &PostgreSQLRepository{
 		conn:   conn,
-		logger: logger,
 	}
 }

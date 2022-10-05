@@ -1,32 +1,30 @@
-package cases
+package user_case
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
-	"go.uber.org/zap"
 )
 
 type UserCases struct {
 	r      repository.Repository
-	logger *zap.SugaredLogger
 }
 
+// Realize User_case interface
+// GetPersonById return person data by id
 func (c *UserCases) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
-	dbRow, err := c.r.GetPersonById(ctx, id)
+	person, err := c.r.GetPersonById(ctx, id)
 	if err != nil {
-		c.logger.Error(err)
-		return nil, err
+		return nil, fmt.Errorf("UserCases.GetPersonById: %w", err)
 	}
-	return repository.DBPersonToPerson(dbRow), nil
+	return person, nil
 }
 
-func NewUserCases(
-	r repository.Repository,
-	logger *zap.SugaredLogger) *UserCases {
+// NewUserCases construct UserCases
+func NewUserCases(r repository.Repository) *UserCases {
 	return &UserCases{
 		r:      r,
-		logger: logger,
 	}
 }

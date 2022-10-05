@@ -1,4 +1,4 @@
-package repository
+package cases
 
 import (
 	"context"
@@ -6,6 +6,6 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/domain"
 )
 
-type Repository interface {
+type User_case interface {
 	GetPersonById(ctx context.Context, id int64) (*domain.Person, error)
 }
