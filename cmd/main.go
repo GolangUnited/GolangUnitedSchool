@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"github.com/lozovoya/GolangUnitedSchool/app/config"
+	"github.com/lozovoya/GolangUnitedSchool/app/server"
+)
 
 func main() {
-	fmt.Println("hello students!")
+	server.Run(config.Load())
 }
