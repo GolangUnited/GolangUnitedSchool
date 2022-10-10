@@ -11,7 +11,7 @@ Content-Type: application/json
   "last_name": "Vasiliev",
   "patronymic": "Vasilievich",
   "login": "vasya3",
-  "roled_id": 3,
+  "role_id": 3,
   "passwd": "12345678",
   "updated_at": "2020-12-02T15:15:15Z",
   "deleted": false

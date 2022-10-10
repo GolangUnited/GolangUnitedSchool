@@ -27,4 +27,5 @@ func Run(cfg *config.Config) {
 	if err := r.Run(); err != nil {
 		panic(err)
 	}
+
 }
