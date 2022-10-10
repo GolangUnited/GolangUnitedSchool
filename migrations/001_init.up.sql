@@ -2,12 +2,12 @@ CREATE TABLE public.person (
 	"id" serial NOT NULL,
 	"first_name" VARCHAR(255) NOT NULL,
 	"last_name" VARCHAR(255) NOT NULL,
-	"surname" VARCHAR(255) NOT NULL,
-	"login" VARCHAR(255) NOT NULL,
+	"patronymic" VARCHAR(255) NOT NULL,
+	"login" VARCHAR(255) NOT NULL unique ,
 	"role_id" integer NOT NULL,
 	"passwd" VARCHAR(255) NOT NULL,
-	"updated_at" TIMESTAMP NOT NULL,
-	"deleted" BOOLEAN NOT NULL,
+	"updated_at" TIMESTAMP NOT NULL default current_timestamp,
+	"deleted" BOOLEAN NOT NULL default false,
 	CONSTRAINT "person_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -305,3 +305,15 @@ ALTER TABLE interview ADD CONSTRAINT "interview_fk1" FOREIGN KEY ("mentor_id") R
 ALTER TABLE student_certificate ADD CONSTRAINT "student_certificate_fk0" FOREIGN KEY ("student_id") REFERENCES "student"("id");
 ALTER TABLE student_certificate ADD CONSTRAINT "student_certificate_fk1" FOREIGN KEY ("certificate_id") REFERENCES "certificate"("id");
 ALTER TABLE student_certificate ADD CONSTRAINT "student_certificate_fk2" FOREIGN KEY ("course_id") REFERENCES "course"("id");
+
+
+INSERT INTO public.role (role_name, is_read_only) VALUES
+                                                      ('admin', false),
+                                                      ('mentor', false),
+                                                      ('student', false),
+                                                      ('admin', true),
+                                                      ('mentor', true),
+                                                      ('student', true);
+
+INSERT INTO public.person (first_name, last_name, patronymic, login, role_id, passwd) VALUES
+    ('Ivan', 'Ivanov', 'Ivanovich', 'Ivan777', 3, '12345678');
