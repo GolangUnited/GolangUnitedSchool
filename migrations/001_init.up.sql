@@ -2,7 +2,7 @@ CREATE TABLE public.person (
 	"id" serial NOT NULL,
 	"first_name" VARCHAR(255) NOT NULL,
 	"last_name" VARCHAR(255) NOT NULL,
-	"patronymic" VARCHAR(255) NOT NULL,
+	"patronymic" VARCHAR(255) NULL,
 	"login" VARCHAR(255) NOT NULL unique ,
 	"role_id" integer NOT NULL,
 	"passwd" VARCHAR(255) NOT NULL,
