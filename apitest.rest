@@ -1,3 +1,18 @@
 GET http://localhost:8080/person/1 HTTP/1.1
 
 ###
+
+
+POST https://localhost:8080/person HTTP/1.1
+Content-Type: application/json
+
+{
+  "first_name": "Vasily",
+  "last_name": "Vasiliev",
+  "patronymic": "Vasilievich",
+  "login": "vasya3",
+  "roled_id": 3,
+  "passwd": "12345678",
+  "updated_at": "2020-12-02T15:15:15Z",
+  "deleted": false
+}
