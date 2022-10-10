@@ -38,7 +38,8 @@ func (r *PostgreSQLRepository) PostNewPerson(ctx context.Context,
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 	newPerson := psql.Insert("person").Columns("first_name",
 		"last_name", "patronymic", "login", "role_id", "passwd").Values(n.FirstName,
-		n.LastName, n.Patronymic, n.Login, n.RoleId, n.Passwd)
+		n.LastName, n.Patronymic, n.Login, n.RoleId,
+		n.Passwd)
 	sql, args, err := newPerson.ToSql()
 	var person DBPerson
 	err = r.conn.QueryRow(ctx, sql, args...).Scan(

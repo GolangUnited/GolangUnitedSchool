@@ -49,6 +49,11 @@ func (h Person) PostNewPerson(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 
 	}
+	person, err := h.cases.PostNewPerson(ctx, newPerson)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
+	}
+	ctx.JSON(http.StatusOK, person)
 	fmt.Println(newPerson)
 
 }
