@@ -7,3 +7,9 @@ type Person struct {
 	SurName   string
 	Login     string
 }
+
+type Response struct {
+	IsSuccess bool        `json:"status"`
+	Message   string      `json:"message"`
+	Data      interface{} `json:"data"`
+}

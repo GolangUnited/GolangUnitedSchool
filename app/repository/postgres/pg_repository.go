@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
@@ -11,6 +12,18 @@ import (
 
 type PostgreSQLRepository struct {
 	conn *pgx.Conn
+}
+
+func NewPostgreSQLRepository(ctx context.Context,
+	connectionString string) *PostgreSQLRepository {
+	conn, err := pgx.Connect(ctx, connectionString)
+	if err != nil {
+		panic(err)
+	}
+
+	return &PostgreSQLRepository{
+		conn: conn,
+	}
 }
 
 func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
@@ -32,14 +45,17 @@ func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*do
 	return DBPersonToPerson(&person), nil
 }
 
-func NewPostgreSQLRepository(ctx context.Context,
-	connectionString string) *PostgreSQLRepository {
-	conn, err := pgx.Connect(ctx, connectionString)
+func (r *PostgreSQLRepository) DeletePerson(ctx context.Context, id int64) error {
+	tx, err := r.conn.Begin(ctx)
 	if err != nil {
-		panic(err)
+		return err
+	}
+	defer tx.Rollback(ctx)
+
+	_, err = tx.Exec(ctx, "UPDATE person SET updated_at = $1, deleted = $2 WHERE id = $3", time.Now(), true, id)
+	if err != nil {
+		return err
 	}
 
-	return &PostgreSQLRepository{
-		conn: conn,
-	}
+	return nil
 }

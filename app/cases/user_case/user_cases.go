@@ -12,6 +12,13 @@ type UserCases struct {
 	r repository.Repository
 }
 
+// NewUserCases construct UserCases
+func NewUserCases(r repository.Repository) *UserCases {
+	return &UserCases{
+		r: r,
+	}
+}
+
 // Realize User_case interface
 // GetPersonById return person data by id
 func (c *UserCases) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
@@ -22,9 +29,6 @@ func (c *UserCases) GetPersonById(ctx context.Context, id int64) (*domain.Person
 	return person, nil
 }
 
-// NewUserCases construct UserCases
-func NewUserCases(r repository.Repository) *UserCases {
-	return &UserCases{
-		r: r,
-	}
+func (c *UserCases) DeletePerson(ctx context.Context, id int64) error {
+	return c.r.DeletePerson(ctx, id)
 }

@@ -1,13 +1,13 @@
 CREATE TABLE public.person (
-	"id" serial NOT NULL,
-	"first_name" VARCHAR(255) NOT NULL,
-	"last_name" VARCHAR(255) NOT NULL,
-	"surname" VARCHAR(255) NOT NULL,
-	"login" VARCHAR(255) NOT NULL,
-	"role_id" integer NOT NULL,
-	"passwd" VARCHAR(255) NOT NULL,
-	"updated_at" TIMESTAMP NOT NULL,
-	"deleted" BOOLEAN NOT NULL,
+	"id" 					SERIAL 							NOT NULL,
+	"first_name" 			VARCHAR(255) 					NOT NULL,
+	"last_name"	 			VARCHAR(255) 					NOT NULL,
+	"surname" 				VARCHAR(255) 					NOT NULL,
+	"login" 				VARCHAR(255) UNIQUE 			NOT NULL,
+	"role_id" 				INTEGER 						NOT NULL,
+	"passwd" 				VARCHAR(255) 					NOT NULL,
+	"updated_at" 			TIMESTAMP 						NOT NULL,
+	"deleted" 				BOOLEAN 						NOT NULL,
 	CONSTRAINT "person_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

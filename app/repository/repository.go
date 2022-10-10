@@ -8,4 +8,5 @@ import (
 
 type Repository interface {
 	GetPersonById(ctx context.Context, id int64) (*domain.Person, error)
+	DeletePerson(ctx context.Context, id int64) error
 }
