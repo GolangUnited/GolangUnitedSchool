@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -19,14 +20,14 @@ type PersonByIdQuery struct {
 }
 
 type NewPersonQuery struct {
-	firstName  string    `form:"first_name" binding:"required"`
-	lastName   string    `form:"last_name" binding:"required"`
-	patronymic string    `form:"patronymic"`
-	login      string    `form:"login" binding:"required"`
-	roleId     int       `form:"role_id" binding:"required"`
-	passwd     string    `form:"passwd" binding:"required"`
-	updatedAt  time.Time `form:"updated_at"`
-	deleted    bool      `form:"deleted"`
+	FirstName  string    `json:"first_name"  binding:"required"`
+	LastName   string    `json:"last_name" binding:"required"`
+	Patronymic string    `json:"patronymic,"`
+	Login      string    `json:"login" binding:"required"`
+	RoleId     int       `json:"role_id" binding:"required"`
+	Passwd     string    `json:"passwd" binding:"required"`
+	UpdatedAt  time.Time `json:"updated_at"`
+	Deleted    bool      `json:"deleted" binding:"boolean"`
 }
 
 func (h Person) GetPersonById(ctx *gin.Context) {
@@ -40,6 +41,16 @@ func (h Person) GetPersonById(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 	}
 	ctx.JSON(http.StatusOK, person)
+}
+
+func (h Person) PostNewPerson(ctx *gin.Context) {
+	var newPerson NewPersonQuery
+	if err := ctx.ShouldBindJSON(&newPerson); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+
+	}
+	fmt.Println(newPerson)
+
 }
 
 func NewPerson(

@@ -24,6 +24,7 @@ func Run(cfg *config.Config) {
 	r := gin.Default()
 
 	r.GET("/person/:person_id", personHandler.GetPersonById)
+	r.POST("/person", personHandler.PostNewPerson)
 	if err := r.Run(); err != nil {
 		panic(err)
 	}
