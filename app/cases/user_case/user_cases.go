@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lozovoya/GolangUnitedSchool/app/domain"
+	"github.com/lozovoya/GolangUnitedSchool/app/model"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
@@ -14,12 +14,16 @@ type UserCases struct {
 
 // Realize User_case interface
 // GetPersonById return person data by id
-func (c *UserCases) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
+func (c *UserCases) GetPersonById(ctx context.Context, id int64) (*model.Person, error) {
 	person, err := c.r.GetPersonById(ctx, id)
 	if err != nil {
 		return nil, fmt.Errorf("UserCases.GetPersonById: %w", err)
 	}
 	return person, nil
+}
+
+func (c *UserCases) DeletePerson(ctx context.Context, id int64) error {
+	return c.r.DeletePerson(ctx, id)
 }
 
 // NewUserCases construct UserCases

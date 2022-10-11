@@ -21,10 +21,15 @@ func Run(cfg *config.Config) {
 	userCases := user_case.NewUserCases(repo)
 	personHandler := handlers.NewPerson(userCases, logger)
 
-	r := gin.Default()
+	router := gin.Default()
 
-	r.GET("/person/:person_id", personHandler.GetPersonById)
-	if err := r.Run(); err != nil {
+	person := router.Group("/person")
+	{
+		person.GET("/:person_id", personHandler.GetPersonById)
+		person.DELETE("/:person_id", personHandler.DeletePerson)
+	}
+
+	if err := router.Run(); err != nil {
 		panic(err)
 	}
 }
