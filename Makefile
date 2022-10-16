@@ -19,3 +19,9 @@ migrate:
 	@echo "Migrate..."
 	bash scripts/migrate.sh
 	@echo "Done"
+
+build:
+	go build  -o mission_possible ./cmd/main.go
+
+run:
+	go run ./cmd/main.go
