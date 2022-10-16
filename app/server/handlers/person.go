@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lozovoya/GolangUnitedSchool/app/cases/user_case"
+	"github.com/lozovoya/GolangUnitedSchool/app/usecases"
 	"go.uber.org/zap"
 )
 
 type Person struct {
-	cases  *user_case.UserCases
+	cases  usecases.User
 	logger *zap.SugaredLogger
 }
 
@@ -31,7 +31,7 @@ func (h Person) GetPersonById(ctx *gin.Context) {
 }
 
 func NewPerson(
-	c *user_case.UserCases,
+	c usecases.User,
 	logger *zap.SugaredLogger) *Person {
 	return &Person{
 		cases:  c,
