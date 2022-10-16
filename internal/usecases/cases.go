@@ -16,7 +16,7 @@ type Cases struct {
 func NewUseCases(r repository.Repository) *Cases {
 	return &Cases{
 		User:   NewUserCases(r),
-		Course: NewCourseCases,
+		Course: NewCourseCases(r),
 	}
 }
 

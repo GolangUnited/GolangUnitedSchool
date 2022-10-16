@@ -11,56 +11,64 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/lozovoya/GolangUnitedSchool/internal/config"
-	"github.com/lozovoya/GolangUnitedSchool/internal/logger"
-	"github.com/lozovoya/GolangUnitedSchool/internal/repository/postgres"
 	"github.com/lozovoya/GolangUnitedSchool/internal/server/handlers"
-	"github.com/lozovoya/GolangUnitedSchool/internal/usecases"
+
+	"go.uber.org/zap"
 )
 
-func Run(cfg *config.Config) {
-	log := logger.NewLogger(
-		cfg.Logger.Level,
-		cfg.Logger.Encoding,
-	)
+type ServerSt struct {
+	log *zap.SugaredLogger
+	srv *http.Server
+	h   *handlers.Handlers
+}
 
-	ctx := context.Background()
-	repo, err := postgres.NewPostgreSQLRepository(ctx, cfg.PGConnectionString)
-	if err != nil {
-		log.Error(err)
-		return
+func NewServer(
+	cfg *config.Config,
+	log *zap.SugaredLogger,
+	h *handlers.Handlers,
+) *ServerSt {
+	return &ServerSt{
+		srv: &http.Server{
+			Addr:    cfg.Host,
+			Handler: router(h),
+		},
+		log: log,
+		h:   h,
 	}
+}
 
-	usecases := usecases.NewUseCases(repo)
-	handlers := handlers.NewHandlers(usecases, log)
-
-	srv := &http.Server{
-		Addr:    cfg.Host,
-		Handler: router(handlers),
-	}
+func (s *ServerSt) Run(ctx context.Context) error {
 
 	go func() {
-		if err := srv.ListenAndServe(); err != nil {
-			panic(err)
+		if err := s.srv.ListenAndServe(); err != nil {
+			s.log.Error(err)
 		}
 	}()
 
 	// gracfull shutdown
 	quit := make(chan os.Signal, 1)
+	defer close(quit)
+
 	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	<-quit
+	select {
+	case <-quit:
+	case <-ctx.Done():
+	}
 
-	log.Info("shutdown Server ...")
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	s.log.Info("shutdown Server ...")
+	ctxSh, cancel := context.WithTimeout(context.Background(), time.Second*30)
 	defer cancel()
 
-	if err := srv.Shutdown(ctx); err != nil {
-		log.Warn("Server Sutdown", err)
-		return
+	if err := s.srv.Shutdown(ctxSh); err != nil {
+		s.log.Warn("Server Sutdown", err)
+		return err
 	}
+
+	return nil
 }
 
-func router(h *handlers.HandlerSt) *gin.Engine {
+func router(h *handlers.Handlers) *gin.Engine {
 	// *gin.Engine with recovery and loging middlewares
 	r := gin.Default()
 
