@@ -3,7 +3,7 @@ package usecases
 import (
 	"context"
 
-	"github.com/lozovoya/GolangUnitedSchool/internal/domain"
+	"github.com/lozovoya/GolangUnitedSchool/internal/models"
 	"github.com/lozovoya/GolangUnitedSchool/internal/repository"
 )
 
@@ -21,7 +21,7 @@ func NewUseCases(r repository.Repository) *Cases {
 }
 
 type User interface {
-	GetPersonById(ctx context.Context, id int64) (*domain.Person, error)
+	GetPersonById(ctx context.Context, id int64) (*models.Person, error)
 }
 
 type Course interface {

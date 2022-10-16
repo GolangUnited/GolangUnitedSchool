@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lozovoya/GolangUnitedSchool/internal/domain"
+	"github.com/lozovoya/GolangUnitedSchool/internal/models"
 	"github.com/lozovoya/GolangUnitedSchool/internal/repository"
 )
 
@@ -21,7 +21,7 @@ func NewUserCases(r repository.Repository) User {
 
 // Realize User_case interface
 // GetPersonById return person data by id
-func (c *UserSt) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
+func (c *UserSt) GetPersonById(ctx context.Context, id int64) (*models.Person, error) {
 	person, err := c.r.GetPersonById(ctx, id)
 	if err != nil {
 		return nil, fmt.Errorf("UserCases.GetPersonById: %w", err)

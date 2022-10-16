@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/lozovoya/GolangUnitedSchool/internal/domain"
+	"github.com/lozovoya/GolangUnitedSchool/internal/models"
 )
 
 type DBPerson struct {
@@ -16,7 +16,7 @@ type DBPerson struct {
 	Login     *string
 }
 
-func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*domain.Person, error) {
+func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*models.Person, error) {
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 	personQuery := psql.Select("*").From("person").Where(sq.Eq{"person_id": id})
 	sql, args, err := personQuery.ToSql()
@@ -37,8 +37,8 @@ func (r *PostgreSQLRepository) GetPersonById(ctx context.Context, id int64) (*do
 	return DBPersonToPerson(&person), nil
 }
 
-func DBPersonToPerson(p *DBPerson) *domain.Person {
-	return &domain.Person{
+func DBPersonToPerson(p *DBPerson) *models.Person {
+	return &models.Person{
 		ID:        p.ID,
 		FirstName: StringPointerToString(p.FirstName),
 		LastName:  StringPointerToString(p.LastName),
