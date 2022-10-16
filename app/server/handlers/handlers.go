@@ -14,7 +14,7 @@ type HandlerSt struct {
 func NewHandlers(c *usecases.Cases,
 	logger *zap.SugaredLogger) *HandlerSt {
 	return &HandlerSt{
-		Auth:   NewAuth(c, logger),
+		Auth:   NewAuth(c.Auth, logger),
 		Course: NewCourses(c.Course, logger),
 		Person: NewPerson(c.User, logger),
 	}

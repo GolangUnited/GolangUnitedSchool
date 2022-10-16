@@ -13,7 +13,7 @@ type Person struct {
 type Course struct {
 	ID        int64
 	Title     string
-	Status    string
+	Status    string 
 	StartDate time.Time
 	EndDate   time.Time
 }

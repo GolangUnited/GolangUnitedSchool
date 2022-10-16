@@ -2,6 +2,11 @@ package server
 
 import (
 	"context"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lozovoya/GolangUnitedSchool/app/config"
@@ -18,16 +23,36 @@ func Run(cfg *config.Config) {
 	usecases := usecases.NewUseCases(repo)
 	handlers := handlers.NewHandlers(usecases, logger)
 
-	r := router(handlers)
+	srv := &http.Server{
+		Addr:    cfg.Host,
+		Handler: router(handlers),
+	}
 
-	if err := r.Run(); err != nil {
-		panic(err)
+	go func() {
+		if err := srv.ListenAndServe(); err != nil {
+			panic(err)
+		}
+	}()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+
+	<-quit
+
+	logger.Info("shutdown Server ...")
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	if err := srv.Shutdown(ctx); err != nil {
+		logger.Warn("Server Sutdown", err)
+		return
 	}
 }
 
 func router(h *handlers.HandlerSt) *gin.Engine {
 	r := gin.Default()
 
+	
 	auth := r.Group("/auth")
 	{
 		auth.POST("/login", h.Auth.Login)
