@@ -1,14 +1,17 @@
 package postgres
 
-import "github.com/lozovoya/GolangUnitedSchool/app/domain"
+import "github.com/lozovoya/GolangUnitedSchool/app/model"
 
-func DBPersonToPerson(p *DBPerson) *domain.Person {
-	return &domain.Person{
-		ID:        p.ID,
-		FirstName: StringPointerToString(p.FirstName),
-		LastName:  StringPointerToString(p.LastName),
-		SurName:   StringPointerToString(p.SurName),
-		Login:     StringPointerToString(p.Login),
+func DBPersonToPerson(p *DBPerson) *model.Person {
+	return &model.Person{
+		ID:         p.ID,
+		FirstName:  StringPointerToString(p.FirstName),
+		LastName:   StringPointerToString(p.LastName),
+		Patronymic: StringPointerToString(p.Patronymic),
+		Login:      StringPointerToString(p.Login),
+		RoleId:     p.RoleId,
+		Passwd:     StringPointerToString(p.Passwd),
+		UpdatedAt:  p.UpdatedAt,
 	}
 }
 
