@@ -11,18 +11,27 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/lozovoya/GolangUnitedSchool/app/config"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository/postgres"
 	"github.com/lozovoya/GolangUnitedSchool/app/server/handlers"
 	"github.com/lozovoya/GolangUnitedSchool/app/usecases"
 )
 
 func Run(cfg *config.Config) {
-	logger := NewLogger(cfg.Logger.Level,
-		cfg.Logger.Encoding)
+	log := logger.NewLogger(
+		cfg.Logger.Level,
+		cfg.Logger.Encoding,
+	)
+
 	ctx := context.Background()
-	repo := postgres.NewPostgreSQLRepository(ctx, cfg.PGConnectionString)
+	repo, err := postgres.NewPostgreSQLRepository(ctx, cfg.PGConnectionString)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	
 	usecases := usecases.NewUseCases(repo)
-	handlers := handlers.NewHandlers(usecases, logger)
+	handlers := handlers.NewHandlers(usecases, log)
 
 	srv := &http.Server{
 		Addr:    cfg.Host,
@@ -41,12 +50,12 @@ func Run(cfg *config.Config) {
 
 	<-quit
 
-	logger.Info("shutdown Server ...")
+	log.Info("shutdown Server ...")
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 
 	if err := srv.Shutdown(ctx); err != nil {
-		logger.Warn("Server Sutdown", err)
+		log.Warn("Server Sutdown", err)
 		return
 	}
 }
@@ -55,12 +64,13 @@ func router(h *handlers.HandlerSt) *gin.Engine {
 	// *gin.Engine with recovery and loging middlewares
 	r := gin.Default()
 
+	// TODO: get cors config from app configurations
 	r.Use(cors.New(
 		cors.Config{
-			AllowOrigins:     []string{"*"},
-			AllowMethods:     []string{"*"},
+			AllowOrigins:     []string{},
+			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
 			AllowHeaders:     []string{"Origin"},
-			ExposeHeaders:    []string{"Content-Length"},
+			ExposeHeaders:    []string{"Origin", "Content-Length", "Content-Type"},
 			AllowCredentials: true,
 			AllowOriginFunc: func(origin string) bool {
 				return true
