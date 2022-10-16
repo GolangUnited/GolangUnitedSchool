@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/lozovoya/GolangUnitedSchool/app/domain"
+	"github.com/lozovoya/GolangUnitedSchool/internal/domain"
 )
 
 type DBPerson struct {

@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/lozovoya/GolangUnitedSchool/app/domain"
+	"github.com/lozovoya/GolangUnitedSchool/internal/domain"
 )
 
 type Repository interface {

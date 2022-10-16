@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/lozovoya/GolangUnitedSchool/app/config"
-	"github.com/lozovoya/GolangUnitedSchool/app/server"
+	"github.com/lozovoya/GolangUnitedSchool/internal/config"
+	"github.com/lozovoya/GolangUnitedSchool/internal/server"
 )
 
 func main() {

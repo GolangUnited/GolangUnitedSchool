@@ -4,7 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lozovoya/GolangUnitedSchool/app/usecases"
+	"github.com/lozovoya/GolangUnitedSchool/internal/usecases"
+
 	"go.uber.org/zap"
 )
 

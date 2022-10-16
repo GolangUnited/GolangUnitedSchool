@@ -10,11 +10,11 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/lozovoya/GolangUnitedSchool/app/config"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger"
-	"github.com/lozovoya/GolangUnitedSchool/app/repository/postgres"
-	"github.com/lozovoya/GolangUnitedSchool/app/server/handlers"
-	"github.com/lozovoya/GolangUnitedSchool/app/usecases"
+	"github.com/lozovoya/GolangUnitedSchool/internal/config"
+	"github.com/lozovoya/GolangUnitedSchool/internal/logger"
+	"github.com/lozovoya/GolangUnitedSchool/internal/repository/postgres"
+	"github.com/lozovoya/GolangUnitedSchool/internal/server/handlers"
+	"github.com/lozovoya/GolangUnitedSchool/internal/usecases"
 )
 
 func Run(cfg *config.Config) {
@@ -29,7 +29,7 @@ func Run(cfg *config.Config) {
 		log.Error(err)
 		return
 	}
-	
+
 	usecases := usecases.NewUseCases(repo)
 	handlers := handlers.NewHandlers(usecases, log)
 

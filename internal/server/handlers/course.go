@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/lozovoya/GolangUnitedSchool/app/usecases"
+	"github.com/lozovoya/GolangUnitedSchool/internal/usecases"
 	"go.uber.org/zap"
 )
 

@@ -1,6 +1,6 @@
 package usecases
 
-import "github.com/lozovoya/GolangUnitedSchool/app/repository"
+import "github.com/lozovoya/GolangUnitedSchool/internal/repository"
 
 type AuthSt struct {
 	r repository.Repository

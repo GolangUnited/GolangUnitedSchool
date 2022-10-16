@@ -3,8 +3,8 @@ package usecases
 import (
 	"context"
 
-	"github.com/lozovoya/GolangUnitedSchool/app/domain"
-	"github.com/lozovoya/GolangUnitedSchool/app/repository"
+	"github.com/lozovoya/GolangUnitedSchool/internal/domain"
+	"github.com/lozovoya/GolangUnitedSchool/internal/repository"
 )
 
 type Cases struct {
