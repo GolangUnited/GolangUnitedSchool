@@ -29,6 +29,7 @@ func Run() {
 		app.cfg.Logger.Level,
 		app.cfg.Logger.Encoding,
 	)
+	app.log.With("service_name", app.cfg.ServiceName)
 
 	var err error
 	app.repo, err = postgres.NewPostgreSQLRepository(

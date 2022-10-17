@@ -17,6 +17,14 @@ import (
 	"go.uber.org/zap"
 )
 
+// @title Golang United School
+// @version 1.0
+// @description This is a sample server.
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @BasePath /
 type ServerSt struct {
 	log *zap.SugaredLogger
 	h   *handlers.Handlers
@@ -32,7 +40,7 @@ func NewServer(
 		log: log,
 		h:   h,
 		srv: &http.Server{
-			Addr:           fmt.Sprintf("%s%d", cfg.Host, cfg.Port),
+			Addr:           fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
 			Handler:        router(h),
 			ReadTimeout:    10 * time.Second,
 			WriteTimeout:   10 * time.Second,
@@ -76,13 +84,12 @@ func router(h *handlers.Handlers) *gin.Engine {
 	// *gin.Engine with recovery and loging middlewares
 	r := gin.Default()
 
-	// TODO: get cors config from app configurations
+	// TODO: get CORS configs from app configurations
 	r.Use(cors.New(
 		cors.Config{
-			AllowOrigins:     []string{},
+			AllowOrigins:     []string{"*"},
 			AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
-			AllowHeaders:     []string{"Origin"},
-			ExposeHeaders:    []string{"Origin", "Content-Length", "Content-Type"},
+			AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type"},
 			AllowCredentials: true,
 			AllowOriginFunc: func(origin string) bool {
 				return true
@@ -90,6 +97,7 @@ func router(h *handlers.Handlers) *gin.Engine {
 			MaxAge: 12 * time.Hour,
 		},
 	))
+	cors.Default()
 
 	auth := r.Group("/auth")
 	{
