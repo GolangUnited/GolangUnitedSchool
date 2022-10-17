@@ -25,3 +25,6 @@ build:
 
 run:
 	go run ./cmd/main.go
+
+compose:
+	docker-compose --env-file .env up -d

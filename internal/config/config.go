@@ -12,11 +12,11 @@ type Logger struct {
 }
 
 type Config struct {
-	ServiceName        string `env:"SERVICE_NAME" envDefault:"golangUnitedSchool"`
-	Port               int    `env:"PORT" envDefault:"8080"`
-	Host               string `env:"HOST" envDefault:"0.0.0.0"`
-	PGConnectionString string `env:"PG_ADDRESS" envDefault:"postgres://pguser:pguser@localhost:5432/pgdb?sslmode=disable"`
-	Logger             Logger
+	ServiceName string `env:"SERVICE_NAME" envDefault:"golangUnitedSchool"`
+	Port        int    `env:"PORT" envDefault:"8080"`
+	Host        string `env:"HOST" envDefault:"0.0.0.0"`
+	PgDsn       string `env:"POSTGRES_DSN" envDefault:"postgres://localhost:5432/postgres"`
+	Logger      Logger
 }
 
 func Load() *Config {

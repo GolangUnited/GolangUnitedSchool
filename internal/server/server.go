@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
@@ -18,8 +19,8 @@ import (
 
 type ServerSt struct {
 	log *zap.SugaredLogger
-	srv *http.Server
 	h   *handlers.Handlers
+	srv *http.Server
 }
 
 func NewServer(
@@ -28,12 +29,15 @@ func NewServer(
 	h *handlers.Handlers,
 ) *ServerSt {
 	return &ServerSt{
-		srv: &http.Server{
-			Addr:    cfg.Host,
-			Handler: router(h),
-		},
 		log: log,
 		h:   h,
+		srv: &http.Server{
+			Addr:           fmt.Sprintf("%s%d", cfg.Host, cfg.Port),
+			Handler:        router(h),
+			ReadTimeout:    10 * time.Second,
+			WriteTimeout:   10 * time.Second,
+			MaxHeaderBytes: 1 << 20,
+		},
 	}
 }
 

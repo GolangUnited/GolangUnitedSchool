@@ -33,7 +33,7 @@ func Run() {
 	var err error
 	app.repo, err = postgres.NewPostgreSQLRepository(
 		context.Background(),
-		app.cfg.PGConnectionString,
+		app.cfg.PgDsn,
 	)
 	if err != nil {
 		app.log.Error(err)
