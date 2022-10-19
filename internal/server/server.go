@@ -97,7 +97,6 @@ func router(h *handlers.Handlers) *gin.Engine {
 			MaxAge: 12 * time.Hour,
 		},
 	))
-	cors.Default()
 
 	auth := r.Group("/auth")
 	{
@@ -113,9 +112,10 @@ func router(h *handlers.Handlers) *gin.Engine {
 	course := r.Group("/course")
 	{
 		course.GET("")
-		course.GET(":id")
-		course.POST("/")
-		course.PUT("")
+		course.GET("/:id", h.Course.GetCourseByID)
+		course.POST("")
+		course.POST("/:id")
+		course.PUT("/:id")
 		course.DELETE("/:id")
 	}
 

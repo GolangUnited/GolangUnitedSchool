@@ -5,51 +5,41 @@ import (
 
 	"github.com/lozovoya/GolangUnitedSchool/internal/config"
 	"github.com/lozovoya/GolangUnitedSchool/internal/logger"
-	"github.com/lozovoya/GolangUnitedSchool/internal/repository"
 	"github.com/lozovoya/GolangUnitedSchool/internal/repository/postgres"
 	"github.com/lozovoya/GolangUnitedSchool/internal/server"
 	"github.com/lozovoya/GolangUnitedSchool/internal/server/handlers"
 	"github.com/lozovoya/GolangUnitedSchool/internal/usecases"
-	"go.uber.org/zap"
 )
 
-type App struct {
-	cfg      *config.Config
-	log      *zap.SugaredLogger
-	repo     repository.Repository
-	cases    *usecases.Cases
-	handlers *handlers.Handlers
-}
+func Run() error {
+	cfg := config.Load()
 
-func Run() {
-	var app App
-	app.cfg = config.Load()
-
-	app.log = logger.NewLogger(
-		app.cfg.Logger.Level,
-		app.cfg.Logger.Encoding,
+	loger := logger.NewLogger(
+		cfg.Logger.Level,
+		cfg.Logger.Encoding,
 	)
-	app.log.With("service_name", app.cfg.ServiceName)
+	loger.With("service_name", cfg.ServiceName)
 
-	var err error
-	app.repo, err = postgres.NewPostgreSQLRepository(
+	repo, err := postgres.NewPostgreSQLRepository(
 		context.Background(),
-		app.cfg.PgDsn,
+		cfg.PgDsn,
 	)
 	if err != nil {
-		app.log.Error(err)
-		return
+		loger.Error(err)
+		// return err
 	}
 
-	app.cases = usecases.NewUseCases(app.repo)
-	app.handlers = handlers.NewHandlers(app.cases, app.log)
+	cases := usecases.NewUseCases(repo)
+	handlers := handlers.NewHandlers(cases, loger)
 
 	srv := server.NewServer(
-		app.cfg, app.log, app.handlers,
+		cfg, loger, handlers,
 	)
 
 	if err := srv.Run(context.Background()); err != nil {
-		app.log.Error(err)
-		return
+		loger.Error(err)
+		return err
 	}
+
+	return nil
 }

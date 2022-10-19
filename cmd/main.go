@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/lozovoya/GolangUnitedSchool/internal/app"
@@ -16,5 +17,8 @@ func init() {
 }
 
 func main() {
-	app.Run()
+	if err := app.Run(); err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
 }

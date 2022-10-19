@@ -9,3 +9,19 @@ type CourseSt struct {
 func NewCourseCases(r repository.Repository) Course {
 	return &CourseSt{r: r}
 }
+
+func (c *CourseSt) CreateCourse() {
+
+}
+
+func (c *CourseSt) GetCourseByID() {
+
+}
+
+func (c *CourseSt) UpdateCourse() {
+
+}
+
+func (c *CourseSt) DeleteCourseByID() {
+
+}
