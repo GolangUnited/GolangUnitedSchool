@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/caarlos0/env/v6"
+	"github.com/joho/godotenv"
 )
 
 type Logger struct {
@@ -19,10 +20,15 @@ type Config struct {
 	Logger             Logger
 }
 
-func Load() *Config {
+func Load() (*Config, error) {
+
+	if err := godotenv.Load(); err != nil {
+		return nil, err
+	}
+
 	var cfg Config
 	if err := env.Parse(&cfg); err != nil {
 		log.Fatalf("can not load config: %s", err)
 	}
-	return &cfg
+	return &cfg, nil
 }
