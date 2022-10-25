@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"github.com/caarlos0/env/v6"
-	"github.com/joho/godotenv"
 )
 
 type Logger struct {
@@ -13,19 +12,14 @@ type Logger struct {
 }
 
 type Config struct {
-	ServiceName        string `env:"SERVICE_NAME" envDefault:"golangUnitedSchool"`
-	Port               int    `env:"PORT" envDefault:"8080"`
-	Host               string `env:"HOST" envDefault:"0.0.0.0"`
-	PGConnectionString string `env:"PG_ADDRESS" envDefault:"postgres://pguser:pguser@localhost:5432/pgdb?sslmode=disable"`
-	Logger             Logger
+	ServiceName string `env:"SERVICE_NAME" envDefault:"golangUnitedSchool"`
+	Port        int    `env:"PORT" envDefault:"8080"`
+	Host        string `env:"HOST" envDefault:"0.0.0.0"`
+	PgDsn       string `env:"PG_DSN" envDefault:"postgres://pguser:pguser@localhost:5432/pgdb?sslmode=disable"`
+	Logger      Logger
 }
 
 func Load() (*Config, error) {
-
-	if err := godotenv.Load(); err != nil {
-		return nil, err
-	}
-
 	var cfg Config
 	if err := env.Parse(&cfg); err != nil {
 		log.Fatalf("can not load config: %s", err)

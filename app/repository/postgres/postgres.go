@@ -8,14 +8,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-type PostgreRepository struct {
-	pool *pgxpool.Pool
-}
-
-func NewPostgresRepository(pool *pgxpool.Pool) *PostgreRepository {
-	return &PostgreRepository{pool: pool}
-}
-
 func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 	dbConfig, err := pgxpool.ParseConfig(dsn)
 	if err != nil {
@@ -28,7 +20,7 @@ func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 	dbConfig.MaxConnIdleTime = 15 * time.Minute
 	dbConfig.HealthCheckPeriod = 20 * time.Second
 
-	dbConfig.ConnConfig.RuntimeParams["timezone"] = "Asia/Almaty"
+	// dbConfig.ConnConfig.RuntimeParams["timezone"] = "Asia/Almaty"
 
 	dbPool, err := pgxpool.NewWithConfig(ctx, &pgxpool.Config{})
 	if err != nil {

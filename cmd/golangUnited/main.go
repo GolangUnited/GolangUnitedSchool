@@ -6,8 +6,12 @@ import (
 	"os"
 	"time"
 
+	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver"
+	v1 "github.com/lozovoya/GolangUnitedSchool/app/api/httpserver/v1"
 	"github.com/lozovoya/GolangUnitedSchool/app/config"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase"
 	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
+	"github.com/lozovoya/GolangUnitedSchool/app/repository/postgres"
 	"golang.org/x/net/context"
 )
 
@@ -28,8 +32,20 @@ func main() {
 	}
 	lg.With("service name", cfg.ServiceName)
 
+	dbCtx := context.Background()
+	dbPool, err := postgres.NewDbPool(dbCtx, cfg.PgDsn)
+	if err != nil {
+		lg.Error(err)
+		return
+	}
+
+	courseRepo := postgres.NewCourse(lg, dbPool)
+	courseUseCase := usecase.NewCourse(lg, courseRepo)
+	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
+	router := httpserver.NewRouter()
 	srv := &http.Server{
-		Addr: cfg.Host,
+		Addr:    cfg.Host,
+		Handler: router,
 	}
 
 	go func() {
@@ -47,5 +63,9 @@ func main() {
 	if err := srv.Shutdown(shCtx); err != nil {
 		lg.Error(err)
 	}
+
+}
+
+func execute() {
 
 }

@@ -6,6 +6,9 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 )
 
-type Repository interface {
+type PersonRepositoryInterface interface {
 	GetPersonById(ctx context.Context, id int64) (*model.Person, error)
+}
+
+type CourseRepositoryInterface interface {
 }

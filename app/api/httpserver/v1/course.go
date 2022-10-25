@@ -2,16 +2,22 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 )
 
 type CourseHandlers struct {
-	lg *zap.SugaredLogger
+	lg      logger.Logger
+	usecase usecase.CourseUseCaseInterface
 }
 
-func NewCourseHandler(lg *zap.SugaredLogger) *CourseHandlers {
+func NewCourseHandler(
+	lg logger.Logger,
+	usecase usecase.CourseUseCaseInterface,
+) *CourseHandlers {
 	return &CourseHandlers{
-		lg: lg,
+		lg:      lg,
+		usecase: usecase,
 	}
 }
 
