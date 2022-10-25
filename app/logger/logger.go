@@ -22,6 +22,5 @@ type Logger interface {
 	Debugf(tmpl string, args ...interface{})
 	Debugw(msg string, args ...interface{})
 
-	Sync()
 	With(arg ...interface{})
 }

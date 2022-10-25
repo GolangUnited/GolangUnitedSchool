@@ -1,6 +1,6 @@
 package usecase
 
-type CourseUseCaseInterface interface {
+type CourseUsecaseInterface interface {
 	// AddCourse()
 	// EditCourse()
 	// EdotCourseByID(id int64) error

@@ -23,7 +23,8 @@ func main() {
 	}
 
 	if err := execute(cfg); err != nil {
-		return
+		log.Println(err)
+		os.Exit(1)
 	}
 }
 
