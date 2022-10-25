@@ -1,8 +1,13 @@
 package httpserver
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	v1 "github.com/lozovoya/GolangUnitedSchool/app/api/httpserver/v1"
+)
 
-func NewRouter() *gin.Engine {
+func NewRouter(
+	course *v1.CourseHandlers,
+) *gin.Engine {
 	router := gin.Default()
 
 	api := router.Group("/api/v1/")

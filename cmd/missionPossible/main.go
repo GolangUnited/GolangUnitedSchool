@@ -22,30 +22,43 @@ func main() {
 		return
 	}
 
+	if err := execute(cfg); err != nil {
+		return
+	}
+}
+
+func execute(cfg *config.Config) error {
 	lg, err := zap.NewLogger(
 		cfg.Logger.Level,
 		cfg.Logger.Encoding,
 	)
 	if err != nil {
 		log.Println(err)
-		return
+		return err
 	}
+
+	// add service name to logger
 	lg.With("service name", cfg.ServiceName)
 
 	dbCtx := context.Background()
 	dbPool, err := postgres.NewDbPool(dbCtx, cfg.PgDsn)
 	if err != nil {
 		lg.Error(err)
-		return
+		return err
 	}
 
+	// init course repository, usecase and handlers
 	courseRepo := postgres.NewCourse(lg, dbPool)
 	courseUseCase := usecase.NewCourse(lg, courseRepo)
 	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
-	router := httpserver.NewRouter()
+
+	router := httpserver.NewRouter(courseHandler)
 	srv := &http.Server{
-		Addr:    cfg.Host,
-		Handler: router,
+		Addr:           cfg.Host,
+		Handler:        router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
 	}
 
 	go func() {
@@ -58,14 +71,12 @@ func main() {
 	quit := make(chan os.Signal, 1)
 
 	<-quit
+
 	shCtx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	if err := srv.Shutdown(shCtx); err != nil {
 		lg.Error(err)
 	}
 
-}
-
-func execute() {
-
+	return nil
 }
