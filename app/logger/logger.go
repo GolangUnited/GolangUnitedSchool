@@ -1,37 +1,27 @@
 package logger
 
-import (
-	"fmt"
+// Logger - is interface of logger
+type Logger interface {
+	Fatal(args ...interface{})
+	Fatalf(tmpl string, args ...interface{})
+	Fatalw(msg string, err interface{}, args ...interface{})
 
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-)
+	Error(args ...interface{})
+	Errorf(tmpl string, args ...interface{})
+	Errorw(msg string, err interface{}, args ...interface{})
 
-func Newlogger(level, encoding string) (*zap.SugaredLogger, error) {
-	zapLevel := zap.NewAtomicLevel()
-	if err := zapLevel.UnmarshalText([]byte(level)); err != nil {
-		return nil, fmt.Errorf("zap logger unmarshal log level: %v", err)
-	}
+	Warn(args ...interface{})
+	Warnf(tmpl string, args ...interface{})
+	Warnw(msg string, args ...interface{})
 
-	zapCfg := zap.Config{
-		Encoding:         encoding,
-		Level:            zapLevel,
-		OutputPaths:      []string{"stderr"},
-		ErrorOutputPaths: []string{"stderr"},
-		EncoderConfig: zapcore.EncoderConfig{
-			MessageKey:    "message",
-			LevelKey:      "level",
-			TimeKey:       "time",
-			CallerKey:     "caller",
-			StacktraceKey: "stacktrace",
-			EncodeTime:    zapcore.ISO8601TimeEncoder,
-			EncodeCaller:  zapcore.ShortCallerEncoder,
-		}}
+	Info(args ...interface{})
+	Infof(tmpl string, args ...interface{})
+	Infow(msg string, args ...interface{})
 
-	logger, err := zapCfg.Build()
-	if err != nil {
-		return nil, fmt.Errorf("zap logger build: %v", err)
-	}
+	Debug(args ...interface{})
+	Debugf(tmpl string, args ...interface{})
+	Debugw(msg string, args ...interface{})
 
-	return logger.Sugar(), nil
+	Sync()
+	With(arg ...interface{})
 }

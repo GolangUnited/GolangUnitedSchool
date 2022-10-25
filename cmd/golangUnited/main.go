@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/config"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
 	"golang.org/x/net/context"
 )
 
@@ -18,12 +18,15 @@ func main() {
 		return
 	}
 
-	lg, err := logger.Newlogger(cfg.Logger.Level, cfg.Logger.Encoding)
+	lg, err := zap.NewLogger(
+		cfg.Logger.Level,
+		cfg.Logger.Encoding,
+	)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	lg = lg.With("service name", cfg.ServiceName)
+	lg.With("service name", cfg.ServiceName)
 
 	srv := &http.Server{
 		Addr: cfg.Host,
