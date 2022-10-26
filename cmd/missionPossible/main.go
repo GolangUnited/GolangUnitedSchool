@@ -2,8 +2,11 @@ package main
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver"
@@ -55,12 +58,16 @@ func execute(cfg *config.Config) error {
 
 	router := httpserver.NewRouter(courseHandler)
 	srv := &http.Server{
-		Addr:           cfg.Host,
+		Addr:           net.JoinHostPort(cfg.Host, cfg.Port),
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
+
+	quit := make(chan os.Signal, 1)
+	defer close(quit)
+	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
@@ -68,8 +75,6 @@ func execute(cfg *config.Config) error {
 			return
 		}
 	}()
-
-	quit := make(chan os.Signal, 1)
 
 	<-quit
 
