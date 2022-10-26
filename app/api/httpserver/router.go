@@ -7,12 +7,13 @@ import (
 
 func NewRouter(
 	courseHandler *v1.CourseHandlers,
+	personHandler *v1.PersonHandlers,
 ) *gin.Engine {
 	router := gin.Default()
 
 	api := router.Group("/api/v1")
 	courseRouter(api, courseHandler)
-	personRouter(api)
+	personRouter(api, personHandler)
 
 	return router
 }
@@ -36,6 +37,7 @@ func courseRouter(
 
 func personRouter(
 	api *gin.RouterGroup,
+	h *v1.PersonHandlers,
 ) {
 	person := api.Group("/person")
 	{

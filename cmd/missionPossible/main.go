@@ -56,7 +56,7 @@ func execute(cfg *config.Config) error {
 	courseUseCase := usecase.NewCourse(lg, courseRepo)
 	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
 
-	router := httpserver.NewRouter(courseHandler)
+	router := httpserver.NewRouter(courseHandler, nil)
 	srv := &http.Server{
 		Addr:           net.JoinHostPort(cfg.Host, cfg.Port),
 		Handler:        router,
