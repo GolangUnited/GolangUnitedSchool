@@ -8,12 +8,14 @@ import (
 func NewRouter(
 	courseHandler *v1.CourseHandlers,
 	personHandler *v1.PersonHandlers,
+	studentHandler *v1.StudentHandlers,
 ) *gin.Engine {
 	router := gin.Default()
 
 	api := router.Group("/api/v1")
 	courseRouter(api, courseHandler)
 	personRouter(api, personHandler)
+	studentRouter(api, studentHandler)
 
 	return router
 }
@@ -48,5 +50,21 @@ func personRouter(
 		person.POST("/", h.AddNewPerson)
 		person.PUT("/:person_id", h.EditPersonById)
 		person.PUT("/", h.EditPerson)
+	}
+}
+
+func studentRouter(
+	api *gin.RouterGroup,
+	h *v1.StudentHandlers,
+) {
+	student := api.Group("/student")
+	{
+		student.GET("", h.SearchStudent)
+		student.GET(":person_id", h.GetStudentById)
+		student.DELETE("", h.DeleteStudent)
+		student.DELETE(":student_id", h.DeleteStudentById)
+		student.POST("", h.AddStudent)
+		student.POST(":person_id", h.AddStudentByPersonId)
+
 	}
 }

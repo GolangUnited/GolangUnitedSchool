@@ -3,9 +3,9 @@ package usecase
 type CourseUsecaseInterface interface {
 	// AddCourse()
 	// EditCourse()
-	// EdotCourseByID(id int64) error
+	// EditCourseByID(id int64) error
 	// DeleteCourse() error
-	// DeleteCoursebyID(id int64) error
+	// DeleteCourseByID(id int64) error
 }
 
 type PersonUsecaseIntarface interface {
@@ -14,4 +14,11 @@ type PersonUsecaseIntarface interface {
 	// AddNewPerson() error
 	// UpdatePersonById (int64) error
 	// RemovePersonById (int64) error
+}
+
+type StudentUsercaseInterface interface {
+	//AddStudent
+	//DeleteStudent
+	//DeleteStudentById
+
 }
