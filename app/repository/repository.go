@@ -8,3 +8,6 @@ type CourseRepositoryInterface interface {
 
 type StudentRepositoryInterface interface {
 }
+
+type MentorRepositoryInterface interface {
+}

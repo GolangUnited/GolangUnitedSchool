@@ -9,6 +9,7 @@ func NewRouter(
 	courseHandler *v1.CourseHandlers,
 	personHandler *v1.PersonHandlers,
 	studentHandler *v1.StudentHandlers,
+	mentorHandler *v1.MentorHandlers,
 ) *gin.Engine {
 	router := gin.Default()
 
@@ -16,6 +17,7 @@ func NewRouter(
 	courseRouter(api, courseHandler)
 	personRouter(api, personHandler)
 	studentRouter(api, studentHandler)
+	mentorRouter(api, mentorHandler)
 
 	return router
 }
@@ -66,5 +68,20 @@ func studentRouter(
 		student.POST("", h.AddStudent)
 		student.POST(":person_id", h.AddStudentByPersonId)
 
+	}
+}
+
+func mentorRouter(
+	api *gin.RouterGroup,
+	h *v1.MentorHandlers,
+) {
+	mentor := api.Group("mentor")
+	{
+		mentor.GET("", h.GetAllMentors)
+		mentor.GET(":mentor_id", h.GetMentorById)
+		mentor.GET("", h.SearchMentor)
+		mentor.POST("", h.AddMentorByName)
+		mentor.DELETE("mentor_id", h.RemoveMentorById)
+		mentor.DELETE("", h.RemoveMentorByName)
 	}
 }

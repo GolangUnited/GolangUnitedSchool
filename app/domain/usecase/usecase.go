@@ -16,9 +16,12 @@ type PersonUsecaseIntarface interface {
 	// RemovePersonById (int64) error
 }
 
-type StudentUsercaseInterface interface {
+type StudentUsecaseInterface interface {
 	//AddStudent
 	//DeleteStudent
 	//DeleteStudentById
 
+}
+
+type MentorUsecaseInterface interface {
 }
