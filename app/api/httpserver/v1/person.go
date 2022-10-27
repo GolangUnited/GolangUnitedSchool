@@ -21,27 +21,16 @@ func NewPersonHandler(lg logger.Logger,
 }
 
 func (h *PersonHandlers) AddNewPerson(c *gin.Context) {
-
 }
-
 func (h *PersonHandlers) GetPersonByID(c *gin.Context) {
-
 }
 func (h *PersonHandlers) SearchPerson(c *gin.Context) {
-
 }
-
 func (h *PersonHandlers) EditPerson(c *gin.Context) {
-
 }
-
 func (h *PersonHandlers) EditPersonById(c *gin.Context) {
-
 }
-
 func (h *PersonHandlers) DeletePerson(c *gin.Context) {
-
 }
 func (h *PersonHandlers) DeletePersonByID(c *gin.Context) {
-
 }

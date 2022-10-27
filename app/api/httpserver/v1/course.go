@@ -49,6 +49,6 @@ func (h *CourseHandlers) DeleteCourse(c *gin.Context) {
 
 }
 
-func (h *CourseHandlers) DeleteCoursebyID(c *gin.Context) {
+func (h *CourseHandlers) DeleteCourseByID(c *gin.Context) {
 
 }
