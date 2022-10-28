@@ -3,7 +3,7 @@ package model
 import "time"
 
 type Person struct {
-	ID         int64
+	PersonId   int64
 	FirstName  string    `json:"first_name" validate:"required,min=2,max=50"`
 	LastName   string    `json:"last_name" validate:"required,min=2,max=50"`
 	Patronymic string    `json:"patronymic" validate:"omitempty,min=2,max=50"`

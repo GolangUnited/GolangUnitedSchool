@@ -1,5 +1,5 @@
 package model
 
 type Student struct {
-	ID int64
+	StudentId int64
 }

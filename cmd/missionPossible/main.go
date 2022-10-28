@@ -48,19 +48,19 @@ func execute(cfg *config.Config) error {
 		return err
 	}
 
-	// init course repository, usecase and handlers
+	// init course repository, useCase and handlers
 	courseRepo := postgres.NewCourse(lg, dbPool)
 	courseUseCase := usecase.NewCourse(lg, courseRepo)
 	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
-	// init person rep, usecase and handlers
+	// init person rep, useCase and handlers
 	personRepo := postgres.NewPerson(lg, dbPool)
 	personUseCase := usecase.NewPerson(lg, personRepo)
 	personHandler := v1.NewPersonHandler(lg, personUseCase)
-	// init student rep, usecase and handers
+	// init student rep, useCase and handlers
 	studentRepo := postgres.NewStudent(lg, dbPool)
 	studentUseCase := usecase.NewStudent(lg, studentRepo)
 	studentHandler := v1.NewStudentHandler(lg, studentUseCase)
-	// init mentor rep, usecase and handlers
+	// init mentor rep, useCase and handlers
 	mentorRepo := postgres.NewMentor(lg, dbPool)
 	mentorUseCase := usecase.NewMentor(lg, mentorRepo)
 	mentorHandler := v1.NewMentorHandler(lg, mentorUseCase)
@@ -69,9 +69,13 @@ func execute(cfg *config.Config) error {
 	mentorNoteUseCase := usecase.NewMentorNote(lg, mentorNoteRepo)
 	mentorNoteHandler := v1.NewMentorNoteHandler(lg, mentorNoteUseCase)
 	// init
-	studentNoterepo := postgres.NewStudentNote(lg, dbPool)
-	studentNoteUseCase := usecase.NewStudentNote(lg, studentNoterepo)
+	studentNoteRepo := postgres.NewStudentNote(lg, dbPool)
+	studentNoteUseCase := usecase.NewStudentNote(lg, studentNoteRepo)
 	studentNoteHandler := v1.NewStudentNoteHandler(lg, studentNoteUseCase)
+	// init
+	studentNoteTypeRepo := postgres.NewStudentNoteType(lg, dbPool)
+	studentNoteTypeUseCase := usecase.NewStudentNoteType(lg, studentNoteTypeRepo)
+	studentNoteTypeHandler := v1.NewStudentNoteTypeHandler(lg, studentNoteTypeUseCase)
 
 	router := httpserver.NewRouter(
 		courseHandler,
@@ -80,6 +84,7 @@ func execute(cfg *config.Config) error {
 		mentorHandler,
 		mentorNoteHandler,
 		studentNoteHandler,
+		studentNoteTypeHandler,
 	)
 	srv := &http.Server{
 		Addr:           cfg.Host,

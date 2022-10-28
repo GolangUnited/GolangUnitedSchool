@@ -8,29 +8,28 @@ import (
 
 type PersonHandlers struct {
 	lg      logger.Logger
-	usecase usecase.PersonUsecaseIntarface
+	useCase usecase.PersonUseCaseInterface
 }
 
 func NewPersonHandler(lg logger.Logger,
-	usecase usecase.PersonUsecaseIntarface,
+	useCase usecase.PersonUseCaseInterface,
 ) *PersonHandlers {
 	return &PersonHandlers{
 		lg:      lg,
-		usecase: usecase,
+		useCase: useCase,
 	}
 }
 
-func (h *PersonHandlers) AddNewPerson(c *gin.Context) {
-}
-func (h *PersonHandlers) GetPersonByID(c *gin.Context) {
-}
-func (h *PersonHandlers) SearchPerson(c *gin.Context) {
-}
-func (h *PersonHandlers) EditPerson(c *gin.Context) {
-}
-func (h *PersonHandlers) EditPersonById(c *gin.Context) {
-}
-func (h *PersonHandlers) DeletePerson(c *gin.Context) {
-}
-func (h *PersonHandlers) DeletePersonByID(c *gin.Context) {
-}
+func (h *PersonHandlers) AddNewPerson(c *gin.Context) {}
+
+func (h *PersonHandlers) GetPersonById(c *gin.Context) {}
+
+func (h *PersonHandlers) SearchPerson(c *gin.Context) {}
+
+func (h *PersonHandlers) EditPerson(c *gin.Context) {}
+
+func (h *PersonHandlers) EditPersonById(c *gin.Context) {}
+
+func (h *PersonHandlers) DeletePerson(c *gin.Context) {}
+
+func (h *PersonHandlers) DeletePersonById(c *gin.Context) {}

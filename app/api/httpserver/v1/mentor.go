@@ -8,28 +8,25 @@ import (
 
 type MentorHandlers struct {
 	lg      logger.Logger
-	usecase usecase.MentorUsecaseInterface
+	useCase usecase.MentorUseCaseInterface
 }
 
 func NewMentorHandler(
 	lg logger.Logger,
-	usecase usecase.MentorUsecaseInterface,
+	useCase usecase.MentorUseCaseInterface,
 ) *MentorHandlers {
 	return &MentorHandlers{
 		lg:      lg,
-		usecase: usecase,
+		useCase: useCase,
 	}
 }
 
-func (h *MentorHandlers) GetAllMentors(c *gin.Context) {
-}
-func (h *MentorHandlers) GetMentorById(c *gin.Context) {
-}
-func (h *MentorHandlers) SearchMentor(c *gin.Context) {
-}
-func (h *MentorHandlers) AddMentorByName(c *gin.Context) {
-}
-func (h *MentorHandlers) RemoveMentorByName(c *gin.Context) {
-}
-func (h *MentorHandlers) RemoveMentorById(c *gin.Context) {
-}
+func (h *MentorHandlers) GetAllMentors(c *gin.Context) {}
+
+func (h *MentorHandlers) GetMentorByMentorId(c *gin.Context) {}
+
+func (h *MentorHandlers) AddMentor(c *gin.Context) {}
+
+func (h *MentorHandlers) EditMentor(c *gin.Context) {}
+
+func (h *MentorHandlers) RemoveMentorByMentorId(c *gin.Context) {}

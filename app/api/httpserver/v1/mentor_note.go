@@ -8,32 +8,25 @@ import (
 
 type MentorNoteHandlers struct {
 	lg      logger.Logger
-	usecase usecase.CourseUsecaseInterface
+	useCase usecase.CourseUseCaseInterface
 }
 
 func NewMentorNoteHandler(
 	lg logger.Logger,
-	usecase usecase.MentorUsecaseInterface,
+	useCase usecase.MentorUseCaseInterface,
 ) *MentorNoteHandlers {
 	return &MentorNoteHandlers{
 		lg:      lg,
-		usecase: usecase,
+		useCase: useCase,
 	}
 }
 
-func (h *MentorNoteHandlers) GetMentorNotes(c *gin.Context) {
+func (h *MentorNoteHandlers) GetMentorNotes(c *gin.Context) {}
 
-}
-func (h *MentorNoteHandlers) GetMentorNoteById(c *gin.Context) {
+func (h *MentorNoteHandlers) GetMentorNoteByMentorId(c *gin.Context) {}
 
-}
-func (h *MentorNoteHandlers) AddNewMentorNote(c *gin.Context) {
+func (h *MentorNoteHandlers) AddNewMentorNote(c *gin.Context) {}
 
-}
-func (h *MentorNoteHandlers) UpdateMentorNotebyId(c *gin.Context) {
+func (h *MentorNoteHandlers) EditMentorNote(c *gin.Context) {}
 
-}
-
-func (h *MentorNoteHandlers) DeleteMentorNoteById(c *gin.Context) {
-
-}
+func (h *MentorNoteHandlers) DeleteMentorNoteByMentorNoteId(c *gin.Context) {}

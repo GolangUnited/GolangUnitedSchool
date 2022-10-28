@@ -1,5 +1,5 @@
 package model
 
 type Mentor struct {
-	ID int64
+	MentorId int64
 }

@@ -8,35 +8,25 @@ import (
 
 type StudentNoteHandlers struct {
 	lg      logger.Logger
-	usecase usecase.CourseUsecaseInterface
+	useCase usecase.CourseUseCaseInterface
 }
 
 func NewStudentNoteHandler(
 	lg logger.Logger,
-	usecase usecase.StudentNoteUsecaseInterface,
+	useCase usecase.StudentNoteUseCaseInterface,
 ) *StudentNoteHandlers {
 	return &StudentNoteHandlers{
 		lg:      lg,
-		usecase: usecase,
+		useCase: useCase,
 	}
 }
 
-func (h *StudentNoteHandlers) GetStudentNotesByStudentId(c *gin.Context) {
+func (h *StudentNoteHandlers) GetStudentNotesByStudentId(c *gin.Context) {}
 
-}
+func (h *StudentNoteHandlers) GetStudentNoteByStudentNoteId(c *gin.Context) {}
 
-func (h *StudentNoteHandlers) GetStudentNoteById(c *gin.Context) {
+func (h *StudentNoteHandlers) AddStudentNote(c *gin.Context) {}
 
-}
+func (h *StudentNoteHandlers) EditStudentNote(c *gin.Context) {}
 
-func (h *StudentNoteHandlers) AddStudentNote(c *gin.Context) {
-
-}
-
-func (h *StudentNoteHandlers) UpdateStudentNote(c *gin.Context) {
-
-}
-
-func (h *StudentNoteHandlers) DeleteStudentNote(c *gin.Context) {
-
-}
+func (h *StudentNoteHandlers) DeleteStudentNote(c *gin.Context) {}
