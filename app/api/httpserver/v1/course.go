@@ -33,7 +33,7 @@ func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 
 }
 
-func (h *CourseHandlers) SearchCourse(c *gin.Context) {
+func (h *CourseHandlers) GetCourses(c *gin.Context) {
 
 }
 

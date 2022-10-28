@@ -34,10 +34,9 @@ func courseRouter(
 ) {
 	course := api.Group("/course")
 	{
-		course.GET("", h.SearchCourse)
+		course.GET("", h.GetCourses)
 		course.GET("/:course_id", h.GetCourseById)
 		course.POST("", h.CreateCourse)
-		course.PATCH("", h.EditCourse)
 		course.PATCH("/:course_id", h.EditCourseById)
 		course.PUT("", h.AddCourse)
 		course.DELETE("", h.DeleteCourse)
@@ -51,12 +50,12 @@ func personRouter(
 ) {
 	person := api.Group("/person")
 	{
-		person.GET("", h.SearchPerson)
+
 		person.GET("/:person_id", h.GetPersonById)
 		person.DELETE("/:person_id", h.DeletePersonById)
 		person.POST("", h.AddNewPerson)
 		person.PUT("/:person_id", h.EditPersonById)
-		//person.PUT("/", h.EditPerson)
+
 	}
 }
 
