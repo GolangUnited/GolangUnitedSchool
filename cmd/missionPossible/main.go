@@ -68,6 +68,10 @@ func execute(cfg *config.Config) error {
 	mentorNoteRepo := postgres.NewMentorNote(lg, dbPool)
 	mentorNoteUseCase := usecase.NewMentorNote(lg, mentorNoteRepo)
 	mentorNoteHandler := v1.NewMentorNoteHandler(lg, mentorNoteUseCase)
+	// init
+	studentNoterepo := postgres.NewStudentNote(lg, dbPool)
+	studentNoteUseCase := usecase.NewStudentNote(lg, studentNoterepo)
+	studentNoteHandler := v1.NewStudentNoteHandler(lg, studentNoteUseCase)
 
 	router := httpserver.NewRouter(
 		courseHandler,
@@ -75,6 +79,7 @@ func execute(cfg *config.Config) error {
 		studentHandler,
 		mentorHandler,
 		mentorNoteHandler,
+		studentNoteHandler,
 	)
 	srv := &http.Server{
 		Addr:           cfg.Host,

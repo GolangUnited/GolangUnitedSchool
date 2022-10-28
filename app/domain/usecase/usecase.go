@@ -24,3 +24,6 @@ type MentorUsecaseInterface interface {
 
 type MentorNoteUsecaseInterface interface {
 }
+
+type StudentNoteUsecaseInterface interface {
+}
