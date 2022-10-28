@@ -53,7 +53,11 @@ func execute(cfg *config.Config) error {
 	courseUseCase := usecase.NewCourse(lg, courseRepo)
 	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
 
-	router := httpserver.NewRouter(courseHandler)
+	projectRepo := postgres.NewProject(lg, dbPool)
+	projectUseCase := usecase.NewProject(lg, projectRepo)
+	projectHandler := v1.NewProjectHandler(lg, projectUseCase)
+
+	router := httpserver.NewRouter(courseHandler, projectHandler)
 	srv := &http.Server{
 		Addr:           cfg.Host,
 		Handler:        router,
