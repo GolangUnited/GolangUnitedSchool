@@ -12,3 +12,10 @@ type PersonRepositoryInterface interface {
 
 type CourseRepositoryInterface interface {
 }
+
+type ContactRepository interface {
+	GetContactsByPersonId(personId int64) (model.Contact, error)
+	AddNewPersonContact(model.Contact) error
+	DeletePersonContact(contactId int64) error
+	UpdatePersonContact(model.Contact) error
+}
