@@ -11,3 +11,6 @@ type StudentRepositoryInterface interface {
 
 type MentorRepositoryInterface interface {
 }
+
+type MentorNoteRepositoryInterface interface {
+}

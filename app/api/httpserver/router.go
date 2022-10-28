@@ -10,6 +10,7 @@ func NewRouter(
 	personHandler *v1.PersonHandlers,
 	studentHandler *v1.StudentHandlers,
 	mentorHandler *v1.MentorHandlers,
+	mentorNoteHandler *v1.MentorNoteHandlers,
 ) *gin.Engine {
 	router := gin.Default()
 
@@ -83,5 +84,19 @@ func mentorRouter(
 		mentor.POST("", h.AddMentorByName)
 		mentor.DELETE("mentor_id", h.RemoveMentorById)
 		mentor.DELETE("", h.RemoveMentorByName)
+	}
+}
+
+func mentorNoteRouter(
+	api *gin.RouterGroup,
+	h *v1.MentorNoteHandlers,
+) {
+	mentorNote := api.Group("/mentor/note")
+	{
+		mentorNote.GET("", h.GetMentorNotes)
+		mentorNote.GET(":mentor_note_id", h.GetMentorNoteById)
+		mentorNote.POST("", h.AddNewMentorNote)
+		mentorNote.PUT(":mentor_note_id", h.UpdateMentorNotebyId)
+		mentorNote.DELETE(":mentor_note_id", h.DeleteMentorNoteById)
 	}
 }

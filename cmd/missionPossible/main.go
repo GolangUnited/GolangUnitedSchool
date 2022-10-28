@@ -64,12 +64,18 @@ func execute(cfg *config.Config) error {
 	mentorRepo := postgres.NewMentor(lg, dbPool)
 	mentorUseCase := usecase.NewMentor(lg, mentorRepo)
 	mentorHandler := v1.NewMentorHandler(lg, mentorUseCase)
+	// init
+	mentorNoteRepo := postgres.NewMentorNote(lg, dbPool)
+	mentorNoteUseCase := usecase.NewMentorNote(lg, mentorNoteRepo)
+	mentorNoteHandler := v1.NewMentorNoteHandler(lg, mentorNoteUseCase)
 
 	router := httpserver.NewRouter(
 		courseHandler,
 		personHandler,
 		studentHandler,
-		mentorHandler)
+		mentorHandler,
+		mentorNoteHandler,
+	)
 	srv := &http.Server{
 		Addr:           cfg.Host,
 		Handler:        router,
