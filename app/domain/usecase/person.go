@@ -7,12 +7,12 @@ import (
 
 type PersonUseCase struct {
 	lg   *zap.Logger
-	repo repository.CourseRepositoryInterface
+	repo repository.RepositoryInterface
 }
 
 func NewPerson(
 	lg *zap.Logger,
-	repo repository.CourseRepositoryInterface,
+	repo repository.RepositoryInterface,
 ) *CourseUseCase {
 	return &CourseUseCase{lg: lg, repo: repo}
 }

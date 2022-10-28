@@ -7,12 +7,12 @@ import (
 
 type StudentUseCase struct {
 	lg   *zap.Logger
-	repo repository.StudentRepositoryInterface
+	repo repository.RepositoryInterface
 }
 
 func NewStudent(
 	lg *zap.Logger,
-	repo repository.StudentRepositoryInterface,
+	repo repository.RepositoryInterface,
 ) *StudentUseCase {
 	return &StudentUseCase{lg: lg, repo: repo}
 }

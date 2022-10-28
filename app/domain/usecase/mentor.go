@@ -7,12 +7,12 @@ import (
 
 type MentorUseCase struct {
 	lg   *zap.Logger
-	repo repository.CourseRepositoryInterface
+	repo repository.RepositoryInterface
 }
 
 func NewMentor(
 	lg *zap.Logger,
-	repo repository.MentorRepositoryInterface,
+	repo repository.RepositoryInterface,
 ) *MentorUseCase {
 	return &MentorUseCase{lg: lg, repo: repo}
 }

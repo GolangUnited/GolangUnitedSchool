@@ -7,7 +7,6 @@ type CourseUsecaseInterface interface {
 	// DeleteCourse() error
 	// DeleteCourseByID(id int64) error
 }
-
 type PersonUsecaseIntarface interface {
 	// GetPersonByField() (Person, error)
 	// GetPersonById(int64) (Person, error)
@@ -15,13 +14,13 @@ type PersonUsecaseIntarface interface {
 	// UpdatePersonById (int64) error
 	// RemovePersonById (int64) error
 }
-
 type StudentUsecaseInterface interface {
 	//AddStudent
 	//DeleteStudent
 	//DeleteStudentById
-
+}
+type MentorUsecaseInterface interface {
 }
 
-type MentorUsecaseInterface interface {
+type MentorNoteUsecaseInterface interface {
 }

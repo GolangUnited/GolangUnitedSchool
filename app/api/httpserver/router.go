@@ -19,6 +19,7 @@ func NewRouter(
 	personRouter(api, personHandler)
 	studentRouter(api, studentHandler)
 	mentorRouter(api, mentorHandler)
+	mentorNoteRouter(api, mentorNoteHandler)
 
 	return router
 }
