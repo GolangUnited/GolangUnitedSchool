@@ -24,4 +24,13 @@ func courseRouter(
 		course.GET("")
 
 	}
+
+	project := api.Group("/project")
+	{
+		project.GET("")
+		project.GET("/:id")
+		project.DELETE("/:id")
+		project.PUT("/:id")
+		project.POST("")
+	}
 }

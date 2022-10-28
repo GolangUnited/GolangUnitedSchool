@@ -12,3 +12,6 @@ type PersonRepositoryInterface interface {
 
 type CourseRepositoryInterface interface {
 }
+
+type ProjectRepositoryInterface interface {
+}
