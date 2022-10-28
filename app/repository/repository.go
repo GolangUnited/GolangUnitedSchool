@@ -1,7 +1,10 @@
 package repository
 
-type PersonRepositoryInterface interface {
+type RepositoryInterface interface {
 }
 
-type CourseRepositoryInterface interface {
-}
+// type PersonRepositoryInterface interface {
+// }
+
+// type CourseRepositoryInterface interface {
+// }

@@ -5,14 +5,14 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
-type CourseUseCase struct {
+type CourseUsecase struct {
 	lg   *zap.Logger
-	repo repository.CourseRepositoryInterface
+	repo repository.RepositoryInterface
 }
 
 func NewCourse(
 	lg *zap.Logger,
-	repo repository.CourseRepositoryInterface,
-) *CourseUseCase {
-	return &CourseUseCase{lg: lg, repo: repo}
+	repo repository.RepositoryInterface,
+) *CourseUsecase {
+	return &CourseUsecase{lg: lg, repo: repo}
 }
