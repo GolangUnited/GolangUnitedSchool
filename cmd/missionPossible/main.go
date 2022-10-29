@@ -44,6 +44,7 @@ func execute(cfg *config.Config) error {
 	// add service name to logger
 	lg.With("service name", cfg.ServiceName)
 
+	// get new postgres pool of connections
 	dbCtx := context.Background()
 	dbPool, err := postgres.NewDbPool(dbCtx, cfg.PgDsn)
 	if err != nil {
@@ -55,8 +56,8 @@ func execute(cfg *config.Config) error {
 	repo := postgres.NewPostgresRepository(lg, dbPool)
 	usecases := usecase.InitUsecases(lg, repo)
 	handlers := v1.InitHandlers(lg, *usecases)
-
 	router := httpserver.NewRouter(handlers)
+
 	srv := &http.Server{
 		Addr:           net.JoinHostPort(cfg.Host, cfg.Port),
 		Handler:        router,
@@ -65,19 +66,24 @@ func execute(cfg *config.Config) error {
 		MaxHeaderBytes: 1 << 20,
 	}
 
+	// channel to graceful shutdown
 	quit := make(chan os.Signal, 1)
 	defer close(quit)
 	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
+	// run server in goroutine
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
-			lg.Error("server shut down")
+			lg.Error("server shutdown", err)
 			return
 		}
 	}()
 
+	// waiting for os.Signal
 	<-quit
 
+	lg.Info("shutdown server ...")
+	// shutdown server
 	shCtx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	if err := srv.Shutdown(shCtx); err != nil {

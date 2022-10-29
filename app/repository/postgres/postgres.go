@@ -9,6 +9,19 @@ import (
 	"github.com/pkg/errors"
 )
 
+type PostgresRepsitory struct {
+	lg   logger.Logger
+	pool *pgxpool.Pool
+}
+
+// NewPostgresRepository is impl RepositoryInterface for postgres
+func NewPostgresRepository(lg logger.Logger, pool *pgxpool.Pool) *PostgresRepsitory {
+	return &PostgresRepsitory{
+		lg:   lg,
+		pool: pool,
+	}
+}
+
 func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 	dbConfig, err := pgxpool.ParseConfig(dsn)
 	if err != nil {
@@ -23,22 +36,10 @@ func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 
 	// dbConfig.ConnConfig.RuntimeParams["timezone"] = "Asia/Almaty"
 
-	dbPool, err := pgxpool.NewWithConfig(ctx, &pgxpool.Config{})
+	dbPool, err := pgxpool.NewWithConfig(ctx, dbConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "postgres: new pool with config")
 	}
 
 	return dbPool, nil
-}
-
-type PostgresRepsitory struct {
-	lg   logger.Logger
-	pool *pgxpool.Pool
-}
-
-func NewPostgresRepository(lg logger.Logger, pool *pgxpool.Pool) *PostgresRepsitory {
-	return &PostgresRepsitory{
-		lg:   lg,
-		pool: pool,
-	}
 }
