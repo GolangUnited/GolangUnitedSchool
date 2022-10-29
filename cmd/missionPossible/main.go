@@ -52,7 +52,7 @@ func execute(cfg *config.Config) error {
 	}
 
 	// init course repository, usecase and handlers
-	courseRepo := postgres.NewCourse(lg, dbPool)
+	courseRepo := postgres.NewPostgresRepository(lg, dbPool)
 	courseUseCase := usecase.NewCourse(lg, courseRepo)
 	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
 

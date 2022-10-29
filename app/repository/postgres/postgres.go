@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/pkg/errors"
 )
 
@@ -28,4 +29,16 @@ func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 	}
 
 	return dbPool, nil
+}
+
+type PostgresRepsitory struct {
+	lg   logger.Logger
+	pool *pgxpool.Pool
+}
+
+func NewPostgresRepository(lg logger.Logger, pool *pgxpool.Pool) *PostgresRepsitory {
+	return &PostgresRepsitory{
+		lg:   lg,
+		pool: pool,
+	}
 }
