@@ -51,12 +51,12 @@ func execute(cfg *config.Config) error {
 		return err
 	}
 
-	// init course repository, usecase and handlers
-	courseRepo := postgres.NewPostgresRepository(lg, dbPool)
-	courseUseCase := usecase.NewCourse(lg, courseRepo)
-	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
+	// init all layers
+	repo := postgres.NewPostgresRepository(lg, dbPool)
+	usecases := usecase.InitUsecases(lg, repo)
+	handlers := v1.InitHandlers(lg, *usecases)
 
-	router := httpserver.NewRouter(courseHandler, nil)
+	router := httpserver.NewRouter(handlers)
 	srv := &http.Server{
 		Addr:           net.JoinHostPort(cfg.Host, cfg.Port),
 		Handler:        router,
