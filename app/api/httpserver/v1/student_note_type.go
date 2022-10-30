@@ -21,12 +21,8 @@ func NewStudentNoteTypeHandler(
 	}
 }
 
-func (h *StudentNoteTypeHandlers) GetStudentNoteTypes(c *gin.Context) {}
-
-func (h *StudentNoteTypeHandlers) GetStudentNoteTypeById(c *gin.Context) {}
-
-func (h *StudentNoteTypeHandlers) AddStudentNoteType(c *gin.Context) {}
-
-func (h *StudentNoteTypeHandlers) EditStudentNoteType(c *gin.Context) {}
-
+func (h *StudentNoteTypeHandlers) GetStudentNoteTypes(c *gin.Context)       {}
+func (h *StudentNoteTypeHandlers) GetStudentNoteTypeById(c *gin.Context)    {}
+func (h *StudentNoteTypeHandlers) AddStudentNoteType(c *gin.Context)        {}
+func (h *StudentNoteTypeHandlers) EditStudentNoteTypeById(c *gin.Context)   {}
 func (h *StudentNoteTypeHandlers) DeleteStudentNoteTypeById(c *gin.Context) {}

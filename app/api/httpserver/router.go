@@ -50,7 +50,7 @@ func personRouter(
 ) {
 	person := api.Group("/person")
 	{
-
+		person.GET("", h.GetPersons)
 		person.GET("/:person_id", h.GetPersonById)
 		person.DELETE("/:person_id", h.DeletePersonById)
 		person.POST("", h.AddNewPerson)
@@ -66,10 +66,10 @@ func studentRouter(
 	student := api.Group("/student")
 	{
 		student.GET("", h.GetStudents)
-		student.GET(":student_id", h.GetStudentByStudentId)
-		student.DELETE(":student_id", h.DeleteStudentByStudentId)
+		student.GET("/:student_id", h.GetStudentByStudentId)
+		student.DELETE("/:student_id", h.DeleteStudentByStudentId)
 		student.POST("", h.AddStudent)
-		student.PUT(":student_id", h.EditStudentByStudentId)
+		student.PUT("/:student_id", h.EditStudentByStudentId)
 
 	}
 }
@@ -80,11 +80,11 @@ func mentorRouter(
 ) {
 	mentor := api.Group("/mentor")
 	{
-		mentor.GET("", h.GetAllMentors)
+		mentor.GET("", h.GetMentors)
 		mentor.GET("/:mentor_id", h.GetMentorByMentorId)
 		mentor.POST("", h.AddMentor)
 		mentor.DELETE("/:mentor_id", h.RemoveMentorByMentorId)
-		mentor.PUT("", h.EditMentor)
+		mentor.PUT("/:mentor_id", h.EditMentorByMentorId)
 
 	}
 }
@@ -96,9 +96,10 @@ func mentorNoteRouter(
 	mentorNote := api.Group("/mentor/note")
 	{
 		mentorNote.GET("", h.GetMentorNotes)
-		mentorNote.GET("/:mentor_note_id", h.GetMentorNoteByMentorId)
+		mentorNote.GET("/:mentor_id", h.GetMentorNotesByMentorId)
+		mentorNote.GET("/:mentor_note_id", h.GetMentorNoteByMentorNoteId)
 		mentorNote.POST("", h.AddNewMentorNote)
-		mentorNote.PUT("", h.EditMentorNote)
+		mentorNote.PUT("", h.EditMentorNoteByMentorNoteId)
 		mentorNote.DELETE("/:mentor_note_id", h.DeleteMentorNoteByMentorNoteId)
 	}
 }
@@ -109,6 +110,7 @@ func studentNoteRouter(
 ) {
 	studentNote := api.Group("/student/note")
 	{
+		studentNote.GET("", h.GetStudentNotes)
 		studentNote.GET("/:student_id", h.GetStudentNotesByStudentId)
 		studentNote.GET("/:student_note_id", h.GetStudentNoteByStudentNoteId)
 		studentNote.POST("", h.AddStudentNote)
@@ -126,7 +128,7 @@ func studentNoteTypeRouter(
 		studentNoteType.GET("", h.GetStudentNoteTypes)
 		studentNoteType.GET("/:student_note_type_id", h.GetStudentNoteTypeById)
 		studentNoteType.POST("", h.AddStudentNoteType)
-		studentNoteType.PUT("", h.EditStudentNoteType)
+		studentNoteType.PUT("/:student_note_type_id", h.EditStudentNoteTypeById)
 		studentNoteType.DELETE("/:student_note_type_id", h.DeleteStudentNoteTypeById)
 	}
 

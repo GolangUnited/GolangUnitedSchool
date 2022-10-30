@@ -21,12 +21,9 @@ func NewMentorNoteHandler(
 	}
 }
 
-func (h *MentorNoteHandlers) GetMentorNotes(c *gin.Context) {}
-
-func (h *MentorNoteHandlers) GetMentorNoteByMentorId(c *gin.Context) {}
-
-func (h *MentorNoteHandlers) AddNewMentorNote(c *gin.Context) {}
-
-func (h *MentorNoteHandlers) EditMentorNote(c *gin.Context) {}
-
+func (h *MentorNoteHandlers) GetMentorNotes(c *gin.Context)                 {}
+func (h *MentorNoteHandlers) GetMentorNotesByMentorId(c *gin.Context)       {}
+func (h *MentorNoteHandlers) GetMentorNoteByMentorNoteId(c *gin.Context)    {}
+func (h *MentorNoteHandlers) AddNewMentorNote(c *gin.Context)               {}
+func (h *MentorNoteHandlers) EditMentorNoteByMentorNoteId(c *gin.Context)   {}
 func (h *MentorNoteHandlers) DeleteMentorNoteByMentorNoteId(c *gin.Context) {}

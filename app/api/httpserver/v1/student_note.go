@@ -20,13 +20,9 @@ func NewStudentNoteHandler(
 		useCase: useCase,
 	}
 }
-
-func (h *StudentNoteHandlers) GetStudentNotesByStudentId(c *gin.Context) {}
-
+func (h *StudentNoteHandlers) GetStudentNotes(c *gin.Context)               {}
+func (h *StudentNoteHandlers) GetStudentNotesByStudentId(c *gin.Context)    {}
 func (h *StudentNoteHandlers) GetStudentNoteByStudentNoteId(c *gin.Context) {}
-
-func (h *StudentNoteHandlers) AddStudentNote(c *gin.Context) {}
-
-func (h *StudentNoteHandlers) EditStudentNote(c *gin.Context) {}
-
-func (h *StudentNoteHandlers) DeleteStudentNote(c *gin.Context) {}
+func (h *StudentNoteHandlers) AddStudentNote(c *gin.Context)                {}
+func (h *StudentNoteHandlers) EditStudentNote(c *gin.Context)               {}
+func (h *StudentNoteHandlers) DeleteStudentNote(c *gin.Context)             {}
