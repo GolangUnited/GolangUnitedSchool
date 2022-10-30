@@ -22,7 +22,7 @@ func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 
 	// dbConfig.ConnConfig.RuntimeParams["timezone"] = "Asia/Almaty"
 
-	dbPool, err := pgxpool.NewWithConfig(ctx, &pgxpool.Config{})
+	dbPool, err := pgxpool.NewWithConfig(ctx, dbConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "postgres: new pool with config")
 	}
