@@ -99,7 +99,7 @@ func mentorNoteRouter(
 		mentorNote.GET("/:mentor_id", h.GetMentorNotesByMentorId)
 		mentorNote.GET("/:mentor_note_id", h.GetMentorNoteByMentorNoteId)
 		mentorNote.POST("", h.AddNewMentorNote)
-		mentorNote.PUT("", h.EditMentorNoteByMentorNoteId)
+		mentorNote.PUT("/:mentor_note_id", h.EditMentorNoteByMentorNoteId)
 		mentorNote.DELETE("/:mentor_note_id", h.DeleteMentorNoteByMentorNoteId)
 	}
 }
@@ -114,7 +114,7 @@ func studentNoteRouter(
 		studentNote.GET("/:student_id", h.GetStudentNotesByStudentId)
 		studentNote.GET("/:student_note_id", h.GetStudentNoteByStudentNoteId)
 		studentNote.POST("", h.AddStudentNote)
-		studentNote.PUT("", h.EditStudentNote)
+		studentNote.PUT("/:student_note_id", h.EditStudentNoteByStudentNoteId)
 		studentNote.DELETE("/:student_note_id", h.DeleteStudentNote)
 	}
 }
