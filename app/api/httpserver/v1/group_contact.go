@@ -8,12 +8,12 @@ import (
 
 type GroupContactHandlers struct {
 	lg      logger.Logger
-	useCase usecase.GroupContactUseCaseInterface
+	useCase usecase.CourseStatusUseCaseInterface
 }
 
 func NewGroupContactHandler(
 	lg logger.Logger,
-	useCase usecase.GroupContactUseCaseInterface,
+	useCase usecase.CourseStatusUseCaseInterface,
 ) *GroupContactHandlers {
 	return &GroupContactHandlers{
 		lg:      lg,

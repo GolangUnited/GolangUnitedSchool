@@ -24,5 +24,6 @@ type MentorUseCaseInterface interface {
 
 type MentorNoteUseCaseInterface interface{}
 type StudentNoteUseCaseInterface interface{}
-type GroupContactUseCaseInterface interface{}
+type CourseStatusUseCaseInterface interface{}
 type StudentGroupUseCaseInterface interface{}
+type CourseStatusUseVaseInterface interface{}

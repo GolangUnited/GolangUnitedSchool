@@ -84,6 +84,10 @@ func execute(cfg *config.Config) error {
 	studentGroupRepo := postgres.NewStudentGroup(lg, dbPool)
 	studentGroupUseCase := usecase.NewStudentGroup(lg, studentGroupRepo)
 	studentGroupHandler := v1.NewStudentGroupHandler(lg, studentGroupUseCase)
+	// init
+	courseStatusRepo := postgres.NewCourseStatus(lg, dbPool)
+	courseStatusUseCase := usecase.NewCourseStatus(lg, courseStatusRepo)
+	courseStatusHandler := v1.NewCourseStatusHandler(lg, courseStatusUseCase)
 
 	router := httpserver.NewRouter(
 		courseHandler,
@@ -95,6 +99,7 @@ func execute(cfg *config.Config) error {
 		studentNoteTypeHandler,
 		groupContactHandler,
 		studentGroupHandler,
+		courseStatusHandler,
 	)
 	srv := &http.Server{
 		Addr:           cfg.Host,
