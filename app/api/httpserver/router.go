@@ -16,6 +16,7 @@ func NewRouter(
 	groupContactHandler *v1.GroupContactHandlers,
 	studentGroupHandler *v1.StudentGroupHandlers,
 	courseStatusHandler *v1.CourseStatusHandlers,
+	courseLectureHandler *v1.CourseLectureHandlers,
 ) *gin.Engine {
 	router := gin.Default()
 
@@ -30,6 +31,7 @@ func NewRouter(
 	groupContactRouter(api, groupContactHandler)
 	studentGroupRouter(api, studentGroupHandler)
 	courseStatusRouter(api, courseStatusHandler)
+	courseLectureRouter(api, courseLectureHandler)
 
 	return router
 }
@@ -180,5 +182,19 @@ func courseStatusRouter(
 		courseStatus.POST("", h.AddCourseStatus)
 		courseStatus.PUT("/:course_status_id", h.EditCourseStatusById)
 		courseStatus.DELETE("/:course_status_id", h.DeleteCourseStatusById)
+	}
+}
+
+func courseLectureRouter(
+	api *gin.RouterGroup,
+	h *v1.CourseLectureHandlers,
+) {
+	courseLecture := api.Group("/course/lecture")
+	{
+		courseLecture.GET("", h.GetCourseLectures)
+		courseLecture.GET("/course_lecture_id", h.GetCourseLectureById)
+		courseLecture.POST("", h.AddCourseLecture)
+		courseLecture.PUT("/:course_lecture_id", h.EditCourseLectureById)
+		courseLecture.DELETE("/:course_lecture_id", h.DeleteCourseLectureById)
 	}
 }

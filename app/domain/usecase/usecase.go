@@ -27,3 +27,4 @@ type StudentNoteUseCaseInterface interface{}
 type CourseStatusUseCaseInterface interface{}
 type StudentGroupUseCaseInterface interface{}
 type CourseStatusUseVaseInterface interface{}
+type CourseLectureUseCaseInterface interface{}
