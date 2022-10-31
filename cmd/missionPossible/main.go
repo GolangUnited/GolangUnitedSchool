@@ -57,7 +57,26 @@ func execute(cfg *config.Config) error {
 	projectUseCase := usecase.NewProject(lg, projectRepo)
 	projectHandler := v1.NewProjectHandler(lg, projectUseCase)
 
-	router := httpserver.NewRouter(courseHandler, projectHandler)
+	operationLogRepo := postgres.NewOperationLog(lg, dbPool)
+	operationLogUseCase := usecase.NewOperationLog(lg, operationLogRepo)
+	operationLogHandler := v1.NewOperationLogHandler(lg, operationLogUseCase)
+
+	operationRepo := postgres.NewOperation(lg, dbPool)
+	operationUseCase := usecase.NewOperation(lg, operationRepo)
+	operationHandler := v1.NewOperationHandler(lg, operationUseCase)
+
+	operationTypeRepo := postgres.NewOperationType(lg, dbPool)
+	operationTypeUseCase := usecase.NewOperationType(lg, operationTypeRepo)
+	operationTypeHandler := v1.NewOperationTypeHandler(lg, operationTypeUseCase)
+
+	contactTypeRepo := postgres.NewContactType(lg, dbPool)
+	contactTypeUseCase := usecase.NewContactType(lg, contactTypeRepo)
+	contactTypeHandler := v1.NewContactTypeHandler(lg, contactTypeUseCase)
+
+	router := httpserver.NewRouter(
+		courseHandler, projectHandler, operationLogHandler,
+		operationHandler, operationTypeHandler, contactTypeHandler,
+	)
 	srv := &http.Server{
 		Addr:           cfg.Host,
 		Handler:        router,

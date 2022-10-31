@@ -15,3 +15,15 @@ type CourseRepositoryInterface interface {
 
 type ProjectRepositoryInterface interface {
 }
+
+type OperationLogRepositoryInterface interface {
+}
+
+type OperationRepositoryInterface interface {
+}
+
+type OperationTypeRepositoryInterface interface {
+}
+
+type ContactTypeRepositoryInterface interface {
+}
