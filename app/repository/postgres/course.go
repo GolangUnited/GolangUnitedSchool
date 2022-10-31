@@ -1,18 +1,11 @@
 package postgres
 
-import (
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
-)
+import "context"
 
-type CourseRepo struct {
-	lg   *zap.Logger
-	pool *pgxpool.Pool
+func (r *PostgresRepository) CreateCourse(ctx context.Context) {
+
 }
 
-func NewCourse(lg *zap.Logger, pool *pgxpool.Pool) *CourseRepo {
-	return &CourseRepo{
-		lg:   lg,
-		pool: pool,
-	}
+func (r *PostgresRepository) GetCourseByID(ctx context.Context) {
+
 }
