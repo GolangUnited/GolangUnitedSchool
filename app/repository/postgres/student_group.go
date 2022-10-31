@@ -5,13 +5,13 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
 )
 
-type StudentRepo struct {
+type StudentGroupRepo struct {
 	lg   *zap.Logger
 	pool *pgxpool.Pool
 }
 
-func NewStudent(lg *zap.Logger, pool *pgxpool.Pool) *StudentRepo {
-	return &StudentRepo{
+func NewStudentGroup(lg *zap.Logger, pool *pgxpool.Pool) *StudentGroupRepo {
+	return &StudentGroupRepo{
 		lg:   lg,
 		pool: pool,
 	}
