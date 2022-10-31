@@ -13,6 +13,7 @@ func NewRouter(
 	mentorNoteHandler *v1.MentorNoteHandlers,
 	studentNoteHandler *v1.StudentNoteHandlers,
 	studentNoteTypeHandler *v1.StudentNoteTypeHandlers,
+	groupContactHandler *v1.GroupContactHandlers,
 ) *gin.Engine {
 	router := gin.Default()
 
@@ -24,6 +25,7 @@ func NewRouter(
 	mentorNoteRouter(api, mentorNoteHandler)
 	studentNoteRouter(api, studentNoteHandler)
 	studentNoteTypeRouter(api, studentNoteTypeHandler)
+	groupContactRouter(api, groupContactHandler)
 
 	return router
 }
@@ -132,4 +134,18 @@ func studentNoteTypeRouter(
 		studentNoteType.DELETE("/:student_note_type_id", h.DeleteStudentNoteTypeById)
 	}
 
+}
+
+func groupContactRouter(
+	api *gin.RouterGroup,
+	h *v1.GroupContactHandlers,
+) {
+	groupContact := api.Group("/group/contact")
+	{
+		groupContact.GET("", h.GetGroupContacts)
+		groupContact.GET("/:group_contact_id", h.GetGroupContactById)
+		groupContact.POST("", h.AddGroupContact)
+		groupContact.PUT("/:group_contact_id", h.UpdateGroupContact)
+		groupContact.DELETE("/:group_contact_id", h.DeleteGroupContact)
+	}
 }

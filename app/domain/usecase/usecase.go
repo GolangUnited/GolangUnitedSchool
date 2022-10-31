@@ -22,8 +22,6 @@ type StudentUseCaseInterface interface {
 type MentorUseCaseInterface interface {
 }
 
-type MentorNoteUseCaseInterface interface {
-}
-
-type StudentNoteUseCaseInterface interface {
-}
+type MentorNoteUseCaseInterface interface{}
+type StudentNoteUseCaseInterface interface{}
+type GroupContactUseCaseInterface interface{}
