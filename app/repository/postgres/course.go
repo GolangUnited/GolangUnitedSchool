@@ -2,10 +2,10 @@ package postgres
 
 import "context"
 
-func (r *PostgresRepsitory) CreateCourse(ctx context.Context) {
+func (r *PostgresRepository) CreateCourse(ctx context.Context) {
 
 }
 
-func (r *PostgresRepsitory) GetCourseByID(ctx context.Context) {
+func (r *PostgresRepository) GetCourseByID(ctx context.Context) {
 
 }

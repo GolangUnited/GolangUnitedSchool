@@ -6,5 +6,3 @@ type Group struct {
 	MentorID int64
 	Title    string
 }
-
-

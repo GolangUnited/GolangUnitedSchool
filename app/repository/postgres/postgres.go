@@ -9,14 +9,14 @@ import (
 	"github.com/pkg/errors"
 )
 
-type PostgresRepsitory struct {
+type PostgresRepository struct {
 	lg   logger.Logger
 	pool *pgxpool.Pool
 }
 
 // NewPostgresRepository is impl RepositoryInterface for postgres
-func NewPostgresRepository(lg logger.Logger, pool *pgxpool.Pool) *PostgresRepsitory {
-	return &PostgresRepsitory{
+func NewPostgresRepository(lg logger.Logger, pool *pgxpool.Pool) *PostgresRepository {
+	return &PostgresRepository{
 		lg:   lg,
 		pool: pool,
 	}
