@@ -6,6 +6,7 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 )
 
+// RepositoryInterface is main interface for all repo implementations
 type RepositoryInterface interface {
 	GetCertificateTemplates(ctx context.Context) ([]model.CertificateTemplate, error)
 	GetCertificateTemplateById(ctx context.Context, id int64) (*model.CertificateTemplate, error)

@@ -5,17 +5,28 @@ import (
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/course"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/student"
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
 type Usecases struct {
-	Course CourseUsecaseInterface
+	Course              CourseUsecaseInterface
+	Lecture             LectureUsecaseInterface
+	Homework            HomeworkUsecaseInterface
+	CertificateTemplate CertificateTemplateUsecaseInterface
+	StudentHomework     StudentHomeworkUsecaseInterface
+	StudentCertificate  StudentCertificateUsecaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
 	return &Usecases{
-		Course: course.NewCourse(lg, repo),
+		Course:              course.NewCourse(lg, repo),
+		Lecture:             course.NewLecture(lg, repo),
+		Homework:            course.NewHomework(lg, repo),
+		CertificateTemplate: course.NewCertificateTemplate(lg, repo),
+		StudentHomework:     student.NewStudentHomework(lg, repo),
+		StudentCertificate:  student.NewStudentCertificate(lg, repo),
 	}
 }
 
@@ -25,6 +36,9 @@ type CourseUsecaseInterface interface {
 	// EdotCourseByID(id int64) error
 	// DeleteCourse() error
 	// DeleteCoursebyID(id int64) error
+}
+
+type PersonUsecaseInterface interface {
 }
 
 type CertificateTemplateUsecaseInterface interface {

@@ -6,38 +6,36 @@ import (
 )
 
 func NewRouter(
-	courseHandler *v1.CourseHandlers,
-	personHandler *v1.PersonHandlers,
+	handlers *v1.Handlers,
 ) *gin.Engine {
 	router := gin.Default()
 
 	api := router.Group("/api/v1")
-	courseRouter(api, courseHandler)
-	personRouter(api, personHandler)
+	courseRouter(api, handlers)
+	personRouter(api, handlers)
+	lectureRouter(api, handlers.Lecture)
+	homeworkRouter(api, handlers.Homework)
+	certificateTemplateRouter(api, handlers.CertificateTemplate)
+	studentHomeworkRouter(api, handlers.StudentHomework)
+	studentCertificateRouter(api, handlers.StudentCertificate)
 
 	return router
 }
 
 func courseRouter(
 	api *gin.RouterGroup,
-	h *v1.CourseHandlers,
+	h *v1.Handlers,
 ) {
 	course := api.Group("/course")
 	{
-		course.GET("", h.SearchCourse)
-		course.GET("/:course_id", h.GetCourseByID)
-		course.POST("", h.CreateCourse)
-		course.PATCH("", h.EditCourse)
-		course.PATCH("/:course_id", h.EditCourseByID)
-		course.PUT("", h.AddCourse)
-		course.DELETE("", h.DeleteCourse)
-		course.DELETE("/:course_id", h.DeleteCourseByID)
+		course.GET("")
+		course.GET("/:course_id")
 	}
 }
 
 func personRouter(
 	api *gin.RouterGroup,
-	h *v1.PersonHandlers,
+	h *v1.Handlers,
 ) {
 	person := api.Group("/person")
 	{
