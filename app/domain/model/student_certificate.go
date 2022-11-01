@@ -3,9 +3,9 @@ package model
 import "time"
 
 type StudentCertificate struct {
-	ID                    int64     `json:"id"`
-	CreatedAt             time.Time `json:"created_at"`
-	CertificateTemplateId int64     `json:"certificate_template_id"`
-	StudentId             int64     `json:"student_id"`
-	CourseId              int64     `json:"course_id"`
+	ID                    int64
+	CreatedAt             time.Time
+	CertificateTemplateID int64
+	StudentID             int64
+	CourseID              int64
 }

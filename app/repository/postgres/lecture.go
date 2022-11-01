@@ -6,22 +6,22 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 )
 
-func (u *repository) GetLectures(ctx context.Context) ([]model.Lecture, error) {
+func (r *PostgresRepository) GetLectures(ctx context.Context) ([]model.Lecture, error) {
 	panic("not implemented")
 }
 
-func (u *repository) GetLectureById(ctx context.Context, id int64) (*model.Lecture, error) {
+func (r *PostgresRepository) GetLectureById(ctx context.Context, id int64) (*model.Lecture, error) {
 	panic("not implemented")
 }
 
-func (u *repository) AddLecture(ctx context.Context, data *model.Lecture) error {
+func (r *PostgresRepository) AddLecture(ctx context.Context, data *model.Lecture) error {
 	panic("not implemented")
 }
 
-func (u *repository) UpdateLecture(ctx context.Context, id int64, data *model.Lecture) error {
+func (r *PostgresRepository) UpdateLecture(ctx context.Context, id int64, data *model.Lecture) error {
 	panic("not implemented")
 }
 
-func (u *repository) DeleteLecture(ctx context.Context, id int64) error {
+func (r *PostgresRepository) DeleteLecture(ctx context.Context, id int64) error {
 	panic("not implemented")
 }

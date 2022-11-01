@@ -6,26 +6,26 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 )
 
-func (u *repository) GetStudentHomeworks(ctx context.Context) ([]model.StudentHomework, error) {
+func (r *PostgresRepository) GetStudentHomeworks(ctx context.Context) ([]model.StudentHomework, error) {
 	panic("not implemented")
 }
 
-func (u *repository) GetStudentHomeworksByStudentId(ctx context.Context, studentId int64) ([]model.StudentHomework, error) {
+func (r *PostgresRepository) GetStudentHomeworksByStudentId(ctx context.Context, studentId int64) ([]model.StudentHomework, error) {
 	panic("not implemented")
 }
 
-func (u *repository) GetStudentHomeworkById(ctx context.Context, id int64) (*model.StudentHomework, error) {
+func (r *PostgresRepository) GetStudentHomeworkById(ctx context.Context, id int64) (*model.StudentHomework, error) {
 	panic("not implemented")
 }
 
-func (u *repository) AddStudentHomework(ctx context.Context, data *model.StudentHomework) error {
+func (r *PostgresRepository) AddStudentHomework(ctx context.Context, data *model.StudentHomework) error {
 	panic("not implemented")
 }
 
-func (u *repository) UpdateStudentHomework(ctx context.Context, id int64, data *model.StudentHomework) error {
+func (r *PostgresRepository) UpdateStudentHomework(ctx context.Context, id int64, data *model.StudentHomework) error {
 	panic("not implemented")
 }
 
-func (u *repository) DeleteStudentHomework(ctx context.Context, id int64) error {
+func (r *PostgresRepository) DeleteStudentHomework(ctx context.Context, id int64) error {
 	panic("not implemented")
 }

@@ -1,6 +1,6 @@
 package model
 
 type CertificateTemplate struct {
-	ID       int64  `json:"id"`
-	Template string `json:"template"`
+	ID       int64
+	Template string
 }

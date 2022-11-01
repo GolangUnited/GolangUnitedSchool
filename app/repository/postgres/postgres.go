@@ -5,8 +5,22 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/pkg/errors"
 )
+
+type PostgresRepository struct {
+	lg   logger.Logger
+	pool *pgxpool.Pool
+}
+
+// NewPostgresRepository is impl RepositoryInterface for postgres
+func NewPostgresRepository(lg logger.Logger, pool *pgxpool.Pool) *PostgresRepository {
+	return &PostgresRepository{
+		lg:   lg,
+		pool: pool,
+	}
+}
 
 func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 	dbConfig, err := pgxpool.ParseConfig(dsn)

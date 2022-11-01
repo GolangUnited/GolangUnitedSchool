@@ -4,7 +4,20 @@ import (
 	"context"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/course"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger"
+	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
+
+type Usecases struct {
+	Course CourseUsecaseInterface
+}
+
+func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
+	return &Usecases{
+		Course: course.NewCourse(lg, repo),
+	}
+}
 
 type CourseUsecaseInterface interface {
 	// AddCourse()
