@@ -14,7 +14,7 @@ type RepositoryInterface interface {
 	GetCourseByID(context.Context, int64) (*model.Course, error)
 	GetCourses(context.Context, *model.PaginationParams) (*model.CourseList, error)
 	UpdateCourseByID(context.Context, int64, *model.CourseUpdate) error
-	AddCourse(context.Context, *model.Course) (int64, error)
+	PutCourse(context.Context, int64, *model.CourseUpdate) error
 	DeleteCourseByID(context.Context, int64) error
 
 	//

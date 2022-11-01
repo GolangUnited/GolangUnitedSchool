@@ -10,6 +10,11 @@ import (
 	"github.com/pkg/errors"
 )
 
+var (
+	ErrorBadPaginationParams = "bad pagination params"
+	ErrorCourseDoesNotExists = "course doesn't exists"
+)
+
 func (r *PostgresRepository) CreateCourse(ctx context.Context, course *model.CourseCreate) (int64, error) {
 	var args []interface{}
 	var keys []string
@@ -77,6 +82,9 @@ func (r *PostgresRepository) GetCourseByID(ctx context.Context, id int64) (*mode
 }
 
 func (r *PostgresRepository) GetCourses(ctx context.Context, params *model.PaginationParams) (*model.CourseList, error) {
+	if params.Page <= 0 || params.PageSize <= 0 {
+		return nil, errors.New(ErrorBadPaginationParams)
+	}
 
 	offset := params.Page * params.PageSize
 	limit := params.PageSize
@@ -123,6 +131,7 @@ func (r *PostgresRepository) GetCourses(ctx context.Context, params *model.Pagin
 		if err != nil {
 			return nil, errors.Wrap(err, "get course")
 		}
+
 		metadata.Page = params.Page
 		metadata.PageSize = params.PageSize
 		metadata.PageCount = metadata.TotalCount / params.PageSize
@@ -140,19 +149,71 @@ func (r *PostgresRepository) UpdateCourseByID(
 	ctx context.Context,
 	id int64,
 	course *model.CourseUpdate) error {
+	var args []interface{}
+	var keys []string
+
+	// title
+	if course.Title != nil {
+		args = append(args, course.Title)
+		keys = append(keys, fmt.Sprintf("title = %d", len(args)))
+	}
+
+	// status
+	if course.Status != nil {
+		args = append(args, course.Status)
+		keys = append(keys, fmt.Sprintf("status = %d", len(args)))
+	}
+
+	// start date
+	if course.StartDate != nil {
+		args = append(args, course.StartDate)
+		keys = append(keys, fmt.Sprintf("start_date = %d", len(args)))
+	}
+
+	// end date
+	if course.EndDate != nil {
+		args = append(args, course.EndDate)
+		keys = append(keys, fmt.Sprintf("endt_date = %d", len(args)))
+	}
+
+	// id
+	args = append(args, id)
+
+	query := fmt.Sprintf(`UPDATE course 
+				SET %s
+				WHERE id = %d`, strings.Join(keys, ","), len(args))
+
+	cmn, err := r.pool.Exec(ctx, query, args...)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+
+	if cmn.RowsAffected() != 1 {
+		return fmt.Errorf("update course: course with id %d dosn't exists", id)
+	}
 	return nil
 }
 
-func (r *PostgresRepository) AddCourse(ctx context.Context, course *model.Course) (int64, error) {
-	query := ``
+func (r *PostgresRepository) PutCourse(ctx context.Context, id int64, course *model.CourseUpdate) error {
+	query := `UPDATE course 
+				SET title = $1, status = $2, start_date = $3, end_date = $4
+				WHERE id=%d`
 
-	var id int64
-	err := r.pool.QueryRow(ctx, query).Scan(&id)
+	cmn, err := r.pool.Exec(ctx, query,
+		course.Title,
+		course.Status,
+		course.StartDate,
+		course.EndDate,
+	)
 	if err != nil {
-		return id, errors.Wrap(err, "add course")
+		return errors.Wrap(err, "add course")
 	}
 
-	return id, nil
+	if cmn.RowsAffected() != 1 {
+		return fmt.Errorf("put course: course with id %d dosn't exists", id)
+	}
+
+	return nil
 }
 
 func (r *PostgresRepository) DeleteCourseByID(ctx context.Context, id int64) error {

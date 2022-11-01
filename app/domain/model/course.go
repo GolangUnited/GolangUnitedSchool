@@ -18,7 +18,7 @@ type CourseCreate struct {
 
 type CourseUpdate struct {
 	Title     *string    `json:"title"`
-	Sattus    *string    `json:"status"`
+	Status    *string    `json:"status"`
 	StartDate *time.Time `json:"start_date"`
 	EndDate   *time.Time `json:"end_date"`
 }
