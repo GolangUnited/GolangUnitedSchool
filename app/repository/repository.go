@@ -8,10 +8,14 @@ import (
 
 // RepositoryInterface is main interface for all repo implementations
 type RepositoryInterface interface {
+
+	// Course repo interfaces
 	CreateCourse(context.Context, *model.CourseCreate) (int64, error)
-	GetCourseByID(context.Context, int64) (model.Course, error)
-	GetCourses(context.Context) ([]model.Course, error)
+	GetCourseByID(context.Context, int64) (*model.Course, error)
+	GetCourses(context.Context, *model.PaginationParams) (*model.CourseList, error)
 	UpdateCourseByID(context.Context, int64, *model.CourseUpdate) error
 	AddCourse(context.Context, *model.Course) (int64, error)
 	DeleteCourseByID(context.Context, int64) error
+
+	//
 }

@@ -22,3 +22,8 @@ type CourseUpdate struct {
 	StartDate *time.Time `json:"start_date"`
 	EndDate   *time.Time `json:"end_date"`
 }
+
+type CourseList struct {
+	Metadata PaginationResponse `json:"_metadata"`
+	Courses  []Course           `json:"courses"`
+}
