@@ -21,11 +21,11 @@ func NewCourseHandler(
 	}
 }
 
-func (h *CourseHandlers) AddCourse(c *gin.Context) {
+func (h *CourseHandlers) CreateCourse(c *gin.Context) {
 
 }
 
-func (h *CourseHandlers) CreateCourse(c *gin.Context) {
+func (h *CourseHandlers) GetCourses(c *gin.Context) {
 
 }
 
@@ -33,19 +33,11 @@ func (h *CourseHandlers) GetCourseByID(c *gin.Context) {
 
 }
 
-func (h *CourseHandlers) SearchCourse(c *gin.Context) {
+func (h *CourseHandlers) AddCourse(c *gin.Context) {
 
 }
 
-func (h *CourseHandlers) EditCourse(c *gin.Context) {
-
-}
-
-func (h *CourseHandlers) EditCourseByID(c *gin.Context) {
-
-}
-
-func (h *CourseHandlers) DeleteCourse(c *gin.Context) {
+func (h *CourseHandlers) UpdateCourseByID(c *gin.Context) {
 
 }
 
