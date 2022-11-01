@@ -194,7 +194,7 @@ func (r *PostgresRepository) UpdateCourseByID(
 	return nil
 }
 
-func (r *PostgresRepository) PutCourse(ctx context.Context, id int64, course *model.CourseUpdate) error {
+func (r *PostgresRepository) PutCourseByID(ctx context.Context, id int64, course *model.CourseUpdate) error {
 	query := `UPDATE course 
 				SET title = $1, status = $2, start_date = $3, end_date = $4
 				WHERE id=%d`
