@@ -67,4 +67,38 @@ type RepositoryInterface interface {
 	AddCourseLecture(ctx context.Context, data *model.CourseLecture) error
 	EditCourseLectureById(ctx context.Context, id int64, data *model.CourseLecture) error
 	DeleteCourseLectureById(ctx context.Context, id int64) error
+
+	GetCertificateTemplates(ctx context.Context) ([]model.CertificateTemplate, error)
+	GetCertificateTemplateById(ctx context.Context, id int64) (*model.CertificateTemplate, error)
+	AddCertificateTemplate(ctx context.Context, data *model.CertificateTemplate) error
+	UpdateCertificateTemplate(ctx context.Context, id int64, data *model.CertificateTemplate) error
+	DeleteCertificateTemplate(ctx context.Context, id int64) error
+
+	GetLectures(ctx context.Context) ([]model.Lecture, error)
+	GetLectureById(ctx context.Context, id int64) (*model.Lecture, error)
+	AddLecture(ctx context.Context, data *model.Lecture) error
+	UpdateLecture(ctx context.Context, id int64, data *model.Lecture) error
+	DeleteLecture(ctx context.Context, id int64) error
+
+	GetHomeworks(ctx context.Context) ([]model.Homework, error)
+	GetHomeworksByLectureId(ctx context.Context, lectureId int64) ([]model.Homework, error)
+	GetHomeworkById(ctx context.Context, id int64) (*model.Homework, error)
+	AddHomework(ctx context.Context, data *model.Homework) error
+	UpdateHomework(ctx context.Context, id int64, data *model.Homework) error
+	DeleteHomework(ctx context.Context, id int64) error
+
+	GetStudentHomeworks(ctx context.Context) ([]model.StudentHomework, error)
+	GetStudentHomeworksByStudentId(ctx context.Context, studentId int64) ([]model.StudentHomework, error)
+	GetStudentHomeworkById(ctx context.Context, id int64) (*model.StudentHomework, error)
+	AddStudentHomework(ctx context.Context, data *model.StudentHomework) error
+	UpdateStudentHomework(ctx context.Context, id int64, data *model.StudentHomework) error
+	DeleteStudentHomework(ctx context.Context, id int64) error
+
+	GetStudentCertificates(ctx context.Context) ([]model.StudentCertificate, error)
+	GetStudentCertificatesByStudentId(ctx context.Context, studentId int64) ([]model.StudentCertificate, error)
+	GetStudentCertificatesByCourseId(ctx context.Context, courseId int64) ([]model.StudentCertificate, error)
+	GetStudentCertificateById(ctx context.Context, id int64) (*model.StudentCertificate, error)
+	AddStudentCertificate(ctx context.Context, data *model.StudentCertificate) error
+	UpdateStudentCertificate(ctx context.Context, id int64, data *model.StudentCertificate) error
+	DeleteStudentCertificate(ctx context.Context, id int64) error
 }

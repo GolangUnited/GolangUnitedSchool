@@ -8,12 +8,12 @@ import (
 
 type StudentNoteTypeHandlers struct {
 	lg      logger.Logger
-	useCase usecase.CourseUseCaseInterface
+	useCase usecase.CourseUsecaseInterface
 }
 
 func NewStudentNoteTypeHandler(
 	lg logger.Logger,
-	useCase usecase.CourseUseCaseInterface,
+	useCase usecase.CourseUsecaseInterface,
 ) *StudentNoteTypeHandlers {
 	return &StudentNoteTypeHandlers{
 		lg:      lg,

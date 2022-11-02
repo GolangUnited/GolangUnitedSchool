@@ -6,32 +6,39 @@ import (
 )
 
 type Handlers struct {
-	Course        *CourseHandlers
-	CourseLecture *CourseLectureHandlers
-	CourseStatus  *CourseStatusHandlers
-
-	Person *PersonHandlers
-
-	Student         *StudentHandlers
-	StudentGroup    *StudentGroupHandlers
-	StudentNote     *StudentNoteHandlers
-	StudentNoteType *StudentNoteTypeHandlers
-
-	Mentor     *MentorHandlers
-	MentorNote *MentorNoteHandlers
-
-	GroupContact *GroupContactHandlers
+	Lecture             *LectureHandlers
+	Homework            *HomeworkHandlers
+	CertificateTemplate *CertificateTemplateHandlers
+	StudentHomework     *StudentHomeworkHandlers
+	StudentCertificate  *StudentCertificateHandlers
+	Course              *CourseHandlers
+	CourseLecture       *CourseLectureHandlers
+	CourseStatus        *CourseStatusHandlers
+	Person              *PersonHandlers
+	Student             *StudentHandlers
+	StudentGroup        *StudentGroupHandlers
+	StudentNote         *StudentNoteHandlers
+	StudentNoteType     *StudentNoteTypeHandlers
+	Mentor              *MentorHandlers
+	MentorNote          *MentorNoteHandlers
+	GroupContact        *GroupContactHandlers
 }
 
 func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
 	return &Handlers{
-		Course:        NewCourseHandler(lg, u.Course),
-		CourseLecture: NewCourseLectureHandler(lg, u.CourseLecture),
-		CourseStatus:  NewCourseStatusHandler(lg, u.CourseStatus),
-		Person:        NewPersonHandler(lg, u.Person),
-		Student:       NewStudentHandler(lg, u.Student),
-		StudentGroup:  NewStudentGroupHandler(lg, u.StudentGroup),
-		StudentNote:   NewStudentNoteHandler(lg, u.StudentNote),
-		Mentor:        NewMentorHandler(lg, u.Mentor),
+
+		CourseLecture:       NewCourseLectureHandler(lg, u.CourseLecture),
+		CourseStatus:        NewCourseStatusHandler(lg, u.CourseStatus),
+		Person:              NewPersonHandler(lg, u.Person),
+		Student:             NewStudentHandler(lg, u.Student),
+		StudentGroup:        NewStudentGroupHandler(lg, u.StudentGroup),
+		StudentNote:         NewStudentNoteHandler(lg, u.StudentNote),
+		Mentor:              NewMentorHandler(lg, u.Mentor),
+		Course:              NewCourseHandler(lg, u.Course),
+		Lecture:             NewLectureHandler(lg, u.Lecture),
+		Homework:            NewHomeworkHandler(lg, u.Homework),
+		CertificateTemplate: NewCertificateTemplateHandler(lg, u.CertificateTemplate),
+		StudentHomework:     NewStudentHomeworkHandler(lg, u.StudentHomework),
+		StudentCertificate:  NewStudentCertificateHandler(lg, u.StudentCertificate),
 	}
 }
