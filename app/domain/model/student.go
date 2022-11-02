@@ -14,9 +14,18 @@ type StudentNote struct {
 }
 
 type StudentCertificate struct {
-	ID            int64
-	StudentID     int64
-	CourseID      int64
-	CertificateID int64
-	CreatedAt     time.Time
+	ID                    int64
+	CreatedAt             time.Time
+	CertificateTemplateID int64
+	StudentID             int64
+	CourseID              int64
+}
+
+type StudentHomework struct {
+	ID         int64
+	StudentID  int64
+	HomeworkID int64
+	StartedAt  time.Time
+	FinishedAt time.Time
+	Score      float32
 }

@@ -1,6 +1,6 @@
 package model
 
-type Certificate struct {
+type CertificateTemplate struct {
 	ID       int64
 	Template string
 }
