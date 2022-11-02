@@ -23,5 +23,5 @@ func NewPersonHandler(lg logger.Logger,
 func (h *PersonHandlers) GetPersons(c *gin.Context)       {}
 func (h *PersonHandlers) AddNewPerson(c *gin.Context)     {}
 func (h *PersonHandlers) GetPersonById(c *gin.Context)    {}
-func (h *PersonHandlers) EditPersonById(c *gin.Context)   {}
+func (h *PersonHandlers) UpdatePersonById(c *gin.Context) {}
 func (h *PersonHandlers) DeletePersonById(c *gin.Context) {}

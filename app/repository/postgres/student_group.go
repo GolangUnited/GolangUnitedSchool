@@ -14,7 +14,7 @@ func (r *PostgresRepository) GetStudentGroupById(ctx context.Context, id int64) 
 func (r *PostgresRepository) AddStudentGroup(ctx context.Context, data *model.StudentGroup) error {
 	panic("empty")
 }
-func (r *PostgresRepository) EditStudentGroupById(ctx context.Context, id int64, data *model.StudentGroup) error {
+func (r *PostgresRepository) UpdateStudentGroupById(ctx context.Context, id int64, data *model.StudentGroup) error {
 	panic("empty")
 }
 func (r *PostgresRepository) DeleteStudentGroupById(ctx context.Context, id int64) error {

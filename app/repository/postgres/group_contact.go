@@ -14,7 +14,7 @@ func (r *PostgresRepository) GetGroupContactById(ctx context.Context, id int64) 
 func (r *PostgresRepository) AddGroupContact(ctx context.Context, data *model.GroupContact) error {
 	panic("empty")
 }
-func (r *PostgresRepository) EditGroupContactById(ctx context.Context, id int64, data *model.GroupContact) error {
+func (r *PostgresRepository) UpdateGroupContactById(ctx context.Context, id int64, data *model.GroupContact) error {
 	panic("empty")
 }
 func (r *PostgresRepository) DeleteGroupContactById(ctx context.Context, id int64) error {

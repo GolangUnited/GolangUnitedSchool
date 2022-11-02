@@ -14,7 +14,7 @@ func (r *PostgresRepository) GetPersonById(ctx context.Context, id int64) (*mode
 func (r *PostgresRepository) AddNewPerson(ctx context.Context, data *model.Person) error {
 	panic("empty")
 }
-func (r *PostgresRepository) EditPersonById(ctx context.Context, id int64, data *model.Person) error {
+func (r *PostgresRepository) UpdatePersonById(ctx context.Context, id int64, data *model.Person) error {
 	panic("empty")
 }
 func (r *PostgresRepository) DeletePersonById(ctx context.Context, id int64) error {

@@ -24,5 +24,5 @@ func NewCourseStatusHandler(
 func (h *CourseStatusHandlers) GetCourseStatuses(c *gin.Context)      {}
 func (h *CourseStatusHandlers) GetCourseStatusById(c *gin.Context)    {}
 func (h *CourseStatusHandlers) AddCourseStatus(c *gin.Context)        {}
-func (h *CourseStatusHandlers) EditCourseStatusById(c *gin.Context)   {}
+func (h *CourseStatusHandlers) UpdateCourseStatusById(c *gin.Context) {}
 func (h *CourseStatusHandlers) DeleteCourseStatusById(c *gin.Context) {}

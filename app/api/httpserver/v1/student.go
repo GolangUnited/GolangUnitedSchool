@@ -23,6 +23,6 @@ func NewStudentHandler(
 
 func (h *StudentHandlers) AddStudent(c *gin.Context)               {}
 func (h *StudentHandlers) DeleteStudentByStudentId(c *gin.Context) {}
-func (h *StudentHandlers) EditStudentByStudentId(c *gin.Context)   {}
+func (h *StudentHandlers) UpdateStudentByStudentId(c *gin.Context) {}
 func (h *StudentHandlers) GetStudentByStudentId(c *gin.Context)    {}
 func (h *StudentHandlers) GetStudents(c *gin.Context)              {}

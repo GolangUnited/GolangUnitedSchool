@@ -24,5 +24,5 @@ func NewMentorHandler(
 func (h *MentorHandlers) GetMentors(c *gin.Context)             {}
 func (h *MentorHandlers) GetMentorByMentorId(c *gin.Context)    {}
 func (h *MentorHandlers) AddMentor(c *gin.Context)              {}
-func (h *MentorHandlers) EditMentorByMentorId(c *gin.Context)   {}
+func (h *MentorHandlers) UpdateMentorByMentorId(c *gin.Context) {}
 func (h *MentorHandlers) DeleteMentorByMentorId(c *gin.Context) {}

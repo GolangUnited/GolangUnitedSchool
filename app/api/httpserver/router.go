@@ -56,7 +56,7 @@ func personRouter(
 		person.GET("/:person_id", h.Person.GetPersonById)
 		person.DELETE("/:person_id", h.Person.DeletePersonById)
 		person.POST("", h.Person.AddNewPerson)
-		person.PUT("/:person_id", h.Person.EditPersonById)
+		person.PUT("/:person_id", h.Person.UpdatePersonById)
 
 	}
 }
@@ -71,7 +71,7 @@ func studentRouter(
 		student.GET("/:student_id", h.Student.GetStudentByStudentId)
 		student.DELETE("/:student_id", h.Student.DeleteStudentByStudentId)
 		student.POST("", h.Student.AddStudent)
-		student.PUT("/:student_id", h.Student.EditStudentByStudentId)
+		student.PUT("/:student_id", h.Student.UpdateStudentByStudentId)
 
 	}
 }
@@ -86,7 +86,7 @@ func mentorRouter(
 		mentor.GET("/:mentor_id", h.Mentor.GetMentorByMentorId)
 		mentor.POST("", h.Mentor.AddMentor)
 		mentor.DELETE("/:mentor_id", h.Mentor.DeleteMentorByMentorId)
-		mentor.PUT("/:mentor_id", h.Mentor.EditMentorByMentorId)
+		mentor.PUT("/:mentor_id", h.Mentor.UpdateMentorByMentorId)
 
 	}
 }
@@ -101,7 +101,7 @@ func mentorNoteRouter(
 		mentorNote.GET("/:mentor_id", h.MentorNote.GetMentorNotesByMentorId)
 		mentorNote.GET("/:mentor_note_id", h.MentorNote.GetMentorNoteByMentorNoteId)
 		mentorNote.POST("", h.MentorNote.AddMentorNote)
-		mentorNote.PUT("/:mentor_note_id", h.MentorNote.EditMentorNoteByMentorNoteId)
+		mentorNote.PUT("/:mentor_note_id", h.MentorNote.UpdateMentorNoteByMentorNoteId)
 		mentorNote.DELETE("/:mentor_note_id", h.MentorNote.DeleteMentorNoteByMentorNoteId)
 	}
 }
@@ -116,7 +116,7 @@ func studentNoteRouter(
 		studentNote.GET("/:student_id", h.StudentNote.GetStudentNotesByStudentId)
 		studentNote.GET("/:student_note_id", h.StudentNote.GetStudentNoteByStudentNoteId)
 		studentNote.POST("", h.StudentNote.AddStudentNote)
-		studentNote.PUT("/:student_note_id", h.StudentNote.EditStudentNoteByStudentNoteId)
+		studentNote.PUT("/:student_note_id", h.StudentNote.UpdateStudentNoteByStudentNoteId)
 		studentNote.DELETE("/:student_note_id", h.StudentNote.DeleteStudentNote)
 	}
 }
@@ -130,7 +130,7 @@ func studentNoteTypeRouter(
 		studentNoteType.GET("", h.StudentNoteType.GetStudentNoteTypes)
 		studentNoteType.GET("/:student_note_type_id", h.StudentNoteType.GetStudentNoteTypeById)
 		studentNoteType.POST("", h.StudentNoteType.AddStudentNoteType)
-		studentNoteType.PUT("/:student_note_type_id", h.StudentNoteType.EditStudentNoteTypeById)
+		studentNoteType.PUT("/:student_note_type_id", h.StudentNoteType.UpdateStudentNoteTypeById)
 		studentNoteType.DELETE("/:student_note_type_id", h.StudentNoteType.DeleteStudentNoteTypeById)
 	}
 
@@ -159,7 +159,7 @@ func studentGroupRouter(
 		studentGroup.GET("", h.StudentGroup.GetStudentGroups)
 		studentGroup.GET("/:student_group_id", h.StudentGroup.GetStudentGroupById)
 		studentGroup.POST("", h.StudentGroup.AddStudentGroup)
-		studentGroup.PUT("/:student_group_id", h.StudentGroup.EditStudentGroupbyId)
+		studentGroup.PUT("/:student_group_id", h.StudentGroup.UpdateStudentGroupbyId)
 		studentGroup.DELETE("/:student_group_id", h.StudentGroup.DeleteStudentGroup)
 
 	}
@@ -174,7 +174,7 @@ func courseStatusRouter(
 		courseStatus.GET("", h.CourseStatus.GetCourseStatuses)
 		courseStatus.GET("/:course_status_id", h.CourseStatus.GetCourseStatusById)
 		courseStatus.POST("", h.CourseStatus.AddCourseStatus)
-		courseStatus.PUT("/:course_status_id", h.CourseStatus.EditCourseStatusById)
+		courseStatus.PUT("/:course_status_id", h.CourseStatus.UpdateCourseStatusById)
 		courseStatus.DELETE("/:course_status_id", h.CourseStatus.DeleteCourseStatusById)
 	}
 }
@@ -188,7 +188,7 @@ func courseLectureRouter(
 		courseLecture.GET("", h.CourseLecture.GetCourseLectures)
 		courseLecture.GET("/course_lecture_id", h.CourseLecture.GetCourseLectureById)
 		courseLecture.POST("", h.CourseLecture.AddCourseLecture)
-		courseLecture.PUT("/:course_lecture_id", h.CourseLecture.EditCourseLectureById)
+		courseLecture.PUT("/:course_lecture_id", h.CourseLecture.UpdateCourseLectureById)
 		courseLecture.DELETE("/:course_lecture_id", h.CourseLecture.DeleteCourseLectureById)
 	}
 }

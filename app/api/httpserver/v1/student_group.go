@@ -21,8 +21,8 @@ func NewStudentGroupHandler(
 	}
 }
 
-func (h *StudentGroupHandlers) GetStudentGroups(c *gin.Context)     {}
-func (h *StudentGroupHandlers) GetStudentGroupById(c *gin.Context)  {}
-func (h *StudentGroupHandlers) AddStudentGroup(c *gin.Context)      {}
-func (h *StudentGroupHandlers) EditStudentGroupbyId(c *gin.Context) {}
-func (h *StudentGroupHandlers) DeleteStudentGroup(c *gin.Context)   {}
+func (h *StudentGroupHandlers) GetStudentGroups(c *gin.Context)       {}
+func (h *StudentGroupHandlers) GetStudentGroupById(c *gin.Context)    {}
+func (h *StudentGroupHandlers) AddStudentGroup(c *gin.Context)        {}
+func (h *StudentGroupHandlers) UpdateStudentGroupbyId(c *gin.Context) {}
+func (h *StudentGroupHandlers) DeleteStudentGroup(c *gin.Context)     {}

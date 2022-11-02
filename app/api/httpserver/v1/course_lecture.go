@@ -23,5 +23,5 @@ func NewCourseLectureHandler(
 func (h *CourseLectureHandlers) GetCourseLectures(c *gin.Context)       {}
 func (h *CourseLectureHandlers) GetCourseLectureById(c *gin.Context)    {}
 func (h *CourseLectureHandlers) AddCourseLecture(c *gin.Context)        {}
-func (h *CourseLectureHandlers) EditCourseLectureById(c *gin.Context)   {}
+func (h *CourseLectureHandlers) UpdateCourseLectureById(c *gin.Context) {}
 func (h *CourseLectureHandlers) DeleteCourseLectureById(c *gin.Context) {}

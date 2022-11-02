@@ -17,7 +17,7 @@ func (r *PostgresRepository) GetMentorNoteByMentorNoteId(ctx context.Context, id
 func (r *PostgresRepository) AddMentorNote(ctx context.Context, data *model.MentorNote) error {
 	panic("Empty")
 }
-func (r *PostgresRepository) EditMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.MentorNote) error {
+func (r *PostgresRepository) UpdateMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.MentorNote) error {
 	panic("Empty")
 }
 func (r *PostgresRepository) DeleteMentorNoteByMentorNoteId(ctx context.Context, id int64) error {
