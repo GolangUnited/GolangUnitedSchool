@@ -2,6 +2,9 @@ package usecase
 
 import (
 	"context"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/group"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/mentor"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/person"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/course"
@@ -35,14 +38,14 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		CertificateTemplate: course.NewCertificateTemplate(lg, repo),
 		StudentHomework:     student.NewStudentHomework(lg, repo),
 		StudentCertificate:  student.NewStudentCertificate(lg, repo),
-		CourseLecture:       NewCourseLecture(lg, repo),
-		CourseStatus:        NewCourseStatus(lg, repo),
-		Person:              NewPerson(lg, repo),
-		Student:             NewStudent(lg, repo),
-		StudentGroup:        NewStudentGroup(lg, repo),
-		StudentNote:         NewStudentNote(lg, repo),
-		Mentor:              NewMentor(lg, repo),
-		GroupContact:        NewGroupContact(lg, repo),
+		CourseLecture:       course.NewCourseLecture(lg, repo),
+		CourseStatus:        course.NewCourseStatus(lg, repo),
+		Person:              person.NewPerson(lg, repo),
+		Student:             student.NewStudent(lg, repo),
+		StudentGroup:        group.NewStudentGroup(lg, repo),
+		StudentNote:         student.NewStudentNote(lg, repo),
+		Mentor:              mentor.NewMentor(lg, repo),
+		GroupContact:        group.NewGroupContact(lg, repo),
 	}
 }
 

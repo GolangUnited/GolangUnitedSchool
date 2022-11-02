@@ -1,4 +1,4 @@
-package usecase
+package student
 
 import (
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"

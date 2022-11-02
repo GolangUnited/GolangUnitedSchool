@@ -1,18 +1,18 @@
-package usecase
+package mentor
 
 import (
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
-type PersonUseCase struct {
+type MentorUseCase struct {
 	lg   logger.Logger
 	repo repository.RepositoryInterface
 }
 
-func NewPerson(
+func NewMentor(
 	lg logger.Logger,
 	repo repository.RepositoryInterface,
-) *PersonUseCase {
-	return &PersonUseCase{lg: lg, repo: repo}
+) *MentorUseCase {
+	return &MentorUseCase{lg: lg, repo: repo}
 }
