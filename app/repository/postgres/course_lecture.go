@@ -1,24 +1,22 @@
 package postgres
 
 import (
-	m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 	"golang.org/x/net/context"
 )
 
-type cntxt context.Context
-
-func (r *PostgresRepository) GetCourseLectures(ctx cntxt) ([]m.CourseLecture, error) {
+func (r *PostgresRepository) GetCourseLectures(ctx context.Context) ([]model.CourseLecture, error) {
 	panic("empty")
 }
-func (r *PostgresRepository) GetCourseLectureById(ctx cntxt, id int64) (*m.CourseLecture, error) {
+func (r *PostgresRepository) GetCourseLectureById(ctx context.Context, id int64) (*model.CourseLecture, error) {
 	panic("empty")
 }
-func (r *PostgresRepository) AddCourseLecture(ctx cntxt, data *m.CourseLecture) error {
+func (r *PostgresRepository) AddCourseLecture(ctx context.Context, data *model.CourseLecture) error {
 	panic("empty")
 }
-func (r *PostgresRepository) EditCourseLectureById(ctx cntxt, id int64, data *m.CourseLecture) error {
+func (r *PostgresRepository) EditCourseLectureById(ctx context.Context, id int64, data *model.CourseLecture) error {
 	panic("empty")
 }
-func (r *PostgresRepository) DeleteCourseLectureById(ctx cntxt, id int64) error {
+func (r *PostgresRepository) DeleteCourseLectureById(ctx context.Context, id int64) error {
 	panic("empty")
 }

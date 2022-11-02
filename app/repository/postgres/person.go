@@ -1,19 +1,22 @@
 package postgres
 
-import m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+import (
+	"context"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+)
 
-func (r *PostgresRepository) GetPersons(ctx cntxt) ([]m.Person, error) {
+func (r *PostgresRepository) GetPersons(ctx context.Context) ([]model.Person, error) {
 	panic("empty")
 }
-func (r *PostgresRepository) GetPersonById(ctx cntxt, id int64) (*m.Person, error) {
+func (r *PostgresRepository) GetPersonById(ctx context.Context, id int64) (*model.Person, error) {
 	panic("empty")
 }
-func (r *PostgresRepository) AddNewPerson(ctx cntxt, data *m.Person) error {
+func (r *PostgresRepository) AddNewPerson(ctx context.Context, data *model.Person) error {
 	panic("empty")
 }
-func (r *PostgresRepository) EditPersonById(ctx cntxt, id int64, data *m.Person) error {
+func (r *PostgresRepository) EditPersonById(ctx context.Context, id int64, data *model.Person) error {
 	panic("empty")
 }
-func (r *PostgresRepository) DeletePersonById(ctx cntxt, id int64) error {
+func (r *PostgresRepository) DeletePersonById(ctx context.Context, id int64) error {
 	panic("empty")
 }

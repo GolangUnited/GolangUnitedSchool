@@ -1,19 +1,22 @@
 package postgres
 
-import m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+import (
+	"context"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+)
 
-func (r *PostgresRepository) GetCourseStatuses(ctx cntxt) ([]m.CourseStatus, error) {
+func (r *PostgresRepository) GetCourseStatuses(ctx context.Context) ([]model.CourseStatus, error) {
 	panic("empty")
 }
-func (r *PostgresRepository) GetCourseStatusById(ctx cntxt, id int64) (*m.CourseStatus, error) {
+func (r *PostgresRepository) GetCourseStatusById(ctx context.Context, id int64) (*model.CourseStatus, error) {
 	panic("empty")
 }
-func (r *PostgresRepository) AddCourseStatus(ctx cntxt, data *m.CourseStatus) error {
+func (r *PostgresRepository) AddCourseStatus(ctx context.Context, data *model.CourseStatus) error {
 	panic("empty")
 }
-func (r *PostgresRepository) EditCourseStatusById(ctx cntxt, id int64, data *m.CourseStatus) error {
+func (r *PostgresRepository) EditCourseStatusById(ctx context.Context, id int64, data *model.CourseStatus) error {
 	panic("empty")
 }
-func (r *PostgresRepository) DeleteCourseStatusById(ctx cntxt, id int64) error {
+func (r *PostgresRepository) DeleteCourseStatusById(ctx context.Context, id int64) error {
 	panic("empty")
 }
