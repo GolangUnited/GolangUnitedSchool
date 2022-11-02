@@ -1,18 +1,19 @@
 package postgres
 
-import (
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
-)
+import m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 
-type MentorRepo struct {
-	lg   *zap.Logger
-	pool *pgxpool.Pool
+func (r *PostgresRepository) GetMentors(ctx cntxt) ([]m.Mentor, error) {
+	panic("empty")
 }
-
-func NewMentor(lg *zap.Logger, pool *pgxpool.Pool) *MentorRepo {
-	return &MentorRepo{
-		lg:   lg,
-		pool: pool,
-	}
+func (r *PostgresRepository) GetMentorById(ctx cntxt, id int64) (*m.Mentor, error) {
+	panic("empty")
+}
+func (r *PostgresRepository) AddMentor(ctx cntxt, data *m.Mentor) error {
+	panic("empty")
+}
+func (r *PostgresRepository) EditMentorByMentorId(ctx cntxt, id int64, data *m.Mentor) error {
+	panic("empty")
+}
+func (r *PostgresRepository) DeleteMentorByMentorId(ctx cntxt, id int64) error {
+	panic("empty")
 }

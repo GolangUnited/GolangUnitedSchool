@@ -1,20 +1,19 @@
 package postgres
 
-import (
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
-)
+import m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 
-type StudentNoteTypeRepo struct {
-	lg   *zap.Logger
-	pool *pgxpool.Pool
+func (r *PostgresRepository) GetStudentNoteTypes(ctx cntxt) ([]m.StudentNoteType, error) {
+	panic("empty")
 }
-
-func NewStudentNoteType(
-	lg *zap.Logger,
-	pool *pgxpool.Pool) *StudentNoteTypeRepo {
-	return &StudentNoteTypeRepo{
-		lg:   lg,
-		pool: pool,
-	}
+func (r *PostgresRepository) GetStudentNoteTypeById(ctx cntxt, id int64) (*m.StudentNoteType, error) {
+	panic("empty")
+}
+func (r *PostgresRepository) AddStudentNoteType(ctx cntxt, data *m.StudentNoteType) error {
+	panic("empty")
+}
+func (r *PostgresRepository) EditStudentNoteTypeById(ctx cntxt, id int64, data *m.StudentNoteType) error {
+	panic("empty")
+}
+func (r *PostgresRepository) DeleteStudentNoteTypeById(ctx cntxt, is int64) error {
+	panic("empty")
 }

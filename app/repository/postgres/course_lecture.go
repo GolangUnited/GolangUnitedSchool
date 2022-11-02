@@ -1,18 +1,24 @@
 package postgres
 
 import (
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
+	m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+	"golang.org/x/net/context"
 )
 
-type CourseLectureRepo struct {
-	lg   *zap.Logger
-	pool *pgxpool.Pool
-}
+type cntxt context.Context
 
-func NewCourseLecture(lg *zap.Logger, pool *pgxpool.Pool) *CourseLectureRepo {
-	return &CourseLectureRepo{
-		lg:   lg,
-		pool: pool,
-	}
+func (r *PostgresRepository) GetCourseLectures(ctx cntxt) ([]m.CourseLecture, error) {
+	panic("empty")
+}
+func (r *PostgresRepository) GetCourseLectureById(ctx cntxt, id int64) (*m.CourseLecture, error) {
+	panic("empty")
+}
+func (r *PostgresRepository) AddCourseLecture(ctx cntxt, data *m.CourseLecture) error {
+	panic("empty")
+}
+func (r *PostgresRepository) EditCourseLectureById(ctx cntxt, id int64, data *m.CourseLecture) error {
+	panic("empty")
+}
+func (r *PostgresRepository) DeleteCourseLectureById(ctx cntxt, id int64) error {
+	panic("empty")
 }

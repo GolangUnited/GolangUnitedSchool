@@ -1,18 +1,19 @@
 package postgres
 
-import (
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
-)
+import m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 
-type CourseStatusRepo struct {
-	lg   *zap.Logger
-	pool *pgxpool.Pool
+func (r *PostgresRepository) GetCourseStatuses(ctx cntxt) ([]m.CourseStatus, error) {
+	panic("empty")
 }
-
-func NewCourseStatus(lg *zap.Logger, pool *pgxpool.Pool) *CourseStatusRepo {
-	return &CourseStatusRepo{
-		lg:   lg,
-		pool: pool,
-	}
+func (r *PostgresRepository) GetCourseStatusById(ctx cntxt, id int64) (*m.CourseStatus, error) {
+	panic("empty")
+}
+func (r *PostgresRepository) AddCourseStatus(ctx cntxt, data *m.CourseStatus) error {
+	panic("empty")
+}
+func (r *PostgresRepository) EditCourseStatusById(ctx cntxt, id int64, data *m.CourseStatus) error {
+	panic("empty")
+}
+func (r *PostgresRepository) DeleteCourseStatusById(ctx cntxt, id int64) error {
+	panic("empty")
 }

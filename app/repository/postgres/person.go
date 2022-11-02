@@ -1,18 +1,19 @@
 package postgres
 
-import (
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
-)
+import m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 
-type PersonRepo struct {
-	lg   *zap.Logger
-	pool *pgxpool.Pool
+func (r *PostgresRepository) GetPersons(ctx cntxt) ([]m.Person, error) {
+	panic("empty")
 }
-
-func NewPerson(lg *zap.Logger, pool *pgxpool.Pool) *PersonRepo {
-	return &PersonRepo{
-		lg:   lg,
-		pool: pool,
-	}
+func (r *PostgresRepository) GetPersonById(ctx cntxt, id int64) (*m.Person, error) {
+	panic("empty")
+}
+func (r *PostgresRepository) AddNewPerson(ctx cntxt, data *m.Person) error {
+	panic("empty")
+}
+func (r *PostgresRepository) EditPersonById(ctx cntxt, id int64, data *m.Person) error {
+	panic("empty")
+}
+func (r *PostgresRepository) DeletePersonById(ctx cntxt, id int64) error {
+	panic("empty")
 }

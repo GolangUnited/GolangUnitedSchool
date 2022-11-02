@@ -49,7 +49,7 @@ func personRouter(
 	{
 		person.GET("", h.Person.GetPersons)
 		person.GET("/:person_id", h.Person.GetPersonById)
-		person.DELETE("/:person_id", h.Person.AddNewPerson)
+		person.DELETE("/:person_id", h.Person.DeletePersonById)
 		person.POST("", h.Person.AddNewPerson)
 		person.PUT("/:person_id", h.Person.EditPersonById)
 
@@ -80,7 +80,7 @@ func mentorRouter(
 		mentor.GET("", h.Mentor.GetMentors)
 		mentor.GET("/:mentor_id", h.Mentor.GetMentorByMentorId)
 		mentor.POST("", h.Mentor.AddMentor)
-		mentor.DELETE("/:mentor_id", h.Mentor.RemoveMentorByMentorId)
+		mentor.DELETE("/:mentor_id", h.Mentor.DeleteMentorByMentorId)
 		mentor.PUT("/:mentor_id", h.Mentor.EditMentorByMentorId)
 
 	}
@@ -95,7 +95,7 @@ func mentorNoteRouter(
 		mentorNote.GET("", h.MentorNote.GetMentorNotes)
 		mentorNote.GET("/:mentor_id", h.MentorNote.GetMentorNotesByMentorId)
 		mentorNote.GET("/:mentor_note_id", h.MentorNote.GetMentorNoteByMentorNoteId)
-		mentorNote.POST("", h.MentorNote.AddNewMentorNote)
+		mentorNote.POST("", h.MentorNote.AddMentorNote)
 		mentorNote.PUT("/:mentor_note_id", h.MentorNote.EditMentorNoteByMentorNoteId)
 		mentorNote.DELETE("/:mentor_note_id", h.MentorNote.DeleteMentorNoteByMentorNoteId)
 	}
@@ -154,7 +154,7 @@ func studentGroupRouter(
 		studentGroup.GET("", h.StudentGroup.GetStudentGroups)
 		studentGroup.GET("/:student_group_id", h.StudentGroup.GetStudentGroupById)
 		studentGroup.POST("", h.StudentGroup.AddStudentGroup)
-		studentGroup.PUT("/:student_group_id", h.StudentGroup.AddStudentGroup)
+		studentGroup.PUT("/:student_group_id", h.StudentGroup.EditStudentGroupbyId)
 		studentGroup.DELETE("/:student_group_id", h.StudentGroup.DeleteStudentGroup)
 
 	}

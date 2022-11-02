@@ -1,18 +1,19 @@
 package postgres
 
-import (
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
-)
+import m "github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 
-type StudentGroupRepo struct {
-	lg   *zap.Logger
-	pool *pgxpool.Pool
+func (r *PostgresRepository) GetStudentGroups(ctx cntxt) ([]m.StudentGroup, error) {
+	panic("empty")
 }
-
-func NewStudentGroup(lg *zap.Logger, pool *pgxpool.Pool) *StudentGroupRepo {
-	return &StudentGroupRepo{
-		lg:   lg,
-		pool: pool,
-	}
+func (r *PostgresRepository) GetStudentGroupById(ctx cntxt, id int64) (*m.StudentGroup, error) {
+	panic("empty")
+}
+func (r *PostgresRepository) AddStudentGroup(ctx cntxt, data *m.StudentGroup) error {
+	panic("empty")
+}
+func (r *PostgresRepository) EditStudentGroupById(ctx cntxt, id int64, data *m.StudentGroup) error {
+	panic("empty")
+}
+func (r *PostgresRepository) DeleteStudentGroupById(ctx cntxt, id int64) error {
+	panic("empty")
 }
