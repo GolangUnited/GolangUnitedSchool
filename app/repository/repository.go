@@ -46,9 +46,9 @@ type RepositoryInterface interface {
 	//group contact
 	GetGroupContacts(ctx context.Context) ([]model.GroupContact, error)
 	GetGroupContactById(ctx context.Context, id int64) (*model.GroupContact, error)
-	AddGroupContact(ctx, data *model.GroupContact) error
+	AddGroupContact(ctx context.Context, data *model.GroupContact) error
 	EditGroupContactById(ctx context.Context, id int64, data *model.GroupContact) error
-	DeleteGroupContactById(ctx, id int64) error
+	DeleteGroupContactById(ctx context.Context, id int64) error
 	// student group
 	GetStudentGroups(ctx context.Context) ([]model.StudentGroup, error)
 	GetStudentGroupById(ctx context.Context, id int64) (*model.StudentGroup, error)
