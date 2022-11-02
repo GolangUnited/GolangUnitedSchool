@@ -2,8 +2,11 @@ package main
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver"
@@ -41,6 +44,7 @@ func execute(cfg *config.Config) error {
 	// add service name to logger
 	lg.With("service name", cfg.ServiceName)
 
+	// get new postgres pool of connections
 	dbCtx := context.Background()
 	dbPool, err := postgres.NewDbPool(dbCtx, cfg.PgDsn)
 	if err != nil {
@@ -48,83 +52,38 @@ func execute(cfg *config.Config) error {
 		return err
 	}
 
-	// init course repository, useCase and handlers
-	courseRepo := postgres.NewCourse(lg, dbPool)
-	courseUseCase := usecase.NewCourse(lg, courseRepo)
-	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
-	// init person rep, useCase and handlers
-	personRepo := postgres.NewPerson(lg, dbPool)
-	personUseCase := usecase.NewPerson(lg, personRepo)
-	personHandler := v1.NewPersonHandler(lg, personUseCase)
-	// init student rep, useCase and handlers
-	studentRepo := postgres.NewStudent(lg, dbPool)
-	studentUseCase := usecase.NewStudent(lg, studentRepo)
-	studentHandler := v1.NewStudentHandler(lg, studentUseCase)
-	// init mentor rep, useCase and handlers
-	mentorRepo := postgres.NewMentor(lg, dbPool)
-	mentorUseCase := usecase.NewMentor(lg, mentorRepo)
-	mentorHandler := v1.NewMentorHandler(lg, mentorUseCase)
-	// init
-	mentorNoteRepo := postgres.NewMentorNote(lg, dbPool)
-	mentorNoteUseCase := usecase.NewMentorNote(lg, mentorNoteRepo)
-	mentorNoteHandler := v1.NewMentorNoteHandler(lg, mentorNoteUseCase)
-	// init
-	studentNoteRepo := postgres.NewStudentNote(lg, dbPool)
-	studentNoteUseCase := usecase.NewStudentNote(lg, studentNoteRepo)
-	studentNoteHandler := v1.NewStudentNoteHandler(lg, studentNoteUseCase)
-	// init
-	studentNoteTypeRepo := postgres.NewStudentNoteType(lg, dbPool)
-	studentNoteTypeUseCase := usecase.NewStudentNoteType(lg, studentNoteTypeRepo)
-	studentNoteTypeHandler := v1.NewStudentNoteTypeHandler(lg, studentNoteTypeUseCase)
-	//init
-	groupContactRepo := postgres.NewGroupContact(lg, dbPool)
-	groupContactUseCase := usecase.NewGroupContact(lg, groupContactRepo)
-	groupContactHandler := v1.NewGroupContactHandler(lg, groupContactUseCase)
-	// init
-	studentGroupRepo := postgres.NewStudentGroup(lg, dbPool)
-	studentGroupUseCase := usecase.NewStudentGroup(lg, studentGroupRepo)
-	studentGroupHandler := v1.NewStudentGroupHandler(lg, studentGroupUseCase)
-	// init
-	courseStatusRepo := postgres.NewCourseStatus(lg, dbPool)
-	courseStatusUseCase := usecase.NewCourseStatus(lg, courseStatusRepo)
-	courseStatusHandler := v1.NewCourseStatusHandler(lg, courseStatusUseCase)
-	// init
-	courseLectureRepo := postgres.NewCourseLecture(lg, dbPool)
-	courseLectureUseCase := usecase.NewCourseLecture(lg, courseLectureRepo)
-	courseLectureHandler := v1.NewCourseLectureHandler(lg, courseLectureUseCase)
+	// init all layers
+	repo := postgres.NewPostgresRepository(lg, dbPool)
+	usecases := usecase.InitUsecases(lg, repo)
+	handlers := v1.InitHandlers(lg, *usecases)
+	router := httpserver.NewRouter(handlers)
 
-	router := httpserver.NewRouter(
-		courseHandler,
-		personHandler,
-		studentHandler,
-		mentorHandler,
-		mentorNoteHandler,
-		studentNoteHandler,
-		studentNoteTypeHandler,
-		groupContactHandler,
-		studentGroupHandler,
-		courseStatusHandler,
-		courseLectureHandler,
-	)
 	srv := &http.Server{
-		Addr:           cfg.Host,
+		Addr:           net.JoinHostPort(cfg.Host, cfg.Port),
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 
+	// channel to graceful shutdown
+	quit := make(chan os.Signal, 1)
+	defer close(quit)
+	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+
+	// run server in goroutine
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
-			lg.Error("server shut down")
+			lg.Error("server shutdown", err)
 			return
 		}
 	}()
 
-	quit := make(chan os.Signal, 1)
-
+	// waiting for os.Signal
 	<-quit
 
+	lg.Info("shutdown server ...")
+	// shutdown server
 	shCtx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	if err := srv.Shutdown(shCtx); err != nil {

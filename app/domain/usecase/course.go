@@ -1,18 +1,20 @@
 package usecase
 
 import (
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
-type CourseUseCase struct {
-	lg   *zap.Logger
+type CourseUsecase struct {
+	lg   logger.Logger
 	repo repository.RepositoryInterface
 }
 
 func NewCourse(
-	lg *zap.Logger,
+
+	lg logger.Logger,
 	repo repository.RepositoryInterface,
-) *CourseUseCase {
-	return &CourseUseCase{lg: lg, repo: repo}
+) *CourseUsecase {
+	return &CourseUsecase{lg: lg, repo: repo}
+
 }

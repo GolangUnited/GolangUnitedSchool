@@ -6,195 +6,184 @@ import (
 )
 
 func NewRouter(
-	courseHandler *v1.CourseHandlers,
-	personHandler *v1.PersonHandlers,
-	studentHandler *v1.StudentHandlers,
-	mentorHandler *v1.MentorHandlers,
-	mentorNoteHandler *v1.MentorNoteHandlers,
-	studentNoteHandler *v1.StudentNoteHandlers,
-	studentNoteTypeHandler *v1.StudentNoteTypeHandlers,
-	groupContactHandler *v1.GroupContactHandlers,
-	studentGroupHandler *v1.StudentGroupHandlers,
-	courseStatusHandler *v1.CourseStatusHandlers,
-	courseLectureHandler *v1.CourseLectureHandlers,
+	handlers *v1.Handlers,
 ) *gin.Engine {
 	router := gin.Default()
 
 	api := router.Group("/api/v1")
-	courseRouter(api, courseHandler)
-	personRouter(api, personHandler)
-	studentRouter(api, studentHandler)
-	mentorRouter(api, mentorHandler)
-	mentorNoteRouter(api, mentorNoteHandler)
-	studentNoteRouter(api, studentNoteHandler)
-	studentNoteTypeRouter(api, studentNoteTypeHandler)
-	groupContactRouter(api, groupContactHandler)
-	studentGroupRouter(api, studentGroupHandler)
-	courseStatusRouter(api, courseStatusHandler)
-	courseLectureRouter(api, courseLectureHandler)
+	courseRouter(api, handlers)
+	personRouter(api, handlers)
+	studentRouter(api, handlers)
+	mentorRouter(api, handlers)
+	mentorNoteRouter(api, handlers)
+	studentNoteRouter(api, handlers)
+	studentNoteTypeRouter(api, handlers)
+	groupContactRouter(api, handlers)
+	studentGroupRouter(api, handlers)
+	courseStatusRouter(api, handlers)
+	courseLectureRouter(api, handlers)
 
 	return router
 }
 
 func courseRouter(
 	api *gin.RouterGroup,
-	h *v1.CourseHandlers,
+	h *v1.Handlers,
 ) {
 	course := api.Group("/course")
 	{
-		course.GET("", h.GetCourses)
-		course.GET("/:course_id", h.GetCourseById)
-		course.POST("", h.CreateCourse)
-		course.PATCH("/:course_id", h.EditCourseById)
-		course.PUT("", h.AddCourse)
-		course.DELETE("", h.DeleteCourse)
-		course.DELETE("/:course_id", h.DeleteCourseById)
+		course.GET("", h.Course.GetCourses)
+		course.GET("/:course_id", h.Course.GetCourseById)
+		course.POST("", h.Course.AddCourse)
+		course.PUT(":course_id", h.Course.EditCourseById)
+		course.DELETE("/:course_id", h.Course.DeleteCourseByID)
+
 	}
 }
 
 func personRouter(
 	api *gin.RouterGroup,
-	h *v1.PersonHandlers,
+	h *v1.Handlers,
 ) {
 	person := api.Group("/person")
 	{
-		person.GET("", h.GetPersons)
-		person.GET("/:person_id", h.GetPersonById)
-		person.DELETE("/:person_id", h.DeletePersonById)
-		person.POST("", h.AddNewPerson)
-		person.PUT("/:person_id", h.EditPersonById)
+		person.GET("", h.Person.GetPersons)
+		person.GET("/:person_id", h.Person.GetPersonById)
+		person.DELETE("/:person_id", h.Person.AddNewPerson)
+		person.POST("", h.Person.AddNewPerson)
+		person.PUT("/:person_id", h.Person.EditPersonById)
 
 	}
 }
 
 func studentRouter(
 	api *gin.RouterGroup,
-	h *v1.StudentHandlers,
+	h *v1.Handlers,
 ) {
 	student := api.Group("/student")
 	{
-		student.GET("", h.GetStudents)
-		student.GET("/:student_id", h.GetStudentByStudentId)
-		student.DELETE("/:student_id", h.DeleteStudentByStudentId)
-		student.POST("", h.AddStudent)
-		student.PUT("/:student_id", h.EditStudentByStudentId)
+		student.GET("", h.Student.GetStudents)
+		student.GET("/:student_id", h.Student.GetStudentByStudentId)
+		student.DELETE("/:student_id", h.Student.DeleteStudentByStudentId)
+		student.POST("", h.Student.AddStudent)
+		student.PUT("/:student_id", h.Student.EditStudentByStudentId)
 
 	}
 }
 
 func mentorRouter(
 	api *gin.RouterGroup,
-	h *v1.MentorHandlers,
+	h *v1.Handlers,
 ) {
 	mentor := api.Group("/mentor")
 	{
-		mentor.GET("", h.GetMentors)
-		mentor.GET("/:mentor_id", h.GetMentorByMentorId)
-		mentor.POST("", h.AddMentor)
-		mentor.DELETE("/:mentor_id", h.RemoveMentorByMentorId)
-		mentor.PUT("/:mentor_id", h.EditMentorByMentorId)
+		mentor.GET("", h.Mentor.GetMentors)
+		mentor.GET("/:mentor_id", h.Mentor.GetMentorByMentorId)
+		mentor.POST("", h.Mentor.AddMentor)
+		mentor.DELETE("/:mentor_id", h.Mentor.RemoveMentorByMentorId)
+		mentor.PUT("/:mentor_id", h.Mentor.EditMentorByMentorId)
 
 	}
 }
 
 func mentorNoteRouter(
 	api *gin.RouterGroup,
-	h *v1.MentorNoteHandlers,
+	h *v1.Handlers,
 ) {
 	mentorNote := api.Group("/mentor/note")
 	{
-		mentorNote.GET("", h.GetMentorNotes)
-		mentorNote.GET("/:mentor_id", h.GetMentorNotesByMentorId)
-		mentorNote.GET("/:mentor_note_id", h.GetMentorNoteByMentorNoteId)
-		mentorNote.POST("", h.AddNewMentorNote)
-		mentorNote.PUT("/:mentor_note_id", h.EditMentorNoteByMentorNoteId)
-		mentorNote.DELETE("/:mentor_note_id", h.DeleteMentorNoteByMentorNoteId)
+		mentorNote.GET("", h.MentorNote.GetMentorNotes)
+		mentorNote.GET("/:mentor_id", h.MentorNote.GetMentorNotesByMentorId)
+		mentorNote.GET("/:mentor_note_id", h.MentorNote.GetMentorNoteByMentorNoteId)
+		mentorNote.POST("", h.MentorNote.AddNewMentorNote)
+		mentorNote.PUT("/:mentor_note_id", h.MentorNote.EditMentorNoteByMentorNoteId)
+		mentorNote.DELETE("/:mentor_note_id", h.MentorNote.DeleteMentorNoteByMentorNoteId)
 	}
 }
 
 func studentNoteRouter(
 	api *gin.RouterGroup,
-	h *v1.StudentNoteHandlers,
+	h *v1.Handlers,
 ) {
 	studentNote := api.Group("/student/note")
 	{
-		studentNote.GET("", h.GetStudentNotes)
-		studentNote.GET("/:student_id", h.GetStudentNotesByStudentId)
-		studentNote.GET("/:student_note_id", h.GetStudentNoteByStudentNoteId)
-		studentNote.POST("", h.AddStudentNote)
-		studentNote.PUT("/:student_note_id", h.EditStudentNoteByStudentNoteId)
-		studentNote.DELETE("/:student_note_id", h.DeleteStudentNote)
+		studentNote.GET("", h.StudentNote.GetStudentNotes)
+		studentNote.GET("/:student_id", h.StudentNote.GetStudentNotesByStudentId)
+		studentNote.GET("/:student_note_id", h.StudentNote.GetStudentNoteByStudentNoteId)
+		studentNote.POST("", h.StudentNote.AddStudentNote)
+		studentNote.PUT("/:student_note_id", h.StudentNote.EditStudentNoteByStudentNoteId)
+		studentNote.DELETE("/:student_note_id", h.StudentNote.DeleteStudentNote)
 	}
 }
 
 func studentNoteTypeRouter(
 	api *gin.RouterGroup,
-	h *v1.StudentNoteTypeHandlers,
+	h *v1.Handlers,
 ) {
 	studentNoteType := api.Group("/student/note_type")
 	{
-		studentNoteType.GET("", h.GetStudentNoteTypes)
-		studentNoteType.GET("/:student_note_type_id", h.GetStudentNoteTypeById)
-		studentNoteType.POST("", h.AddStudentNoteType)
-		studentNoteType.PUT("/:student_note_type_id", h.EditStudentNoteTypeById)
-		studentNoteType.DELETE("/:student_note_type_id", h.DeleteStudentNoteTypeById)
+		studentNoteType.GET("", h.StudentNoteType.GetStudentNoteTypes)
+		studentNoteType.GET("/:student_note_type_id", h.StudentNoteType.GetStudentNoteTypeById)
+		studentNoteType.POST("", h.StudentNoteType.AddStudentNoteType)
+		studentNoteType.PUT("/:student_note_type_id", h.StudentNoteType.EditStudentNoteTypeById)
+		studentNoteType.DELETE("/:student_note_type_id", h.StudentNoteType.DeleteStudentNoteTypeById)
 	}
 
 }
 
 func groupContactRouter(
 	api *gin.RouterGroup,
-	h *v1.GroupContactHandlers,
+	h *v1.Handlers,
 ) {
 	groupContact := api.Group("/group/contact")
 	{
-		groupContact.GET("", h.GetGroupContacts)
-		groupContact.GET("/:group_contact_id", h.GetGroupContactById)
-		groupContact.POST("", h.AddGroupContact)
-		groupContact.PUT("/:group_contact_id", h.UpdateGroupContact)
-		groupContact.DELETE("/:group_contact_id", h.DeleteGroupContact)
+		groupContact.GET("", h.GroupContact.GetGroupContacts)
+		groupContact.GET("/:group_contact_id", h.GroupContact.GetGroupContactById)
+		groupContact.POST("", h.GroupContact.AddGroupContact)
+		groupContact.PUT("/:group_contact_id", h.GroupContact.UpdateGroupContact)
+		groupContact.DELETE("/:group_contact_id", h.GroupContact.DeleteGroupContact)
 	}
 }
 
 func studentGroupRouter(
 	api *gin.RouterGroup,
-	h *v1.StudentGroupHandlers,
+	h *v1.Handlers,
 ) {
 	studentGroup := api.Group("/group/students")
 	{
-		studentGroup.GET("", h.GetStudentGroups)
-		studentGroup.GET("/:student_group_id", h.GetStudentGroupById)
-		studentGroup.POST("", h.AddStudentGroup)
-		studentGroup.PUT("/:student_group_id", h.AddStudentGroup)
-		studentGroup.DELETE("/:stident_group_id", h.DeleteStudentGroup)
+		studentGroup.GET("", h.StudentGroup.GetStudentGroups)
+		studentGroup.GET("/:student_group_id", h.StudentGroup.GetStudentGroupById)
+		studentGroup.POST("", h.StudentGroup.AddStudentGroup)
+		studentGroup.PUT("/:student_group_id", h.StudentGroup.AddStudentGroup)
+		studentGroup.DELETE("/:student_group_id", h.StudentGroup.DeleteStudentGroup)
 
 	}
 }
 
 func courseStatusRouter(
 	api *gin.RouterGroup,
-	h *v1.CourseStatusHandlers,
+	h *v1.Handlers,
 ) {
 	courseStatus := api.Group("/course/status")
 	{
-		courseStatus.GET("", h.GetCourseStatuses)
-		courseStatus.GET("/:course_status_id", h.GetCourseStatusById)
-		courseStatus.POST("", h.AddCourseStatus)
-		courseStatus.PUT("/:course_status_id", h.EditCourseStatusById)
-		courseStatus.DELETE("/:course_status_id", h.DeleteCourseStatusById)
+		courseStatus.GET("", h.CourseStatus.GetCourseStatuses)
+		courseStatus.GET("/:course_status_id", h.CourseStatus.GetCourseStatusById)
+		courseStatus.POST("", h.CourseStatus.AddCourseStatus)
+		courseStatus.PUT("/:course_status_id", h.CourseStatus.EditCourseStatusById)
+		courseStatus.DELETE("/:course_status_id", h.CourseStatus.DeleteCourseStatusById)
 	}
 }
 
 func courseLectureRouter(
 	api *gin.RouterGroup,
-	h *v1.CourseLectureHandlers,
+	h *v1.Handlers,
 ) {
 	courseLecture := api.Group("/course/lecture")
 	{
-		courseLecture.GET("", h.GetCourseLectures)
-		courseLecture.GET("/course_lecture_id", h.GetCourseLectureById)
-		courseLecture.POST("", h.AddCourseLecture)
-		courseLecture.PUT("/:course_lecture_id", h.EditCourseLectureById)
-		courseLecture.DELETE("/:course_lecture_id", h.DeleteCourseLectureById)
+		courseLecture.GET("", h.CourseLecture.GetCourseLectures)
+		courseLecture.GET("/course_lecture_id", h.CourseLecture.GetCourseLectureById)
+		courseLecture.POST("", h.CourseLecture.AddCourseLecture)
+		courseLecture.PUT("/:course_lecture_id", h.CourseLecture.EditCourseLectureById)
+		courseLecture.DELETE("/:course_lecture_id", h.CourseLecture.DeleteCourseLectureById)
 	}
 }

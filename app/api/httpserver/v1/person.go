@@ -14,12 +14,12 @@ type PersonHandlers struct {
 func NewPersonHandler(lg logger.Logger,
 	useCase usecase.PersonUseCaseInterface,
 ) *PersonHandlers {
+
 	return &PersonHandlers{
 		lg:      lg,
 		useCase: useCase,
 	}
 }
-
 func (h *PersonHandlers) GetPersons(c *gin.Context)       {}
 func (h *PersonHandlers) AddNewPerson(c *gin.Context)     {}
 func (h *PersonHandlers) GetPersonById(c *gin.Context)    {}

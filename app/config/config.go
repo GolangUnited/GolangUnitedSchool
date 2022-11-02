@@ -13,7 +13,7 @@ type Logger struct {
 
 type Config struct {
 	ServiceName string `env:"SERVICE_NAME" envDefault:"golangUnitedSchool"`
-	Port        int    `env:"PORT" envDefault:"8080"`
+	Port        string `env:"PORT" envDefault:"8080"`
 	Host        string `env:"HOST" envDefault:"0.0.0.0"`
 	PgDsn       string `env:"PG_DSN" envDefault:"postgres://pguser:pguser@localhost:5432/pgdb?sslmode=disable"`
 	Logger      Logger
