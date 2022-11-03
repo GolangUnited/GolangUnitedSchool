@@ -48,7 +48,19 @@ type RepositoryInterface interface {
 	UpdateStudentCertificate(ctx context.Context, id int64, data *model.StudentCertificate) error
 	DeleteStudentCertificate(ctx context.Context, id int64) error
 
-	GetOperationLogById(ctx context.Context, id int64) (*model.OperationLog, error)
-	AddOperationLog(ctx context.Context, data *model.OperationLog) error
-	DeleteOperationLog(ctx context.Context, id int64) error
+	GetLogOperationById(ctx context.Context, id int64) (*model.LogOperation, error)
+	AddLogOperation(ctx context.Context, data *model.LogOperation) error
+	DeleteLogOperation(ctx context.Context, id int64) error
+
+	GetOperations(ctx context.Context) (*model.Operation, error)
+	GetOperationById(ctx context.Context, id int64) (*model.Operation, error)
+	AddOperation(ctx context.Context) error
+	UpdateOperation(ctx context.Context, id int64) error
+	DeleteOperation(ctx context.Context, id int64) error
+
+	GetOperationTypes(ctx context.Context) (*model.OperationType, error)
+	GetOperationTypeById(ctx context.Context, id int64) (*model.OperationType, error)
+	AddOperationType(ctx context.Context) error
+	UpdateOperationType(ctx context.Context, id int64) error
+	DeleteOperationType(ctx context.Context, id int64) error
 }

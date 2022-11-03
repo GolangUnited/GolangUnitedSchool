@@ -19,7 +19,9 @@ type Usecases struct {
 	CertificateTemplate CertificateTemplateUsecaseInterface
 	StudentHomework     StudentHomeworkUsecaseInterface
 	StudentCertificate  StudentCertificateUsecaseInterface
-	OperationLog        OperationLogUsecaseInterface
+	LogOperation        LogOperationUsecaseInterface
+	Operation           OperationUsecaseInterface
+	OperationType       OperationTypeUsecaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -31,7 +33,9 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		CertificateTemplate: course.NewCertificateTemplate(lg, repo),
 		StudentHomework:     student.NewStudentHomework(lg, repo),
 		StudentCertificate:  student.NewStudentCertificate(lg, repo),
-		OperationLog:        operation.NewOperationLog(lg, repo),
+		LogOperation:        operation.NewLogOperation(lg, repo),
+		Operation:           operation.NewOperation(lg, repo),
+		OperationType:       operation.NewOperationType(lg, repo),
 	}
 }
 
@@ -96,8 +100,24 @@ type StudentCertificateUsecaseInterface interface {
 	DeleteStudentCertificate(ctx context.Context, id int64) error
 }
 
-type OperationLogUsecaseInterface interface {
-	GetOperationLogById(ctx context.Context, id int64) (*model.OperationLog, error)
-	AddOperationLog(ctx context.Context, data *model.OperationLog) error
-	DeleteOperationLog(ctx context.Context, id int64) error
+type LogOperationUsecaseInterface interface {
+	GetLogOperationById(ctx context.Context, id int64) (*model.LogOperation, error)
+	AddLogOperation(ctx context.Context, data *model.LogOperation) error
+	DeleteLogOperation(ctx context.Context, id int64) error
+}
+
+type OperationUsecaseInterface interface {
+	GetOperations(ctx context.Context) (*model.Operation, error)
+	GetOperationById(ctx context.Context, id int64) (*model.Operation, error)
+	AddOperation(ctx context.Context) error
+	UpdateOperation(ctx context.Context, id int64) error
+	DeleteOperation(ctx context.Context, id int64) error
+}
+
+type OperationTypeUsecaseInterface interface {
+	GetOperationTypes(ctx context.Context) (*model.OperationType, error)
+	GetOperationTypeById(ctx context.Context, id int64) (*model.OperationType, error)
+	AddOperationType(ctx context.Context) error
+	UpdateOperationType(ctx context.Context, id int64) error
+	DeleteOperationType(ctx context.Context, id int64) error
 }

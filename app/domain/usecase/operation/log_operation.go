@@ -8,31 +8,31 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
-type OperationLogUsecase struct {
+type LogOperationUsecase struct {
 	lg   logger.Logger
 	repo repository.RepositoryInterface
 }
 
-func NewOperationLog(
+func NewLogOperation(
 	lg logger.Logger,
 	repo repository.RepositoryInterface,
-) *OperationLogUsecase {
-	return &OperationLogUsecase{lg: lg, repo: repo}
+) *LogOperationUsecase {
+	return &LogOperationUsecase{lg: lg, repo: repo}
 }
 
-func (u *OperationLogUsecase) GetOperationLogById(
+func (u *LogOperationUsecase) GetLogOperationById(
 	ctx context.Context,
-	id int64) (*model.OperationLog, error) {
+	id int64) (*model.LogOperation, error) {
 	panic("not implemented")
 }
 
-func (u *OperationLogUsecase) AddOperationLog(
+func (u *LogOperationUsecase) AddLogOperation(
 	ctx context.Context,
-	data *model.OperationLog) error {
+	data *model.LogOperation) error {
 	panic("not implemented")
 }
 
-func (u *OperationLogUsecase) DeleteOperationLog(
+func (u *LogOperationUsecase) DeleteLogOperation(
 	ctx context.Context,
 	id int64) error {
 	panic("not implemented")

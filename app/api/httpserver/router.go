@@ -19,7 +19,9 @@ func NewRouter(
 	certificateTemplateRouter(api, handlers.CertificateTemplate)
 	studentHomeworkRouter(api, handlers.StudentHomework)
 	studentCertificateRouter(api, handlers.StudentCertificate)
-	operationLogRouter(api, handlers.OperationLog)
+	logOperationRouter(api, handlers.LogOperation)
+	operationRouter(api, handlers.Operation)
+	operationTypeRouter(api, handlers.OperationType)
 
 	return router
 }
@@ -138,11 +140,33 @@ func projectRouter(api *gin.RouterGroup, h *v1.ProjectHandlers) {
 	}
 }
 
-func operationLogRouter(api *gin.RouterGroup, h *v1.OperationLogHandlers) {
-	project := api.Group("/log")
+func logOperationRouter(api *gin.RouterGroup, h *v1.LogOperationHandlers) {
+	operationLog := api.Group("/log")
 	{
-		project.GET("/:operation_id", h.GetOperationLogById)
-		project.POST("", h.AddOperationLog)
-		project.DELETE("/:operation_id", h.DeleteOperationLog)
+		operationLog.GET("/:log_id", h.GetLogOperationById)
+		operationLog.POST("", h.AddLogOperation)
+		operationLog.DELETE("/:log_id", h.DeleteLogOperation)
+	}
+}
+
+func operationRouter(api *gin.RouterGroup, h *v1.OperationHandlers) {
+	operation := api.Group("/operation")
+	{
+		operation.GET("", h.GetOperations)
+		operation.GET("/:operation_id", h.GetOperationById)
+		operation.POST("", h.AddOperation)
+		operation.PUT("/:operation_id", h.UpdateOperation)
+		operation.DELETE("/:operation_id", h.DeleteOperation)
+	}
+}
+
+func operationTypeRouter(api *gin.RouterGroup, h *v1.OperationTypeHandlers) {
+	operationType := api.Group("/operation_type")
+	{
+		operationType.GET("", h.GetOperationTypes)
+		operationType.GET("/:operation_type_id", h.GetOperationTypeById)
+		operationType.POST("", h.AddOperationType)
+		operationType.PUT("/:operation_type_id", h.UpdateOperationType)
+		operationType.DELETE("/:operation_type_id", h.DeleteOperationType)
 	}
 }
