@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/contact"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/course"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/operation"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/student"
@@ -22,6 +23,7 @@ type Usecases struct {
 	LogOperation        LogOperationUsecaseInterface
 	Operation           OperationUsecaseInterface
 	OperationType       OperationTypeUsecaseInterface
+	ContactType         ContactTypeUsecaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -36,6 +38,7 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		LogOperation:        operation.NewLogOperation(lg, repo),
 		Operation:           operation.NewOperation(lg, repo),
 		OperationType:       operation.NewOperationType(lg, repo),
+		ContactType:         contact.NewContactType(lg, repo),
 	}
 }
 
@@ -120,4 +123,12 @@ type OperationTypeUsecaseInterface interface {
 	AddOperationType(ctx context.Context) error
 	UpdateOperationType(ctx context.Context, id int64) error
 	DeleteOperationType(ctx context.Context, id int64) error
+}
+
+type ContactTypeUsecaseInterface interface {
+	GetContactTypes(ctx context.Context) (*model.ContactType, error)
+	GetContactTypeById(ctx context.Context, id int64) (*model.ContactType, error)
+	AddContactType(ctx context.Context) error
+	UpdateContactType(ctx context.Context, id int64) error
+	DeleteContactType(ctx context.Context, id int64) error
 }

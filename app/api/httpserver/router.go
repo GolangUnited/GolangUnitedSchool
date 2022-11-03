@@ -22,6 +22,7 @@ func NewRouter(
 	logOperationRouter(api, handlers.LogOperation)
 	operationRouter(api, handlers.Operation)
 	operationTypeRouter(api, handlers.OperationType)
+	contactTypeRouter(api, handlers.ContactType)
 
 	return router
 }
@@ -168,5 +169,16 @@ func operationTypeRouter(api *gin.RouterGroup, h *v1.OperationTypeHandlers) {
 		operationType.POST("", h.AddOperationType)
 		operationType.PUT("/:operation_type_id", h.UpdateOperationType)
 		operationType.DELETE("/:operation_type_id", h.DeleteOperationType)
+	}
+}
+
+func contactTypeRouter(api *gin.RouterGroup, h *v1.ContactTypeHandlers) {
+	contactType := api.Group("/contact_type")
+	{
+		contactType.GET("", h.GetContactTypes)
+		contactType.GET("/:contact_type_id", h.GetContactTypeById)
+		contactType.POST("", h.AddContactType)
+		contactType.PUT("/:contact_type_id", h.UpdateContactType)
+		contactType.DELETE("/:contact_type_id", h.DeleteContactType)
 	}
 }

@@ -63,4 +63,10 @@ type RepositoryInterface interface {
 	AddOperationType(ctx context.Context) error
 	UpdateOperationType(ctx context.Context, id int64) error
 	DeleteOperationType(ctx context.Context, id int64) error
+
+	GetContactTypes(ctx context.Context) (*model.ContactType, error)
+	GetContactTypeById(ctx context.Context, id int64) (*model.ContactType, error)
+	AddContactType(ctx context.Context) error
+	UpdateContactType(ctx context.Context, id int64) error
+	DeleteContactType(ctx context.Context, id int64) error
 }

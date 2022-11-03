@@ -17,6 +17,7 @@ type Handlers struct {
 	LogOperation        *LogOperationHandlers
 	Operation           *OperationHandlers
 	OperationType       *OperationTypeHandlers
+	ContactType         *ContactTypeHandlers
 }
 
 func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
@@ -32,5 +33,6 @@ func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
 		LogOperation:        NewLogOperationHandler(lg, u.LogOperation),
 		Operation:           NewOperationHandler(lg, u.Operation),
 		OperationType:       NewOperationTypeHandler(lg, u.OperationType),
+		ContactType:         NewContactTypeHandler(lg, u.ContactType),
 	}
 }
