@@ -41,4 +41,12 @@ type RepositoryInterface interface {
 	AddStudentCertificate(ctx context.Context, data *model.StudentCertificate) error
 	UpdateStudentCertificate(ctx context.Context, id int64, data *model.StudentCertificate) error
 	DeleteStudentCertificate(ctx context.Context, id int64) error
+
+	// Course repo interfaces
+	CreateCourse(context.Context, *model.CourseCreate) (int64, error)
+	GetCourseByID(context.Context, int64) (*model.Course, error)
+	GetCourses(context.Context, *model.PaginationParams) (*model.CourseList, error)
+	UpdateCourseByID(context.Context, int64, *model.CourseUpdate) error
+	PutCourseByID(context.Context, int64, *model.CourseUpdate) error
+	DeleteCourseByID(context.Context, int64) error
 }
