@@ -14,6 +14,7 @@ type Handlers struct {
 	CertificateTemplate *CertificateTemplateHandlers
 	StudentHomework     *StudentHomeworkHandlers
 	StudentCertificate  *StudentCertificateHandlers
+	OperationLog        *OperationLogHandlers
 }
 
 func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
@@ -26,5 +27,6 @@ func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
 		CertificateTemplate: NewCertificateTemplateHandler(lg, u.CertificateTemplate),
 		StudentHomework:     NewStudentHomeworkHandler(lg, u.StudentHomework),
 		StudentCertificate:  NewStudentCertificateHandler(lg, u.StudentCertificate),
+		OperationLog:        NewOperationLogHandler(lg, u.OperationLog),
 	}
 }

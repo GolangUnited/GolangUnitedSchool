@@ -5,6 +5,7 @@ import (
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/course"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/operation"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/student"
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
@@ -18,6 +19,7 @@ type Usecases struct {
 	CertificateTemplate CertificateTemplateUsecaseInterface
 	StudentHomework     StudentHomeworkUsecaseInterface
 	StudentCertificate  StudentCertificateUsecaseInterface
+	OperationLog        OperationLogUsecaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -29,6 +31,7 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		CertificateTemplate: course.NewCertificateTemplate(lg, repo),
 		StudentHomework:     student.NewStudentHomework(lg, repo),
 		StudentCertificate:  student.NewStudentCertificate(lg, repo),
+		OperationLog:        operation.NewOperationLog(lg, repo),
 	}
 }
 
@@ -91,4 +94,10 @@ type StudentCertificateUsecaseInterface interface {
 	AddStudentCertificate(ctx context.Context, data *model.StudentCertificate) error
 	UpdateStudentCertificate(ctx context.Context, id int64, data *model.StudentCertificate) error
 	DeleteStudentCertificate(ctx context.Context, id int64) error
+}
+
+type OperationLogUsecaseInterface interface {
+	GetOperationLogById(ctx context.Context, id int64) (*model.OperationLog, error)
+	AddOperationLog(ctx context.Context, data *model.OperationLog) error
+	DeleteOperationLog(ctx context.Context, id int64) error
 }

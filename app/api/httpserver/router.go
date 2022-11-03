@@ -19,6 +19,7 @@ func NewRouter(
 	certificateTemplateRouter(api, handlers.CertificateTemplate)
 	studentHomeworkRouter(api, handlers.StudentHomework)
 	studentCertificateRouter(api, handlers.StudentCertificate)
+	operationLogRouter(api, handlers.OperationLog)
 
 	return router
 }
@@ -134,5 +135,14 @@ func projectRouter(api *gin.RouterGroup, h *v1.ProjectHandlers) {
 		project.POST("", h.AddProject)
 		project.PUT("/:project_id", h.UpdateProject)
 		project.DELETE("/:project_id", h.DeleteProject)
+	}
+}
+
+func operationLogRouter(api *gin.RouterGroup, h *v1.OperationLogHandlers) {
+	project := api.Group("/log")
+	{
+		project.GET("/:operation_id", h.GetOperationLogById)
+		project.POST("", h.AddOperationLog)
+		project.DELETE("/:operation_id", h.DeleteOperationLog)
 	}
 }
