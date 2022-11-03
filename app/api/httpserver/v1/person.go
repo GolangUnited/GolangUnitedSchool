@@ -1,12 +1,14 @@
 package v1
 
-import "go.uber.org/zap"
+import (
+	"github.com/lozovoya/GolangUnitedSchool/app/logger"
+)
 
 type PersonHandlers struct {
-	log *zap.SugaredLogger
+	log logger.Logger
 }
 
-func NewPersonHandlers(log *zap.SugaredLogger) *PersonHandlers {
+func NewPersonHandler(log logger.Logger) *PersonHandlers {
 	return &PersonHandlers{
 		log: log,
 	}

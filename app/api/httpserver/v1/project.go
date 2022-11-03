@@ -18,11 +18,7 @@ func NewProjectHandler(lg logger.Logger, usecase usecase.ProjectUseCaseInterface
 	}
 }
 
-func (h *ProjectHandlers) CreateProject(c *gin.Context) {
-
-}
-
-func (h *ProjectHandlers) GetProject(c *gin.Context) {
+func (h *ProjectHandlers) GetProjects(c *gin.Context) {
 
 }
 
@@ -30,7 +26,11 @@ func (h *ProjectHandlers) GetProjectByID(c *gin.Context) {
 
 }
 
-func (h *ProjectHandlers) EditProject(c *gin.Context) {
+func (h *ProjectHandlers) AddProject(c *gin.Context) {
+
+}
+
+func (h *ProjectHandlers) UpdateProject(c *gin.Context) {
 
 }
 

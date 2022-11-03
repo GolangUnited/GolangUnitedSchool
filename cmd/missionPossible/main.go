@@ -2,8 +2,11 @@ package main
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver"
@@ -41,6 +44,7 @@ func execute(cfg *config.Config) error {
 	// add service name to logger
 	lg.With("service name", cfg.ServiceName)
 
+	// get new postgres pool of connections
 	dbCtx := context.Background()
 	dbPool, err := postgres.NewDbPool(dbCtx, cfg.PgDsn)
 	if err != nil {
@@ -48,54 +52,38 @@ func execute(cfg *config.Config) error {
 		return err
 	}
 
-	// init course repository, usecase and handlers
-	courseRepo := postgres.NewCourse(lg, dbPool)
-	courseUseCase := usecase.NewCourse(lg, courseRepo)
-	courseHandler := v1.NewCourseHandler(lg, courseUseCase)
+	// init all layers
+	repo := postgres.NewPostgresRepository(lg, dbPool)
+	usecases := usecase.InitUsecases(lg, repo)
+	handlers := v1.InitHandlers(lg, *usecases)
+	router := httpserver.NewRouter(handlers)
 
-	projectRepo := postgres.NewProject(lg, dbPool)
-	projectUseCase := usecase.NewProject(lg, projectRepo)
-	projectHandler := v1.NewProjectHandler(lg, projectUseCase)
-
-	operationLogRepo := postgres.NewOperationLog(lg, dbPool)
-	operationLogUseCase := usecase.NewOperationLog(lg, operationLogRepo)
-	operationLogHandler := v1.NewOperationLogHandler(lg, operationLogUseCase)
-
-	operationRepo := postgres.NewOperation(lg, dbPool)
-	operationUseCase := usecase.NewOperation(lg, operationRepo)
-	operationHandler := v1.NewOperationHandler(lg, operationUseCase)
-
-	operationTypeRepo := postgres.NewOperationType(lg, dbPool)
-	operationTypeUseCase := usecase.NewOperationType(lg, operationTypeRepo)
-	operationTypeHandler := v1.NewOperationTypeHandler(lg, operationTypeUseCase)
-
-	contactTypeRepo := postgres.NewContactType(lg, dbPool)
-	contactTypeUseCase := usecase.NewContactType(lg, contactTypeRepo)
-	contactTypeHandler := v1.NewContactTypeHandler(lg, contactTypeUseCase)
-
-	router := httpserver.NewRouter(
-		courseHandler, projectHandler, operationLogHandler,
-		operationHandler, operationTypeHandler, contactTypeHandler,
-	)
 	srv := &http.Server{
-		Addr:           cfg.Host,
+		Addr:           net.JoinHostPort(cfg.Host, cfg.Port),
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 
+	// channel to graceful shutdown
+	quit := make(chan os.Signal, 1)
+	defer close(quit)
+	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+
+	// run server in goroutine
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
-			lg.Error("server shut down")
+			lg.Error("server shutdown", err)
 			return
 		}
 	}()
 
-	quit := make(chan os.Signal, 1)
-
+	// waiting for os.Signal
 	<-quit
 
+	lg.Info("shutdown server ...")
+	// shutdown server
 	shCtx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	if err := srv.Shutdown(shCtx); err != nil {
