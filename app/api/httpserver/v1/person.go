@@ -1,15 +1,27 @@
 package v1
 
 import (
+	"github.com/gin-gonic/gin"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase"
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 )
 
 type PersonHandlers struct {
-	log logger.Logger
+	lg      logger.Logger
+	useCase usecase.PersonUseCaseInterface
 }
 
-func NewPersonHandler(log logger.Logger) *PersonHandlers {
+func NewPersonHandler(lg logger.Logger,
+	useCase usecase.PersonUseCaseInterface,
+) *PersonHandlers {
+
 	return &PersonHandlers{
-		log: log,
+		lg:      lg,
+		useCase: useCase,
 	}
 }
+func (h *PersonHandlers) GetPersons(c *gin.Context)       {}
+func (h *PersonHandlers) AddNewPerson(c *gin.Context)     {}
+func (h *PersonHandlers) GetPersonById(c *gin.Context)    {}
+func (h *PersonHandlers) UpdatePersonById(c *gin.Context) {}
+func (h *PersonHandlers) DeletePersonById(c *gin.Context) {}

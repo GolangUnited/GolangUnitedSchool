@@ -3,14 +3,7 @@ package model
 import "time"
 
 type Student struct {
-	ID int64
-}
-
-type StudentNote struct {
-	ID        int64
-	StudentID int64
-	Note      string
-	CreatedAt time.Time
+	StudentId int64
 }
 
 type StudentCertificate struct {
