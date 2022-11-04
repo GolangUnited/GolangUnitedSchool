@@ -8,20 +8,24 @@ import (
 
 type CourseHandlers struct {
 	lg      logger.Logger
-	usecase usecase.CourseUsecaseInterface
+	useCase usecase.CourseUsecaseInterface
 }
 
 func NewCourseHandler(
 	lg logger.Logger,
-	usecase usecase.CourseUsecaseInterface,
+	useCase usecase.CourseUsecaseInterface,
 ) *CourseHandlers {
 	return &CourseHandlers{
 		lg:      lg,
-		usecase: usecase,
+		useCase: useCase,
 	}
 }
 
 func (h *CourseHandlers) CreateCourse(c *gin.Context) {
+
+}
+
+func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 
 }
 
@@ -33,7 +37,7 @@ func (h *CourseHandlers) GetCourseByID(c *gin.Context) {
 
 }
 
-func (h *CourseHandlers) AddCourse(c *gin.Context) {
+func (h *CourseHandlers) EditCourseById(c *gin.Context) {
 
 }
 

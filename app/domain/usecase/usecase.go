@@ -2,6 +2,9 @@ package usecase
 
 import (
 	"context"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/group"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/mentor"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/person"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/course"
@@ -17,6 +20,14 @@ type Usecases struct {
 	CertificateTemplate CertificateTemplateUsecaseInterface
 	StudentHomework     StudentHomeworkUsecaseInterface
 	StudentCertificate  StudentCertificateUsecaseInterface
+	CourseLecture       CourseLectureUseCaseInterface
+	CourseStatus        CourseStatusUseCaseInterface
+	Person              PersonUseCaseInterface
+	Student             StudentUseCaseInterface
+	StudentGroup        StudentGroupUseCaseInterface
+	StudentNote         StudentUseCaseInterface
+	Mentor              MentorUseCaseInterface
+	GroupContact        GroupContactUseCaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -27,18 +38,39 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		CertificateTemplate: course.NewCertificateTemplate(lg, repo),
 		StudentHomework:     student.NewStudentHomework(lg, repo),
 		StudentCertificate:  student.NewStudentCertificate(lg, repo),
+		CourseLecture:       course.NewCourseLecture(lg, repo),
+		CourseStatus:        course.NewCourseStatus(lg, repo),
+		Person:              person.NewPerson(lg, repo),
+		Student:             student.NewStudent(lg, repo),
+		StudentGroup:        group.NewStudentGroup(lg, repo),
+		StudentNote:         student.NewStudentNote(lg, repo),
+		Mentor:              mentor.NewMentor(lg, repo),
+		GroupContact:        group.NewGroupContact(lg, repo),
 	}
 }
 
 type CourseUsecaseInterface interface {
+
 	// AddCourse()
 	// EditCourse()
-	// EdotCourseByID(id int64) error
+	// EditCourseById(id int64) error
 	// DeleteCourse() error
-	// DeleteCoursebyID(id int64) error
+	// DeleteCourseById(id int64) error
 }
 
-type PersonUsecaseInterface interface {
+type PersonUseCaseInterface interface {
+	// GetPersonByField() (Person, error)
+	// GetPersonById(int64) (Person, error)
+	// AddNewPerson() error
+	// UpdatePersonById (int64) error
+	// RemovePersonById (int64) error
+}
+type StudentUseCaseInterface interface {
+	//AddStudent
+	//DeleteStudent
+	//DeleteStudentByStudentId
+}
+type MentorUseCaseInterface interface {
 }
 
 type CertificateTemplateUsecaseInterface interface {
@@ -84,3 +116,10 @@ type StudentCertificateUsecaseInterface interface {
 	UpdateStudentCertificate(ctx context.Context, id int64, data *model.StudentCertificate) error
 	DeleteStudentCertificate(ctx context.Context, id int64) error
 }
+
+type MentorNoteUseCaseInterface interface{}
+type StudentNoteUseCaseInterface interface{}
+type CourseStatusUseCaseInterface interface{}
+type StudentGroupUseCaseInterface interface{}
+type CourseLectureUseCaseInterface interface{}
+type GroupContactUseCaseInterface interface{}
