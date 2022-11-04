@@ -21,7 +21,7 @@ func NewContactType(
 }
 
 func (u *ContactTypeUsecase) GetContactTypes(
-	ctx context.Context) (*model.ContactType, error) {
+	ctx context.Context) ([]model.ContactType, error) {
 	panic("not implemented")
 }
 func (u *ContactTypeUsecase) GetContactTypeById(

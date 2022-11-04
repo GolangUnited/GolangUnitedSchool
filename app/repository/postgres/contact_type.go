@@ -7,7 +7,7 @@ import (
 )
 
 func (r *PostgresRepository) GetContactTypes(
-	ctx context.Context) (*model.ContactType, error) {
+	ctx context.Context) ([]model.ContactType, error) {
 	panic("not implemented")
 }
 

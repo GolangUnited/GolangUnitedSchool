@@ -1,20 +1,18 @@
-package course
+package mentor
 
 import (
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
-type CourseUsecase struct {
+type MentorUseCase struct {
 	lg   logger.Logger
 	repo repository.RepositoryInterface
 }
 
-func NewCourse(
-
+func NewMentor(
 	lg logger.Logger,
 	repo repository.RepositoryInterface,
-) *CourseUsecase {
-	return &CourseUsecase{lg: lg, repo: repo}
-
+) *MentorUseCase {
+	return &MentorUseCase{lg: lg, repo: repo}
 }

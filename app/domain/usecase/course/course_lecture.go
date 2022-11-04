@@ -5,16 +5,14 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
-type CourseUsecase struct {
+type CourseLectureseCase struct {
 	lg   logger.Logger
 	repo repository.RepositoryInterface
 }
 
-func NewCourse(
-
+func NewCourseLecture(
 	lg logger.Logger,
 	repo repository.RepositoryInterface,
-) *CourseUsecase {
-	return &CourseUsecase{lg: lg, repo: repo}
-
+) *CourseLectureseCase {
+	return &CourseLectureseCase{lg: lg, repo: repo}
 }

@@ -21,7 +21,7 @@ func NewOperation(
 }
 
 func (u *OperationUsecase) GetOperations(
-	ctx context.Context) (*model.Operation, error) {
+	ctx context.Context) ([]model.Operation, error) {
 	panic("not implemented")
 }
 func (u *OperationUsecase) GetOperationById(

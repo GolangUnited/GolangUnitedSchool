@@ -1,20 +1,18 @@
-package course
+package student
 
 import (
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
 )
 
-type CourseUsecase struct {
+type StudentUseCase struct {
 	lg   logger.Logger
 	repo repository.RepositoryInterface
 }
 
-func NewCourse(
-
+func NewStudent(
 	lg logger.Logger,
 	repo repository.RepositoryInterface,
-) *CourseUsecase {
-	return &CourseUsecase{lg: lg, repo: repo}
-
+) *StudentUseCase {
+	return &StudentUseCase{lg: lg, repo: repo}
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func (r *PostgresRepository) GetOperationTypes(
-	ctx context.Context) (*model.OperationType, error) {
+	ctx context.Context) ([]model.OperationType, error) {
 	panic("not implemented")
 }
 
