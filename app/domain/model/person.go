@@ -2,6 +2,7 @@ package model
 
 import "time"
 
+//kek
 type Person struct {
 	PersonId   int64
 	FirstName  string    `json:"first_name" validate:"required,min=2,max=50"`
