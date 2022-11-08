@@ -2,147 +2,10 @@ package model
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 )
-
-var testPerson Person
-
-func TestPerson_ValidPerson(t *testing.T) {
-
-	validJson := []byte(`{
-	"first_name": "vasil",
-	"last_name": "vasiliev",
-	"patronymic": "vasiliveich",
-	"login": "12lkj2",
-	"role_id": 1,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(validJson, &testPerson)
-	assert.Nil(t, testPerson.ValidatePerson())
-
-}
-
-func TestPerson_EmptyName(t *testing.T) {
-	emptyNameJson := []byte(`{
-	"first_name": "",
-	"last_name": "vasiliev",
-	"patronymic": "vasiliveich",
-	"login": "12lkj2",
-	"role_id": 1,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(emptyNameJson, &testPerson)
-	assert.Equal(t,
-		"[FirstName is a required field]",
-		testPerson.ValidatePerson().Error())
-}
-
-func TestPerson_ShortName(t *testing.T) {
-	shortNameJson := []byte(`{
-	"first_name": "v",
-	"last_name": "vasiliev",
-	"patronymic": "vasiliveich",
-	"login": "12lkj2",
-	"role_id": 1,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(shortNameJson, &testPerson)
-	assert.Equal(t,
-		"[FirstName must be at least 2 characters in length]",
-		testPerson.ValidatePerson().Error())
-
-}
-
-func TestPerson_LongName(t *testing.T) {
-
-	longNameJson := []byte(`{
-	"first_name": "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
-	"last_name": "vasiliev",
-	"patronymic": "vasiliveich",
-	"login": "12lkj2",
-	"role_id": 1,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(longNameJson, &testPerson)
-	assert.Equal(t,
-		"[FirstName must be a maximum of 50 characters in length]",
-		testPerson.ValidatePerson().Error())
-
-}
-
-func TestPerson_EmptyLastName(t *testing.T) {
-
-	EmptyLastNameJson := []byte(`{
-	"first_name": "vasil",
-	"last_name": "",
-	"patronymic": "vasiliveich",
-	"login": "12lkj2",
-	"role_id": 1,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(EmptyLastNameJson, &testPerson)
-	assert.Equal(t,
-		"[LastName is a required field]",
-		testPerson.ValidatePerson().Error())
-
-}
-
-func TestPerson_longShortLastName(t *testing.T) {
-
-	ShortLastNameJson := []byte(`{
-	"first_name": "vasil",
-	"last_name": "q",
-	"patronymic": "vasiliveich",
-	"login": "12lkj2",
-	"role_id": 1,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(ShortLastNameJson, &testPerson)
-	assert.Equal(t,
-		"[LastName must be at least 2 characters in length]",
-		testPerson.ValidatePerson().Error())
-}
-
-func TestPerson_LongLastName(t *testing.T) {
-
-	LongLastNameJson := []byte(`{
-	"first_name": "vasil",
-	"last_name": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
-	"patronymic": "vasiliveich",
-	"login": "12lkj2",
-	"role_id": 1,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(LongLastNameJson, &testPerson)
-	assert.Equal(t,
-		"[LastName must be a maximum of 50 characters in length]",
-		testPerson.ValidatePerson().Error())
-
-}
 
 func TestPerson_ValidatePerson(t *testing.T) {
 	type fields struct {
@@ -159,8 +22,276 @@ func TestPerson_ValidatePerson(t *testing.T) {
 	tests := []struct {
 		name    string
 		fields  fields
-		wantErr assert.ErrorAssertionFunc
+		wantErr bool
 	}{
+		{
+			name: "valid_data",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: false,
+		},
+		{
+			name: "empty_firstName",
+			fields: fields{
+				FirstName:  "",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "too short firstName",
+			fields: fields{
+				FirstName:  "v",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "too long firstName",
+			fields: fields{
+				FirstName:  "vasilvasilvasilvasilvasilvasilvasilvasilvasilvasilvasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "cyrillic firstName",
+			fields: fields{
+				FirstName:  "вася",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: false,
+		},
+		{
+			name: "empty lastName",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "too short lastName",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "v",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "too long lastName",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasilievvasilievvasilievvasilievvasilievvasilievvasiliev",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "cyrillic lastName",
+			fields: fields{
+				FirstName:  "vasya",
+				LastName:   "васильев",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: false,
+		},
+		{
+			name: "empty patronymic",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: false,
+		},
+		{
+			name: "short patronymic",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "j",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "long patronymic",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievichvasilievichvasilievichvasilievichvasilievich",
+				Login:      "vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "empty login",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "short login",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "v",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "long login",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "vasya12345vasya12345vasya12345vasya12345vasya12345vasya12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+		{
+			name: "not ascii login",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "лорплорп",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+		{
+			name: "zero roleId",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     0,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+		{
+			name: "12 roleId",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     12,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+		{
+
+			name: "not ascii login",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     2,
+				Passwd:     "kek21212121",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -176,7 +307,50 @@ func TestPerson_ValidatePerson(t *testing.T) {
 				UpdatedAt:  tt.fields.UpdatedAt,
 				Deleted:    tt.fields.Deleted,
 			}
-			tt.wantErr(t, n.ValidatePerson(), fmt.Sprintf("ValidatePerson()"))
+			if err := n.ValidatePerson(); (err != nil) != tt.wantErr {
+				t.Errorf("ValidatePerson() error = %v, wantErr %v", err, tt.wantErr)
+			}
 		})
 	}
+}
+
+// // исправить
+func TestPerson_nonNumericRoleId(t *testing.T) {
+	var testPerson Person
+	LongLastNameJson := []byte(`{
+	"first_name": "vasil",
+	"last_name": "qqqqqqqq",
+	"patronymic": "vasiliveich",
+	"login": "12llj2",
+	"role_id": 2,
+	"passwd": "123kk456",
+	"updated_at": "2006-01-02T15:04:05Z",
+	"deleted": false
+	}`)
+
+	_ = json.Unmarshal(LongLastNameJson, &testPerson)
+	assert.Equal(t,
+		"[Login must contain only ascii characters]",
+		testPerson.ValidatePerson().Error())
+}
+
+func TestPerson_nonAsciiLogin(t *testing.T) {
+	var testPerson Person
+
+	LongLastNameJson := []byte(`{
+	"first_name": "vasil",
+	"last_name": "qqqqqqqq",
+	"patronymic": "vasiliveich",
+	"login": "12lдj2",
+	"role_id": 1,
+	"passwd": "123kk456",
+	"updated_at": "2006-01-02T15:04:05Z",
+	"deleted": false
+	}`)
+
+	_ = json.Unmarshal(LongLastNameJson, &testPerson)
+	assert.Equal(t,
+		"[Login must contain only ascii characters]",
+		testPerson.ValidatePerson().Error())
+
 }
