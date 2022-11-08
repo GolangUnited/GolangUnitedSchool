@@ -14,7 +14,7 @@ func TestCourseLecture_ValidateCourseLecture(t *testing.T) {
 		}`)
 	_ = json.Unmarshal(NonNumericCourseIdJson, &testStruct)
 
-	if err := testStruct.ValidateCourseLecture(); err != nil {
+	if err := testStruct.ValidateCourseLecture(); err == nil {
 		t.Error("not passed", err)
 	}
 
