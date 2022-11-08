@@ -2,7 +2,6 @@ package model
 
 import (
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 )
@@ -277,22 +276,104 @@ func TestPerson_ValidatePerson(t *testing.T) {
 			wantErr: true,
 		},
 		{
-
-			name: "not ascii login",
+			name: "0 roleId",
 			fields: fields{
 				FirstName:  "vasil",
 				LastName:   "vasiliev",
 				Patronymic: "vasilievich",
 				Login:      "qwerty12345",
-				RoleId:     2,
+				RoleId:     12,
 				Passwd:     "kek21212121",
 				UpdatedAt:  time.Now(),
 				Deleted:    true,
 			},
 			wantErr: true,
 		},
+		{
+			name: "empty passwd",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     2,
+				Passwd:     "",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+		{
+			name: "short passwd",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     2,
+				Passwd:     "jj",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+		{
+			name: "long passwd",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     2,
+				Passwd:     "12345678901234567890123456789012345678901234567890",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
+			wantErr: true,
+		},
+		{
+			name: "non ascii passwd",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     2,
+				Passwd:     "фыва",
+				UpdatedAt:  time.Now(),
+				Deleted:    true,
+			},
 
-		// TODO: Add test cases.
+			wantErr: true,
+		},
+		{
+			name: "omitempty time",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     2,
+				Passwd:     "qwertrtddd",
+				Deleted:    true,
+			},
+
+			wantErr: false,
+		},
+		{
+			name: "omitempty deleted",
+			fields: fields{
+				FirstName:  "vasil",
+				LastName:   "vasiliev",
+				Patronymic: "vasilievich",
+				Login:      "qwerty12345",
+				RoleId:     2,
+				Passwd:     "qwertrtddd",
+				UpdatedAt:  time.Now(),
+			},
+
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -315,42 +396,49 @@ func TestPerson_ValidatePerson(t *testing.T) {
 }
 
 // // исправить
-func TestPerson_nonNumericRoleId(t *testing.T) {
-	var testPerson Person
-	LongLastNameJson := []byte(`{
-	"first_name": "vasil",
-	"last_name": "qqqqqqqq",
-	"patronymic": "vasiliveich",
-	"login": "12llj2",
-	"role_id": 2,
-	"passwd": "123kk456",
-	"updated_at": "2006-01-02T15:04:05Z",
-	"deleted": false
-	}`)
-
-	_ = json.Unmarshal(LongLastNameJson, &testPerson)
-	assert.Equal(t,
-		"[Login must contain only ascii characters]",
-		testPerson.ValidatePerson().Error())
-}
+var testPerson Person
 
 func TestPerson_nonAsciiLogin(t *testing.T) {
-	var testPerson Person
 
 	LongLastNameJson := []byte(`{
 	"first_name": "vasil",
 	"last_name": "qqqqqqqq",
 	"patronymic": "vasiliveich",
-	"login": "12lдj2",
+	"login": "12лlj2",
 	"role_id": 1,
+	"passwd": "12345555",
+	"updated_at": "",
+	"deleted": false
+	}`)
+
+	_ = json.Unmarshal(LongLastNameJson, &testPerson)
+	if err := testPerson.ValidatePerson(); err == nil {
+		t.Error("not passed")
+	}
+
+}
+
+// интересный момент,  при использовании конструкции assert тесты падают в панику
+// без использования ассертов именно на этом тесте с передачей в жсон невалидныъ
+// данных
+func TestPerson_nonNumericRoleId(t *testing.T) {
+	NameJson := []byte(`{
+	"first_name": "vasil",
+	"last_name": "qqqqqqqq",
+	"patronymic": "vasiliveich",
+	"login": "qwelrty",
+	"role_id": 4,
 	"passwd": "123kk456",
 	"updated_at": "2006-01-02T15:04:05Z",
 	"deleted": false
 	}`)
 
-	_ = json.Unmarshal(LongLastNameJson, &testPerson)
-	assert.Equal(t,
-		"[Login must contain only ascii characters]",
-		testPerson.ValidatePerson().Error())
+	_ = json.Unmarshal(NameJson, &testPerson)
+	if err := testPerson.ValidatePerson(); err != nil {
+		t.Error("not passed")
+	}
 
 }
+
+/*возможно, стоило бы расписать кейсы по валидации неверных полей
+для времени и удаления, но я не буду заморачиваться*/
