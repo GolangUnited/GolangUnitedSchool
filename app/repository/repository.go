@@ -58,7 +58,7 @@ type RepositoryInterface interface {
 	// course status
 	GetCourseStatuses(ctx context.Context) ([]model.CourseStatus, error)
 	GetCourseStatusById(ctx context.Context, id int64) (*model.CourseStatus, error)
-	AddCourseStatus(ctx context.Context, data *model.CourseStatus) error
+	AddCourseStatus(ctx context.Context, data *model.CourseStatus) (int64, error)
 	UpdateCourseStatusById(ctx context.Context, id int64, data *model.CourseStatus) error
 	DeleteCourseStatusById(ctx context.Context, id int64) error
 	// course lecture

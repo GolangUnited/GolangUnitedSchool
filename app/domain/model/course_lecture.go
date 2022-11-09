@@ -1,6 +1,6 @@
 package model
 
 type CourseLecture struct {
-	CourseId  int64
-	LectureId int64
+	CourseID  int64 `json:"course_id"`
+	LectureID int64 `json:"lecture_id"`
 }

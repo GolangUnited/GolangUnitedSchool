@@ -25,19 +25,11 @@ func (h *CourseHandlers) CreateCourse(c *gin.Context) {
 
 }
 
-func (h *CourseHandlers) GetCourseById(c *gin.Context) {
-
-}
-
 func (h *CourseHandlers) GetCourses(c *gin.Context) {
 
 }
 
 func (h *CourseHandlers) GetCourseByID(c *gin.Context) {
-
-}
-
-func (h *CourseHandlers) EditCourseById(c *gin.Context) {
 
 }
 

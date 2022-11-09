@@ -219,7 +219,7 @@ func (r *PostgresRepository) PutCourseByID(ctx context.Context, id int64, course
 func (r *PostgresRepository) DeleteCourseByID(ctx context.Context, id int64) error {
 	_, err := r.pool.Exec(ctx, `DELETE FROM courses WHERE id = $1`, id)
 	if err != nil {
-		return errors.Wrapf(err, "delete course by id %d")
+		return errors.Wrapf(err, "delete course by id %d", id)
 	}
 
 	return nil
