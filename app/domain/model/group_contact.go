@@ -20,8 +20,8 @@ import (
 */
 
 type GroupContact struct {
-	GroupContactId int64  `json:"group_contact_id" validate:"required,numeric"`
-	GroupId        int64  `json:"group_id" validate:"required,numeric"`
+	GroupContactId int64  `json:"group_contact_id" validate:"required,numeric,gte=0"`
+	GroupId        int64  `json:"group_id" validate:"required,numeric,gte=0"`
 	ContactTypeId  int64  `json:"contact_type_id" validate:"required,numeric,gte=0,lte=7"`
 	IsPrimary      bool   `json:"is_primary" validate:"required"`
 	ContactValue   string `json:"contact_value" validate:"required,min=2,max=70"`

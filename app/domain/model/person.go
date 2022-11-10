@@ -12,7 +12,7 @@ import (
 
 // kek
 type Person struct {
-	PersonId   int64
+	PersonId   int64     `json:"person_id" validate:"omitempty,numeric,gte=0"`
 	FirstName  string    `json:"first_name" validate:"required,min=2,max=50"`
 	LastName   string    `json:"last_name" validate:"required,min=2,max=50"`
 	Patronymic string    `json:"patronymic" validate:"omitempty,min=2,max=50"`
