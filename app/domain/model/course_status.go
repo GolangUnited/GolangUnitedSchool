@@ -9,8 +9,8 @@ import (
 )
 
 type CourseStatus struct {
-	CourseStatusId int64  `json:"course_status_id" validate:"required,numeric,gte=0"`
-	Title          string `json:"title" validate:"required,min=2,max=20,alphaunicode"`
+	CourseStatusId int64  `json:"course_status_id" validate:"numeric,gt=0"`
+	Title          string `json:"title" validate:"min=2,max=20,alphaunicode"`
 }
 
 func (n *CourseStatus) ValidateCourseStatus() error {

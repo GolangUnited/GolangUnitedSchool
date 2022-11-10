@@ -16,8 +16,8 @@ import (
 */
 
 type StudentNoteType struct {
-	StudentNoteTypeId int64  `json:"student_note_type_id" validate:"required,numeric,gt=0"`
-	Title             string `json:"title" validate:"required,gte=2,lte=10"`
+	StudentNoteTypeId int64  `json:"student_note_type_id" validate:"numeric,gt=0"`
+	Title             string `json:"title" validate:"gte=2,lte=10"`
 }
 
 func (n *StudentNoteType) ValidateStudentNoteType() error {

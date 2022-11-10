@@ -20,11 +20,11 @@ import (
 */
 
 type GroupContact struct {
-	GroupContactId int64  `json:"group_contact_id" validate:"required,numeric,gte=0"`
-	GroupId        int64  `json:"group_id" validate:"required,numeric,gte=0"`
-	ContactTypeId  int64  `json:"contact_type_id" validate:"required,numeric,gte=0,lte=7"`
+	GroupContactId int64  `json:"group_contact_id" validate:"numeric,gt=0"`
+	GroupId        int64  `json:"group_id" validate:"numeric,gt=0"`
+	ContactTypeId  int64  `json:"contact_type_id" validate:"numeric,gt=0,lte=7"`
 	IsPrimary      bool   `json:"is_primary" validate:"required"`
-	ContactValue   string `json:"contact_value" validate:"required,min=2,max=70"`
+	ContactValue   string `json:"contact_value" validate:"min=2,max=70"`
 }
 
 func (n *GroupContact) ValidateGroupContact() error {

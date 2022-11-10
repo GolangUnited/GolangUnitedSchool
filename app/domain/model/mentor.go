@@ -9,7 +9,7 @@ import (
 )
 
 type Mentor struct {
-	MentorId int64 `json:"mentor_id" validate:"required,numeric,gt=0"`
+	MentorId int64 `json:"mentor_id" validate:"numeric,gt=0"`
 }
 
 func (n *Mentor) ValidateMentor() error {
