@@ -19,3 +19,9 @@ migrate:
 	@echo "Migrate..."
 	bash scripts/migrate.sh
 	@echo "Done"
+
+test: 
+	@echo "start testing..."
+	go test -coverprofile=html.out ./...
+	@echo "Done"
+	go tool cover -html=html.out
