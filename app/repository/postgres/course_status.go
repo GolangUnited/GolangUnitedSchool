@@ -12,12 +12,12 @@ func (r *PostgresRepository) GetCourseStatuses(ctx context.Context) ([]model.Cou
 	var statuses []model.CourseStatus
 	rows, err := r.pool.Query(ctx, `SELECT id, title FROM course_status`)
 	if err != nil {
-		return nil, errors.Wrap(err, "couldn't query course statuses")
+		return nil, errors.Wrap(err, "couldn't get course statuses")
 	}
 
 	for rows.Next() {
 		var c model.CourseStatus
-		err := rows.Scan(&c.ID, &c.Title)
+		err := rows.Scan(&c.CourseStatusId, &c.Title)
 		if err != nil {
 			return nil, errors.Wrap(err, "couldn't scan course status")
 		}
@@ -45,7 +45,7 @@ func (r *PostgresRepository) GetCourseStatusById(ctx context.Context, id int64) 
 func (r *PostgresRepository) AddCourseStatus(ctx context.Context, data *model.CourseStatus) (int64, error) {
 	var id int64
 	err := r.pool.QueryRow(ctx,
-		`INSERT INTO course_status (title) VALUES ($1) RETURNING id`).
+		`INSERT INTO course_status (title) VALUES ($1) RETURNING id`, data.Title).
 		Scan(&id)
 	if err != nil {
 		return id, errors.Wrap(err, "couldn't add course status")

@@ -1,6 +1,6 @@
 package model
 
 type CourseStatus struct {
-	ID    int64  `json:"id"`
-	Title string `json:"title"`
+	CourseStatusId int64  `json:"course_status_id"`
+	Title          string `json:"title"`
 }

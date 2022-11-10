@@ -1,12 +1,12 @@
 services:
   pg:
     image: postgres
-    container_name: gus_postgres
+    container_name: postgres_test
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pguser
-      POSTGRES_DB: pgdb
-    volumes:
-      - ./pg-volume:/var/lib/postgresql
+      POSTGRES_DB: pgdbtest
+    # volumes:
+    #   - ./pg-volume:/var/lib/postgresql
     ports:
       - "5432:5432"
