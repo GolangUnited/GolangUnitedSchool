@@ -12,12 +12,12 @@ import (
 
 // kek
 type Person struct {
-	PersonId   int64     `json:"person_id" validate:"omitempty,numeric,gte=0"`
+	PersonId   int64     `json:"person_id" validate:"omitempty,numeric,gt=0"`
 	FirstName  string    `json:"first_name" validate:"required,min=2,max=50"`
 	LastName   string    `json:"last_name" validate:"required,min=2,max=50"`
 	Patronymic string    `json:"patronymic" validate:"omitempty,min=2,max=50"`
 	Login      string    `json:"login" validate:"required,ascii,min=2,max=50"`
-	RoleId     int       `json:"role_id" validate:"required,numeric,gte=0,lte=6"`
+	RoleId     int       `json:"role_id" validate:"required,numeric,gte=1,lte=6"`
 	Passwd     string    `json:"passwd" validate:"required,ascii,min=8,max=20"`
 	UpdatedAt  time.Time `json:"updated_at" validate:"omitempty"`
 	Deleted    bool      `json:"deleted" validate:"omitempty"`

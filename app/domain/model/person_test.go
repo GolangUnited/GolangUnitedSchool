@@ -282,7 +282,7 @@ func TestPerson_ValidatePerson(t *testing.T) {
 				LastName:   "vasiliev",
 				Patronymic: "vasilievich",
 				Login:      "qwerty12345",
-				RoleId:     12,
+				RoleId:     0,
 				Passwd:     "kek21212121",
 				UpdatedAt:  time.Now(),
 				Deleted:    true,
@@ -427,15 +427,15 @@ func TestPerson_nonNumericRoleId(t *testing.T) {
 	"last_name": "qqqqqqqq",
 	"patronymic": "vasiliveich",
 	"login": "qwelrty",
-	"role_id": 4,
+	"role_id": 0,
 	"passwd": "123kk456",
 	"updated_at": "2006-01-02T15:04:05Z",
 	"deleted": false
 	}`)
 
 	_ = json.Unmarshal(NameJson, &testPerson)
-	if err := testPerson.ValidatePerson(); err != nil {
-		t.Error("not passed")
+	if err := testPerson.ValidatePerson(); err == nil {
+		t.Error("not passed", err)
 	}
 
 }

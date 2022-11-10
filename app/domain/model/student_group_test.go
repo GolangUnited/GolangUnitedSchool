@@ -6,28 +6,28 @@ import (
 	"testing"
 )
 
-func TestCourseLecture_Validate(t *testing.T) {
-	var testStruct CourseLecture
+func TestStudentGroupValidate(t *testing.T) {
+	var testStruct StudentGroup
 
 	validJson := []byte(`{
-	"course_id": 1,
-	"lecture_id": 2
+	"student_id": 1,
+	"group_id": 2
 	
 	}`)
 
 	if err := json.Unmarshal(validJson, &testStruct); err != nil {
 		log.Println(err)
 	}
-	if err := testStruct.ValidateCourseLecture(); err != nil {
+	if err := testStruct.ValidateStudentGroup(); err != nil {
 		t.Error("not passed", err)
 	}
 
 }
 
-func TestCourseLecture_nonValidValues(t *testing.T) {
+func TestStudentGroupStudentId(t *testing.T) {
 	wrongCourseIdJson := []byte(`{
-		"course_id": "s",
-		"lecture_id": 2
+		"student_id": "s",
+		"group_id": 2
 }`)
 
 	if err := json.Unmarshal(wrongCourseIdJson, &testStruct); err != nil {
@@ -39,16 +39,16 @@ func TestCourseLecture_nonValidValues(t *testing.T) {
 
 }
 
-func TestCourseLecture_emptyValues(t *testing.T) {
+func TestStudentGroupId(t *testing.T) {
 	wrongCourseIdJson := []byte(`{
-		"course_id": 2,
-		"lecture_id": null
+		"student_id": 2,
+		"group_id": null
 }`)
 
 	if err := json.Unmarshal(wrongCourseIdJson, &testStruct); err != nil {
 
 	}
-	if err := testStruct.ValidateCourseLecture(); err != nil {
+	if err := testStruct.ValidateCourseLecture(); err == nil {
 		t.Error("not passed", err)
 	}
 

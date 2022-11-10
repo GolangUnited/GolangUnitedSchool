@@ -9,8 +9,8 @@ import (
 )
 
 type StudentGroup struct {
-	StudentId int64 `json:"student_id" validate:"required,numeric,gte=0"`
-	GroupId   int64 `json:"group_id" validate:"required,numeric.gte=0"`
+	StudentId int64 `json:"student_id" validate:"required,numeric,gt=0"`
+	GroupId   int64 `json:"group_id" validate:"required,numeric,gt=0"`
 }
 
 func (n *StudentGroup) ValidateStudentGroup() error {
