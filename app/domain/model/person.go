@@ -10,7 +10,6 @@ import (
 	"time"
 )
 
-// kek
 type Person struct {
 	PersonId   int64     `json:"person_id" validate:"omitempty,numeric,gt=0"`
 	FirstName  string    `json:"first_name" validate:"required,min=2,max=50"`

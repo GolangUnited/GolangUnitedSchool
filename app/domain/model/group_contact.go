@@ -37,40 +37,43 @@ func (n *GroupContact) ValidateGroupContact() error {
 	err := validate.Struct(n)
 	errs := translateError(err, trans)
 	telegramContactType, _ := regexp.Compile("^@[a-zA-Z_0-9]+$")
-	telegramContactGroup, _ := regexp.Compile("")
-	discordContactType, _ := regexp.Compile("")
-	discordChannelContactType, _ := regexp.Compile("")
-	emailContactType, _ := regexp.Compile("")
-	phoneContactType, _ := regexp.Compile("")
-	vkProfileContactType, _ := regexp.Compile("")
+	telegramContactGroup, _ := regexp.Compile("^t[.]me/[a-zA-Z_0-9]+$")
+	discordContactType, _ := regexp.Compile("^[a-zA-Z_0-9]+#[a-zA-Z_0-9]+$")
+	discordChannelContactType, _ := regexp.Compile("^https://discord.com/channels/[0-9]+/[0-9]+$")
+	emailContactType, _ := regexp.Compile("^[a-zA-Z_0-9]+@[a-zA-Z_0-9]+[.][a-z]+$")
+	phoneContactType, _ := regexp.Compile("\\+[0-9]")
+	vkProfileContactType, _ := regexp.Compile("^vk.com/[a-zA-Z_0-9]+$")
 	switch n.ContactTypeId {
 	case 1:
 		if telegramContactValid := telegramContactType.MatchString(n.ContactValue); !telegramContactValid {
-			_ = fmt.Errorf("invalid telegram contact")
+			return fmt.Errorf("invalid telegram contact")
 		}
 	case 2:
 		if telegramContactGroup := telegramContactGroup.MatchString(n.ContactValue); !telegramContactGroup {
-			_ = fmt.Errorf("invalid telegram group contact")
+			return fmt.Errorf("invalid telegram group contact")
 		}
 	case 3:
 		if discordContactType := discordContactType.MatchString(n.ContactValue); !discordContactType {
-			_ = fmt.Errorf("invalid discord contact")
+			return fmt.Errorf("invalid discord contact")
 		}
 	case 4:
 		if discordChannelContactType := discordChannelContactType.MatchString(n.ContactValue); !discordChannelContactType {
-			_ = fmt.Errorf("invalid discord channel contact")
+			return fmt.Errorf("invalid discord channel contact")
 		}
 	case 5:
 		if emailContactType := emailContactType.MatchString(n.ContactValue); !emailContactType {
-			_ = fmt.Errorf("invalid email contact")
+			return fmt.Errorf("invalid email contact")
 		}
 	case 6:
 		if phoneContactType := phoneContactType.MatchString(n.ContactValue); !phoneContactType {
-			_ = fmt.Errorf("invalid phone contact")
+			return fmt.Errorf("invalid phone contact")
+		}
+		if len(n.ContactValue) != 12 {
+			return fmt.Errorf("invalid phone contact")
 		}
 	case 7:
 		if vkProfileContactType := vkProfileContactType.MatchString(n.ContactValue); !vkProfileContactType {
-			_ = fmt.Errorf("invalid vk profile")
+			return fmt.Errorf("invalid vk profile")
 		}
 
 	}

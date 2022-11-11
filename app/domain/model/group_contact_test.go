@@ -195,6 +195,171 @@ func TestGroupContact_ValidateGroupContact(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "valid telegram contact",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  1,
+				IsPrimary:      true,
+				ContactValue:   "@qwe",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid telegram contact",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  1,
+				IsPrimary:      true,
+				ContactValue:   "@qwer^^ty",
+			},
+			wantErr: true,
+		},
+		{
+			name: "valid telegram group",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  2,
+				IsPrimary:      true,
+				ContactValue:   "t.me/kek_kekek",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid telegram group",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  2,
+				IsPrimary:      true,
+				ContactValue:   "t.mekek_kekek",
+			},
+			wantErr: true,
+		},
+		{
+			name: "valid discord username",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  3,
+				IsPrimary:      true,
+				ContactValue:   "kek#777",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid discord username",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  3,
+				IsPrimary:      true,
+				ContactValue:   "kek777",
+			},
+			wantErr: true,
+		},
+		{
+			name: "valid discord channel",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  4,
+				IsPrimary:      true,
+				ContactValue:   "https://discord.com/channels/516715744646660106/1012067296744841246",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid discord channel",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  4,
+				IsPrimary:      true,
+				ContactValue:   "https/discord.com/channels/516715744646660106/1012067296744841246",
+			},
+			wantErr: true,
+		},
+		{
+			name: "too long discord channel",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  4,
+				IsPrimary:      true,
+				ContactValue:   "https://discord.com/channels/5167157888888888844646660106/1012067296744841246",
+			},
+			wantErr: true,
+		},
+		{
+			name: "valid email",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  5,
+				IsPrimary:      true,
+				ContactValue:   "funly@gmail.com",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid email",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  5,
+				IsPrimary:      true,
+				ContactValue:   "funly@gmailcom",
+			},
+			wantErr: true,
+		},
+		{
+			name: "valid phone",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  6,
+				IsPrimary:      true,
+				ContactValue:   "+79080490407",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid phone",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  6,
+				IsPrimary:      true,
+				ContactValue:   "+7908049407",
+			},
+			wantErr: true,
+		},
+		{
+			name: "valid vk",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  7,
+				IsPrimary:      true,
+				ContactValue:   "vk.com/kek",
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid vk",
+			fields: fields{
+				GroupContactId: 1,
+				GroupId:        1,
+				ContactTypeId:  7,
+				IsPrimary:      true,
+				ContactValue:   "vk.com/k:ek",
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
