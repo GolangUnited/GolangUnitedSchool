@@ -111,7 +111,7 @@ type RepositoryInterface interface {
 	DeleteCourseByID(context.Context, int64) error
 
 	// interview
-	GetInterviewById(context.Context, int64) *model.Interview
+	GetInterviewById(context.Context, int64) (*model.Interview, error)
 	GetInterviews(context.Context) ([]model.Interview, error)
 	AddInterview(context.Context, *model.Interview) error
 	UpdateInterviewById(context.Context, int64, *model.Interview) error
