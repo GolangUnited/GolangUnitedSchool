@@ -6,6 +6,7 @@ import (
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/lozovoya/GolangUnitedSchool/app/repository"
+	"github.com/pkg/errors"
 )
 
 type InterviewUsecase struct {
@@ -34,4 +35,9 @@ func (u *InterviewUsecase) GetInterviewByID(ctx context.Context, id int64) (*mod
 
 func (u *InterviewUsecase) GetInterviews(ctx context.Context) ([]model.Interview, error) {
 	interviews, err := u.repo.GetInterviews(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "couldn't get interviews")
+	}
+
+	return interviews, nil
 }

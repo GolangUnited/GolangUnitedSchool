@@ -122,8 +122,8 @@ func (s *CourseStatusTestSuite) TestGetCourseStatusByID() {
 				id:  1,
 			},
 			expectedResult: &model.CourseStatus{
-				ID:    1,
-				Title: "active",
+				CourseStatusId: 1,
+				Title:          "active",
 			},
 		},
 		{
@@ -161,10 +161,10 @@ func (s *CourseStatusTestSuite) TestGetCourseStatuses() {
 			name: "get course statuses",
 			ctx:  context.Background(),
 			expectedResult: []model.CourseStatus{
-				{ID: 1, Title: "active"},
-				{ID: 2, Title: "done"},
-				{ID: 3, Title: "inactive"},
-				{ID: 4, Title: "created"},
+				{CourseStatusId: 1, Title: "active"},
+				{CourseStatusId: 2, Title: "done"},
+				{CourseStatusId: 3, Title: "inactive"},
+				{CourseStatusId: 4, Title: "created"},
 			},
 		},
 		{
@@ -261,7 +261,7 @@ func (s *CourseStatusTestSuite) TestDeleteCourseStatusByID() {
 			args: args{
 				ctx:  context.Background(),
 				id:   2,
-				data: &model.CourseStatus{ID: 2, Title: "done status [updated]"},
+				data: &model.CourseStatus{CourseStatusId: 2, Title: "done status [updated]"},
 			},
 		},
 		{

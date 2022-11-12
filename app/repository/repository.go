@@ -113,7 +113,7 @@ type RepositoryInterface interface {
 	// interview
 	GetInterviewById(context.Context, int64) (*model.Interview, error)
 	GetInterviews(context.Context) ([]model.Interview, error)
-	AddInterview(context.Context, *model.Interview) error
+	AddInterview(context.Context, *model.Interview) (int64, error)
 	UpdateInterviewById(context.Context, int64, *model.Interview) error
 	DeleteInterviewById(context.Context, int64) error
 }

@@ -41,7 +41,7 @@ func (r *PostgresRepository) CreateCourse(ctx context.Context, course *model.Cou
 
 	// prepare query to execute
 	query := fmt.Sprintf(
-		`INSERT INTO courses(%s) VALUES (%s) RETURNING id`,
+		`INSERT INTO courses (%s) VALUES (%s) RETURNING id`,
 		strings.Join(keys, ", "),
 		strings.Join(values, ", "),
 	)

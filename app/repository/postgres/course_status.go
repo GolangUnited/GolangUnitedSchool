@@ -16,7 +16,7 @@ func (r *PostgresRepository) GetCourseStatuses(ctx context.Context) ([]model.Cou
 
 	for rows.Next() {
 		var c model.CourseStatus
-		err := rows.Scan(&c.ID, &c.Title)
+		err := rows.Scan(&c.CourseStatusId, &c.Title)
 		if err != nil {
 			return nil, errors.Wrap(err, "couldn't scan course status")
 		}
@@ -34,7 +34,7 @@ func (r *PostgresRepository) GetCourseStatusById(ctx context.Context, id int64) 
 	query := `SELECT id, title FROM course_status WHERE id=$1`
 	var c model.CourseStatus
 	err := r.pool.QueryRow(ctx, query, id).
-		Scan(&c.ID, &c.Title)
+		Scan(&c.CourseStatusId, &c.Title)
 	if err != nil {
 		return nil, errors.Wrap(err, "couldn't get course status")
 	}
