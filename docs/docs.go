@@ -28,6 +28,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "courses"
+                ],
                 "summary": "add new course to the course list",
                 "operationId": "create-course",
                 "parameters": [
@@ -45,19 +48,19 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -67,6 +70,9 @@ var doc = `{
             "get": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "get a course by ID",
                 "operationId": "get-course_by_id",
@@ -89,7 +95,7 @@ var doc = `{
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -97,6 +103,9 @@ var doc = `{
             "post": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "update a course by ID",
                 "operationId": "update-course-by-id",
@@ -113,19 +122,19 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -133,6 +142,9 @@ var doc = `{
             "delete": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "delete a course by ID",
                 "operationId": "delete-course-by-id",
@@ -149,19 +161,19 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -171,6 +183,9 @@ var doc = `{
             "get": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "get all items in the course list",
                 "operationId": "get-all-courses",
@@ -184,7 +199,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -243,10 +258,16 @@ var doc = `{
                 }
             }
         },
-        "v1.message": {
+        "model.ResponseMessage": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "integer"
+                },
                 "message": {
+                    "type": "string"
+                },
+                "status": {
                     "type": "string"
                 }
             }

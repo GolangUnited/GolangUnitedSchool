@@ -9,6 +9,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "courses"
+                ],
                 "summary": "add new course to the course list",
                 "operationId": "create-course",
                 "parameters": [
@@ -26,19 +29,19 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -48,6 +51,9 @@
             "get": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "get a course by ID",
                 "operationId": "get-course_by_id",
@@ -70,7 +76,7 @@
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -78,6 +84,9 @@
             "post": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "update a course by ID",
                 "operationId": "update-course-by-id",
@@ -94,19 +103,19 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -114,6 +123,9 @@
             "delete": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "delete a course by ID",
                 "operationId": "delete-course-by-id",
@@ -130,19 +142,19 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -152,6 +164,9 @@
             "get": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "summary": "get all items in the course list",
                 "operationId": "get-all-courses",
@@ -165,7 +180,7 @@
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.message"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     }
                 }
@@ -224,10 +239,16 @@
                 }
             }
         },
-        "v1.message": {
+        "model.ResponseMessage": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "integer"
+                },
                 "message": {
+                    "type": "string"
+                },
+                "status": {
                     "type": "string"
                 }
             }

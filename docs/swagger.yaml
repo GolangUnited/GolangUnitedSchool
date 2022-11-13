@@ -32,9 +32,13 @@ definitions:
       total_count:
         type: integer
     type: object
-  v1.message:
+  model.ResponseMessage:
     properties:
+      id:
+        type: integer
       message:
+        type: string
+      status:
         type: string
     type: object
 info:
@@ -56,16 +60,18 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
       summary: add new course to the course list
+      tags:
+      - courses
   /course/{id}:
     delete:
       operationId: delete-course-by-id
@@ -81,16 +87,18 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
       summary: delete a course by ID
+      tags:
+      - courses
     get:
       operationId: get-course_by_id
       parameters:
@@ -109,8 +117,10 @@ paths:
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get a course by ID
+      tags:
+      - courses
     post:
       operationId: update-course-by-id
       parameters:
@@ -125,16 +135,18 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
       summary: update a course by ID
+      tags:
+      - courses
   /courses:
     get:
       operationId: get-all-courses
@@ -148,6 +160,8 @@ paths:
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/v1.message'
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get all items in the course list
+      tags:
+      - courses
 swagger: "2.0"

@@ -11,7 +11,7 @@ import (
 
 // @title GolangUnitedSchool
 // @version 1.0
-// @description This web server server for student informations.
+// @description This web server for student informations API.
 
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
@@ -24,9 +24,10 @@ func NewRouter(
 ) *gin.Engine {
 	router := gin.Default()
 
-	api := router.Group("/api/v1")
 	// docs route
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	api := router.Group("/api/v1")
 	courseRouter(api, handlers)
 	personRouter(api, handlers)
 	studentRouter(api, handlers)
@@ -51,14 +52,14 @@ func courseRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	// course := api.Group("/course")
-	// {
-	// 	course.GET("", h.Course.GetCourses)
-	// 	course.GET("/:course_id", h.Course.GetCourseById)
-	// 	course.POST("", h.Course.AddCourse)
-	// 	course.PUT(":course_id", h.Course.EditCourseById)
-	// 	course.DELETE("/:course_id", h.Course.DeleteCourseByID)
-	// }
+	course := api.Group("/course")
+	{
+		course.GET("", h.Course.GetCourses)
+		course.GET("/:course_id", h.Course.GetCourseById)
+		course.POST("", h.Course.AddCourse)
+		course.PUT(":course_id", h.Course.UpdateCourseById)
+		course.DELETE("/:course_id", h.Course.DeleteCourseById)
+	}
 }
 
 func personRouter(
