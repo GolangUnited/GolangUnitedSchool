@@ -1,0 +1,153 @@
+definitions:
+  model.Course:
+    properties:
+      end_date:
+        type: string
+      id:
+        type: integer
+      start_date:
+        type: string
+      status:
+        type: string
+      title:
+        type: string
+    type: object
+  model.CourseList:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      courses:
+        items:
+          $ref: '#/definitions/model.Course'
+        type: array
+    type: object
+  model.PaginationResponse:
+    properties:
+      page:
+        type: integer
+      page_count:
+        type: integer
+      page_size:
+        type: integer
+      total_count:
+        type: integer
+    type: object
+  v1.message:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /course:
+    post:
+      operationId: create-course
+      parameters:
+      - description: course
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.Course'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.message'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.message'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.message'
+      summary: add new course to the course list
+  /course/{id}:
+    delete:
+      operationId: delete-course-by-id
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.message'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.message'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.message'
+      summary: delete a course by ID
+    get:
+      operationId: get-course_by_id
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Course'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.message'
+      summary: get a course by ID
+    post:
+      operationId: update-course-by-id
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.message'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.message'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.message'
+      summary: update a course by ID
+  /courses:
+    get:
+      operationId: get-all-courses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.message'
+      summary: get all items in the course list
+swagger: "2.0"

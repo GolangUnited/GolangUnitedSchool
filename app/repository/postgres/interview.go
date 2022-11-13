@@ -35,6 +35,7 @@ func (r *PostgresRepository) GetInterviewById(ctx context.Context, id int64) (*m
 	if err != nil {
 		return nil, errors.Wrap(err, "couldn't get interview")
 	}
+
 	return &interview, nil
 }
 
