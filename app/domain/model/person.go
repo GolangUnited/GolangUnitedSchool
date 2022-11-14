@@ -27,6 +27,15 @@ type PersonListDto struct {
 	Persons  []Person           `json:"persons_dto"`
 }
 
+type NewPersonDto struct {
+	FirsName   string
+	LastName   string
+	Patronymic string
+	Login      string
+	RoleId     string
+	Passwd     string
+}
+
 func translateError(err error, trans ut.Translator) (errs []error) {
 	if err == nil {
 		return nil

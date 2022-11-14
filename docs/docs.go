@@ -70,6 +70,185 @@ var doc = `{
                 }
             }
         },
+        "/course/lecture": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course_lecture"
+                ],
+                "summary": "get all course lectures",
+                "operationId": "get-all-course-lectures",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CourseLectureListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course_lecture"
+                ],
+                "operationId": "add-course-lecture-by-id",
+                "parameters": [
+                    {
+                        "description": "course lecture",
+                        "name": "course",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CourseLecture"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/course/lecture/{course_lecture_id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course_lecture"
+                ],
+                "summary": "get a course lecture by id",
+                "operationId": "get-course-lecture-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "course_lecture_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CourseLecture"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course_lecture"
+                ],
+                "summary": "update course lecture by id",
+                "operationId": "update-course-lecture-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "course_lecture_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "course_lecture"
+                ],
+                "summary": "delete a course lecture by id",
+                "operationId": "delete-course-lecture-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "course_lecture_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/course/{id}": {
             "get": {
                 "produces": [
@@ -250,7 +429,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Person"
+                            "$ref": "#/definitions/model.NewPersonDto"
                         }
                     }
                 ],
@@ -310,7 +489,7 @@ var doc = `{
                     }
                 }
             },
-            "post": {
+            "put": {
                 "produces": [
                     "application/json"
                 ],
@@ -411,6 +590,31 @@ var doc = `{
                 }
             }
         },
+        "model.CourseLecture": {
+            "type": "object",
+            "properties": {
+                "course_id": {
+                    "type": "integer"
+                },
+                "lecture_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.CourseLectureListDto": {
+            "type": "object",
+            "properties": {
+                "_metadata": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                },
+                "course_lectures": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.CourseLecture"
+                    }
+                }
+            }
+        },
         "model.CourseList": {
             "type": "object",
             "properties": {
@@ -422,6 +626,29 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/model.Course"
                     }
+                }
+            }
+        },
+        "model.NewPersonDto": {
+            "type": "object",
+            "properties": {
+                "firsName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "passwd": {
+                    "type": "string"
+                },
+                "patronymic": {
+                    "type": "string"
+                },
+                "roleId": {
+                    "type": "string"
                 }
             }
         },
@@ -540,7 +767,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "/api/v1",
 	Schemes:     []string{"http"},
 	Title:       "GolangUnitedSchool",
-	Description: "# _API for student info collection service._",
+	Description: "### _API for student info collection service._",
 }
 
 type s struct{}

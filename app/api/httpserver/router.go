@@ -192,7 +192,7 @@ func courseLectureRouter(
 	courseLecture := api.Group("/course/lecture")
 	{
 		courseLecture.GET("", h.CourseLecture.GetCourseLectures)
-		courseLecture.GET("/course_lecture_id", h.CourseLecture.GetCourseLectureById)
+		courseLecture.GET("/:course_lecture_id", h.CourseLecture.GetCourseLectureById)
 		courseLecture.POST("", h.CourseLecture.AddCourseLecture)
 		courseLecture.PUT("/:course_lecture_id", h.CourseLecture.UpdateCourseLectureById)
 		courseLecture.DELETE("/:course_lecture_id", h.CourseLecture.DeleteCourseLectureById)

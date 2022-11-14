@@ -37,7 +37,7 @@ func (h *PersonHandlers) GetPersons(c *gin.Context) {}
 // @Tags person
 // @Produce json
 // @Consume json
-// @Param course body model.Person true "person"
+// @Param course body model.NewPersonDto true "person"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -65,7 +65,7 @@ func (h *PersonHandlers) GetPersonById(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
-// @Router /person/{id} [post]
+// @Router /person/{id} [put]
 func (h *PersonHandlers) UpdatePersonById(c *gin.Context) {}
 
 // DeletePersonById
