@@ -33,10 +33,10 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "group_contact"
                 ],
-                "summary": "add new course to the course list",
-                "operationId": "create-course",
+                "summary": "add new group contact",
+                "operationId": "add-group-contact",
                 "parameters": [
                     {
                         "description": "course",
@@ -44,7 +44,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Course"
+                            "$ref": "#/definitions/model.GroupContactAddDto"
                         }
                     }
                 ],
@@ -391,6 +391,67 @@ var doc = `{
                     },
                     "500": {
                         "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/group/contact": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group_contact"
+                ],
+                "summary": "get all group contacts",
+                "operationId": "get-all-group-contacts",
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.GroupContactListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/group/contact/{group_contact_id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group_contact"
+                ],
+                "summary": "get group contact by id",
+                "operationId": "get-group-contact-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "group_contact_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GroupContact"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -835,6 +896,69 @@ var doc = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/model.Course"
+                    }
+                }
+            }
+        },
+        "model.GroupContact": {
+            "type": "object",
+            "required": [
+                "is_primary"
+            ],
+            "properties": {
+                "contact_type_id": {
+                    "type": "integer",
+                    "maximum": 7
+                },
+                "contact_value": {
+                    "type": "string",
+                    "maxLength": 70,
+                    "minLength": 2
+                },
+                "group_contact_id": {
+                    "type": "integer"
+                },
+                "group_id": {
+                    "type": "integer"
+                },
+                "is_primary": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "model.GroupContactAddDto": {
+            "type": "object",
+            "required": [
+                "is_primary"
+            ],
+            "properties": {
+                "contact_type_id": {
+                    "type": "integer",
+                    "maximum": 7
+                },
+                "contact_value": {
+                    "type": "string",
+                    "maxLength": 70,
+                    "minLength": 2
+                },
+                "group_id": {
+                    "type": "integer"
+                },
+                "is_primary": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "model.GroupContactListDto": {
+            "type": "object",
+            "properties": {
+                "_metadata": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                },
+                "groupContacts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.GroupContact"
                     }
                 }
             }

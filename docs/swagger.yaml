@@ -38,6 +38,49 @@ definitions:
           $ref: '#/definitions/model.Course'
         type: array
     type: object
+  model.GroupContact:
+    properties:
+      contact_type_id:
+        maximum: 7
+        type: integer
+      contact_value:
+        maxLength: 70
+        minLength: 2
+        type: string
+      group_contact_id:
+        type: integer
+      group_id:
+        type: integer
+      is_primary:
+        type: boolean
+    required:
+    - is_primary
+    type: object
+  model.GroupContactAddDto:
+    properties:
+      contact_type_id:
+        maximum: 7
+        type: integer
+      contact_value:
+        maxLength: 70
+        minLength: 2
+        type: string
+      group_id:
+        type: integer
+      is_primary:
+        type: boolean
+    required:
+    - is_primary
+    type: object
+  model.GroupContactListDto:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      groupContacts:
+        items:
+          $ref: '#/definitions/model.GroupContact'
+        type: array
+    type: object
   model.NewPersonDto:
     properties:
       firsName:
@@ -149,14 +192,14 @@ info:
 paths:
   /course:
     post:
-      operationId: create-course
+      operationId: add-group-contact
       parameters:
       - description: course
         in: body
         name: course
         required: true
         schema:
-          $ref: '#/definitions/model.Course'
+          $ref: '#/definitions/model.GroupContactAddDto'
       produces:
       - application/json
       responses:
@@ -172,9 +215,9 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: add new course to the course list
+      summary: add new group contact
       tags:
-      - courses
+      - group_contact
   /course/{id}:
     delete:
       operationId: delete-course-by-id
@@ -392,6 +435,46 @@ paths:
       summary: get all items in the course list
       tags:
       - courses
+  /group/contact:
+    get:
+      operationId: get-all-group-contacts
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.GroupContactListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all group contacts
+      tags:
+      - group_contact
+  /group/contact/{group_contact_id}:
+    get:
+      operationId: get-group-contact-by-id
+      parameters:
+      - description: group_contact_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.GroupContact'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get group contact by id
+      tags:
+      - group_contact
   /group/students:
     get:
       operationId: get-student-groups
