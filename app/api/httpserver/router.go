@@ -9,16 +9,6 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-// @title GolangUnitedSchool
-// @version 1.0
-// @description This web server for student informations API.
-
-// @license.name MIT
-// @license.url https://opensource.org/licenses/MIT
-
-// @host localhost:8080
-// @BasePath /api/v1
-// @schemes http
 func NewRouter(
 	handlers *v1.Handlers,
 ) *gin.Engine {

@@ -24,6 +24,7 @@ func NewCourseHandler(
 	}
 }
 
+// AddCourse
 // @Summary add new course to the course list
 // @ID create-course
 // @Tags courses
@@ -47,6 +48,7 @@ func (h *CourseHandlers) AddCourse(c *gin.Context) {
 	}
 }
 
+// GetCourses
 // @Summary get all items in the course list
 // @ID get-all-courses
 // @Tags courses
@@ -58,6 +60,7 @@ func (h *CourseHandlers) GetCourses(c *gin.Context) {
 
 }
 
+// GetCourseById
 // @Summary get a course by ID
 // @ID get-course_by_id
 // @Tags courses
@@ -70,6 +73,7 @@ func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 
 }
 
+// UpdateCourseById
 // @Summary update a course by ID
 // @ID update-course-by-id
 // @Tags courses
@@ -84,6 +88,7 @@ func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
 
 }
 
+// DeleteCourseById
 // @Summary delete a course by ID
 // @ID delete-course-by-id
 // @Tags courses

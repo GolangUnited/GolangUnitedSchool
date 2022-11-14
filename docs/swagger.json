@@ -1,8 +1,20 @@
 {
+    "schemes": [
+        "http"
+    ],
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "# _API for student info collection service._",
+        "title": "GolangUnitedSchool",
+        "contact": {},
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
     },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
     "paths": {
         "/course": {
             "post": {
@@ -185,6 +197,186 @@
                     }
                 }
             }
+        },
+        "/person": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "person"
+                ],
+                "summary": "get all person from database",
+                "operationId": "get-persons",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.PersonListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "person"
+                ],
+                "summary": "add new person to database",
+                "operationId": "add-new-person",
+                "parameters": [
+                    {
+                        "description": "person",
+                        "name": "course",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Person"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/person/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "person"
+                ],
+                "summary": "get person by id",
+                "operationId": "get-person-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Person"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "person"
+                ],
+                "summary": "update person by id",
+                "operationId": "update-person-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "person"
+                ],
+                "summary": "delete person by id",
+                "operationId": "delete-person-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -236,6 +428,71 @@
                 },
                 "total_count": {
                     "type": "integer"
+                }
+            }
+        },
+        "model.Person": {
+            "type": "object",
+            "required": [
+                "first_name",
+                "last_name",
+                "login",
+                "passwd",
+                "role_id"
+            ],
+            "properties": {
+                "deleted": {
+                    "type": "boolean"
+                },
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "login": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "passwd": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 8
+                },
+                "patronymic": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "person_id": {
+                    "type": "integer"
+                },
+                "role_id": {
+                    "type": "integer",
+                    "maximum": 6,
+                    "minimum": 1
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.PersonListDto": {
+            "type": "object",
+            "properties": {
+                "_metadata": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                },
+                "persons_dto": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Person"
+                    }
                 }
             }
         },
