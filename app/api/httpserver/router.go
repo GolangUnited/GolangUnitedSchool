@@ -165,8 +165,8 @@ func studentGroupRouter(
 		studentGroup.GET("", h.StudentGroup.GetStudentGroups)
 		studentGroup.GET("/:student_group_id", h.StudentGroup.GetStudentGroupById)
 		studentGroup.POST("", h.StudentGroup.AddStudentGroup)
-		studentGroup.PUT("/:student_group_id", h.StudentGroup.UpdateStudentGroupbyId)
-		studentGroup.DELETE("/:student_group_id", h.StudentGroup.DeleteStudentGroup)
+		studentGroup.PUT("/:student_group_id", h.StudentGroup.UpdateStudentGroupById)
+		studentGroup.DELETE("/:student_group_id", h.StudentGroup.DeleteStudentGroupById)
 
 	}
 }

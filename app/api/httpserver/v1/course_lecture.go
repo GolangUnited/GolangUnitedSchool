@@ -43,11 +43,13 @@ func (h *CourseLectureHandlers) GetCourseLectures(c *gin.Context) {}
 func (h *CourseLectureHandlers) GetCourseLectureById(c *gin.Context) {}
 
 // AddCourseLecture
+// GetCourseLectureById
+// @Summary add new course lecture
 // @ID add-course-lecture-by-id
 // @Tags course_lecture
 // @Produce json
 // @Consume json
-// @Param course body model.CourseLecture true "course lecture"
+// @Param course body model.CourseLecture true "course_lecture"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -59,6 +61,7 @@ func (h *CourseLectureHandlers) AddCourseLecture(c *gin.Context) {}
 // @ID update-course-lecture-by-id
 // @Tags course_lecture
 // @Param id path string true "course_lecture_id"
+// @Param course body model.CourseLecture true "course_lecture"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage

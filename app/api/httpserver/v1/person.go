@@ -52,20 +52,20 @@ func (h *PersonHandlers) AddNewPerson(c *gin.Context) {}
 // @Param id path string true "person id"
 // @Success 200 {object} model.Person
 // @Failure 404 {object} model.ResponseMessage
-// @Router /person/{id} [get]
+// @Router /person/{person_id} [get]
 func (h *PersonHandlers) GetPersonById(c *gin.Context) {}
 
 // UpdatePersonById
 // @Summary update person by id
 // @ID update-person-by-id
 // @Tags person
-// @Param id path string true "person id"
 // @Produce json
-// @Consume json
+// @Param id path string true "course id"
+// @Param course body model.Person true "person"
 // @Success 200 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
-// @Router /person/{id} [put]
+// @Router /person/{person_id} [put]
 func (h *PersonHandlers) UpdatePersonById(c *gin.Context) {}
 
 // DeletePersonById
@@ -77,5 +77,5 @@ func (h *PersonHandlers) UpdatePersonById(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /person/{id} [delete]
+// @Router /person/{person_id} [delete]
 func (h *PersonHandlers) DeletePersonById(c *gin.Context) {}
