@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/group"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/interview"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/mentor"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/person"
 
@@ -30,6 +31,7 @@ type Usecases struct {
 	Mentor              MentorUseCaseInterface
 	GroupContact        GroupContactUseCaseInterface
 	Group               GroupUsecaseInterface
+	Interview           InterviewUsecaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -49,6 +51,7 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		Mentor:              mentor.NewMentor(lg, repo),
 		GroupContact:        group.NewGroupContact(lg, repo),
 		Group:               group.NewGroup(lg, repo),
+		Interview:           interview.NewInterviewUsecase(lg, repo),
 	}
 }
 
@@ -143,4 +146,12 @@ type GroupUsecaseInterface interface {
 	UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error
 	PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error
 	DeleteGroupById(ctx context.Context, id int64) error
+}
+
+type InterviewUsecaseInterface interface {
+	GetInterviewById(context.Context, int64) (*model.Interview, error)
+	GetInterviews(context.Context) ([]model.Interview, error)
+	AddInterview(context.Context, *model.Interview) (int64, error)
+	UpdateInterviewById(context.Context, int64, *model.Interview) error
+	DeleteInterviewById(context.Context, int64) error
 }
