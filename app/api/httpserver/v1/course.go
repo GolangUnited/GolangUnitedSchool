@@ -52,6 +52,7 @@ func (h *CourseHandlers) AddCourse(c *gin.Context) {
 // @Tags courses
 // @Produce json
 // @Success 200 {object} model.CourseList
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /courses [get]
 func (h *CourseHandlers) GetCourses(c *gin.Context) {

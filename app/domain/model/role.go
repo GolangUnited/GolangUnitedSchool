@@ -5,3 +5,8 @@ type Role struct {
 	RoleName   string
 	IsReadOnly bool
 }
+
+type RoleCU struct {
+	RoleName   *string
+	IsReadOnly *bool
+}

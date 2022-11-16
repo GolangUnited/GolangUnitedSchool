@@ -116,4 +116,20 @@ type RepositoryInterface interface {
 	AddInterview(context.Context, *model.Interview) (int64, error)
 	UpdateInterviewById(context.Context, int64, *model.Interview) error
 	DeleteInterviewById(context.Context, int64) error
+
+	// role
+	GetRoleById(ctx context.Context, id int64) (*model.Role, error)
+	GetRoles(ctx context.Context) ([]model.Role, error)
+	AddRole(ctx context.Context, role *model.RoleCU) (int64, error)
+	UpadateRoleById(ctx context.Context, id int64, role *model.RoleCU) error
+	PutRoleById(ctx context.Context, id int64, role *model.Role) error
+	DeleteRoleById(ctx context.Context, id int64) error
+
+	// group
+	GetGroupById(ctx context.Context, id int64) (*model.Group, error)
+	GetGroups(ctx context.Context) ([]model.Group, error)
+	CreateGroup(ctx context.Context, group *model.Group) (int64, error)
+	UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error
+	PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error
+	DeleteGroupById(ctx context.Context, id int64) error
 }

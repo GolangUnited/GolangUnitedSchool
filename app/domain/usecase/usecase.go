@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/group"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/mentor"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/person"
@@ -28,6 +29,7 @@ type Usecases struct {
 	StudentNote         StudentUseCaseInterface
 	Mentor              MentorUseCaseInterface
 	GroupContact        GroupContactUseCaseInterface
+	Group               GroupUsecaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -46,6 +48,7 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		StudentNote:         student.NewStudentNote(lg, repo),
 		Mentor:              mentor.NewMentor(lg, repo),
 		GroupContact:        group.NewGroupContact(lg, repo),
+		Group:               group.NewGroup(lg, repo),
 	}
 }
 
@@ -123,3 +126,21 @@ type CourseStatusUseCaseInterface interface{}
 type StudentGroupUseCaseInterface interface{}
 type CourseLectureUseCaseInterface interface{}
 type GroupContactUseCaseInterface interface{}
+
+type RoleUsecaseInterface interface {
+	GetRoleById(ctx context.Context, id int64) (*model.Role, error)
+	GetRoles(ctx context.Context) ([]model.Role, error)
+	AddRole(ctx context.Context, role *model.RoleCU) error
+	UpadateRoleById(ctx context.Context, role *model.RoleCU) error
+	PutRoleById(ctx context.Context, role *model.Role) error
+	DeleteRoleById(ctx context.Context, id int64) error
+}
+
+type GroupUsecaseInterface interface {
+	GetGroupById(ctx context.Context, id int64) (*model.Group, error)
+	GetGroups(ctx context.Context) ([]model.Group, error)
+	CreateGroup(ctx context.Context, group *model.Group) (int64, error)
+	UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error
+	PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error
+	DeleteGroupById(ctx context.Context, id int64) error
+}
