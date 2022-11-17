@@ -23,3 +23,18 @@
   Доработки по модели:
 1. у каждого пользователя должен быть приоритетный канал связи
 2. у сущностей группа нужно предусмотреть групповой канал связи (например общий канал в телеге, в дискорде и тд)
+
+
+* Documentation Swagger
+
+* install  
+  go get -u github.com/swaggo/swag/cmd/swag
+  go get -u github.com/swaggo/gin-swagger
+  go get -u github.com/swaggo/files
+
+* make swagger docs 
+  swag init -g cmd/missionPossible/main.go 
+
+* to see swagger documentations 
+  go run cmd/missionPossible/main.go 
+  [GET] http://localhost:8080/docs/index.html

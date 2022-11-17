@@ -58,7 +58,7 @@ type RepositoryInterface interface {
 	// course status
 	GetCourseStatuses(ctx context.Context) ([]model.CourseStatus, error)
 	GetCourseStatusById(ctx context.Context, id int64) (*model.CourseStatus, error)
-	AddCourseStatus(ctx context.Context, data *model.CourseStatus) error
+	AddCourseStatus(ctx context.Context, data *model.CourseStatus) (int64, error)
 	UpdateCourseStatusById(ctx context.Context, id int64, data *model.CourseStatus) error
 	DeleteCourseStatusById(ctx context.Context, id int64) error
 	// course lecture
@@ -101,4 +101,19 @@ type RepositoryInterface interface {
 	AddStudentCertificate(ctx context.Context, data *model.StudentCertificate) error
 	UpdateStudentCertificate(ctx context.Context, id int64, data *model.StudentCertificate) error
 	DeleteStudentCertificate(ctx context.Context, id int64) error
+
+	// Course repo interfaces
+	CreateCourse(context.Context, *model.CourseCreate) (int64, error)
+	GetCourseByID(context.Context, int64) (*model.Course, error)
+	GetCourses(context.Context, *model.PaginationParams) (*model.CourseList, error)
+	UpdateCourseByID(context.Context, int64, *model.CourseUpdate) error
+	PutCourseByID(context.Context, int64, *model.CourseUpdate) error
+	DeleteCourseByID(context.Context, int64) error
+
+	// interview
+	GetInterviewById(context.Context, int64) (*model.Interview, error)
+	GetInterviews(context.Context) ([]model.Interview, error)
+	AddInterview(context.Context, *model.Interview) (int64, error)
+	UpdateInterviewById(context.Context, int64, *model.Interview) error
+	DeleteInterviewById(context.Context, int64) error
 }

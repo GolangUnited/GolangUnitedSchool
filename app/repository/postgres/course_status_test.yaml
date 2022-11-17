@@ -1,0 +1,18 @@
+conf:
+  setup:
+    requests:
+      - request: CREATE 
+                TABLE course_status (
+                    id serial NOT NULL,
+                    title VARCHAR(256) UNIQUE NOT NULL
+                );
+      - request: INSERT 
+                  INTO course_status 
+                  (title) VALUES 
+                  ('active'),
+                  ('done'),
+                  ('inactive'),
+                  ('created');
+  teardown:
+    requests:
+      - request: DROP TABLE course_status CASCADE;

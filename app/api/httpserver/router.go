@@ -1,14 +1,31 @@
 package httpserver
 
 import (
+	_ "github.com/lozovoya/GolangUnitedSchool/docs"
+
 	"github.com/gin-gonic/gin"
 	v1 "github.com/lozovoya/GolangUnitedSchool/app/api/httpserver/v1"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// @title GolangUnitedSchool
+// @version 1.0
+// @description This web server for student informations API.
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:8080
+// @BasePath /api/v1
+// @schemes http
 func NewRouter(
 	handlers *v1.Handlers,
 ) *gin.Engine {
 	router := gin.Default()
+
+	// docs route
+	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	api := router.Group("/api/v1")
 	courseRouter(api, handlers)
@@ -40,9 +57,8 @@ func courseRouter(
 		course.GET("", h.Course.GetCourses)
 		course.GET("/:course_id", h.Course.GetCourseById)
 		course.POST("", h.Course.AddCourse)
-		course.PUT(":course_id", h.Course.EditCourseById)
-		course.DELETE("/:course_id", h.Course.DeleteCourseByID)
-
+		course.PUT(":course_id", h.Course.UpdateCourseById)
+		course.DELETE("/:course_id", h.Course.DeleteCourseById)
 	}
 }
 
@@ -99,7 +115,7 @@ func mentorNoteRouter(
 	{
 		mentorNote.GET("", h.MentorNote.GetMentorNotes)
 		mentorNote.GET("/:mentor_id", h.MentorNote.GetMentorNotesByMentorId)
-		mentorNote.GET("/:mentor_note_id", h.MentorNote.GetMentorNoteByMentorNoteId)
+		// mentorNote.GET("/:mentor_note_id", h.MentorNote.GetMentorNoteByMentorNoteId)
 		mentorNote.POST("", h.MentorNote.AddMentorNote)
 		mentorNote.PUT("/:mentor_note_id", h.MentorNote.UpdateMentorNoteByMentorNoteId)
 		mentorNote.DELETE("/:mentor_note_id", h.MentorNote.DeleteMentorNoteByMentorNoteId)
@@ -114,7 +130,7 @@ func studentNoteRouter(
 	{
 		studentNote.GET("", h.StudentNote.GetStudentNotes)
 		studentNote.GET("/:student_id", h.StudentNote.GetStudentNotesByStudentId)
-		studentNote.GET("/:student_note_id", h.StudentNote.GetStudentNoteByStudentNoteId)
+		// studentNote.GET("/:student_note_id", h.StudentNote.GetStudentNoteByStudentNoteId)
 		studentNote.POST("", h.StudentNote.AddStudentNote)
 		studentNote.PUT("/:student_note_id", h.StudentNote.UpdateStudentNoteByStudentNoteId)
 		studentNote.DELETE("/:student_note_id", h.StudentNote.DeleteStudentNote)
