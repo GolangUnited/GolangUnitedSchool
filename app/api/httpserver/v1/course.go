@@ -34,7 +34,7 @@ func NewCourseHandler(
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /course [post]
+// @Router /courses [post]
 func (h *CourseHandlers) AddCourse(c *gin.Context) {
 	var course model.Course
 	err := c.ShouldBind(&course)
@@ -68,7 +68,7 @@ func (h *CourseHandlers) GetCourses(c *gin.Context) {
 // @Param id path string true "course id"
 // @Success 200 {object} model.Course
 // @Failure 404 {object} model.ResponseMessage
-// @Router /course/{id} [get]
+// @Router /courses/{id} [get]
 func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 
 }
@@ -83,7 +83,7 @@ func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 // @Success 200 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
-// @Router /course/{id} [post]
+// @Router /courses/{id} [post]
 func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
 
 }
@@ -97,7 +97,7 @@ func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
 // @Success 200 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /course/{id} [delete]
+// @Router /courses/{id} [delete]
 func (h *CourseHandlers) DeleteCourseById(c *gin.Context) {
 
 }

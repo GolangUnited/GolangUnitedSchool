@@ -13,7 +13,7 @@ type CourseLecture struct {
 	LectureId int64 `json:"lecture_id" validate:"numeric,gt=0"`
 }
 
-type CourseLectureListDto struct {
+type CourseLecturesListDto struct {
 	Metadata          PaginationResponse `json:"_metadata"`
 	CourseLectureList []CourseLecture    `json:"course_lectures"`
 }

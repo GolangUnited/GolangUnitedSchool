@@ -13,6 +13,11 @@ type CourseStatus struct {
 	Title          string `json:"title" validate:"min=2,max=20,alphaunicode"`
 }
 
+type CourseStatusesListDto struct {
+	Metadata         PaginationResponse `json:"_metadata"`
+	CourseStatusList []CourseStatus
+}
+
 func (n *CourseStatus) ValidateCourseStatus() error {
 	validate := validator.New()
 	english := en.New()

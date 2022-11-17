@@ -20,7 +20,7 @@ definitions:
       lecture_id:
         type: integer
     type: object
-  model.CourseLectureListDto:
+  model.CourseLecturesListDto:
     properties:
       _metadata:
         $ref: '#/definitions/model.PaginationResponse'
@@ -36,6 +36,24 @@ definitions:
       courses:
         items:
           $ref: '#/definitions/model.Course'
+        type: array
+    type: object
+  model.CourseStatus:
+    properties:
+      course_status_id:
+        type: integer
+      title:
+        maxLength: 20
+        minLength: 2
+        type: string
+    type: object
+  model.CourseStatusesListDto:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      courseStatusList:
+        items:
+          $ref: '#/definitions/model.CourseStatus'
         type: array
     type: object
   model.GroupContact:
@@ -227,6 +245,14 @@ definitions:
       status:
         type: string
     type: object
+  model.Student:
+    properties:
+      student_id:
+        minimum: 0
+        type: integer
+    required:
+    - student_id
+    type: object
   model.StudentGroup:
     properties:
       group_id:
@@ -283,6 +309,13 @@ definitions:
           $ref: '#/definitions/model.StudentNote'
         type: array
     type: object
+  model.StudentsListDto:
+    properties:
+      studentList:
+        items:
+          $ref: '#/definitions/model.Student'
+        type: array
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -321,7 +354,126 @@ paths:
       summary: add new group contact
       tags:
       - group_contact
-  /course/{id}:
+  /course/contact/{group_contact_id}:
+    delete:
+      operationId: delete-group-contact-by-id
+      parameters:
+      - description: group_contact_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete group contact by id
+      tags:
+      - group_contact
+  /courses:
+    get:
+      operationId: get-all-courses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the course list
+      tags:
+      - courses
+    post:
+      operationId: create-course
+      parameters:
+      - description: course
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.Course'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new course to the course list
+      tags:
+      - courses
+  /courses/{course_id}/lectures:
+    get:
+      operationId: get-course-lectures-by-course-id
+      parameters:
+      - description: course_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseLecturesListDto'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a course lecture by id
+  /courses/{course_id}/lectures/{lecture_id}:
+    get:
+      description: возвращает лекцию с указанным lecture_id с курса course_id
+      operationId: get--lecture-by-id-from-course
+      parameters:
+      - description: course_id
+        in: path
+        name: course_id
+        required: true
+        type: string
+      - description: lecture_id
+        in: path
+        name: lecture_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseLecture'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get concrete lecture from course
+  /courses/{id}:
     delete:
       operationId: delete-course-by-id
       parameters:
@@ -396,51 +548,9 @@ paths:
       summary: update a course by ID
       tags:
       - courses
-  /course/contact/{group_contact_id}:
-    delete:
-      operationId: delete-group-contact-by-id
-      parameters:
-      - description: group_contact_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: delete group contact by id
-      tags:
-      - group_contact
-  /course/lecture:
-    get:
-      operationId: get-all-course-lectures
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.CourseLectureListDto'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all course lectures
-      tags:
-      - course_lecture
+  /courses/lectures:
     post:
+      description: добавить новую лекцию на курс
       operationId: add-course-lecture-by-id
       parameters:
       - description: course_lecture
@@ -466,9 +576,11 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new course lecture
       tags:
-      - course_lecture
-  /course/lecture/{course_lecture_id}:
+      - courses
+      - courseLectures
+  /courses/lectures/{lecture_id}:
     delete:
+      description: удалить лекцию с указанным lecture_id
       operationId: delete-course-lecture-by-id
       parameters:
       - description: course_lecture_id
@@ -493,40 +605,20 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete a course lecture by id
       tags:
-      - course_lecture
-    get:
-      operationId: get-course-lecture-by-id
-      parameters:
-      - description: course_lecture_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.CourseLecture'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get a course lecture by id
-      tags:
-      - course_lecture
+      - courses
+      - courseLectures
     put:
+      description: отредактировать лекцию курса с указанным lecture_id
       operationId: update-course-lecture-by-id
       parameters:
-      - description: course_lecture_id
+      - description: lecture_id
         in: path
         name: id
         required: true
         type: string
       - description: course_lecture
         in: body
-        name: course
+        name: lecture
         required: true
         schema:
           $ref: '#/definitions/model.CourseLecture'
@@ -547,24 +639,125 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update course lecture by id
       tags:
-      - course_lecture
-  /courses:
+      - courses
+      - courseLectures
+  /courses/statuses:
     get:
-      operationId: get-all-courses
+      description: возвращает список всех статусов курса
+      operationId: get-all-course-statuses
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.CourseList'
+            $ref: '#/definitions/model.CourseStatusesListDto'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: get all items in the course list
+      summary: get all course statuses
       tags:
       - courses
+      - courseStatuses
+    post:
+      description: создает новый статус курса
+      operationId: add-course-status
+      parameters:
+      - description: new_course_status
+        in: body
+        name: new_course_status
+        required: true
+        schema:
+          $ref: '#/definitions/model.CourseStatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new course status
+      tags:
+      - courses
+      - courseStatuses
+  /courses/statuses/{status_id}:
+    delete:
+      description: удаляет статус курса с указанным status_id
+      operationId: delete-course-status
+      parameters:
+      - description: status_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete course status
+      tags:
+      - courses
+      - courseStatuses
+    get:
+      description: возвращает статус курса с status_id
+      operationId: get-course-status
+      parameters:
+      - description: status_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseStatus'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get course status by id
+      tags:
+      - courses
+      - courseStatuses
+    put:
+      description: изменяет статус курса с указанным status_id
+      operationId: put-course-status
+      parameters:
+      - description: status_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update course status
+      tags:
+      - courses
+      - courseStatuses
   /group/contact:
     get:
       operationId: get-all-group-contacts
@@ -637,132 +830,6 @@ paths:
       summary: update group contact
       tags:
       - group_contact
-  /group/students:
-    get:
-      operationId: get-student-groups
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StudentGroupListDto'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all student groups
-      tags:
-      - student_group
-    post:
-      operationId: add-student-group
-      parameters:
-      - description: student_group
-        in: body
-        name: course
-        required: true
-        schema:
-          $ref: '#/definitions/model.StudentGroup'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: add new course to the course list
-      tags:
-      - student_group
-  /group/students/{group_id}:
-    delete:
-      operationId: delete-student-group-by-id
-      parameters:
-      - description: group_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: delete student group by id
-      tags:
-      - student_group
-    put:
-      operationId: update-student-group-by-id
-      parameters:
-      - description: group_id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: student_group
-        in: body
-        name: course
-        required: true
-        schema:
-          $ref: '#/definitions/model.StudentGroup'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update student group by group id
-      tags:
-      - student_group
-  /group/students{group_id}:
-    get:
-      operationId: get_student_group_by_id
-      parameters:
-      - description: group_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StudentGroup'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get student group by id
-      tags:
-      - student_group
   /mentors:
     get:
       description: получить список всех менторов
@@ -990,8 +1057,9 @@ paths:
       summary: delete mentor note
       tags:
       - mentor_notes
-  /person:
+  /persons:
     get:
+      description: возвращает список всех пользователей
       operationId: get-persons
       produces:
       - application/json
@@ -1006,8 +1074,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all person from database
       tags:
-      - person
+      - persons
     post:
+      description: добавляет нового пользователя
       operationId: add-new-person
       parameters:
       - description: person
@@ -1033,12 +1102,13 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new person to database
       tags:
-      - person
-  /person/{person_id}:
+      - persons
+  /persons/{person_id}:
     delete:
+      description: удаляет пользователя с указанным id<
       operationId: delete-person-by-id
       parameters:
-      - description: person id
+      - description: person_id
         in: path
         name: id
         required: true
@@ -1060,11 +1130,12 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete person by id
       tags:
-      - person
+      - persons
     get:
+      description: возвращает данные о пользователе с указанным id
       operationId: get-person-by-id
       parameters:
-      - description: person id
+      - description: person_id
         in: path
         name: id
         required: true
@@ -1082,18 +1153,19 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get person by id
       tags:
-      - person
+      - persons
     put:
+      description: изменяет данные пользователя с указанным id
       operationId: update-person-by-id
       parameters:
-      - description: course id
+      - description: person_id
         in: path
         name: id
         required: true
         type: string
       - description: person
         in: body
-        name: course
+        name: person
         required: true
         schema:
           $ref: '#/definitions/model.Person'
@@ -1114,10 +1186,29 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update person by id
       tags:
-      - person
-  /student/{person_id}:
+      - persons
+  /students:
+    get:
+      description: возвращает список всех пользователей группы "student"
+      operationId: get-all-students
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentsListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all students
+      tags:
+      - students
+  /students/{person_id}:
     post:
-      operationId: cadd-person-to-students
+      description: добавить пользователя в группу студентов
+      operationId: add-person-to-students
       parameters:
       - description: person_id
         in: path
@@ -1142,8 +1233,9 @@ paths:
       summary: add person to students
       tags:
       - students
-  /student/{student_id}:
+  /students/{student_id}:
     delete:
+      description: удалить пользователя с указанным id is группы "студенты"
       operationId: delete-person-from-students
       parameters:
       - description: student_id
@@ -1170,6 +1262,7 @@ paths:
       tags:
       - students
     get:
+      description: получить данные о студенте по его id, возвращает структуру person
       operationId: get-student-by-student-id
       parameters:
       - description: student_id
@@ -1183,7 +1276,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Course'
+            $ref: '#/definitions/model.Person'
         "404":
           description: Not Found
           schema:
@@ -1192,6 +1285,7 @@ paths:
       tags:
       - students
     put:
+      description: пока не слишком понятно, нужен ли этот хендлер
       operationId: update-student-by-student-id
       parameters:
       - description: student_id
@@ -1215,23 +1309,6 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update student by student id
-      tags:
-      - students
-  /students:
-    get:
-      operationId: get-all-students
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.CourseList'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all students
       tags:
       - students
   /students/{student_id}/notes:
@@ -1359,6 +1436,141 @@ paths:
       summary: update student note
       tags:
       - student_notes
+  /students/groups:
+    get:
+      description: возвращает список всех студенческих групп
+      operationId: get-student-groups
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentGroupListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all student groups
+      tags:
+      - students
+      - studentGroups
+    post:
+      description: добавляет новую студенческую группу
+      operationId: add-student-group
+      parameters:
+      - description: student_group
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentGroup'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new student group
+      tags:
+      - students
+      - studentGroups
+  /students/groups/{group_id}:
+    delete:
+      description: удаляет студенческую группу с указанным id
+      operationId: delete-student-group-by-id
+      parameters:
+      - description: group_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete student group by id
+      tags:
+      - students
+      - studentGroups
+    get:
+      description: возвращает группу с указанным id
+      operationId: get_student_group_by_id
+      parameters:
+      - description: group_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentGroup'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get student group by id
+      tags:
+      - students
+      - studentGroups
+    put:
+      description: изменяет данные студенческой группы
+      operationId: update-student-group-by-id
+      parameters:
+      - description: group_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_group
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student group by group id
+      tags:
+      - students
+      - studentGroups
   /students/notes/{student_note_id}:
     delete:
       operationId: delete-student-note
