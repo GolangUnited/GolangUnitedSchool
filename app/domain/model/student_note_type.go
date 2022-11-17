@@ -20,6 +20,14 @@ type StudentNoteType struct {
 	Title             string `json:"title" validate:"gte=2,lte=10"`
 }
 
+type StudentNoteTypesListDto struct {
+	StudentNoteTypeList []StudentNoteType
+}
+
+type NewStudentNoteTypeDto struct {
+	Title string `json:"title" validate:"gte=2,lte=10"`
+}
+
 func (n *StudentNoteType) ValidateStudentNoteType() error {
 	validate := validator.New()
 	english := en.New()

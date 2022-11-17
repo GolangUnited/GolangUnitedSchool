@@ -2,9 +2,13 @@ package model
 
 import "time"
 
-//no testing
+// no testing
 type Student struct {
 	StudentId int64 `json:"student_id" validate:"required,numeric,gte=0"`
+}
+
+type StudentListDto struct {
+	StudentList []Student
 }
 
 type StudentCertificate struct {

@@ -42,7 +42,7 @@ func courseRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	course := api.Group("/course")
+	course := api.Group("/courses")
 	{
 		course.GET("", h.Course.GetCourses)
 		course.GET("/:course_id", h.Course.GetCourseById)
@@ -56,7 +56,7 @@ func personRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	person := api.Group("/person")
+	person := api.Group("/persons")
 	{
 		person.GET("", h.Person.GetPersons)
 		person.GET("/:person_id", h.Person.GetPersonById)
@@ -71,7 +71,7 @@ func studentRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	student := api.Group("/student")
+	student := api.Group("/students")
 	{
 		student.GET("", h.Student.GetStudents)
 		student.GET("/:student_id", h.Student.GetStudentByStudentId)
@@ -86,7 +86,7 @@ func mentorRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	mentor := api.Group("/mentor")
+	mentor := api.Group("/mentors")
 	{
 		mentor.GET("", h.Mentor.GetMentors)
 		mentor.GET("/:mentor_id", h.Mentor.GetMentorByMentorId)
@@ -101,7 +101,7 @@ func mentorNoteRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	mentorNote := api.Group("/mentor/note")
+	mentorNote := api.Group("/mentors/notes")
 	{
 		mentorNote.GET("", h.MentorNote.GetMentorNotes)
 		mentorNote.GET("/:mentor_id", h.MentorNote.GetMentorNotesByMentorId)
@@ -116,9 +116,9 @@ func studentNoteRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	studentNote := api.Group("/student/note")
+	studentNote := api.Group("/students/notes")
 	{
-		studentNote.GET("", h.StudentNote.GetStudentNotes)
+		//studentNote.GET("", h.StudentNote.GetStudentNotes)
 		studentNote.GET("/:student_id", h.StudentNote.GetStudentNotesByStudentId)
 		// studentNote.GET("/:student_note_id", h.StudentNote.GetStudentNoteByStudentNoteId)
 		studentNote.POST("", h.StudentNote.AddStudentNote)
@@ -131,10 +131,10 @@ func studentNoteTypeRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	studentNoteType := api.Group("/student/note_type")
+	studentNoteType := api.Group("/students/notes/types")
 	{
-		studentNoteType.GET("", h.StudentNoteType.GetStudentNoteTypes)
-		studentNoteType.GET("/:student_note_type_id", h.StudentNoteType.GetStudentNoteTypeById)
+		studentNoteType.GET("/types", h.StudentNoteType.GetStudentNoteTypes)
+		studentNoteType.GET("/types/:type_id", h.StudentNoteType.GetStudentNoteTypeById)
 		studentNoteType.POST("", h.StudentNoteType.AddStudentNoteType)
 		studentNoteType.PUT("/:student_note_type_id", h.StudentNoteType.UpdateStudentNoteTypeById)
 		studentNoteType.DELETE("/:student_note_type_id", h.StudentNoteType.DeleteStudentNoteTypeById)
@@ -146,7 +146,7 @@ func groupContactRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	groupContact := api.Group("/group/contact")
+	groupContact := api.Group("/groups/contacts")
 	{
 		groupContact.GET("", h.GroupContact.GetGroupContacts)
 		groupContact.GET("/:group_contact_id", h.GroupContact.GetGroupContactById)
@@ -160,7 +160,7 @@ func studentGroupRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	studentGroup := api.Group("/group/students")
+	studentGroup := api.Group("/groups/students")
 	{
 		studentGroup.GET("", h.StudentGroup.GetStudentGroups)
 		studentGroup.GET("/:student_group_id", h.StudentGroup.GetStudentGroupById)
@@ -175,7 +175,7 @@ func courseStatusRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	courseStatus := api.Group("/course/status")
+	courseStatus := api.Group("/courses/statuses")
 	{
 		courseStatus.GET("", h.CourseStatus.GetCourseStatuses)
 		courseStatus.GET("/:course_status_id", h.CourseStatus.GetCourseStatusById)
@@ -189,7 +189,7 @@ func courseLectureRouter(
 	api *gin.RouterGroup,
 	h *v1.Handlers,
 ) {
-	courseLecture := api.Group("/course/lecture")
+	courseLecture := api.Group("/courses/lectures")
 	{
 		courseLecture.GET("", h.CourseLecture.GetCourseLectures)
 		courseLecture.GET("/:course_lecture_id", h.CourseLecture.GetCourseLectureById)
@@ -203,7 +203,7 @@ func certificateTemplateRouter(
 	api *gin.RouterGroup,
 	h *v1.CertificateTemplateHandlers,
 ) {
-	certificateTemplate := api.Group("/certificate_template")
+	certificateTemplate := api.Group("/certificate_templates")
 	{
 		certificateTemplate.GET("", h.GetCertificateTemplates)
 		certificateTemplate.GET("/:certificate_template_id", h.GetCertificateTemplateById)
@@ -217,7 +217,7 @@ func homeworkRouter(
 	api *gin.RouterGroup,
 	h *v1.HomeworkHandlers,
 ) {
-	homework := api.Group("/homework")
+	homework := api.Group("/homeworks")
 	{
 		homework.GET("", h.GetHomeworks)
 		homework.GET("/:homework_id", h.GetHomeworkById)
@@ -233,7 +233,7 @@ func lectureRouter(
 	api *gin.RouterGroup,
 	h *v1.LectureHandlers,
 ) {
-	lecture := api.Group("/lecture")
+	lecture := api.Group("/lectures")
 	{
 		lecture.GET("", h.GetLectures)
 		lecture.GET("/:lecture_id", h.GetLectureById)
@@ -247,7 +247,7 @@ func studentCertificateRouter(
 	api *gin.RouterGroup,
 	h *v1.StudentCertificateHandlers,
 ) {
-	studentCertificate := api.Group("/student_certificate")
+	studentCertificate := api.Group("/student_certificates")
 	{
 		studentCertificate.GET("", h.GetStudentCertificates)
 		studentCertificate.GET("/:student_certificate_id", h.GetStudentCertificateById)
@@ -265,7 +265,7 @@ func studentHomeworkRouter(
 	api *gin.RouterGroup,
 	h *v1.StudentHomeworkHandlers,
 ) {
-	studentHomework := api.Group("/student_homework")
+	studentHomework := api.Group("/student_homeworks")
 	{
 		studentHomework.GET("", h.GetStudentHomeworks)
 		studentHomework.GET("/:student_homework_id", h.GetStudentHomeworkById)

@@ -17,6 +17,16 @@ type StudentNote struct {
 	CreatedAt         time.Time `json:"created_at" validate:"omitempty"`
 }
 
+type StudentNotesListDto struct {
+	StudentId       int64
+	StudentNoteList []StudentNote
+}
+
+type NewStudentNoteDto struct {
+	Note      string    `json:"note" validate:"gte=2,lte=255"`
+	CreatedAt time.Time `json:"created_at" validate:"omitempty"`
+}
+
 func (n *StudentNote) ValidateStudentNote() error {
 	validate := validator.New()
 	english := en.New()

@@ -96,6 +96,22 @@ definitions:
       roleId:
         type: string
     type: object
+  model.NewStudentNoteDto:
+    properties:
+      created_at:
+        type: string
+      note:
+        maxLength: 255
+        minLength: 2
+        type: string
+    type: object
+  model.NewStudentNoteTypeDto:
+    properties:
+      title:
+        maxLength: 10
+        minLength: 2
+        type: string
+    type: object
   model.PaginationResponse:
     properties:
       page:
@@ -178,6 +194,46 @@ definitions:
       student_group_list:
         items:
           $ref: '#/definitions/model.StudentGroup'
+        type: array
+    type: object
+  model.StudentNote:
+    properties:
+      created_at:
+        type: string
+      note:
+        maxLength: 255
+        minLength: 2
+        type: string
+      student_id:
+        type: integer
+      student_note_id:
+        type: integer
+      student_note_type_id:
+        type: integer
+    type: object
+  model.StudentNoteType:
+    properties:
+      student_note_type_id:
+        type: integer
+      title:
+        maxLength: 10
+        minLength: 2
+        type: string
+    type: object
+  model.StudentNoteTypesListDto:
+    properties:
+      studentNoteTypeList:
+        items:
+          $ref: '#/definitions/model.StudentNoteType'
+        type: array
+    type: object
+  model.StudentNotesListDto:
+    properties:
+      studentId:
+        type: integer
+      studentNoteList:
+        items:
+          $ref: '#/definitions/model.StudentNote'
         type: array
     type: object
 host: localhost:8080
@@ -293,6 +349,33 @@ paths:
       summary: update a course by ID
       tags:
       - courses
+  /course/contact/{group_contact_id}:
+    delete:
+      operationId: delete-group-contact-by-id
+      parameters:
+      - description: group_contact_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete group contact by id
+      tags:
+      - group_contact
   /course/lecture:
     get:
       operationId: get-all-course-lectures
@@ -473,6 +556,38 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get group contact by id
+      tags:
+      - group_contact
+    put:
+      operationId: update-group-contact-by-id
+      parameters:
+      - description: group_contact_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: group contact
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupContactAddDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update group contact
       tags:
       - group_contact
   /group/students:
@@ -726,6 +841,403 @@ paths:
       summary: update person by id
       tags:
       - person
+  /student/{person_id}:
+    post:
+      operationId: cadd-person-to-students
+      parameters:
+      - description: person_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add person to students
+      tags:
+      - students
+  /student/{student_id}:
+    delete:
+      operationId: delete-person-from-students
+      parameters:
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete person from students
+      tags:
+      - students
+    get:
+      operationId: get-student-by-student-id
+      parameters:
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Course'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get student by student id
+      tags:
+      - students
+    put:
+      operationId: update-student-by-student-id
+      parameters:
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student by student id
+      tags:
+      - students
+  /students:
+    get:
+      operationId: get-all-students
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all students
+      tags:
+      - students
+  /students/{student_id}/notes:
+    get:
+      operationId: get-student-notes
+      parameters:
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentNotesListDto'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all student notes by student id
+      tags:
+      - student_notes
+    post:
+      operationId: add-new-student-note
+      parameters:
+      - description: student_note
+        in: body
+        name: student_note
+        required: true
+        schema:
+          $ref: '#/definitions/model.NewStudentNoteDto'
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new note to student
+      tags:
+      - student_notes
+  /students/{student_id}/notes/{student_note_id}:
+    get:
+      operationId: get-student-note-by-student-note-id
+      parameters:
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_note_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentNote'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get concrete student's note from concrete student
+      tags:
+      - student_notes
+    put:
+      operationId: update-student-note
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_note_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_note
+        in: body
+        name: student_note
+        required: true
+        schema:
+          $ref: '#/definitions/model.NewStudentNoteDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student note
+      tags:
+      - student_notes
+  /students/notes/{student_note_id}:
+    delete:
+      operationId: delete-student-note
+      parameters:
+      - description: student_note_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete student note
+      tags:
+      - student_notes
+  /students/notes/types:
+    get:
+      operationId: get-all-student-note-types
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentNoteTypesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get list of student note types
+      tags:
+      - student_note_types
+    post:
+      operationId: create-note-types
+      parameters:
+      - description: student note type
+        in: body
+        name: new_student_note_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.NewStudentNoteTypeDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new student type note
+      tags:
+      - student_note_types
+  /students/notes/types/{student_note_type_id}:
+    delete:
+      description: удаляет тип заметки студента по id
+      operationId: delete-student-note-type-by-id
+      parameters:
+      - description: student_note_type_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete student note type by id
+      tags:
+      - student_note_types
+    get:
+      operationId: get-student-student-note-type-by-id
+      parameters:
+      - description: Student_note_type_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentNoteType'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get student note type by id
+      tags:
+      - student_note_types
+    put:
+      operationId: update-student-note-type
+      parameters:
+      - description: student_note_type_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student note type
+        in: body
+        name: student_note_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentNoteType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student note type
+      tags:
+      - student_note_types
 schemes:
 - http
 swagger: "2.0"

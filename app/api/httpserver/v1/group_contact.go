@@ -56,5 +56,28 @@ func (h *GroupContactHandlers) GetGroupContactById(c *gin.Context) {}
 // @Router /course [post]
 func (h *GroupContactHandlers) AddGroupContact(c *gin.Context) {}
 
+// UpdateGroupContact
+// @Summary update group contact
+// @ID update-group-contact-by-id
+// @Tags group_contact
+// @Param id path string true "group_contact_id"
+// @Param course body model.GroupContactAddDto true "group contact"
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Router /group/contact/{group_contact_id} [put]
 func (h *GroupContactHandlers) UpdateGroupContact(c *gin.Context) {}
+
+// DeleteGroupContact
+// @Summary delete group contact by id
+// @ID delete-group-contact-by-id
+// @Tags group_contact
+// @Param id path string true "group_contact_id"
+// @Produce json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /course/contact/{group_contact_id} [delete]
 func (h *GroupContactHandlers) DeleteGroupContact(c *gin.Context) {}

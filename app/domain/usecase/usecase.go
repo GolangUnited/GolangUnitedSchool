@@ -28,6 +28,7 @@ type Usecases struct {
 	StudentNote         StudentUseCaseInterface
 	Mentor              MentorUseCaseInterface
 	GroupContact        GroupContactUseCaseInterface
+	StudentNoteType     StudentNoteTypeInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -123,3 +124,4 @@ type CourseStatusUseCaseInterface interface{}
 type StudentGroupUseCaseInterface interface{}
 type CourseLectureUseCaseInterface interface{}
 type GroupContactUseCaseInterface interface{}
+type StudentNoteTypeInterface interface{}
