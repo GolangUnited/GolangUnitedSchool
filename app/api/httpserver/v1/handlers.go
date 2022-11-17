@@ -42,5 +42,6 @@ func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
 		StudentCertificate:  NewStudentCertificateHandler(lg, u.StudentCertificate),
 		GroupContact:        NewGroupContactHandler(lg, u.GroupContact),
 		StudentNoteType:     NewStudentNoteTypeHandler(lg, u.StudentNoteType),
+		MentorNote:          NewMentorNoteHandler(lg, u.MentorNote),
 	}
 }

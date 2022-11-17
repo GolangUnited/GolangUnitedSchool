@@ -81,6 +81,53 @@ definitions:
           $ref: '#/definitions/model.GroupContact'
         type: array
     type: object
+  model.Mentor:
+    properties:
+      mentor_id:
+        type: integer
+    type: object
+  model.MentorNote:
+    properties:
+      created_at:
+        type: string
+      mentor_id:
+        type: integer
+      mentor_note_id:
+        type: integer
+      note:
+        maxLength: 255
+        minLength: 2
+        type: string
+      student_id:
+        type: integer
+    type: object
+  model.MentorNotesListDto:
+    properties:
+      mentorNoteList:
+        items:
+          $ref: '#/definitions/model.MentorNote'
+        type: array
+    type: object
+  model.MentorsListDto:
+    properties:
+      mentorList:
+        items:
+          $ref: '#/definitions/model.Mentor'
+        type: array
+    type: object
+  model.NewMentorNoteDto:
+    properties:
+      created_at:
+        type: string
+      mentor_id:
+        type: integer
+      note:
+        maxLength: 255
+        minLength: 2
+        type: string
+      student_id:
+        type: integer
+    type: object
   model.NewPersonDto:
     properties:
       firsName:
@@ -716,6 +763,233 @@ paths:
       summary: get student group by id
       tags:
       - student_group
+  /mentors:
+    get:
+      description: получить список всех менторов
+      operationId: get-all-mentors
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.MentorsListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all mentors
+      tags:
+      - mentors
+  /mentors/{mentor_id}:
+    delete:
+      description: удалить пользователя из группы менторов
+      operationId: delete-mentor-by-id
+      parameters:
+      - description: mentor_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete mentor by mentor id
+      tags:
+      - mentors
+    get:
+      description: получить данные о менторе по его id, выдает структуру person
+      operationId: get-mentor-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Person'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get mentor by mentor id
+      tags:
+      - mentors
+  /mentors/{mentor_id}/notes:
+    get:
+      description: получить все заметки, оставленные конкретным ментором
+      operationId: get-all-notes-from-mentor
+      parameters:
+      - description: mentor_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.MentorNotesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all notes from concrete mentor
+      tags:
+      - mentor_notes
+  /mentors/{mentor_id}/notes/{mentor_note_id}:
+    get:
+      description: получить определенную заметку, оставленную ментором
+      operationId: get-note-from-mentor
+      parameters:
+      - description: mentor_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: mentor_note_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.MentorNotesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get concrete note of mentor
+      tags:
+      - mentor_notes
+  /mentors/{person_id}:
+    post:
+      description: добавить пользователя в группу менторов по его person_id
+      operationId: add-mentor
+      parameters:
+      - description: person_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add mentor
+      tags:
+      - mentors
+  /mentors/notes:
+    get:
+      description: получить все заметки всех менторов про всех студентов
+      operationId: get-all-mentor-notes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.MentorNotesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all mentor notes
+      tags:
+      - mentor_notes
+  /mentors/notes/:
+    post:
+      description: добавить менторскую заметку для студента
+      operationId: add-mentor-note
+      parameters:
+      - description: new_mentor_note
+        in: body
+        name: mentor_note
+        required: true
+        schema:
+          $ref: '#/definitions/model.NewMentorNoteDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new mentor note
+      tags:
+      - mentor_notes
+    put:
+      description: изменить менторскую заметку
+      operationId: update-mentor-note
+      parameters:
+      - description: update_mentor_note
+        in: body
+        name: mentor_note
+        required: true
+        schema:
+          $ref: '#/definitions/model.MentorNote'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update mentor note
+      tags:
+      - mentor_notes
+  /mentors/notes/{mentor_note_id}:
+    delete:
+      description: удалить заметку ментора
+      operationId: delete-note-from-mentor
+      parameters:
+      - description: mentor_note_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete mentor note
+      tags:
+      - mentor_notes
   /person:
     get:
       operationId: get-persons

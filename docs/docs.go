@@ -739,6 +739,346 @@ var doc = `{
                 }
             }
         },
+        "/mentors": {
+            "get": {
+                "description": "получить список всех менторов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentors"
+                ],
+                "summary": "get all mentors",
+                "operationId": "get-all-mentors",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.MentorsListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/mentors/notes": {
+            "get": {
+                "description": "получить все заметки всех менторов про всех студентов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentor_notes"
+                ],
+                "summary": "get all mentor notes",
+                "operationId": "get-all-mentor-notes",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.MentorNotesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/mentors/notes/": {
+            "put": {
+                "description": "изменить менторскую заметку",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentor_notes"
+                ],
+                "summary": "update mentor note",
+                "operationId": "update-mentor-note",
+                "parameters": [
+                    {
+                        "description": "update_mentor_note",
+                        "name": "mentor_note",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.MentorNote"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "добавить менторскую заметку для студента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentor_notes"
+                ],
+                "summary": "add new mentor note",
+                "operationId": "add-mentor-note",
+                "parameters": [
+                    {
+                        "description": "new_mentor_note",
+                        "name": "mentor_note",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.NewMentorNoteDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/mentors/notes/{mentor_note_id}": {
+            "delete": {
+                "description": "удалить заметку ментора",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentor_notes"
+                ],
+                "summary": "delete mentor note",
+                "operationId": "delete-note-from-mentor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mentor_note_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/mentors/{mentor_id}": {
+            "get": {
+                "description": "получить данные о менторе по его id, выдает структуру person",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentors"
+                ],
+                "summary": "get mentor by mentor id",
+                "operationId": "get-mentor-by-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Person"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "удалить пользователя из группы менторов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentors"
+                ],
+                "summary": "delete mentor by mentor id",
+                "operationId": "delete-mentor-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mentor_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/mentors/{mentor_id}/notes": {
+            "get": {
+                "description": "получить все заметки, оставленные конкретным ментором",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentor_notes"
+                ],
+                "summary": "get all notes from concrete mentor",
+                "operationId": "get-all-notes-from-mentor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mentor_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.MentorNotesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/mentors/{mentor_id}/notes/{mentor_note_id}": {
+            "get": {
+                "description": "получить определенную заметку, оставленную ментором",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentor_notes"
+                ],
+                "summary": "get concrete note of mentor",
+                "operationId": "get-note-from-mentor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mentor_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "mentor_note_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.MentorNotesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/mentors/{person_id}": {
+            "post": {
+                "description": "добавить пользователя в группу менторов по его person_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentors"
+                ],
+                "summary": "add mentor",
+                "operationId": "add-mentor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/person": {
             "get": {
                 "produces": [
@@ -1647,6 +1987,77 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/model.GroupContact"
                     }
+                }
+            }
+        },
+        "model.Mentor": {
+            "type": "object",
+            "properties": {
+                "mentor_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.MentorNote": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "mentor_id": {
+                    "type": "integer"
+                },
+                "mentor_note_id": {
+                    "type": "integer"
+                },
+                "note": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
+                },
+                "student_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.MentorNotesListDto": {
+            "type": "object",
+            "properties": {
+                "mentorNoteList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.MentorNote"
+                    }
+                }
+            }
+        },
+        "model.MentorsListDto": {
+            "type": "object",
+            "properties": {
+                "mentorList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Mentor"
+                    }
+                }
+            }
+        },
+        "model.NewMentorNoteDto": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "mentor_id": {
+                    "type": "integer"
+                },
+                "note": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
+                },
+                "student_id": {
+                    "type": "integer"
                 }
             }
         },
