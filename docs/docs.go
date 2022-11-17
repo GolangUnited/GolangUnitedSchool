@@ -27,90 +27,6 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/course": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "group_contact"
-                ],
-                "summary": "add new group contact",
-                "operationId": "add-group-contact",
-                "parameters": [
-                    {
-                        "description": "course",
-                        "name": "course",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.GroupContactAddDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            }
-        },
-        "/course/contact/{group_contact_id}": {
-            "delete": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "group_contact"
-                ],
-                "summary": "delete group contact by id",
-                "operationId": "delete-group-contact-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "group_contact_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            }
-        },
         "/courses": {
             "get": {
                 "produces": [
@@ -179,6 +95,32 @@ var doc = `{
             }
         },
         "/courses/lectures": {
+            "get": {
+                "description": "возвращает список всех лекций всех курсов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "courses",
+                    "courseLectures"
+                ],
+                "summary": "get all course lectures",
+                "operationId": "get-all-course-lectures",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CourseLecturesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "добавить новую лекцию на курс",
                 "produces": [
@@ -490,8 +432,13 @@ var doc = `{
         },
         "/courses/{course_id}/lectures": {
             "get": {
+                "description": "возвращает все лекции определенного курса",
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "courses",
+                    "courseLectures"
                 ],
                 "summary": "get a course lecture by id",
                 "operationId": "get-course-lectures-by-course-id",
@@ -526,8 +473,12 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "courses",
+                    "courseLectures"
+                ],
                 "summary": "get concrete lecture from course",
-                "operationId": "get--lecture-by-id-from-course",
+                "operationId": "get-lecture-by-id-from-course",
                 "parameters": [
                     {
                         "type": "string",
@@ -673,21 +624,66 @@ var doc = `{
                 }
             }
         },
-        "/group/contact": {
+        "/groups/contacts": {
             "get": {
+                "description": "возвращает все контакты всех группы",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "group_contact"
+                    "groups",
+                    "groupContacts"
                 ],
                 "summary": "get all group contacts",
-                "operationId": "get-all-group-contacts",
+                "operationId": "get-all-groups-contacts",
                 "responses": {
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/model.GroupContactListDto"
+                            "$ref": "#/definitions/model.GroupContactsListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "добавляет новый контакт группы",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "groups",
+                    "groupContacts"
+                ],
+                "summary": "add new group contact",
+                "operationId": "add-group-contact",
+                "parameters": [
+                    {
+                        "description": "group contact",
+                        "name": "contact",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.GroupContactsAddDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
                     "500": {
@@ -699,46 +695,15 @@ var doc = `{
                 }
             }
         },
-        "/group/contact/{group_contact_id}": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "group_contact"
-                ],
-                "summary": "get group contact by id",
-                "operationId": "get-group-contact-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "group_contact_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.GroupContact"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
+        "/groups/contacts/{group_contact_id}": {
             "put": {
+                "description": "изменяет контакт группы",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "group_contact"
+                    "groups",
+                    "groupContacts"
                 ],
                 "summary": "update group contact",
                 "operationId": "update-group-contact-by-id",
@@ -752,11 +717,11 @@ var doc = `{
                     },
                     {
                         "description": "group contact",
-                        "name": "course",
+                        "name": "contact",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.GroupContactAddDto"
+                            "$ref": "#/definitions/model.GroupContactsAddDto"
                         }
                     }
                 ],
@@ -771,6 +736,128 @@ var doc = `{
                         "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "удаляет контакт группы",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "groups",
+                    "groupContacts"
+                ],
+                "summary": "delete group contact by id",
+                "operationId": "delete-group-contact-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "group_contact_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_id}/contacts": {
+            "get": {
+                "description": "возвращает все контакты группы с указанным group_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "groups",
+                    "groupContacts"
+                ],
+                "summary": "get group contacts by  group id",
+                "operationId": "get-group-contacts-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "group_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GroupContactsListDto"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_id}/contacts/{group_contact_id}": {
+            "get": {
+                "description": "возвращает контакт group_contact_id группы с group_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "groups",
+                    "groupContacts"
+                ],
+                "summary": "get group contact",
+                "operationId": "get-group-contact",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "group_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "group_contact_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GroupContact"
                         }
                     },
                     "404": {
@@ -2232,7 +2319,7 @@ var doc = `{
                 }
             }
         },
-        "model.GroupContactAddDto": {
+        "model.GroupContactsAddDto": {
             "type": "object",
             "required": [
                 "is_primary"
@@ -2255,7 +2342,7 @@ var doc = `{
                 }
             }
         },
-        "model.GroupContactListDto": {
+        "model.GroupContactsListDto": {
             "type": "object",
             "properties": {
                 "_metadata": {

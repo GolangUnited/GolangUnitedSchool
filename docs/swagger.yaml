@@ -74,7 +74,7 @@ definitions:
     required:
     - is_primary
     type: object
-  model.GroupContactAddDto:
+  model.GroupContactsAddDto:
     properties:
       contact_type_id:
         maximum: 7
@@ -90,7 +90,7 @@ definitions:
     required:
     - is_primary
     type: object
-  model.GroupContactListDto:
+  model.GroupContactsListDto:
     properties:
       _metadata:
         $ref: '#/definitions/model.PaginationResponse'
@@ -326,61 +326,6 @@ info:
   title: GolangUnitedSchool
   version: "1.0"
 paths:
-  /course:
-    post:
-      operationId: add-group-contact
-      parameters:
-      - description: course
-        in: body
-        name: course
-        required: true
-        schema:
-          $ref: '#/definitions/model.GroupContactAddDto'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: add new group contact
-      tags:
-      - group_contact
-  /course/contact/{group_contact_id}:
-    delete:
-      operationId: delete-group-contact-by-id
-      parameters:
-      - description: group_contact_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: delete group contact by id
-      tags:
-      - group_contact
   /courses:
     get:
       operationId: get-all-courses
@@ -427,6 +372,7 @@ paths:
       - courses
   /courses/{course_id}/lectures:
     get:
+      description: возвращает все лекции определенного курса
       operationId: get-course-lectures-by-course-id
       parameters:
       - description: course_id
@@ -446,10 +392,13 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get a course lecture by id
+      tags:
+      - courses
+      - courseLectures
   /courses/{course_id}/lectures/{lecture_id}:
     get:
       description: возвращает лекцию с указанным lecture_id с курса course_id
-      operationId: get--lecture-by-id-from-course
+      operationId: get-lecture-by-id-from-course
       parameters:
       - description: course_id
         in: path
@@ -473,6 +422,9 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get concrete lecture from course
+      tags:
+      - courses
+      - courseLectures
   /courses/{id}:
     delete:
       operationId: delete-course-by-id
@@ -549,6 +501,24 @@ paths:
       tags:
       - courses
   /courses/lectures:
+    get:
+      description: возвращает список всех лекций всех курсов
+      operationId: get-all-course-lectures
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseLecturesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all course lectures
+      tags:
+      - courses
+      - courseLectures
     post:
       description: добавить новую лекцию на курс
       operationId: add-course-lecture-by-id
@@ -758,27 +728,41 @@ paths:
       tags:
       - courses
       - courseStatuses
-  /group/contact:
+  /groups/{group_id}/contacts:
     get:
-      operationId: get-all-group-contacts
+      description: возвращает все контакты группы с указанным group_id
+      operationId: get-group-contacts-by-id
+      parameters:
+      - description: group_id
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
-            $ref: '#/definitions/model.GroupContactListDto'
-        "500":
-          description: Internal Server Error
+            $ref: '#/definitions/model.GroupContactsListDto'
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: get all group contacts
+      summary: get group contacts by  group id
       tags:
-      - group_contact
-  /group/contact/{group_contact_id}:
+      - groups
+      - groupContacts
+  /groups/{group_id}/contacts/{group_contact_id}:
     get:
-      operationId: get-group-contact-by-id
+      description: возвращает контакт group_contact_id группы с group_id
+      operationId: get-group-contact
       parameters:
+      - description: group_id
+        in: path
+        name: id
+        required: true
+        type: string
       - description: group_contact_id
         in: path
         name: id
@@ -795,10 +779,89 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: get group contact by id
+      summary: get group contact
       tags:
-      - group_contact
+      - groups
+      - groupContacts
+  /groups/contacts:
+    get:
+      description: возвращает все контакты всех группы
+      operationId: get-all-groups-contacts
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.GroupContactsListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all group contacts
+      tags:
+      - groups
+      - groupContacts
+    post:
+      description: добавляет новый контакт группы
+      operationId: add-group-contact
+      parameters:
+      - description: group contact
+        in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupContactsAddDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new group contact
+      tags:
+      - groups
+      - groupContacts
+  /groups/contacts/{group_contact_id}:
+    delete:
+      description: удаляет контакт группы
+      operationId: delete-group-contact-by-id
+      parameters:
+      - description: group_contact_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete group contact by id
+      tags:
+      - groups
+      - groupContacts
     put:
+      description: изменяет контакт группы
       operationId: update-group-contact-by-id
       parameters:
       - description: group_contact_id
@@ -808,10 +871,10 @@ paths:
         type: string
       - description: group contact
         in: body
-        name: course
+        name: contact
         required: true
         schema:
-          $ref: '#/definitions/model.GroupContactAddDto'
+          $ref: '#/definitions/model.GroupContactsAddDto'
       produces:
       - application/json
       responses:
@@ -829,7 +892,8 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update group contact
       tags:
-      - group_contact
+      - groups
+      - groupContacts
   /mentors:
     get:
       description: получить список всех менторов

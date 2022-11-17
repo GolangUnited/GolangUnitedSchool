@@ -149,7 +149,7 @@ func groupContactRouter(
 	groupContact := api.Group("/groups/contacts")
 	{
 		groupContact.GET("", h.GroupContact.GetGroupContacts)
-		groupContact.GET("/:group_contact_id", h.GroupContact.GetGroupContactById)
+		groupContact.GET("/:group_contact_id", h.GroupContact.GetGroupContactsByGroupId)
 		groupContact.POST("", h.GroupContact.AddGroupContact)
 		groupContact.PUT("/:group_contact_id", h.GroupContact.UpdateGroupContact)
 		groupContact.DELETE("/:group_contact_id", h.GroupContact.DeleteGroupContact)

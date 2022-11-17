@@ -22,21 +22,21 @@ func NewCourseLectureHandler(
 }
 
 // GetCourseLectures
-// @ Summary get all course lectures
-// @ Description возвращает список всех лекций всех курсов
-// @ ID get-all-course-lectures
-// @ Tags courses, courseLectures
-// @ Produce json
-// @ Success 200 {object} model.CourseLecturesListDto
-// @ Failure 500 {object} model.ResponseMessage
-// @ Router /courses/lectures [get]
+// @Summary get all course lectures
+// @Description возвращает список всех лекций всех курсов
+// @ID get-all-course-lectures
+// @Tags courses, courseLectures
+// @Produce json
+// @Success 200 {object} model.CourseLecturesListDto
+// @Failure 500 {object} model.ResponseMessage
+// @Router /courses/lectures [get]
 func (h *CourseLectureHandlers) GetCourseLectures(c *gin.Context) {}
 
 // GetAllCourseLectures
 // @Summary get a course lecture by id
 // @ID get-course-lectures-by-course-id
-// @ Tags courses, courseLectures
-// @ Description возвращает все лекции определенного курса
+// @Tags courses, courseLectures
+// @Description возвращает все лекции определенного курса
 // @Produce json
 // @Param id path string true "course_id"
 // @Success 200 {object} model.CourseLecturesListDto
@@ -47,8 +47,8 @@ func (h *CourseLectureHandlers) GetAllCourseLectures(c *gin.Context) {}
 // GetCourseLecture
 // @Summary get concrete lecture from course
 // @Description возвращает лекцию с указанным lecture_id с курса course_id
-// @ID get--lecture-by-id-from-course
-// @ Tags courses, courseLectures
+// @ID get-lecture-by-id-from-course
+// @Tags courses, courseLectures
 // @Produce json
 // @Param course_id path string true "course_id"
 // @Param lecture_id path string true "lecture_id"

@@ -28,12 +28,12 @@ type GroupContact struct {
 	ContactValue   string `json:"contact_value" validate:"min=2,max=70"`
 }
 
-type GroupContactListDto struct {
+type GroupContactsListDto struct {
 	Metadata      PaginationResponse `json:"_metadata"`
 	GroupContacts []GroupContact
 }
 
-type GroupContactAddDto struct {
+type GroupContactsAddDto struct {
 	GroupId       int64  `json:"group_id" validate:"numeric,gt=0"`
 	ContactTypeId int64  `json:"contact_type_id" validate:"numeric,gt=0,lte=7"`
 	IsPrimary     bool   `json:"is_primary" validate:"required"`
