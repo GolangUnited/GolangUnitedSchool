@@ -13,6 +13,22 @@ definitions:
       personID:
         type: integer
     type: object
+  model.ContactType:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  model.ContactTypesListDto:
+    properties:
+      contactTypesList:
+        items:
+          $ref: '#/definitions/model.ContactType'
+        type: array
+      metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+    type: object
   model.ContactsListDto:
     properties:
       contactsList:
@@ -154,6 +170,11 @@ definitions:
         items:
           $ref: '#/definitions/model.Mentor'
         type: array
+    type: object
+  model.NewContactTypeDto:
+    properties:
+      title:
+        type: string
     type: object
   model.NewMentorNoteDto:
     properties:
@@ -1430,7 +1451,7 @@ paths:
       - contacts
   /persons/contacts/{contact_id}:
     delete:
-      description: elfkztn контакт c указанным contact_id
+      description: удаляет контакт c указанным contact_id
       operationId: delete-person_contact
       parameters:
       - description: person_id
@@ -1453,6 +1474,130 @@ paths:
       tags:
       - persons
       - contacts
+  /persons/contacts/types:
+    get:
+      description: возвращает все типы контактов
+      operationId: get-all-contact-types
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ContactTypesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all contact types
+      tags:
+      - persons
+      - contacts
+      - contactTypes
+    post:
+      description: добавляет новый тип контакта
+      operationId: add-contact-type
+      parameters:
+      - description: contact_type
+        in: body
+        name: contact_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.NewContactTypeDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get contact type
+      tags:
+      - persons
+      - contacts
+      - contactTypes
+    put:
+      description: изменяет тип контакта
+      operationId: update-contact-type
+      parameters:
+      - description: contact_type
+        in: body
+        name: contact_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.ContactType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update contact type
+      tags:
+      - persons
+      - contacts
+      - contactTypes
+  /persons/contacts/types/{:contact_type_id}:
+    delete:
+      description: удаляет тип контакта с указанным contact_type_id
+      operationId: delete-contact-type
+      parameters:
+      - description: contact_type_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete contact type
+      tags:
+      - persons
+      - contacts
+      - contactTypes
+  /persons/contacts/types/{contact_type_id}:
+    get:
+      description: возвращает тип контакта с указанным contact_type_id
+      operationId: get-contact-type
+      parameters:
+      - description: contact_type_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ContactType'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get contact type
+      tags:
+      - persons
+      - contacts
+      - contactTypes
   /students:
     get:
       description: возвращает список всех пользователей группы "student"

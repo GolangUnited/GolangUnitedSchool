@@ -1425,9 +1425,190 @@ var doc = `{
                 }
             }
         },
+        "/persons/contacts/types": {
+            "get": {
+                "description": "возвращает все типы контактов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts",
+                    "contactTypes"
+                ],
+                "summary": "get all contact types",
+                "operationId": "get-all-contact-types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ContactTypesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "изменяет тип контакта",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts",
+                    "contactTypes"
+                ],
+                "summary": "update contact type",
+                "operationId": "update-contact-type",
+                "parameters": [
+                    {
+                        "description": "contact_type",
+                        "name": "contact_type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ContactType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "добавляет новый тип контакта",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts",
+                    "contactTypes"
+                ],
+                "summary": "get contact type",
+                "operationId": "add-contact-type",
+                "parameters": [
+                    {
+                        "description": "contact_type",
+                        "name": "contact_type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.NewContactTypeDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/contacts/types/{:contact_type_id}": {
+            "delete": {
+                "description": "удаляет тип контакта с указанным contact_type_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts",
+                    "contactTypes"
+                ],
+                "summary": "delete contact type",
+                "operationId": "delete-contact-type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "contact_type_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/contacts/types/{contact_type_id}": {
+            "get": {
+                "description": "возвращает тип контакта с указанным contact_type_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts",
+                    "contactTypes"
+                ],
+                "summary": "get contact type",
+                "operationId": "get-contact-type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "contact_type_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ContactType"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/persons/contacts/{contact_id}": {
             "delete": {
-                "description": "elfkztn контакт c указанным contact_id",
+                "description": "удаляет контакт c указанным contact_id",
                 "produces": [
                     "application/json"
                 ],
@@ -2492,6 +2673,31 @@ var doc = `{
                 }
             }
         },
+        "model.ContactType": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.ContactTypesListDto": {
+            "type": "object",
+            "properties": {
+                "contactTypesList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.ContactType"
+                    }
+                },
+                "metadata": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                }
+            }
+        },
         "model.ContactsListDto": {
             "type": "object",
             "properties": {
@@ -2704,6 +2910,14 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/model.Mentor"
                     }
+                }
+            }
+        },
+        "model.NewContactTypeDto": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
                 }
             }
         },

@@ -54,6 +54,9 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 type ContactUseCaseInterface interface {
 }
 
+type ContactTypeUseCaseInterface interface {
+}
+
 type CourseUsecaseInterface interface {
 
 	// AddCourse()

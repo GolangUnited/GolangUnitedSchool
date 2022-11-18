@@ -17,3 +17,12 @@ type ContactType struct {
 	ID    int64
 	Title string
 }
+
+type ContactTypesListDto struct {
+	Metadata         PaginationResponse
+	ContactTypesList []ContactType
+}
+
+type NewContactTypeDto struct {
+	Title string
+}
