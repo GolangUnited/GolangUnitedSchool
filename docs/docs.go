@@ -27,6 +27,180 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/certificates/templates": {
+            "get": {
+                "description": "возвращает все шаблоны сертификатов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "certificates",
+                    "certificateTemplates"
+                ],
+                "summary": "get all certificate templates",
+                "operationId": "get-all-certificate-templates",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CertificateTemplatesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "изменяет шаблон сертификата",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "certificates",
+                    "certificateTemplates"
+                ],
+                "summary": "update certificate template",
+                "operationId": "put-crt-template",
+                "parameters": [
+                    {
+                        "description": "crt template",
+                        "name": "template",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CertificateTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "добавляет новый шаблон сертификата",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "certificates",
+                    "certificateTemplates"
+                ],
+                "summary": "add new certificate template",
+                "operationId": "add-crt-template",
+                "parameters": [
+                    {
+                        "description": "crt template",
+                        "name": "template",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CertificateTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CertificateTemplate"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/certificates/templates/{crt_template_id}": {
+            "get": {
+                "description": "возвращает шаблон сертификата с указанным id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "certificates",
+                    "certificateTemplates"
+                ],
+                "summary": "get certificate template by id",
+                "operationId": "get-crt-template-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "crt_template_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.CertificateTemplate"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "удаляет шаблон сертификата",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "certificates",
+                    "certificateTemplates"
+                ],
+                "summary": "delete certificate template",
+                "operationId": "delete-crt-template",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "crt_template_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/courses": {
             "get": {
                 "produces": [
@@ -2827,7 +3001,7 @@ var doc = `{
                     "students",
                     "certificates"
                 ],
-                "summary": "get",
+                "summary": "get student certificate",
                 "operationId": "get-student-certificate",
                 "parameters": [
                     {
@@ -3131,6 +3305,31 @@ var doc = `{
         }
     },
     "definitions": {
+        "model.CertificateTemplate": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "template": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CertificateTemplatesListDto": {
+            "type": "object",
+            "properties": {
+                "certificateTemplatesList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.CertificateTemplate"
+                    }
+                },
+                "metadata": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                }
+            }
+        },
         "model.Contact": {
             "type": "object",
             "properties": {
@@ -3596,7 +3795,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "metadata": {
-                    "$ref": "#/definitions/model.ResponseMessage"
+                    "$ref": "#/definitions/model.PaginationResponse"
                 },
                 "studentCertificatesList": {
                     "type": "array",

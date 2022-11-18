@@ -1,5 +1,21 @@
 basePath: /api/v1
 definitions:
+  model.CertificateTemplate:
+    properties:
+      id:
+        type: integer
+      template:
+        type: string
+    type: object
+  model.CertificateTemplatesListDto:
+    properties:
+      certificateTemplatesList:
+        items:
+          $ref: '#/definitions/model.CertificateTemplate'
+        type: array
+      metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+    type: object
   model.Contact:
     properties:
       contactTypeID:
@@ -312,7 +328,7 @@ definitions:
   model.StudentCertificatesListDto:
     properties:
       metadata:
-        $ref: '#/definitions/model.ResponseMessage'
+        $ref: '#/definitions/model.PaginationResponse'
       studentCertificatesList:
         items:
           $ref: '#/definitions/model.StudentCertificate'
@@ -417,6 +433,124 @@ info:
   title: GolangUnitedSchool
   version: "1.0"
 paths:
+  /certificates/templates:
+    get:
+      description: возвращает все шаблоны сертификатов
+      operationId: get-all-certificate-templates
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CertificateTemplatesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all certificate templates
+      tags:
+      - certificates
+      - certificateTemplates
+    post:
+      description: добавляет новый шаблон сертификата
+      operationId: add-crt-template
+      parameters:
+      - description: crt template
+        in: body
+        name: template
+        required: true
+        schema:
+          $ref: '#/definitions/model.CertificateTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CertificateTemplate'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new certificate template
+      tags:
+      - certificates
+      - certificateTemplates
+    put:
+      description: изменяет шаблон сертификата
+      operationId: put-crt-template
+      parameters:
+      - description: crt template
+        in: body
+        name: template
+        required: true
+        schema:
+          $ref: '#/definitions/model.CertificateTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update certificate template
+      tags:
+      - certificates
+      - certificateTemplates
+  /certificates/templates/{crt_template_id}:
+    delete:
+      description: удаляет шаблон сертификата
+      operationId: delete-crt-template
+      parameters:
+      - description: crt_template_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete certificate template
+      tags:
+      - certificates
+      - certificateTemplates
+    get:
+      description: возвращает шаблон сертификата с указанным id
+      operationId: get-crt-template-by-id
+      parameters:
+      - description: crt_template_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CertificateTemplate'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get certificate template by id
+      tags:
+      - certificates
+      - certificateTemplates
   /courses:
     get:
       operationId: get-all-courses
@@ -1821,7 +1955,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: get
+      summary: get student certificate
       tags:
       - students
       - certificates

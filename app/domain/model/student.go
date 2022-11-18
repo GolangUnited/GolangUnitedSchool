@@ -21,7 +21,7 @@ type StudentCertificate struct {
 }
 
 type StudentCertificatesListDto struct {
-	Metadata                ResponseMessage
+	Metadata                PaginationResponse
 	StudentCertificatesList []StudentCertificate
 }
 
