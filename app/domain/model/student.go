@@ -8,6 +8,7 @@ type Student struct {
 }
 
 type StudentsListDto struct {
+	MetaData    PaginationResponse
 	StudentList []Student
 }
 
@@ -26,4 +27,9 @@ type StudentHomework struct {
 	StartedAt  time.Time
 	FinishedAt time.Time
 	Score      float32
+}
+
+type StudentHomeworksListDto struct {
+	MetaData              PaginationResponse
+	StudentsHomeworksList []StudentHomework
 }

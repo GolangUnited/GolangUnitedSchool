@@ -2075,6 +2075,145 @@ var doc = `{
                 }
             }
         },
+        "/students/homeworks": {
+            "get": {
+                "description": "возвращает все домашние работы всех студентов в виде списка",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "homeworks"
+                ],
+                "summary": "get all homeworks",
+                "operationId": "get-all-homeworks",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentHomeworksListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "изменяет домашнюю работу студента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "homeworks"
+                ],
+                "summary": "update student homework",
+                "operationId": "update-student-homework",
+                "parameters": [
+                    {
+                        "description": "student_homework",
+                        "name": "student_homework",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentHomework"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "добавляет новый тип контакта",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "homeworks"
+                ],
+                "summary": "get contact type",
+                "operationId": "add-contact-type",
+                "parameters": [
+                    {
+                        "description": "contact_type",
+                        "name": "contact_type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.NewContactTypeDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/homeworks/{:contact_type_id}": {
+            "delete": {
+                "description": "удаляет домашнюю работу студента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "homeworks"
+                ],
+                "summary": "delete student homework",
+                "operationId": "delete-student-homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_homework_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/students/notes/types": {
             "get": {
                 "produces": [
@@ -2453,6 +2592,87 @@ var doc = `{
                         "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/{student_id}/homeworks": {
+            "get": {
+                "description": "возвращает все домашние работы студента с указанным student_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "homeworks"
+                ],
+                "summary": "get contact type",
+                "operationId": "get-all-student-homeworks",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentHomeworksListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/{student_id}/homeworks/{homework_id}": {
+            "get": {
+                "description": "возвращает определенную лекцию указанного стцдента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "homeworks"
+                ],
+                "summary": "get student's homework",
+                "operationId": "get-student-homework",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "homework_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentHomework"
                         }
                     },
                     "500": {
@@ -3119,6 +3339,43 @@ var doc = `{
                 }
             }
         },
+        "model.StudentHomework": {
+            "type": "object",
+            "properties": {
+                "finishedAt": {
+                    "type": "string"
+                },
+                "homeworkID": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "score": {
+                    "type": "number"
+                },
+                "startedAt": {
+                    "type": "string"
+                },
+                "studentID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.StudentHomeworksListDto": {
+            "type": "object",
+            "properties": {
+                "metaData": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                },
+                "studentsHomeworksList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.StudentHomework"
+                    }
+                }
+            }
+        },
         "model.StudentNote": {
             "type": "object",
             "properties": {
@@ -3182,6 +3439,9 @@ var doc = `{
         "model.StudentsListDto": {
             "type": "object",
             "properties": {
+                "metaData": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                },
                 "studentList": {
                     "type": "array",
                     "items": {
