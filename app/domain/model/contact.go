@@ -8,6 +8,11 @@ type Contact struct {
 	ContactValue  string
 }
 
+type ContactsListDto struct {
+	Metadata     PaginationResponse
+	ContactsList []Contact
+}
+
 type ContactType struct {
 	ID    int64
 	Title string

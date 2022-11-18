@@ -1163,6 +1163,49 @@
             }
         },
         "/mentors/{person_id}": {
+            "put": {
+                "description": "изменить пользователя группы \"менторы\"",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentors"
+                ],
+                "summary": "update mentor by mentor id",
+                "operationId": "гзвфеу-mentor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mentor_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "mentor",
+                        "name": "mentor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Mentor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "добавить пользователя в группу менторов по его person_id",
                 "produces": [
@@ -1175,11 +1218,13 @@
                 "operationId": "add-mentor",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "person_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
+                        "description": "mentor",
+                        "name": "mentor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Mentor"
+                        }
                     }
                 ],
                 "responses": {
@@ -1254,6 +1299,145 @@
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/contacts": {
+            "get": {
+                "description": "возвращает все контакты всех пользователей",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts"
+                ],
+                "summary": "get all contacts",
+                "operationId": "get-all-contacts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ContactsListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "изменяет пользовательский контакт",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts"
+                ],
+                "summary": "add new person contact",
+                "operationId": "put-person_contact",
+                "parameters": [
+                    {
+                        "description": "contact",
+                        "name": "contact",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Contact"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "создает новый пользовательский контакт",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts"
+                ],
+                "summary": "add new person contact",
+                "operationId": "add-person_contact",
+                "parameters": [
+                    {
+                        "description": "contact",
+                        "name": "contact",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Contact"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/contacts/{contact_id}": {
+            "delete": {
+                "description": "elfkztn контакт c указанным contact_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts"
+                ],
+                "summary": "delete person's contact by contact_id",
+                "operationId": "delete-person_contact",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -1381,6 +1565,87 @@
                         "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/{person_id}/contacts": {
+            "get": {
+                "description": "возвращает все контакты пользователя с указанным person_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts"
+                ],
+                "summary": "get all person's contacts",
+                "operationId": "get-person_contacts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ContactsListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/{person_id}/contacts/{contact_id}": {
+            "get": {
+                "description": "возвращает контакт c указанным contact_id пользователя с указанным person_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons",
+                    "contacts"
+                ],
+                "summary": "get person's contact by contact_id",
+                "operationId": "get-person_contact",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "contact_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Contact"
                         }
                     },
                     "500": {
@@ -2196,6 +2461,40 @@
         }
     },
     "definitions": {
+        "model.Contact": {
+            "type": "object",
+            "properties": {
+                "contactTypeID": {
+                    "type": "integer"
+                },
+                "contactValue": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isPrimary": {
+                    "type": "boolean"
+                },
+                "personID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ContactsListDto": {
+            "type": "object",
+            "properties": {
+                "contactsList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Contact"
+                    }
+                },
+                "metadata": {
+                    "$ref": "#/definitions/model.PaginationResponse"
+                }
+            }
+        },
         "model.Course": {
             "type": "object",
             "properties": {

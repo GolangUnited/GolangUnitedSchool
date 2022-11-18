@@ -1,5 +1,27 @@
 basePath: /api/v1
 definitions:
+  model.Contact:
+    properties:
+      contactTypeID:
+        type: integer
+      contactValue:
+        type: string
+      id:
+        type: integer
+      isPrimary:
+        type: boolean
+      personID:
+        type: integer
+    type: object
+  model.ContactsListDto:
+    properties:
+      contactsList:
+        items:
+          $ref: '#/definitions/model.Contact'
+        type: array
+      metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+    type: object
   model.Course:
     properties:
       end_date:
@@ -1011,11 +1033,12 @@ paths:
       description: добавить пользователя в группу менторов по его person_id
       operationId: add-mentor
       parameters:
-      - description: person_id
-        in: path
-        name: id
+      - description: mentor
+        in: body
+        name: mentor
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/model.Mentor'
       produces:
       - application/json
       responses:
@@ -1028,6 +1051,35 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add mentor
+      tags:
+      - mentors
+    put:
+      description: изменить пользователя группы "менторы"
+      operationId: гзвфеу-mentor
+      parameters:
+      - description: mentor_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: mentor
+        in: body
+        name: mentor
+        required: true
+        schema:
+          $ref: '#/definitions/model.Mentor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update mentor by mentor id
       tags:
       - mentors
   /mentors/notes:
@@ -1251,6 +1303,156 @@ paths:
       summary: update person by id
       tags:
       - persons
+  /persons/{person_id}/contacts:
+    get:
+      description: возвращает все контакты пользователя с указанным person_id
+      operationId: get-person_contacts
+      parameters:
+      - description: person_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ContactsListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all person's contacts
+      tags:
+      - persons
+      - contacts
+  /persons/{person_id}/contacts/{contact_id}:
+    get:
+      description: возвращает контакт c указанным contact_id пользователя с указанным
+        person_id
+      operationId: get-person_contact
+      parameters:
+      - description: person_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: contact_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Contact'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get person's contact by contact_id
+      tags:
+      - persons
+      - contacts
+  /persons/contacts:
+    get:
+      description: возвращает все контакты всех пользователей
+      operationId: get-all-contacts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ContactsListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all contacts
+      tags:
+      - persons
+      - contacts
+    post:
+      description: создает новый пользовательский контакт
+      operationId: add-person_contact
+      parameters:
+      - description: contact
+        in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/model.Contact'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new person contact
+      tags:
+      - persons
+      - contacts
+    put:
+      description: изменяет пользовательский контакт
+      operationId: put-person_contact
+      parameters:
+      - description: contact
+        in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/model.Contact'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new person contact
+      tags:
+      - persons
+      - contacts
+  /persons/contacts/{contact_id}:
+    delete:
+      description: elfkztn контакт c указанным contact_id
+      operationId: delete-person_contact
+      parameters:
+      - description: person_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete person's contact by contact_id
+      tags:
+      - persons
+      - contacts
   /students:
     get:
       description: возвращает список всех пользователей группы "student"

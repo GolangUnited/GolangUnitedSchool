@@ -49,12 +49,23 @@ func (h *MentorHandlers) GetMentorByMentorId(c *gin.Context) {}
 // @ID add-mentor
 // @Tags mentors
 // @Produce json
-// @Param id path string true "person_id"
+// @Param mentor body model.Mentor true "mentor"
 // @Success 200 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/{person_id} [post]
 func (h *MentorHandlers) AddMentor(c *gin.Context) {}
 
+// UpdateMentorByMentorId
+// @Summary update mentor by mentor id
+// @Description изменить пользователя группы "менторы"
+// @ID гзвфеу-mentor
+// @Tags mentors
+// @Produce json
+// @Param id path string true "mentor_id"
+// @Param mentor body model.Mentor true "mentor"
+// @Success 200 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /mentors/{person_id} [put]
 func (h *MentorHandlers) UpdateMentorByMentorId(c *gin.Context) {}
 
 // DeleteMentorByMentorId
