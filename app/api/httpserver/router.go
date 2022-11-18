@@ -213,7 +213,7 @@ func certificateTemplateRouter(
 	api *gin.RouterGroup,
 	h *v1.CertificateTemplateHandlers,
 ) {
-	certificateTemplate := api.Group("/certificate_template")
+	certificateTemplate := api.Group("/certificate-templates")
 	{
 		certificateTemplate.GET("", h.GetCertificateTemplates)
 		certificateTemplate.GET("/:certificate_template_id", h.GetCertificateTemplateById)
@@ -227,7 +227,7 @@ func homeworkRouter(
 	api *gin.RouterGroup,
 	h *v1.HomeworkHandlers,
 ) {
-	homework := api.Group("/homework")
+	homework := api.Group("/homeworks")
 	{
 		homework.GET("", h.GetHomeworks)
 		homework.GET("/:homework_id", h.GetHomeworkById)
@@ -236,14 +236,14 @@ func homeworkRouter(
 		homework.DELETE("/:homework_id", h.DeleteHomework)
 	}
 
-	api.GET("/lecture/:lecture_id/homework", h.GetHomeworksByLectureId)
+	api.GET("/lectures/:lecture_id/homeworks", h.GetHomeworksByLectureId)
 }
 
 func lectureRouter(
 	api *gin.RouterGroup,
 	h *v1.LectureHandlers,
 ) {
-	lecture := api.Group("/lecture")
+	lecture := api.Group("/lectures")
 	{
 		lecture.GET("", h.GetLectures)
 		lecture.GET("/:lecture_id", h.GetLectureById)
@@ -257,7 +257,7 @@ func studentCertificateRouter(
 	api *gin.RouterGroup,
 	h *v1.StudentCertificateHandlers,
 ) {
-	studentCertificate := api.Group("/student_certificate")
+	studentCertificate := api.Group("/student-certificates")
 	{
 		studentCertificate.GET("", h.GetStudentCertificates)
 		studentCertificate.GET("/:student_certificate_id", h.GetStudentCertificateById)
@@ -266,16 +266,16 @@ func studentCertificateRouter(
 		studentCertificate.DELETE("/:student_certificate_id", h.DeleteStudentCertificate)
 	}
 
-	api.GET("/student/:student_id/certificate", h.GetStudentCertificatesByStudentId)
+	api.GET("/students/:student_id/certificates", h.GetStudentCertificatesByStudentId)
 
-	api.GET("/course/:course_id/certificate", h.GetStudentCertificatesByCourseId)
+	api.GET("/courses/:course_id/certificates", h.GetStudentCertificatesByCourseId)
 }
 
 func studentHomeworkRouter(
 	api *gin.RouterGroup,
 	h *v1.StudentHomeworkHandlers,
 ) {
-	studentHomework := api.Group("/student_homework")
+	studentHomework := api.Group("/student-homeworks")
 	{
 		studentHomework.GET("", h.GetStudentHomeworks)
 		studentHomework.GET("/:student_homework_id", h.GetStudentHomeworkById)
@@ -284,5 +284,5 @@ func studentHomeworkRouter(
 		studentHomework.DELETE("/:student_homework_id", h.DeleteStudentHomework)
 	}
 
-	api.GET("/student/:student_id/homework", h.GetStudentHomeworksByStudentId)
+	api.GET("/students/:student_id/homeworks", h.GetStudentHomeworksByStudentId)
 }

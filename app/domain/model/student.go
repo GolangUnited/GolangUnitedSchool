@@ -2,24 +2,34 @@ package model
 
 import "time"
 
-//no testing
+// no testing
 type Student struct {
 	StudentId int64 `json:"student_id" validate:"required,numeric,gte=0"`
 }
 
 type StudentCertificate struct {
-	ID                    int64
-	CreatedAt             time.Time
-	CertificateTemplateID int64
-	StudentID             int64
-	CourseID              int64
+	ID                    int64     `json:"id"`
+	CreatedAt             time.Time `json:"created_at"`
+	CertificateTemplateID int64     `json:"certificate_template_id"`
+	StudentID             int64     `json:"student_id"`
+	CourseID              int64     `json:"course_id"`
+}
+
+type StudentCertificateList struct {
+	Metadata            PaginationResponse   `json:"_metadata"`
+	StudentCertificates []StudentCertificate `json:"student_certificates"`
 }
 
 type StudentHomework struct {
-	ID         int64
-	StudentID  int64
-	HomeworkID int64
-	StartedAt  time.Time
-	FinishedAt time.Time
-	Score      float32
+	ID         int64     `json:"id"`
+	StudentID  int64     `json:"student_id"`
+	HomeworkID int64     `json:"homework_id"`
+	StartedAt  time.Time `json:"started_at"`
+	FinishedAt time.Time `json:"finished_at"`
+	Score      float32   `json:"score"`
+}
+
+type StudentHomeworkList struct {
+	Metadata         PaginationResponse `json:"_metadata"`
+	StudentHomeworks []StudentHomework  `json:"student_homeworks"`
 }
