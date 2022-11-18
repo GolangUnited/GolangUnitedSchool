@@ -21,6 +21,50 @@ definitions:
           $ref: '#/definitions/model.Course'
         type: array
     type: object
+  model.CourseUpdate:
+    properties:
+      end_date:
+        type: string
+      start_date:
+        type: string
+      status:
+        type: string
+      title:
+        type: string
+    type: object
+  model.Operation:
+    properties:
+      id:
+        type: integer
+      isLogging:
+        type: boolean
+      operationType:
+        $ref: '#/definitions/model.OperationType'
+      title:
+        type: string
+    type: object
+  model.OperationLog:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      operation:
+        $ref: '#/definitions/model.Operation'
+      personID:
+        type: integer
+      roleID:
+        type: integer
+    type: object
+  model.OperationType:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
   model.PaginationResponse:
     properties:
       page:
@@ -41,10 +85,46 @@ definitions:
       status:
         type: string
     type: object
+  model.Role:
+    properties:
+      id:
+        type: integer
+      isReadOnly:
+        type: boolean
+      roleName:
+        type: string
+    type: object
+  model.RoleCU:
+    properties:
+      isReadOnly:
+        type: boolean
+      roleName:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
   /course:
+    get:
+      operationId: get-all-courses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CourseList'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the course list
+      tags:
+      - courses
     post:
       operationId: create-course
       parameters:
@@ -100,7 +180,7 @@ paths:
       tags:
       - courses
     get:
-      operationId: get-course_by_id
+      operationId: get-course-by-id
       parameters:
       - description: course id
         in: path
@@ -129,6 +209,12 @@ paths:
         name: id
         required: true
         type: string
+      - description: role
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.CourseUpdate'
       produces:
       - application/json
       responses:
@@ -144,24 +230,731 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: update a course by ID
       tags:
       - courses
-  /courses:
-    get:
-      operationId: get-all-courses
+    put:
+      operationId: update-course-by-id
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.CourseUpdate'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.CourseList'
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: get all items in the course list
+      summary: put a course by ID
       tags:
       - courses
+  /operation:
+    get:
+      operationId: get-all-operations
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Operation'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the operations list
+      tags:
+      - operations
+    post:
+      operationId: create-operation
+      parameters:
+      - description: operation
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/model.Operation'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the operations list
+      tags:
+      - operations
+  /operation-log:
+    get:
+      operationId: get-all-operation-logs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.OperationLog'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the operation log list
+      tags:
+      - operation-logs
+    post:
+      operationId: create-operation-log
+      parameters:
+      - description: operation-log
+        in: body
+        name: operation-log
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationLog'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the operation logs list
+      tags:
+      - operation-logs
+  /operation-log/{id}:
+    delete:
+      operationId: delete-operation-log-by-id
+      parameters:
+      - description: operation log id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a operation log by ID
+      tags:
+      - operation-logs
+    get:
+      operationId: get-operation-log-by-id
+      parameters:
+      - description: operation-log id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationLog'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a operation log by ID
+      tags:
+      - operation-logs
+    post:
+      operationId: update-operation-log-by-id
+      parameters:
+      - description: operation log id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: log
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationLog'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a operation log by ID
+      tags:
+      - operation-logs
+    put:
+      operationId: update-operation-log-by-id
+      parameters:
+      - description: operation log id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: log
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationLog'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a operation log by ID
+      tags:
+      - operation-logs
+  /operation-type:
+    get:
+      operationId: get-all-operation-types
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.OperationType'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the operation type list
+      tags:
+      - operation-types
+    post:
+      operationId: create-operation-type
+      parameters:
+      - description: operation-type
+        in: body
+        name: operation-type
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationType'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the operation types list
+      tags:
+      - operation-types
+  /operation-type/{id}:
+    delete:
+      operationId: delete-operation-type-by-id
+      parameters:
+      - description: operation type id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a operation type by ID
+      tags:
+      - operation-types
+    get:
+      operationId: get-operation-type-by-id
+      parameters:
+      - description: operation-type id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationType'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a operation type by ID
+      tags:
+      - operation-types
+    post:
+      operationId: update-operation-type-by-id
+      parameters:
+      - description: operation type id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: type
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a operation type by ID
+      tags:
+      - operation-types
+    put:
+      operationId: update-operation-type-by-id
+      parameters:
+      - description: operation type id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: type
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a operation type by ID
+      tags:
+      - operation-types
+  /operation/{id}:
+    delete:
+      operationId: delete-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a operation by ID
+      tags:
+      - operations
+    get:
+      operationId: get-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Operation'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a operation by ID
+      tags:
+      - operations
+    post:
+      operationId: update-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/model.Operation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a operation by ID
+      tags:
+      - operations
+    put:
+      operationId: update-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/model.Operation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a operation by ID
+      tags:
+      - operations
+  /role:
+    get:
+      operationId: get-all-roles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Role'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the role list
+      tags:
+      - roles
+    post:
+      operationId: create-role
+      parameters:
+      - description: role
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/model.RoleCU'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new role to the course list
+      tags:
+      - roles
+  /role/{id}:
+    delete:
+      operationId: delete-role-by-id
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a role by ID
+      tags:
+      - roles
+    get:
+      operationId: get-role-by-id
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Role'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a role by ID
+      tags:
+      - roles
+    post:
+      operationId: update-role-by-id
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/model.RoleCU'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a role by ID
+      tags:
+      - roles
+    put:
+      operationId: put-role-by-id
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/model.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a role by ID
+      tags:
+      - roles
 swagger: "2.0"

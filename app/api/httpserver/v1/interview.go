@@ -18,8 +18,8 @@ func NewInterview(lg logger.Logger, u usecase.InterviewUsecaseInterface) *Interv
 	}
 }
 
-func GetInterviewById(c *gin.Context)
-func GetInterviews(c *gin.Context)
-func AddInterview(c *gin.Context)
-func UpdateInterviewById(c *gin.Context)
-func DeleteInterviewById(c *gin.Context)
+func GetInterviewById(c *gin.Context)    {}
+func GetInterviews(c *gin.Context)       {}
+func AddInterview(c *gin.Context)        {}
+func UpdateInterviewById(c *gin.Context) {}
+func DeleteInterviewById(c *gin.Context) {}

@@ -54,13 +54,13 @@ func (h *CourseHandlers) AddCourse(c *gin.Context) {
 // @Success 200 {object} model.CourseList
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /courses [get]
+// @Router /course [get]
 func (h *CourseHandlers) GetCourses(c *gin.Context) {
 
 }
 
 // @Summary get a course by ID
-// @ID get-course_by_id
+// @ID get-course-by-id
 // @Tags courses
 // @Produce json
 // @Param id path string true "course id"
@@ -75,13 +75,31 @@ func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 // @ID update-course-by-id
 // @Tags courses
 // @Param id path string true "course id"
+// @Param course body model.CourseUpdate true "role"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /course/{id} [post]
 func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
+
+}
+
+// @Summary put a course by ID
+// @ID update-course-by-id
+// @Tags courses
+// @Param id path string true "course id"
+// @Param course body model.CourseUpdate true "role"
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /course/{id} [put]
+func (h *CourseHandlers) PutCourseById(c *gin.Context) {
 
 }
 

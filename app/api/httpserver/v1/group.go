@@ -18,9 +18,9 @@ func NewGroup(lg logger.Logger, u usecase.GroupUsecaseInterface) *GroupHandlers 
 	}
 }
 
-func GetGroupById(c *gin.Context)
-func GetGroups(c *gin.Context)
-func CreateGroup(c *gin.Context)
-func UpdateGroupById(c *gin.Context)
-func PutGroupById(c *gin.Context)
-func DeleteGroupById(c *gin.Context)
+func GetGroupById(c *gin.Context)    {}
+func GetGroups(c *gin.Context)       {}
+func CreateGroup(c *gin.Context)     {}
+func UpdateGroupById(c *gin.Context) {}
+func PutGroupById(c *gin.Context)    {}
+func DeleteGroupById(c *gin.Context) {}

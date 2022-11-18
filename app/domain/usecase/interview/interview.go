@@ -42,6 +42,13 @@ func (u *InterviewUsecase) GetInterviews(ctx context.Context) ([]model.Interview
 	return interviews, nil
 }
 
-func (u *InterviewUsecase) AddInterview(context.Context, *model.Interview) (int64, error)
-func (u *InterviewUsecase) UpdateInterviewById(context.Context, int64, *model.Interview) error
-func (u *InterviewUsecase) DeleteInterviewById(context.Context, int64) error
+func (u *InterviewUsecase) AddInterview(context.Context, *model.Interview) (int64, error) {
+	var id int64
+	return id, nil
+}
+func (u *InterviewUsecase) UpdateInterviewById(context.Context, int64, *model.Interview) error {
+	return nil
+}
+func (u *InterviewUsecase) DeleteInterviewById(context.Context, int64) error {
+	return nil
+}
