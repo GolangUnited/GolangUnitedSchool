@@ -32,6 +32,39 @@ definitions:
       title:
         type: string
     type: object
+  model.Group:
+    properties:
+      courseId:
+        type: integer
+      id:
+        type: integer
+      mentorId:
+        type: integer
+      title:
+        type: string
+    type: object
+  model.GroupCU:
+    properties:
+      mentorId:
+        type: integer
+      title:
+        type: string
+    type: object
+  model.Interview:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      mentorID:
+        type: integer
+      note:
+        type: string
+      score:
+        type: integer
+      studentID:
+        type: integer
+    type: object
   model.Operation:
     properties:
       id:
@@ -149,7 +182,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: add new course to the course list
+      summary: add new item to the course list
       tags:
       - courses
   /course/{id}:
@@ -198,6 +231,10 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get a course by ID
       tags:
       - courses
@@ -209,7 +246,7 @@ paths:
         name: id
         required: true
         type: string
-      - description: role
+      - description: course
         in: body
         name: course
         required: true
@@ -245,7 +282,7 @@ paths:
         name: id
         required: true
         type: string
-      - description: role
+      - description: course
         in: body
         name: course
         required: true
@@ -273,6 +310,356 @@ paths:
       summary: put a course by ID
       tags:
       - courses
+  /group:
+    get:
+      operationId: get-all-groups
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Group'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the group list
+      tags:
+      - groups
+    post:
+      operationId: create-group
+      parameters:
+      - description: group
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupCU'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the group list
+      tags:
+      - groups
+  /group/{id}:
+    delete:
+      operationId: delete-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a group by ID
+      tags:
+      - groups
+    get:
+      operationId: get-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Group'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a group by ID
+      tags:
+      - groups
+    post:
+      operationId: update-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: group
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupCU'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a group by ID
+      tags:
+      - groups
+    put:
+      operationId: update-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: group
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupCU'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a group by ID
+      tags:
+      - groups
+  /interview:
+    get:
+      operationId: get-all-interviews
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Interview'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the interview list
+      tags:
+      - interviews
+    post:
+      operationId: create-interview
+      parameters:
+      - description: interview
+        in: body
+        name: interview
+        required: true
+        schema:
+          $ref: '#/definitions/model.Interview'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the interview list
+      tags:
+      - interviews
+  /interview/{id}:
+    delete:
+      operationId: delete-interview-by-id
+      parameters:
+      - description: interview id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a interview by ID
+      tags:
+      - interviews
+    get:
+      operationId: get-interview-by-id
+      parameters:
+      - description: interview id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Interview'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a interview by ID
+      tags:
+      - interviews
+    post:
+      operationId: update-interview-by-id
+      parameters:
+      - description: interview id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: interview
+        in: body
+        name: interview
+        required: true
+        schema:
+          $ref: '#/definitions/model.Interview'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a interview by ID
+      tags:
+      - interviews
+    put:
+      operationId: update-interview-by-id
+      parameters:
+      - description: interview id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: interview
+        in: body
+        name: interview
+        required: true
+        schema:
+          $ref: '#/definitions/model.Interview'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a interview by ID
+      tags:
+      - interviews
   /operation:
     get:
       operationId: get-all-operations

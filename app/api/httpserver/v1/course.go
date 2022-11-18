@@ -24,7 +24,7 @@ func NewCourseHandler(
 	}
 }
 
-// @Summary add new course to the course list
+// @Summary add new item to the course list
 // @ID create-course
 // @Tags courses
 // @Produce json
@@ -66,6 +66,7 @@ func (h *CourseHandlers) GetCourses(c *gin.Context) {
 // @Param id path string true "course id"
 // @Success 200 {object} model.Course
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /course/{id} [get]
 func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 
@@ -75,7 +76,7 @@ func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 // @ID update-course-by-id
 // @Tags courses
 // @Param id path string true "course id"
-// @Param course body model.CourseUpdate true "role"
+// @Param course body model.CourseUpdate true "course"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -91,7 +92,7 @@ func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
 // @ID update-course-by-id
 // @Tags courses
 // @Param id path string true "course id"
-// @Param course body model.CourseUpdate true "role"
+// @Param course body model.CourseUpdate true "course"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
