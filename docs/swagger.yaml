@@ -296,6 +296,28 @@ definitions:
     required:
     - student_id
     type: object
+  model.StudentCertificate:
+    properties:
+      certificateTemplateID:
+        type: integer
+      courseID:
+        type: integer
+      createdAt:
+        type: string
+      id:
+        type: integer
+      studentID:
+        type: integer
+    type: object
+  model.StudentCertificatesListDto:
+    properties:
+      metadata:
+        $ref: '#/definitions/model.ResponseMessage'
+      studentCertificatesList:
+        items:
+          $ref: '#/definitions/model.StudentCertificate'
+        type: array
+    type: object
   model.StudentGroup:
     properties:
       group_id:
@@ -1748,6 +1770,61 @@ paths:
       summary: update student by student id
       tags:
       - students
+  /students/{student_id}/certificates:
+    get:
+      description: возвращает все сертификаты студента с указанным id
+      operationId: get-student-certificates
+      parameters:
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificatesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all certificates of student
+      tags:
+      - students
+      - certificates
+  /students/{student_id}/certificates/{certificate_od}:
+    get:
+      description: возвращает сертификат студента с указанным id
+      operationId: get-student-certificate
+      parameters:
+      - description: certificate_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificate'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get
+      tags:
+      - students
+      - certificates
   /students/{student_id}/homeworks:
     get:
       description: возвращает все домашние работы студента с указанным student_id
@@ -1928,6 +2005,126 @@ paths:
       summary: update student note
       tags:
       - student_notes
+  /students/certificates:
+    get:
+      description: возвращает все сертификаты всех студентов
+      operationId: get-all-certificates
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificatesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all student certificates
+      tags:
+      - students
+      - certificates
+    post:
+      description: добавляет новый сертификат студента
+      operationId: add-student-certificate
+      parameters:
+      - description: certificate
+        in: body
+        name: certificate
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentCertificate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add student certificate
+      tags:
+      - students
+      - certificates
+    put:
+      description: изменяет новый сертификат студента
+      operationId: put-student-certificate
+      parameters:
+      - description: certificate
+        in: body
+        name: certificate
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentCertificate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student certificate
+      tags:
+      - students
+      - certificates
+  /students/certificates/{certificate_id}:
+    delete:
+      description: удаляет сертификат студента
+      operationId: delete-student-certificate
+      parameters:
+      - description: certificate_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete student certificate
+      tags:
+      - students
+      - certificates
+  /students/certificates/courses/{course_id}:
+    get:
+      description: возвращает сертификаты курса
+      operationId: get-course-certificates
+      parameters:
+      - description: course_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificatesListDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get certificates by course
+      tags:
+      - students
+      - certificates
+      - courses
   /students/groups:
     get:
       description: возвращает список всех студенческих групп

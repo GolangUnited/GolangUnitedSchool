@@ -20,6 +20,11 @@ type StudentCertificate struct {
 	CourseID              int64
 }
 
+type StudentCertificatesListDto struct {
+	Metadata                ResponseMessage
+	StudentCertificatesList []StudentCertificate
+}
+
 type StudentHomework struct {
 	ID         int64
 	StudentID  int64

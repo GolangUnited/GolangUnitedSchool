@@ -1876,6 +1876,183 @@ var doc = `{
                 }
             }
         },
+        "/students/certificates": {
+            "get": {
+                "description": "возвращает все сертификаты всех студентов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "certificates"
+                ],
+                "summary": "get all student certificates",
+                "operationId": "get-all-certificates",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentCertificatesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "изменяет новый сертификат студента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "certificates"
+                ],
+                "summary": "update student certificate",
+                "operationId": "put-student-certificate",
+                "parameters": [
+                    {
+                        "description": "certificate",
+                        "name": "certificate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentCertificate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "добавляет новый сертификат студента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "certificates"
+                ],
+                "summary": "add student certificate",
+                "operationId": "add-student-certificate",
+                "parameters": [
+                    {
+                        "description": "certificate",
+                        "name": "certificate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentCertificate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/certificates/courses/{course_id}": {
+            "get": {
+                "description": "возвращает сертификаты курса",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "certificates",
+                    "courses"
+                ],
+                "summary": "get certificates by course",
+                "operationId": "get-course-certificates",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "course_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentCertificatesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/certificates/{certificate_id}": {
+            "delete": {
+                "description": "удаляет сертификат студента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "certificates"
+                ],
+                "summary": "delete student certificate",
+                "operationId": "delete-student-certificate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "certificate_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/students/groups": {
             "get": {
                 "description": "возвращает список всех студенческих групп",
@@ -2603,6 +2780,87 @@ var doc = `{
                 }
             }
         },
+        "/students/{student_id}/certificates": {
+            "get": {
+                "description": "возвращает все сертификаты студента с указанным id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "certificates"
+                ],
+                "summary": "get all certificates of student",
+                "operationId": "get-student-certificates",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentCertificatesListDto"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/{student_id}/certificates/{certificate_od}": {
+            "get": {
+                "description": "возвращает сертификат студента с указанным id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students",
+                    "certificates"
+                ],
+                "summary": "get",
+                "operationId": "get-student-certificate",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "certificate_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "student_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentCertificate"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/students/{student_id}/homeworks": {
             "get": {
                 "description": "возвращает все домашние работы студента с указанным student_id",
@@ -3311,6 +3569,40 @@ var doc = `{
                 "student_id": {
                     "type": "integer",
                     "minimum": 0
+                }
+            }
+        },
+        "model.StudentCertificate": {
+            "type": "object",
+            "properties": {
+                "certificateTemplateID": {
+                    "type": "integer"
+                },
+                "courseID": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "studentID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.StudentCertificatesListDto": {
+            "type": "object",
+            "properties": {
+                "metadata": {
+                    "$ref": "#/definitions/model.ResponseMessage"
+                },
+                "studentCertificatesList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.StudentCertificate"
+                    }
                 }
             }
         },
