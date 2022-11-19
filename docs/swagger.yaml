@@ -1,4 +1,20 @@
 definitions:
+  model.CertificateTemplate:
+    properties:
+      id:
+        type: integer
+      template:
+        type: string
+    type: object
+  model.CertificateTemplateList:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      certificate_templates:
+        items:
+          $ref: '#/definitions/model.CertificateTemplate'
+        type: array
+    type: object
   model.Course:
     properties:
       end_date:
@@ -50,6 +66,28 @@ definitions:
       title:
         type: string
     type: object
+  model.Homework:
+    properties:
+      id:
+        type: integer
+      lecture_id:
+        type: integer
+      max_score:
+        type: number
+      task:
+        type: string
+      title:
+        type: string
+    type: object
+  model.HomeworkList:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      homeworks:
+        items:
+          $ref: '#/definitions/model.Homework'
+        type: array
+    type: object
   model.Interview:
     properties:
       createdAt:
@@ -64,6 +102,22 @@ definitions:
         type: integer
       studentID:
         type: integer
+    type: object
+  model.Lecture:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  model.LectureList:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      lectures:
+        items:
+          $ref: '#/definitions/model.Lecture'
+        type: array
     type: object
   model.Operation:
     properties:
@@ -134,9 +188,188 @@ definitions:
       roleName:
         type: string
     type: object
+  model.StudentCertificate:
+    properties:
+      certificate_template_id:
+        type: integer
+      course_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      student_id:
+        type: integer
+    type: object
+  model.StudentCertificateList:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      student_certificates:
+        items:
+          $ref: '#/definitions/model.StudentCertificate'
+        type: array
+    type: object
+  model.StudentHomework:
+    properties:
+      finished_at:
+        type: string
+      homework_id:
+        type: integer
+      id:
+        type: integer
+      score:
+        type: number
+      started_at:
+        type: string
+      student_id:
+        type: integer
+    type: object
+  model.StudentHomeworkList:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      student_homeworks:
+        items:
+          $ref: '#/definitions/model.StudentHomework'
+        type: array
+    type: object
 info:
   contact: {}
 paths:
+  /certificate-templates:
+    get:
+      operationId: get-all-certificate-templates
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CertificateTemplateList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the certificate template list
+      tags:
+      - courses
+    post:
+      operationId: create-certificate-template
+      parameters:
+      - description: certificate template
+        in: body
+        name: certificate_template
+        required: true
+        schema:
+          $ref: '#/definitions/model.CertificateTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new certificate template to the certificate template list
+      tags:
+      - courses
+  /certificate-templates/{id}:
+    delete:
+      operationId: delete-certificate-template-by-id
+      parameters:
+      - description: certificate template id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a certificate template by ID
+      tags:
+      - courses
+    get:
+      operationId: get-certificate-template-by-id
+      parameters:
+      - description: certificate template id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.CertificateTemplate'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a certificate template by ID
+      tags:
+      - courses
+    put:
+      operationId: update-certificate-template-by-id
+      parameters:
+      - description: certificate template id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: certificate template
+        in: body
+        name: certificate_template
+        required: true
+        schema:
+          $ref: '#/definitions/model.CertificateTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a certificate template by ID
+      tags:
+      - courses
   /course:
     get:
       operationId: get-all-courses
@@ -310,6 +543,34 @@ paths:
       summary: put a course by ID
       tags:
       - courses
+  /courses/{course_id}/certificates:
+    get:
+      operationId: get-student-certificates-by-course-id
+      parameters:
+      - description: course id
+        in: path
+        name: course_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificateList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get items in the student certificate list by course ID
+      tags:
+      - courses
+      - students
   /group:
     get:
       operationId: get-all-groups
@@ -485,6 +746,139 @@ paths:
       summary: put a group by ID
       tags:
       - groups
+  /homeworks:
+    get:
+      operationId: get-all-homeworks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HomeworkList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the homework list
+      tags:
+      - courses
+    post:
+      operationId: create-homework
+      parameters:
+      - description: homework
+        in: body
+        name: homework
+        required: true
+        schema:
+          $ref: '#/definitions/model.Homework'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new homework to the homework list
+      tags:
+      - courses
+  /homeworks/{id}:
+    delete:
+      operationId: delete-homework-by-id
+      parameters:
+      - description: homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a homework by ID
+      tags:
+      - courses
+    get:
+      operationId: get-homework-by-id
+      parameters:
+      - description: homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Homework'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a homework by ID
+      tags:
+      - courses
+    put:
+      operationId: update-homework-by-id
+      parameters:
+      - description: homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: homework
+        in: body
+        name: homework
+        required: true
+        schema:
+          $ref: '#/definitions/model.Homework'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a homework by ID
+      tags:
+      - courses
   /interview:
     get:
       operationId: get-all-interviews
@@ -660,6 +1054,166 @@ paths:
       summary: put a interview by ID
       tags:
       - interviews
+  /lectures:
+    get:
+      operationId: get-all-lectures
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LectureList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the lecture list
+      tags:
+      - courses
+    post:
+      operationId: create-lecture
+      parameters:
+      - description: lecture
+        in: body
+        name: lecture
+        required: true
+        schema:
+          $ref: '#/definitions/model.Lecture'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new lecture to the lecture list
+      tags:
+      - courses
+  /lectures/{id}:
+    delete:
+      operationId: delete-lecture-by-id
+      parameters:
+      - description: lecture id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a lecture by ID
+      tags:
+      - courses
+    get:
+      operationId: get-lecture-by-id
+      parameters:
+      - description: lecture id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Lecture'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a lecture by ID
+      tags:
+      - courses
+    put:
+      operationId: update-lecture-by-id
+      parameters:
+      - description: lecture id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: lecture
+        in: body
+        name: lecture
+        required: true
+        schema:
+          $ref: '#/definitions/model.Lecture'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a lecture by ID
+      tags:
+      - courses
+  /lectures/{lecture_id}/homeworks:
+    get:
+      operationId: get-homeworks-by-lecture-id
+      parameters:
+      - description: lecture id
+        in: path
+        name: lecture_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HomeworkList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get items in the homework list by lecture ID
+      tags:
+      - courses
   /operation:
     get:
       operationId: get-all-operations
@@ -1344,4 +1898,324 @@ paths:
       summary: put a role by ID
       tags:
       - roles
+  /student-certificates:
+    get:
+      operationId: get-all-student-certificates
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificateList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the student certificate list
+      tags:
+      - students
+    post:
+      operationId: create-student-certificate
+      parameters:
+      - description: student certificate
+        in: body
+        name: student_certificate
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentCertificate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new student certificate to the student certificate list
+      tags:
+      - courses
+  /student-certificates/{id}:
+    delete:
+      operationId: delete-student-certificate-by-id
+      parameters:
+      - description: student certificate id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a student certificate by ID
+      tags:
+      - courses
+    get:
+      operationId: get-student-certificate-by-id
+      parameters:
+      - description: student certificate id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificate'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a student certificate by ID
+      tags:
+      - students
+    put:
+      operationId: update-student-certificate-by-id
+      parameters:
+      - description: student certificate id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student certificate
+        in: body
+        name: student_certificate
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentCertificate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a student certificate by ID
+      tags:
+      - courses
+  /student-homeworks:
+    get:
+      operationId: get-all-student-homeworks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentHomeworkList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the student homework list
+      tags:
+      - students
+    post:
+      operationId: create-student-homework
+      parameters:
+      - description: student homework
+        in: body
+        name: student_homework
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentHomework'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new student homework to the student homework list
+      tags:
+      - students
+  /student-homeworks/{id}:
+    delete:
+      operationId: delete-student-homework-by-id
+      parameters:
+      - description: student homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a student homework by ID
+      tags:
+      - students
+    get:
+      operationId: get-student-homework-by-id
+      parameters:
+      - description: student homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentHomework'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a student homework by ID
+      tags:
+      - students
+    put:
+      operationId: update-student-homework-by-id
+      parameters:
+      - description: student homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student homework
+        in: body
+        name: student_homework
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentHomework'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a student homework by ID
+      tags:
+      - students
+  /students/{student_id}/certificates:
+    get:
+      operationId: get-student-certificates-by-student-id
+      parameters:
+      - description: student id
+        in: path
+        name: student_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificateList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get items in the student certificate list by student ID
+      tags:
+      - students
+  /students/{student_id}/homeworks:
+    get:
+      operationId: get-student-homeworks-by-student-id
+      parameters:
+      - description: student id
+        in: path
+        name: student_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentHomeworkList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get items in the student homework list by student ID
+      tags:
+      - students
 swagger: "2.0"
