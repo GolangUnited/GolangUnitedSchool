@@ -11,6 +11,11 @@ type RoleHandlers struct {
 	usecase usecase.RoleUsecaseInterface
 }
 
+func NewRoleHandlers(lg logger.Logger,
+	usecase usecase.RoleUsecaseInterface) *RoleHandlers {
+	return &RoleHandlers{lg: lg, usecase: usecase}
+}
+
 // @Summary get a role by ID
 // @ID get-role-by-id
 // @Tags roles
