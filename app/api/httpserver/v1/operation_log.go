@@ -15,6 +15,7 @@ func NewOperationLog(lg logger.Logger) *OperationLogHandlers {
 
 // AddOperationLog
 // @Summary add new item to the operation logs list
+// @Description
 // @ID create-operation-log
 // @Tags operation-logs
 // @Produce json
