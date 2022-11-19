@@ -52,7 +52,7 @@ func (h *GroupContactHandlers) GetGroupContactsByGroupId(c *gin.Context) {}
 // @Tags groups, groupContacts
 // @Produce json
 // @Consume json
-// @Param group contact body model.GroupContactsAddDto true "group contact"
+// @Param group_contact body model.GroupContactsAddDto true "group contact"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -65,7 +65,7 @@ func (h *GroupContactHandlers) AddGroupContact(c *gin.Context) {}
 // @Tags groups, groupContacts
 // @ID update-group-contact-by-id
 // @Param id path string true "group_contact_id"
-// @Param group contact body model.GroupContactsAddDto true "group contact"
+// @Param group_contact body model.GroupContactsAddDto true "group contact"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage

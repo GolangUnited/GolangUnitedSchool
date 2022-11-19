@@ -331,7 +331,7 @@
                 "parameters": [
                     {
                         "description": "course_lecture",
-                        "name": "course",
+                        "name": "course_lecture",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -383,7 +383,7 @@
                     },
                     {
                         "description": "course_lecture",
-                        "name": "lecture",
+                        "name": "course_lecture",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -1194,7 +1194,7 @@
                 "parameters": [
                     {
                         "description": "group contact",
-                        "name": "contact",
+                        "name": "group_contact",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -1246,7 +1246,7 @@
                     },
                     {
                         "description": "group contact",
-                        "name": "contact",
+                        "name": "group_contact",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -2695,7 +2695,7 @@
                     },
                     {
                         "description": "role",
-                        "name": "log",
+                        "name": "operation_log",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -2749,7 +2749,7 @@
                     },
                     {
                         "description": "role",
-                        "name": "log",
+                        "name": "operation_log",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -2953,7 +2953,7 @@
                     },
                     {
                         "description": "role",
-                        "name": "type",
+                        "name": "operation_type",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -3007,7 +3007,7 @@
                     },
                     {
                         "description": "role",
-                        "name": "type",
+                        "name": "operation_type",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -4362,7 +4362,7 @@
                 "parameters": [
                     {
                         "description": "student_group",
-                        "name": "course",
+                        "name": "student_group",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -4449,7 +4449,7 @@
                     },
                     {
                         "description": "student_group",
-                        "name": "group",
+                        "name": "student_group",
                         "in": "body",
                         "required": true,
                         "schema": {

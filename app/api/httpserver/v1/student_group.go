@@ -51,7 +51,7 @@ func (h *StudentGroupHandlers) GetStudentGroupById(c *gin.Context) {}
 // @Tags students, studentGroups
 // @Produce json
 // @Consume json
-// @Param course body model.StudentGroup true "student_group"
+// @Param student_group body model.StudentGroup true "student_group"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -64,7 +64,7 @@ func (h *StudentGroupHandlers) AddStudentGroup(c *gin.Context) {}
 // @ID update-student-group-by-id
 // @Tags students, studentGroups
 // @Param id path string true "group_id"
-// @Param student group body model.StudentGroup true "student_group"
+// @Param student_group body model.StudentGroup true "student_group"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage

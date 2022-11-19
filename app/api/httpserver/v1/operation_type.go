@@ -13,6 +13,7 @@ func NewOperationType(lg logger.Logger) *OperationTypeHandlers {
 	return &OperationTypeHandlers{lg: lg}
 }
 
+// AddOperationLog
 // @Summary add new item to the operation types list
 // @ID create-operation-type
 // @Tags operation-types
@@ -23,8 +24,9 @@ func NewOperationType(lg logger.Logger) *OperationTypeHandlers {
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /operation-type [post]
-func (h *OperationTypeHandlers) AddOperatioLog(c *gin.Context) {}
+func (h *OperationTypeHandlers) AddOperationLog(c *gin.Context) {}
 
+// GetOperationTypes
 // @Summary get all items in the operation type list
 // @ID get-all-operation-types
 // @Tags operation-types
@@ -35,6 +37,7 @@ func (h *OperationTypeHandlers) AddOperatioLog(c *gin.Context) {}
 // @Router /operation-type [get]
 func (h *OperationTypeHandlers) GetOperationTypes(c *gin.Context) {}
 
+// GetOperationTypeById
 // @Summary get a operation type by ID
 // @ID get-operation-type-by-id
 // @Tags operation-types
@@ -45,11 +48,12 @@ func (h *OperationTypeHandlers) GetOperationTypes(c *gin.Context) {}
 // @Router /operation-type/{id} [get]
 func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 
+// UpdateOperationTypeById
 // @Summary update a operation type by ID
 // @ID update-operation-type-by-id
 // @Tags operation-types
 // @Param id path string true "operation type id"
-// @Param operation type body model.OperationType true "role"
+// @Param operation_type body model.OperationType true "role"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -59,11 +63,12 @@ func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 // @Router /operation-type/{id} [post]
 func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
 
+// PutOperationTypeById
 // @Summary put a operation type by ID
 // @ID update-operation-type-by-id
 // @Tags operation-types
 // @Param id path string true "operation type id"
-// @Param operation type body model.OperationType true "role"
+// @Param operation_type body model.OperationType true "role"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -73,6 +78,7 @@ func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
 // @Router /operation-type/{id} [put]
 func (h *OperationTypeHandlers) PutOperationTypeById(c *gin.Context) {}
 
+// DeleteOperationTypeById
 // @Summary delete a operation type by ID
 // @ID delete-operation-type-by-id
 // @Tags operation-types
