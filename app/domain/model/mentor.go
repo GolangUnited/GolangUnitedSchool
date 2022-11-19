@@ -12,6 +12,10 @@ type Mentor struct {
 	MentorId int64 `json:"mentor_id" validate:"numeric,gt=0"`
 }
 
+type MentorsListDto struct {
+	MentorList []Mentor
+}
+
 func (n *Mentor) ValidateMentor() error {
 	validate := validator.New()
 	english := en.New()

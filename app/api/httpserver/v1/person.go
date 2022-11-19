@@ -20,8 +20,67 @@ func NewPersonHandler(lg logger.Logger,
 		useCase: useCase,
 	}
 }
-func (h *PersonHandlers) GetPersons(c *gin.Context)       {}
-func (h *PersonHandlers) AddNewPerson(c *gin.Context)     {}
-func (h *PersonHandlers) GetPersonById(c *gin.Context)    {}
+
+// GetPersons
+// @Summary get all person from database
+// @Description возвращает список всех пользователей
+// @ID get-persons
+// @Tags persons
+// @Produce json
+// @Success 200 {object} model.PersonListDto
+// @Failure 500 {object} model.ResponseMessage
+// @Router /persons [get]
+func (h *PersonHandlers) GetPersons(c *gin.Context) {}
+
+// AddNewPerson
+// @Summary add new person to database
+// @Description добавляет нового пользователя
+// @ID add-new-person
+// @Tags persons
+// @Produce json
+// @Consume json
+// @Param course body model.NewPersonDto true "person"
+// @Success 201 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /persons [post]
+func (h *PersonHandlers) AddNewPerson(c *gin.Context) {}
+
+// GetPersonById
+// @Summary get person by id
+// @Description возвращает данные о пользователе с указанным id
+// @ID get-person-by-id
+// @Tags persons
+// @Produce json
+// @Param id path string true "person_id"
+// @Success 200 {object} model.Person
+// @Failure 404 {object} model.ResponseMessage
+// @Router /persons/{person_id} [get]
+func (h *PersonHandlers) GetPersonById(c *gin.Context) {}
+
+// UpdatePersonById
+// @Summary update person by id
+// @ID update-person-by-id
+// @Description изменяет данные пользователя с указанным id
+// @Tags persons
+// @Produce json
+// @Param id path string true "person_id"
+// @Param person body model.Person true "person"
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Router /persons/{person_id} [put]
 func (h *PersonHandlers) UpdatePersonById(c *gin.Context) {}
+
+// DeletePersonById
+// @Summary delete person by id
+// @Description удаляет пользователя с указанным id<
+// @ID delete-person-by-id
+// @Tags persons
+// @Param id path string true "person_id"
+// @Produce json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /persons/{person_id} [delete]
 func (h *PersonHandlers) DeletePersonById(c *gin.Context) {}

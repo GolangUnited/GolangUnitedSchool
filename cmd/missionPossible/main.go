@@ -18,6 +18,16 @@ import (
 	"golang.org/x/net/context"
 )
 
+// @title GolangUnitedSchool
+// @version 1.0
+// @description ### _API for student info collection service._
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:8080
+// @BasePath /api/v1
+// @schemes http
 func main() {
 	cfg, err := config.Load()
 	if err != nil {

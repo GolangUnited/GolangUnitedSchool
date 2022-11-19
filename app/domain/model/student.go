@@ -7,6 +7,11 @@ type Student struct {
 	StudentId int64 `json:"student_id" validate:"required,numeric,gte=0"`
 }
 
+type StudentsListDto struct {
+	MetaData    PaginationResponse
+	StudentList []Student
+}
+
 type StudentCertificate struct {
 	ID                    int64     `json:"id"`
 	CreatedAt             time.Time `json:"created_at"`
@@ -18,6 +23,11 @@ type StudentCertificate struct {
 type StudentCertificateList struct {
 	Metadata            PaginationResponse   `json:"_metadata"`
 	StudentCertificates []StudentCertificate `json:"student_certificates"`
+}
+
+type StudentCertificatesListDto struct {
+	Metadata                PaginationResponse
+	StudentCertificatesList []StudentCertificate
 }
 
 type StudentHomework struct {
@@ -32,4 +42,9 @@ type StudentHomework struct {
 type StudentHomeworkList struct {
 	Metadata         PaginationResponse `json:"_metadata"`
 	StudentHomeworks []StudentHomework  `json:"student_homeworks"`
+}
+
+type StudentHomeworksListDto struct {
+	MetaData              PaginationResponse
+	StudentsHomeworksList []StudentHomework
 }

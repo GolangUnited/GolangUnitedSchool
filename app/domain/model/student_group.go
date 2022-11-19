@@ -13,6 +13,11 @@ type StudentGroup struct {
 	GroupId   int64 `json:"group_id" validate:"numeric,gt=0"`
 }
 
+type StudentGroupListDto struct {
+	Metadata          PaginationResponse `json:"_metadata"`
+	StudentGroupsList []StudentGroup     `json:"student_group_list"`
+}
+
 func (n *StudentGroup) ValidateStudentGroup() error {
 	validate := validator.New()
 	english := en.New()

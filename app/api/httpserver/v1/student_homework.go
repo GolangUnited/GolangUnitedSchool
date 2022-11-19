@@ -21,76 +21,80 @@ func NewStudentHomeworkHandler(
 	}
 }
 
-// @Summary get all items in the student homework list
-// @ID get-all-student-homeworks
-// @Tags students
+// GetStudentHomeworks
+// @Summary get all homeworks
+// @ID get-students-homeworks
+// @Description возвращает все домашние работы всех студентов в виде списка
+// @Tags students, homeworks
 // @Produce json
-// @Success 200 {object} model.StudentHomeworkList
+// @Success 200 {object} model.StudentHomeworksListDto
 // @Failure 500 {object} model.ResponseMessage
-// @Router /student-homeworks [get]
+// @Router /students/homeworks [get]
 func (h *StudentHomeworkHandlers) GetStudentHomeworks(c *gin.Context) {
 }
 
-// @Summary get items in the student homework list by student ID
-// @ID get-student-homeworks-by-student-id
-// @Tags students
+// GetStudentHomeworksByStudentId
+// @Summary get contact type
+// @Description возвращает все домашние работы студента с указанным student_id
+// @ID get-all-student-homeworks
+// @Param id path string true "student_id"
+// @Tags students, homeworks
 // @Produce json
-// @Param student_id path string true "student id"
-// @Success 200 {object} model.StudentHomeworkList
-// @Failure 404 {object} model.ResponseMessage
+// @Success 200 {object} model.StudentHomeworksListDto
 // @Failure 500 {object} model.ResponseMessage
 // @Router /students/{student_id}/homeworks [get]
 func (h *StudentHomeworkHandlers) GetStudentHomeworksByStudentId(c *gin.Context) {
 }
 
-// @Summary get a student homework by ID
-// @ID get-student-homework-by-id
-// @Tags students
+// GetStudentHomeworkById
+// @Summary get student's homework
+// @Description возвращает определенную лекцию указанного стцдента
+// @ID get-student-homework
+// @Param id path string true "student_id"
+// @Param id path string true "homework_id"
+// @Tags students, homeworks
 // @Produce json
-// @Param id path string true "student homework id"
 // @Success 200 {object} model.StudentHomework
-// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /student-homeworks/{id} [get]
+// @Router /students/{student_id}/homeworks/{homework_id} [get]
 func (h *StudentHomeworkHandlers) GetStudentHomeworkById(c *gin.Context) {
 }
 
-// @Summary add new student homework to the student homework list
-// @ID create-student-homework
-// @Tags students
+// AddStudentHomework
+// @Summary get contact type
+// @Description добавляет новый тип контакта
+// @ID add-contact-type
+// @Param contact_type body model.NewContactTypeDto true "contact_type"
+// @Tags students, homeworks
 // @Produce json
-// @Consume json
-// @Param student_homework body model.StudentHomework true "student homework"
 // @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /student-homeworks [post]
+// @Router /students/homeworks [post]
 func (h *StudentHomeworkHandlers) AddStudentHomework(c *gin.Context) {
 }
 
-// @Summary update a student homework by ID
-// @ID update-student-homework-by-id
-// @Tags students
+// UpdateStudentHomework
+// @Summary update student homework
+// @Description изменяет домашнюю работу студента
+// @ID update-student-homework
+// @Param student_homework body model.StudentHomework true "student_homework"
+// @Tags students, homeworks
 // @Produce json
-// @Consume json
-// @Param id path string true "student homework id"
-// @Param student_homework body model.StudentHomework true "student homework"
 // @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /student-homeworks/{id} [put]
+// @Router /students/homeworks [put]
 func (h *StudentHomeworkHandlers) UpdateStudentHomework(c *gin.Context) {
 }
 
-// @Summary delete a student homework by ID
-// @ID delete-student-homework-by-id
-// @Tags students
+// DeleteStudentHomework
+// @Summary delete student homework
+// @Description удаляет домашнюю работу студента
+// @ID delete-student-homework
+// @Param id path string true "student_homework_id"
+// @Tags students, homeworks
 // @Produce json
-// @Param id path string true "student homework id"
 // @Success 200 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /student-homeworks/{id} [delete]
+// @Router /students/homeworks/{:contact_type_id} [delete]
 func (h *StudentHomeworkHandlers) DeleteStudentHomework(c *gin.Context) {
 }

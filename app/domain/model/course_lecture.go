@@ -13,6 +13,11 @@ type CourseLecture struct {
 	LectureId int64 `json:"lecture_id" validate:"numeric,gt=0"`
 }
 
+type CourseLecturesListDto struct {
+	Metadata          PaginationResponse `json:"_metadata"`
+	CourseLectureList []CourseLecture    `json:"course_lectures"`
+}
+
 func (n *CourseLecture) ValidateCourseLecture() error {
 	validate := validator.New()
 	english := en.New()

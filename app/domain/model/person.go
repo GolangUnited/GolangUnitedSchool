@@ -22,6 +22,20 @@ type Person struct {
 	Deleted    bool      `json:"deleted" validate:"omitempty"`
 }
 
+type PersonListDto struct {
+	Metadata PaginationResponse `json:"_metadata"`
+	Persons  []Person           `json:"persons_dto"`
+}
+
+type NewPersonDto struct {
+	FirsName   string
+	LastName   string
+	Patronymic string
+	Login      string
+	RoleId     string
+	Passwd     string
+}
+
 func translateError(err error, trans ut.Translator) (errs []error) {
 	if err == nil {
 		return nil
