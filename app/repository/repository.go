@@ -122,7 +122,7 @@ type RepositoryInterface interface {
 	GetRoles(ctx context.Context) ([]model.Role, error)
 	AddRole(ctx context.Context, role *model.RoleCU) (int64, error)
 	UpadateRoleById(ctx context.Context, id int64, role *model.RoleCU) error
-	PutRoleById(ctx context.Context, id int64, role *model.RoleCU) error
+	PutRoleById(ctx context.Context, id int64, role *model.Role) error
 	DeleteRoleById(ctx context.Context, id int64) error
 
 	// group

@@ -229,7 +229,7 @@ func (r *PostgresRepository) getCoursesTotalCount(ctx context.Context) (int64, e
 	var count int64
 
 	err := r.pool.QueryRow(ctx,
-		`SELECT count(*) FROM courses`).
+		`SELECT count(*) FROM course`).
 		Scan(&count)
 	if err != nil {
 		return count, errors.Wrap(err, "couldn't get total count")
