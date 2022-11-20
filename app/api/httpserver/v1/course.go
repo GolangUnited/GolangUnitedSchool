@@ -26,6 +26,7 @@ func NewCourseHandler(
 
 // AddCourse
 // @Summary add new course to the course list
+// @Description создает новый курс
 // @ID create-course
 // @Tags courses
 // @Produce json
@@ -50,6 +51,7 @@ func (h *CourseHandlers) AddCourse(c *gin.Context) {
 
 // GetCourses
 // @Summary get all items in the course list
+// @Description возвращает все курсы
 // @ID get-all-courses
 // @Tags courses
 // @Produce json
@@ -77,6 +79,7 @@ func (h *CourseHandlers) GetCourseByName(c *gin.Context) {
 
 // GetCourseById
 // @Summary get a course by ID
+// @Description возвращает курс с указанным id
 // @ID get-course-by-id
 // @Tags courses
 // @Produce json
@@ -89,23 +92,9 @@ func (h *CourseHandlers) GetCourseById(c *gin.Context) {
 
 }
 
-// UpdateCourseById
-// @Summary update a course by ID
-// @ID update-course-by-id
-// @Tags courses
-// @Param id path string true "course id"
-// @Param course body model.CourseUpdate true "course"
-// @Produce json
-// @Consume json
-// @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
-// @Router /courses/{id} [post]
-func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
-
-}
-
+// PutCourseById
 // @Summary put a course by ID
+// @Description изменяет курс с указанным id
 // @ID update-course-by-id
 // @Tags courses
 // @Param id path string true "course id"
@@ -117,12 +106,13 @@ func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /courses/{id} [put]
-func (h *CourseHandlers) PutCourseById(c *gin.Context) {
+func (h *CourseHandlers) UpdateCourseById(c *gin.Context) {
 
 }
 
 // DeleteCourseById
 // @Summary delete a course by ID
+// @Description удаляет курс с указанным id
 // @ID delete-course-by-id
 // @Tags courses
 // @Param id path string true "course id"

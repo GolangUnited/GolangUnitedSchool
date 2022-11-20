@@ -16,7 +16,9 @@ func NewRoleHandlers(lg logger.Logger,
 	return &RoleHandlers{lg: lg, usecase: usecase}
 }
 
+// GetRoleById
 // @Summary get a role by ID
+// @Description возвращает роль с указанным id
 // @ID get-role-by-id
 // @Tags roles
 // @Produce json
@@ -27,7 +29,9 @@ func NewRoleHandlers(lg logger.Logger,
 // @Router /roles/{id} [get]
 func (h *RoleHandlers) GetRoleById(c *gin.Context) {}
 
+// GetRoles
 // @Summary get all items in the role list
+// @Description возвращает все роли
 // @ID get-all-roles
 // @Tags roles
 // @Produce json
@@ -37,7 +41,9 @@ func (h *RoleHandlers) GetRoleById(c *gin.Context) {}
 // @Router /roles [get]
 func (h *RoleHandlers) GetRoles(c *gin.Context) {}
 
+// AddRole
 // @Summary add new role to the course list
+// @Description добавляет новую роль
 // @ID create-role
 // @Tags roles
 // @Produce json
@@ -64,6 +70,7 @@ func (h *RoleHandlers) AddRole(c *gin.Context) {}
 func (h *RoleHandlers) UpadateRoleById(c *gin.Context) {}
 
 // @Summary put a role by ID
+// @Description изменяет роль с указанным id
 // @ID put-role-by-id
 // @Tags roles
 // @Param id path string true "role id"
@@ -77,7 +84,9 @@ func (h *RoleHandlers) UpadateRoleById(c *gin.Context) {}
 // @Router /roles/{id} [put]
 func (h *RoleHandlers) PutRoleById(c *gin.Context) {}
 
+// DeleteRoleById
 // @Summary delete a role by ID
+// @Description удаляет роль с указанным id
 // @ID delete-role-by-id
 // @Tags roles
 // @Param id path string true "role id"

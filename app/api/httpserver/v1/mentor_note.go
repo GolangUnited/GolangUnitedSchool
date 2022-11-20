@@ -25,7 +25,7 @@ func NewMentorNoteHandler(
 // @Summary get all mentor notes
 // @Description получить все заметки всех менторов про всех студентов
 // @ID get-all-mentor-notes
-// @Tags mentor_notes
+// @Tags mentorNotes
 // @Produce json
 // @Success 200 {object} model.MentorNotesListDto
 // @Failure 500 {object} model.ResponseMessage
@@ -36,7 +36,7 @@ func (h *MentorNoteHandlers) GetMentorNotes(c *gin.Context) {}
 // @Summary get all notes from concrete mentor
 // @Description получить все заметки, оставленные конкретным ментором
 // @ID get-all-notes-from-mentor
-// @Tags mentor_notes
+// @Tags mentorNotes
 // @Produce json
 // @Param id path string true "mentor_id"
 // @Success 200 {object} model.MentorNotesListDto
@@ -48,7 +48,7 @@ func (h *MentorNoteHandlers) GetMentorNotesByMentorId(c *gin.Context) {}
 // @Summary get concrete note of mentor
 // @Description получить определенную заметку, оставленную ментором
 // @ID get-note-from-mentor
-// @Tags mentor_notes
+// @Tags mentorNotes
 // @Produce json
 // @Param id path string true "mentor_id"
 // @Param id path string true "mentor_note_id"
@@ -61,7 +61,7 @@ func (h *MentorNoteHandlers) GetMentorNoteByMentorNoteId(c *gin.Context) {}
 // @Summary add new mentor note
 // @Description добавить менторскую заметку для студента
 // @ID add-mentor-note
-// @Tags mentor_notes
+// @Tags mentorNotes
 // @Produce json
 // @Consume json
 // @Param mentor_note body model.NewMentorNoteDto true "new_mentor_note"
@@ -74,7 +74,7 @@ func (h *MentorNoteHandlers) AddMentorNote(c *gin.Context) {}
 // @Summary update mentor note
 // @Description изменить менторскую заметку
 // @ID update-mentor-note
-// @Tags mentor_notes
+// @Tags mentorNotes
 // @Produce json
 // @Consume json
 // @Param mentor_note body model.MentorNote true "update_mentor_note"
@@ -87,7 +87,7 @@ func (h *MentorNoteHandlers) UpdateMentorNoteByMentorNoteId(c *gin.Context) {}
 // @Summary delete mentor note
 // @Description удалить заметку ментора
 // @ID delete-note-from-mentor
-// @Tags mentor_notes
+// @Tags mentorNotes
 // @Produce json
 // @Param id path string true "mentor_note_id"
 // @Success 200 {object} model.ResponseMessage

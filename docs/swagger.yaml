@@ -10,6 +10,7 @@ definitions:
         type: string
     type: object
   model.CertificateTemplateList:
+    description: kekekek
     properties:
       _metadata:
         $ref: '#/definitions/model.PaginationResponse'
@@ -591,8 +592,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all items in the certificate template list
       tags:
-      - courses
+      - certificates
     post:
+      description: добавляет новый шаблон сертификата
       operationId: create-certificate-template
       parameters:
       - description: certificate template
@@ -621,6 +623,7 @@ paths:
       - courses
   /certificate-templates/{id}:
     delete:
+      description: удаляет шаблон сертификата с указанным id
       operationId: delete-certificate-template-by-id
       parameters:
       - description: certificate template id
@@ -647,6 +650,7 @@ paths:
       tags:
       - courses
     get:
+      description: возвращает шаблон сертификата с указанным id
       operationId: get-certificate-template-by-id
       parameters:
       - description: certificate template id
@@ -673,6 +677,7 @@ paths:
       tags:
       - courses
     put:
+      description: изменяет существующий щаблон сертификата с указанным id
       operationId: update-certificate-template-by-id
       parameters:
       - description: certificate template id
@@ -710,6 +715,7 @@ paths:
       - courses
   /courses:
     get:
+      description: возвращает все курсы
       operationId: get-all-courses
       produces:
       - application/json
@@ -730,6 +736,7 @@ paths:
       tags:
       - courses
     post:
+      description: создает новый курс
       operationId: create-course
       parameters:
       - description: course
@@ -779,7 +786,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get a course lecture by id
       tags:
-      - courses
       - courseLectures
   /courses/{course_id}/lectures/{lecture_id}:
     get:
@@ -809,10 +815,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get concrete lecture from course
       tags:
-      - courses
       - courseLectures
   /courses/{id}:
     delete:
+      description: удаляет курс с указанным id
       operationId: delete-course-by-id
       parameters:
       - description: course id
@@ -839,6 +845,7 @@ paths:
       tags:
       - courses
     get:
+      description: возвращает курс с указанным id
       operationId: get-course-by-id
       parameters:
       - description: course id
@@ -864,39 +871,8 @@ paths:
       summary: get a course by ID
       tags:
       - courses
-    post:
-      operationId: update-course-by-id
-      parameters:
-      - description: course id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: course
-        in: body
-        name: course
-        required: true
-        schema:
-          $ref: '#/definitions/model.CourseUpdate'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update a course by ID
-      tags:
-      - courses
     put:
+      description: изменяет курс с указанным id
       operationId: update-course-by-id
       parameters:
       - description: course id
@@ -949,7 +925,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all course lectures
       tags:
-      - courses
       - courseLectures
     post:
       description: добавить новую лекцию на курс
@@ -957,7 +932,7 @@ paths:
       parameters:
       - description: course_lecture
         in: body
-        name: course
+        name: course_lecture
         required: true
         schema:
           $ref: '#/definitions/model.CourseLecture'
@@ -978,7 +953,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new course lecture
       tags:
-      - courses
       - courseLectures
   /courses/lectures/{lecture_id}:
     delete:
@@ -1020,7 +994,7 @@ paths:
         type: string
       - description: course_lecture
         in: body
-        name: lecture
+        name: course_lecture
         required: true
         schema:
           $ref: '#/definitions/model.CourseLecture'
@@ -1041,7 +1015,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update course lecture by id
       tags:
-      - courses
       - courseLectures
   /courses/statuses:
     get:
@@ -1060,7 +1033,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all course statuses
       tags:
-      - courses
       - courseStatuses
     post:
       description: создает новый статус курса
@@ -1085,7 +1057,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new course status
       tags:
-      - courses
       - courseStatuses
   /courses/statuses/{status_id}:
     delete:
@@ -1110,7 +1081,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete course status
       tags:
-      - courses
       - courseStatuses
     get:
       description: возвращает статус курса с status_id
@@ -1134,7 +1104,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get course status by id
       tags:
-      - courses
       - courseStatuses
     put:
       description: изменяет статус курса с указанным status_id
@@ -1158,10 +1127,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update course status
       tags:
-      - courses
       - courseStatuses
   /group:
     get:
+      description: возвращает все группы
       operationId: get-all-groups
       produces:
       - application/json
@@ -1184,6 +1153,7 @@ paths:
       tags:
       - groups
     post:
+      description: создает новую группу
       operationId: create-group
       parameters:
       - description: group
@@ -1212,6 +1182,7 @@ paths:
       - groups
   /group/{id}:
     delete:
+      description: удаляет группу с указанным id
       operationId: delete-group-by-id
       parameters:
       - description: group id
@@ -1238,6 +1209,7 @@ paths:
       tags:
       - groups
     get:
+      description: возвращает группу с указанным id
       operationId: get-group-by-id
       parameters:
       - description: group id
@@ -1263,43 +1235,8 @@ paths:
       summary: get a group by ID
       tags:
       - groups
-    post:
-      operationId: update-group-by-id
-      parameters:
-      - description: group id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: group
-        in: body
-        name: group
-        required: true
-        schema:
-          $ref: '#/definitions/model.GroupCU'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update a group by ID
-      tags:
-      - groups
     put:
+      description: изменяет группу с указанным id
       operationId: update-group-by-id
       parameters:
       - description: group id
@@ -1358,7 +1295,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get group contacts by  group id
       tags:
-      - groups
       - groupContacts
   /groups/{group_id}/contacts/{group_contact_id}:
     get:
@@ -1388,7 +1324,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get group contact
       tags:
-      - groups
       - groupContacts
   /groups/contacts:
     get:
@@ -1407,7 +1342,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all group contacts
       tags:
-      - groups
       - groupContacts
     post:
       description: добавляет новый контакт группы
@@ -1415,7 +1349,7 @@ paths:
       parameters:
       - description: group contact
         in: body
-        name: contact
+        name: group_contact
         required: true
         schema:
           $ref: '#/definitions/model.GroupContactsAddDto'
@@ -1436,7 +1370,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new group contact
       tags:
-      - groups
       - groupContacts
   /groups/contacts/{group_contact_id}:
     delete:
@@ -1465,7 +1398,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete group contact by id
       tags:
-      - groups
       - groupContacts
     put:
       description: изменяет контакт группы
@@ -1478,7 +1410,7 @@ paths:
         type: string
       - description: group contact
         in: body
-        name: contact
+        name: group_contact
         required: true
         schema:
           $ref: '#/definitions/model.GroupContactsAddDto'
@@ -1499,10 +1431,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update group contact
       tags:
-      - groups
       - groupContacts
   /homeworks:
     get:
+      description: возвращает все домашние работы
       operationId: get-all-homeworks
       produces:
       - application/json
@@ -1517,8 +1449,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all items in the homework list
       tags:
-      - courses
+      - homeworks
     post:
+      description: добавляет новую домашнюю работу
       operationId: create-homework
       parameters:
       - description: homework
@@ -1544,9 +1477,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new homework to the homework list
       tags:
-      - courses
+      - homeworks
   /homeworks/{id}:
     delete:
+      description: удаляет домашнюю работу с указанным id
       operationId: delete-homework-by-id
       parameters:
       - description: homework id
@@ -1571,8 +1505,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete a homework by ID
       tags:
-      - courses
+      - homeworks
     get:
+      description: возвращает домашнюю работу с указанным id
       operationId: get-homework-by-id
       parameters:
       - description: homework id
@@ -1597,8 +1532,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get a homework by ID
       tags:
-      - courses
+      - homeworks
     put:
+      description: изменяет домашнюю работу с указанным id
       operationId: update-homework-by-id
       parameters:
       - description: homework id
@@ -1633,9 +1569,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update a homework by ID
       tags:
-      - courses
+      - homeworks
   /interview:
     get:
+      description: возвращает все интервью
       operationId: get-all-interviews
       produces:
       - application/json
@@ -1658,6 +1595,7 @@ paths:
       tags:
       - interviews
     post:
+      description: добавляет новое интервью новое интервью
       operationId: create-interview
       parameters:
       - description: interview
@@ -1686,6 +1624,7 @@ paths:
       - interviews
   /interview/{id}:
     delete:
+      description: удаляет интервью с указанным id
       operationId: delete-interview-by-id
       parameters:
       - description: interview id
@@ -1712,6 +1651,7 @@ paths:
       tags:
       - interviews
     get:
+      description: возвращает интервью с указанным id
       operationId: get-interview-by-id
       parameters:
       - description: interview id
@@ -1737,43 +1677,8 @@ paths:
       summary: get a interview by ID
       tags:
       - interviews
-    post:
-      operationId: update-interview-by-id
-      parameters:
-      - description: interview id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: interview
-        in: body
-        name: interview
-        required: true
-        schema:
-          $ref: '#/definitions/model.Interview'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update a interview by ID
-      tags:
-      - interviews
     put:
+      description: изменяет интервью с указанным id
       operationId: update-interview-by-id
       parameters:
       - description: interview id
@@ -1811,6 +1716,7 @@ paths:
       - interviews
   /lectures:
     get:
+      description: возвращает все лекции
       operationId: get-all-lectures
       produces:
       - application/json
@@ -1825,8 +1731,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all items in the lecture list
       tags:
-      - courses
+      - lectures
     post:
+      description: добавляет лекцию
       operationId: create-lecture
       parameters:
       - description: lecture
@@ -1852,9 +1759,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new lecture to the lecture list
       tags:
-      - courses
+      - lectures
   /lectures/{id}:
     delete:
+      description: удалаяет лекцию с указанным id
       operationId: delete-lecture-by-id
       parameters:
       - description: lecture id
@@ -1879,8 +1787,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete a lecture by ID
       tags:
-      - courses
+      - lectures
     get:
+      description: возвращает лекцию с указанным id
       operationId: get-lecture-by-id
       parameters:
       - description: lecture id
@@ -1905,8 +1814,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get a lecture by ID
       tags:
-      - courses
+      - lectures
     put:
+      description: изменяет лекцию с указанным id
       operationId: update-lecture-by-id
       parameters:
       - description: lecture id
@@ -1941,9 +1851,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update a lecture by ID
       tags:
-      - courses
+      - lectures
   /lectures/{lecture_id}/homeworks:
     get:
+      description: возвращает домашнюю работы по указанному id лекции
       operationId: get-homeworks-by-lecture-id
       parameters:
       - description: lecture id
@@ -1968,7 +1879,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get items in the homework list by lecture ID
       tags:
-      - courses
+      - homeworks
   /mentors:
     get:
       description: получить список всех менторов
@@ -2051,7 +1962,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all notes from concrete mentor
       tags:
-      - mentor_notes
+      - mentorNotes
   /mentors/{mentor_id}/notes/{mentor_note_id}:
     get:
       description: получить определенную заметку, оставленную ментором
@@ -2080,7 +1991,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get concrete note of mentor
       tags:
-      - mentor_notes
+      - mentorNotes
   /mentors/{person_id}:
     post:
       description: добавить пользователя в группу менторов по его person_id
@@ -2152,7 +2063,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all mentor notes
       tags:
-      - mentor_notes
+      - mentorNotes
   /mentors/notes/:
     post:
       description: добавить менторскую заметку для студента
@@ -2177,7 +2088,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new mentor note
       tags:
-      - mentor_notes
+      - mentorNotes
     put:
       description: изменить менторскую заметку
       operationId: update-mentor-note
@@ -2201,7 +2112,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update mentor note
       tags:
-      - mentor_notes
+      - mentorNotes
   /mentors/notes/{mentor_note_id}:
     delete:
       description: удалить заметку ментора
@@ -2225,9 +2136,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete mentor note
       tags:
-      - mentor_notes
+      - mentorNotes
   /operation:
     get:
+      description: возвращает все операции
       operationId: get-all-operations
       produces:
       - application/json
@@ -2250,6 +2162,7 @@ paths:
       tags:
       - operations
     post:
+      description: добавляет новую операцию
       operationId: create-operation
       parameters:
       - description: operation
@@ -2278,6 +2191,7 @@ paths:
       - operations
   /operation-log:
     get:
+      description: возвращает все логи по операциям
       operationId: get-all-operation-logs
       produces:
       - application/json
@@ -2298,8 +2212,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all items in the operation log list
       tags:
-      - operation-logs
+      - operationLogs
     post:
+      description: добавляет новый операционный лог
       operationId: create-operation-log
       parameters:
       - description: operation-log
@@ -2325,9 +2240,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new item to the operation logs list
       tags:
-      - operation-logs
+      - operationLogs
   /operation-log/{id}:
     delete:
+      description: удаляет лог операции с указанным id
       operationId: delete-operation-log-by-id
       parameters:
       - description: operation log id
@@ -2352,8 +2268,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete a operation log by ID
       tags:
-      - operation-logs
+      - operationLogs
     get:
+      description: возвращает лог операции с указанным id
       operationId: get-operation-log-by-id
       parameters:
       - description: operation-log id
@@ -2374,8 +2291,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get a operation log by ID
       tags:
-      - operation-logs
-    post:
+      - operationLogs
+    put:
+      description: изменяет лог операции с указанным id
       operationId: update-operation-log-by-id
       parameters:
       - description: operation log id
@@ -2385,7 +2303,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: log
+        name: operation_log
         required: true
         schema:
           $ref: '#/definitions/model.OperationLog'
@@ -2410,45 +2328,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update a operation log by ID
       tags:
-      - operation-logs
-    put:
-      operationId: update-operation-log-by-id
-      parameters:
-      - description: operation log id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: role
-        in: body
-        name: log
-        required: true
-        schema:
-          $ref: '#/definitions/model.OperationLog'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: put a operation log by ID
-      tags:
-      - operation-logs
+      - operationLogs
   /operation-type:
     get:
+      description: возвращает все типы операций
       operationId: get-all-operation-types
       produces:
       - application/json
@@ -2469,8 +2352,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all items in the operation type list
       tags:
-      - operation-types
+      - operationTypes
     post:
+      description: добавляет новый тип операции
       operationId: create-operation-type
       parameters:
       - description: operation-type
@@ -2496,9 +2380,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new item to the operation types list
       tags:
-      - operation-types
+      - operationTypes
   /operation-type/{id}:
     delete:
+      description: удаляет тип операции с указанным id
       operationId: delete-operation-type-by-id
       parameters:
       - description: operation type id
@@ -2523,8 +2408,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete a operation type by ID
       tags:
-      - operation-types
+      - operationTypes
     get:
+      description: возвращает тип операции с указанным id
       operationId: get-operation-type-by-id
       parameters:
       - description: operation-type id
@@ -2545,44 +2431,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get a operation type by ID
       tags:
-      - operation-types
-    post:
-      operationId: update-operation-type-by-id
-      parameters:
-      - description: operation type id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: role
-        in: body
-        name: type
-        required: true
-        schema:
-          $ref: '#/definitions/model.OperationType'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update a operation type by ID
-      tags:
-      - operation-types
+      - operationTypes
     put:
+      description: изменяет тип указанному операции с указанным id
       operationId: update-operation-type-by-id
       parameters:
       - description: operation type id
@@ -2592,7 +2443,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: type
+        name: operation_type
         required: true
         schema:
           $ref: '#/definitions/model.OperationType'
@@ -2617,9 +2468,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: put a operation type by ID
       tags:
-      - operation-types
+      - operationTypes
   /operation/{id}:
     delete:
+      description: удаляет операцию по указанному id
       operationId: delete-operation-by-id
       parameters:
       - description: operation id
@@ -2646,6 +2498,7 @@ paths:
       tags:
       - operations
     get:
+      description: возвращает операцию с указанным id
       operationId: get-operation-by-id
       parameters:
       - description: operation id
@@ -2667,43 +2520,8 @@ paths:
       summary: get a operation by ID
       tags:
       - operations
-    post:
-      operationId: update-operation-by-id
-      parameters:
-      - description: operation id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: role
-        in: body
-        name: operation
-        required: true
-        schema:
-          $ref: '#/definitions/model.Operation'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update a operation by ID
-      tags:
-      - operations
     put:
+      description: изменяет операцию по указанному id
       operationId: update-operation-by-id
       parameters:
       - description: operation id
@@ -2872,7 +2690,7 @@ paths:
   /persons/{person_id}/contacts:
     get:
       description: возвращает все контакты пользователя с указанным person_id
-      operationId: get-person_contacts
+      operationId: get-person-contacts
       parameters:
       - description: person_id
         in: path
@@ -2892,13 +2710,12 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all person's contacts
       tags:
-      - persons
       - contacts
   /persons/{person_id}/contacts/{contact_id}:
     get:
       description: возвращает контакт c указанным contact_id пользователя с указанным
         person_id
-      operationId: get-person_contact
+      operationId: get-person-contact
       parameters:
       - description: person_id
         in: path
@@ -2923,7 +2740,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get person's contact by contact_id
       tags:
-      - persons
       - contacts
   /persons/contacts:
     get:
@@ -2942,11 +2758,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all contacts
       tags:
-      - persons
       - contacts
     post:
       description: создает новый пользовательский контакт
-      operationId: add-person_contact
+      operationId: add-person-contact
       parameters:
       - description: contact
         in: body
@@ -2967,11 +2782,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new person contact
       tags:
-      - persons
       - contacts
     put:
       description: изменяет пользовательский контакт
-      operationId: put-person_contact
+      operationId: put-person-contact
       parameters:
       - description: contact
         in: body
@@ -2992,12 +2806,11 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new person contact
       tags:
-      - persons
       - contacts
   /persons/contacts/{contact_id}:
     delete:
       description: удаляет контакт c указанным contact_id
-      operationId: delete-person_contact
+      operationId: delete-person-contact
       parameters:
       - description: person_id
         in: path
@@ -3017,7 +2830,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete person's contact by contact_id
       tags:
-      - persons
       - contacts
   /persons/contacts/types:
     get:
@@ -3036,8 +2848,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all contact types
       tags:
-      - persons
-      - contacts
       - contactTypes
     post:
       description: добавляет новый тип контакта
@@ -3062,8 +2872,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get contact type
       tags:
-      - persons
-      - contacts
       - contactTypes
     put:
       description: изменяет тип контакта
@@ -3088,8 +2896,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update contact type
       tags:
-      - persons
-      - contacts
       - contactTypes
   /persons/contacts/types/{:contact_type_id}:
     delete:
@@ -3114,8 +2920,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete contact type
       tags:
-      - persons
-      - contacts
       - contactTypes
   /persons/contacts/types/{contact_type_id}:
     get:
@@ -3140,11 +2944,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get contact type
       tags:
-      - persons
-      - contacts
       - contactTypes
   /role:
     get:
+      description: возвращает все роли
       operationId: get-all-roles
       produces:
       - application/json
@@ -3167,6 +2970,7 @@ paths:
       tags:
       - roles
     post:
+      description: добавляет новую роль
       operationId: create-role
       parameters:
       - description: role
@@ -3195,6 +2999,7 @@ paths:
       - roles
   /role/{id}:
     delete:
+      description: удаляет роль с указанным id
       operationId: delete-role-by-id
       parameters:
       - description: role id
@@ -3221,6 +3026,7 @@ paths:
       tags:
       - roles
     get:
+      description: возвращает роль с указанным id
       operationId: get-role-by-id
       parameters:
       - description: role id
@@ -3242,43 +3048,8 @@ paths:
       summary: get a role by ID
       tags:
       - roles
-    post:
-      operationId: update-role-by-id
-      parameters:
-      - description: role id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: role
-        in: body
-        name: role
-        required: true
-        schema:
-          $ref: '#/definitions/model.RoleCU'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update a role by ID
-      tags:
-      - roles
     put:
+      description: изменяет роль с указанным id
       operationId: put-role-by-id
       parameters:
       - description: role id
@@ -3535,8 +3306,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get contact type
       tags:
-      - students
-      - homeworks
+      - studentHomeworks
   /students/{student_id}/homeworks/{homework_id}:
     get:
       description: возвращает определенную лекцию указанного стцдента
@@ -3565,10 +3335,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get student's homework
       tags:
-      - students
-      - homeworks
+      - studentHomeworks
   /students/{student_id}/notes:
     get:
+      description: возвращает все заметки по студенту с указанным id
       operationId: get-student-notes
       parameters:
       - description: student_id
@@ -3589,8 +3359,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all student notes by student id
       tags:
-      - student_notes
+      - studentNotes
     post:
+      description: добавляет заметку студента
       operationId: add-new-student-note
       parameters:
       - description: student_note
@@ -3621,9 +3392,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new note to student
       tags:
-      - student_notes
+      - studentNotes
   /students/{student_id}/notes/{student_note_id}:
     get:
+      description: возвращает заметку с указанным id для студента с указанным id
       operationId: get-student-note-by-student-note-id
       parameters:
       - description: student_id
@@ -3649,8 +3421,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get concrete student's note from concrete student
       tags:
-      - student_notes
+      - studentNotes
     put:
+      description: изменяет заметку студента с указанным id студента
       operationId: update-student-note
       parameters:
       - description: course id
@@ -3691,7 +3464,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update student note
       tags:
-      - student_notes
+      - studentNotes
   /students/certificates:
     post:
       description: добавляет новый сертификат студента
@@ -3819,7 +3592,7 @@ paths:
       parameters:
       - description: student_group
         in: body
-        name: course
+        name: student_group
         required: true
         schema:
           $ref: '#/definitions/model.StudentGroup'
@@ -3906,7 +3679,7 @@ paths:
         type: string
       - description: student_group
         in: body
-        name: group
+        name: student_group
         required: true
         schema:
           $ref: '#/definitions/model.StudentGroup'
@@ -3946,8 +3719,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all homeworks
       tags:
-      - students
-      - homeworks
+      - studentHomeworks
     post:
       description: добавляет новый тип контакта
       operationId: add-contact-type
@@ -3971,8 +3743,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get contact type
       tags:
-      - students
-      - homeworks
+      - studentHomeworks
     put:
       description: изменяет домашнюю работу студента
       operationId: update-student-homework
@@ -3996,8 +3767,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update student homework
       tags:
-      - students
-      - homeworks
+      - studentHomeworks
   /students/homeworks/{:contact_type_id}:
     delete:
       description: удаляет домашнюю работу студента
@@ -4021,10 +3791,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete student homework
       tags:
-      - students
-      - homeworks
+      - studentHomeworks
   /students/notes/{student_note_id}:
     delete:
+      description: удаляет заметку студента с указанным id студента
       operationId: delete-student-note
       parameters:
       - description: student_note_id
@@ -4049,9 +3819,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete student note
       tags:
-      - student_notes
+      - studentNotes
   /students/notes/types:
     get:
+      description: возвращает все типы студенческих заметок
       operationId: get-all-student-note-types
       produces:
       - application/json
@@ -4066,8 +3837,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get list of student note types
       tags:
-      - student_note_types
+      - studentNoteTypes
     post:
+      description: добавляет новый тип студенческой заметки
       operationId: create-note-types
       parameters:
       - description: student note type
@@ -4093,7 +3865,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new student type note
       tags:
-      - student_note_types
+      - studentNoteTypes
   /students/notes/types/{student_note_type_id}:
     delete:
       description: удаляет тип заметки студента по id
@@ -4121,8 +3893,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete student note type by id
       tags:
-      - student_note_types
+      - studentNoteTypes
     get:
+      description: возвращает тип студенческой заметки с указанным id
       operationId: get-student-student-note-type-by-id
       parameters:
       - description: Student_note_type_id
@@ -4143,8 +3916,9 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get student note type by id
       tags:
-      - student_note_types
+      - studentNoteTypes
     put:
+      description: изменяет тип студенческой заметки с указанным id
       operationId: update-student-note-type
       parameters:
       - description: student_note_type_id
@@ -4175,7 +3949,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update student note type
       tags:
-      - student_note_types
+      - studentNoteTypes
 schemes:
 - http
 swagger: "2.0"

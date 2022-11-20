@@ -25,7 +25,7 @@ func NewGroupContactHandler(
 // @Summary get all group contacts
 // @ID get-all-groups-contacts
 // @Description возвращает все контакты всех группы
-// @Tags groups, groupContacts
+// @Tags groupContacts
 // @Produce json
 // @Consume json
 // @Success 201 {object} model.GroupContactsListDto
@@ -37,7 +37,7 @@ func (h *GroupContactHandlers) GetGroupContacts(c *gin.Context) {}
 // @Summary get group contacts by  group id
 // @Description возвращает все контакты группы с указанным group_id
 // @ID get-group-contacts-by-id
-// @Tags groups, groupContacts
+// @Tags groupContacts
 // @Produce json
 // @Param id path string true "group_id"
 // @Success 200 {object} model.GroupContactsListDto
@@ -49,10 +49,10 @@ func (h *GroupContactHandlers) GetGroupContactsByGroupId(c *gin.Context) {}
 // @Summary add new group contact
 // @ID add-group-contact
 // @Description добавляет новый контакт группы
-// @Tags groups, groupContacts
+// @Tags groupContacts
 // @Produce json
 // @Consume json
-// @Param group contact body model.GroupContactsAddDto true "group contact"
+// @Param group_contact body model.GroupContactsAddDto true "group contact"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -62,10 +62,10 @@ func (h *GroupContactHandlers) AddGroupContact(c *gin.Context) {}
 // UpdateGroupContact
 // @Summary update group contact
 // @Description изменяет контакт группы
-// @Tags groups, groupContacts
+// @Tags groupContacts
 // @ID update-group-contact-by-id
 // @Param id path string true "group_contact_id"
-// @Param group contact body model.GroupContactsAddDto true "group contact"
+// @Param group_contact body model.GroupContactsAddDto true "group contact"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -77,7 +77,7 @@ func (h *GroupContactHandlers) UpdateGroupContact(c *gin.Context) {}
 // DeleteGroupContact
 // @Summary delete group contact by id
 // @Description удаляет контакт группы
-// @Tags groups, groupContacts
+// @Tags groupContacts
 // @ID delete-group-contact-by-id
 // @Param id path string true "group_contact_id"
 // @Produce json
@@ -91,7 +91,7 @@ func (h *GroupContactHandlers) DeleteGroupContact(c *gin.Context) {}
 // @Summary get group contact
 // @Description возвращает контакт group_contact_id группы с group_id
 // @ID get-group-contact
-// @Tags groups, groupContacts
+// @Tags groupContacts
 // @Produce json
 // @Param id path string true "group_id"
 // @Param id path string true "group_contact_id"

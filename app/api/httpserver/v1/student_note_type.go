@@ -23,8 +23,9 @@ func NewStudentNoteTypeHandler(
 
 // GetStudentNoteTypes
 // @Summary get list of student note types
+// @Description возвращает все типы студенческих заметок
 // @ID get-all-student-note-types
-// @Tags student_note_types
+// @Tags studentNoteTypes
 // @Produce json
 // @Success 200 {object} model.StudentNoteTypesListDto
 // @Failure 500 {object} model.ResponseMessage
@@ -33,8 +34,9 @@ func (h *StudentNoteTypeHandlers) GetStudentNoteTypes(c *gin.Context) {}
 
 // GetStudentNoteTypeById
 // @Summary get student note type by id
+// @Description возвращает тип студенческой заметки с указанным id
 // @ID get-student-student-note-type-by-id
-// @Tags student_note_types
+// @Tags studentNoteTypes
 // @Produce json
 // @Param id path string true "Student_note_type_id"
 // @Success 200 {object} model.StudentNoteType
@@ -44,8 +46,9 @@ func (h *StudentNoteTypeHandlers) GetStudentNoteTypeById(c *gin.Context) {}
 
 // AddStudentNoteType
 // @Summary add new student type note
+// @Description добавляет новый тип студенческой заметки
 // @ID create-note-types
-// @Tags student_note_types
+// @Tags studentNoteTypes
 // @Produce json
 // @Consume json
 // @Param new_student_note_type body model.NewStudentNoteTypeDto true "student note type"
@@ -57,8 +60,9 @@ func (h *StudentNoteTypeHandlers) AddStudentNoteType(c *gin.Context) {}
 
 // UpdateStudentNoteTypeById
 // @Summary update student note type
+// @Description изменяет тип студенческой заметки с указанным id
 // @ID update-student-note-type
-// @Tags student_note_types
+// @Tags studentNoteTypes
 // @Param id path string true "student_note_type_id"
 // @Param student_note_type body model.StudentNoteType true "student note type"
 // @Produce json
@@ -73,7 +77,7 @@ func (h *StudentNoteTypeHandlers) UpdateStudentNoteTypeById(c *gin.Context) {}
 // @Summary delete student note type by id
 // @Description удаляет тип заметки студента по id
 // @ID delete-student-note-type-by-id
-// @Tags student_note_types
+// @Tags studentNoteTypes
 // @Param id path string true "student_note_type_id"
 // @Produce json
 // @Success 200 {object} model.ResponseMessage

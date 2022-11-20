@@ -21,6 +21,7 @@ func NewStudentCertificateHandler(
 	}
 }
 
+// GetStudentCertificates
 // @Summary get all items in the student certificate list
 // @ID get-all-student-certificates
 // @Tags students
@@ -31,6 +32,7 @@ func NewStudentCertificateHandler(
 func (h *StudentCertificateHandlers) GetStudentCertificates(c *gin.Context) {
 }
 
+// GetStudentCertificatesByStudentId
 // @Summary get items in the student certificate list by student ID
 // @ID get-student-certificates-by-student-id
 // @Tags students
@@ -52,7 +54,7 @@ func (h *StudentCertificateHandlers) GetStudentCertificatesByStudentId(c *gin.Co
 // @Produce json
 // @Success 200 {object} model.StudentCertificatesListDto
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/certificates/courses/{course_id} [get]
+// @Router /students/certificates/courses/{course_id} [get] ///
 func (h *StudentCertificateHandlers) GetStudentCertificatesByCourseId(c *gin.Context) {
 }
 

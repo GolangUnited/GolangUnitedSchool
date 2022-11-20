@@ -25,7 +25,7 @@ func NewCourseStatusHandler(
 // @Summary get all course statuses
 // @Description возвращает список всех статусов курса
 // @ID get-all-course-statuses
-// @Tags courses, courseStatuses
+// @Tags courseStatuses
 // @Produce json
 // @Success 200 {object} model.CourseStatusesListDto
 // @Failure 500 {object} model.ResponseMessage
@@ -36,7 +36,7 @@ func (h *CourseStatusHandlers) GetCourseStatuses(c *gin.Context) {}
 // @Summary get course status by id
 // @Description возвращает статус курса с status_id
 // @ID get-course-status
-// @Tags courses, courseStatuses
+// @Tags courseStatuses
 // @Produce json
 // @Param id path string true "status_id"
 // @Success 200 {object} model.CourseStatus
@@ -48,7 +48,7 @@ func (h *CourseStatusHandlers) GetCourseStatusById(c *gin.Context) {}
 // @Summary add new course status
 // @Description создает новый статус курса
 // @ID add-course-status
-// @Tags courses, courseStatuses
+// @Tags courseStatuses
 // @Produce json
 // @Param new_course_status body model.CourseStatus true "new_course_status"
 // @Success 200 {object} model.ResponseMessage
@@ -60,7 +60,7 @@ func (h *CourseStatusHandlers) AddCourseStatus(c *gin.Context) {}
 // @Summary update course status
 // @Description изменяет статус курса с указанным status_id
 // @ID put-course-status
-// @Tags courses, courseStatuses
+// @Tags courseStatuses
 // @Produce json
 // @Param id path string true "status_id"
 // @Success 200 {object} model.ResponseMessage
@@ -72,7 +72,7 @@ func (h *CourseStatusHandlers) UpdateCourseStatusById(c *gin.Context) {}
 // @Summary delete course status
 // @Description удаляет статус курса с указанным status_id
 // @ID delete-course-status
-// @Tags courses, courseStatuses
+// @Tags courseStatuses
 // @Produce json
 // @Param id path string true "status_id"
 // @Success 200 {object} model.ResponseMessage

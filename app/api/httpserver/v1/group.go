@@ -18,7 +18,9 @@ func NewGroup(lg logger.Logger, u usecase.GroupUsecaseInterface) *GroupHandlers 
 	}
 }
 
+// CreateGroup
 // @Summary add new item to the group list
+// @Description создает новую группу
 // @ID create-group
 // @Tags groups
 // @Produce json
@@ -30,7 +32,9 @@ func NewGroup(lg logger.Logger, u usecase.GroupUsecaseInterface) *GroupHandlers 
 // @Router /groups [post]
 func CreateGroup(c *gin.Context) {}
 
+// GetGroupById
 // @Summary get a group by ID
+// @Description возвращает группу с указанным id
 // @ID get-group-by-id
 // @Tags groups
 // @Produce json
@@ -41,7 +45,9 @@ func CreateGroup(c *gin.Context) {}
 // @Router /groups/{id} [get]
 func GetGroupById(c *gin.Context) {}
 
+// GetGroups
 // @Summary get all items in the group list
+// @Description возвращает все группы
 // @ID get-all-groups
 // @Tags groups
 // @Produce json
@@ -66,6 +72,7 @@ func GetGroups(c *gin.Context) {}
 func UpdateGroupById(c *gin.Context) {}
 
 // @Summary put a group by ID
+// @Description изменяет группу с указанным id
 // @ID update-group-by-id
 // @Tags groups
 // @Param id path string true "group id"
@@ -79,7 +86,9 @@ func UpdateGroupById(c *gin.Context) {}
 // @Router /groups/{id} [put]
 func PutGroupById(c *gin.Context) {}
 
+// DeleteGroupById
 // @Summary delete a group by ID
+// @Description удаляет группу с указанным id
 // @ID delete-group-by-id
 // @Tags groups
 // @Param id path string true "group id"
