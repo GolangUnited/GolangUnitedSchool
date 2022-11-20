@@ -27,7 +27,7 @@ func NewInterview(lg logger.Logger, u usecase.InterviewUsecaseInterface) *Interv
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /interview [post]
+// @Router /interviews [post]
 func AddInterview(c *gin.Context) {}
 
 // @Summary get all items in the interview list
@@ -37,7 +37,7 @@ func AddInterview(c *gin.Context) {}
 // @Success 200 {object} []model.Interview
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /interview [get]
+// @Router /interviews [get]
 func GetInterviews(c *gin.Context) {}
 
 // @Summary get a interview by ID

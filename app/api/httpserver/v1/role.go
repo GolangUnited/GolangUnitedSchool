@@ -23,7 +23,8 @@ func NewRoleHandlers(lg logger.Logger,
 // @Param id path string true "role id"
 // @Success 200 {object} model.Role
 // @Failure 404 {object} model.ResponseMessage
-// @Router /role/{id} [get]
+// @Failure 500 {object} model.ResponseMessage
+// @Router /roles/{id} [get]
 func (h *RoleHandlers) GetRoleById(c *gin.Context) {}
 
 // @Summary get all items in the role list
@@ -33,7 +34,7 @@ func (h *RoleHandlers) GetRoleById(c *gin.Context) {}
 // @Success 200 {object} []model.Role
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /role [get]
+// @Router /roles [get]
 func (h *RoleHandlers) GetRoles(c *gin.Context) {}
 
 // @Summary add new role to the course list
@@ -45,7 +46,7 @@ func (h *RoleHandlers) GetRoles(c *gin.Context) {}
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /role [post]
+// @Router /roles [post]
 func (h *RoleHandlers) AddRole(c *gin.Context) {}
 
 // @Summary update a role by ID
@@ -59,7 +60,7 @@ func (h *RoleHandlers) AddRole(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /role/{id} [post]
+// @Router /roles/{id} [post]
 func (h *RoleHandlers) UpadateRoleById(c *gin.Context) {}
 
 // @Summary put a role by ID
@@ -73,7 +74,7 @@ func (h *RoleHandlers) UpadateRoleById(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /role/{id} [put]
+// @Router /roles/{id} [put]
 func (h *RoleHandlers) PutRoleById(c *gin.Context) {}
 
 // @Summary delete a role by ID
@@ -84,5 +85,5 @@ func (h *RoleHandlers) PutRoleById(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /role/{id} [delete]
+// @Router /roles/{id} [delete]
 func (h *RoleHandlers) DeleteRoleById(c *gin.Context) {}

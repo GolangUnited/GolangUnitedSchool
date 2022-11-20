@@ -22,7 +22,7 @@ func NewOperationType(lg logger.Logger) *OperationTypeHandlers {
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation-type [post]
+// @Router /log/operation-types [post]
 func (h *OperationTypeHandlers) AddOperatioLog(c *gin.Context) {}
 
 // @Summary get all items in the operation type list
@@ -32,7 +32,7 @@ func (h *OperationTypeHandlers) AddOperatioLog(c *gin.Context) {}
 // @Success 200 {object} []model.OperationType
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation-type [get]
+// @Router /log/operation-types [get]
 func (h *OperationTypeHandlers) GetOperationTypes(c *gin.Context) {}
 
 // @Summary get a operation type by ID
@@ -42,7 +42,8 @@ func (h *OperationTypeHandlers) GetOperationTypes(c *gin.Context) {}
 // @Param id path string true "operation-type id"
 // @Success 200 {object} model.OperationType
 // @Failure 404 {object} model.ResponseMessage
-// @Router /operation-type/{id} [get]
+// @Failure 500 {object} model.ResponseMessage
+// @Router /log/operation-types/{id} [get]
 func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 
 // @Summary update a operation type by ID
@@ -56,7 +57,7 @@ func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation-type/{id} [post]
+// @Router /log/operation-types/{id} [post]
 func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
 
 // @Summary put a operation type by ID
@@ -70,7 +71,7 @@ func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation-type/{id} [put]
+// @Router /log/operation-types/{id} [put]
 func (h *OperationTypeHandlers) PutOperationTypeById(c *gin.Context) {}
 
 // @Summary delete a operation type by ID
@@ -81,5 +82,5 @@ func (h *OperationTypeHandlers) PutOperationTypeById(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation-type/{id} [delete]
+// @Router /log/operation-types/{id} [delete]
 func (h *OperationTypeHandlers) DeleteOperationTypeById(c *gin.Context) {}

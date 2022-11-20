@@ -61,6 +61,20 @@ func (h *CourseHandlers) GetCourses(c *gin.Context) {
 
 }
 
+// GetCourseByName
+// @Summary get a course by name
+// @ID get-course-by-name
+// @Tags courses
+// @Produce json
+// @Param course_name path string true "course name"
+// @Success 200 {object} model.Course
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /courses/name/{course_name} [get]
+func (h *CourseHandlers) GetCourseByName(c *gin.Context) {
+
+}
+
 // GetCourseById
 // @Summary get a course by ID
 // @ID get-course-by-id

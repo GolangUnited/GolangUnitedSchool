@@ -27,7 +27,7 @@ func NewGroup(lg logger.Logger, u usecase.GroupUsecaseInterface) *GroupHandlers 
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /group [post]
+// @Router /groups [post]
 func CreateGroup(c *gin.Context) {}
 
 // @Summary get a group by ID
@@ -38,7 +38,7 @@ func CreateGroup(c *gin.Context) {}
 // @Success 200 {object} model.Group
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /group/{id} [get]
+// @Router /groups/{id} [get]
 func GetGroupById(c *gin.Context) {}
 
 // @Summary get all items in the group list
@@ -48,7 +48,7 @@ func GetGroupById(c *gin.Context) {}
 // @Success 200 {object} []model.Group
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /group [get]
+// @Router /groups [get]
 func GetGroups(c *gin.Context) {}
 
 // @Summary update a group by ID
@@ -62,7 +62,7 @@ func GetGroups(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /group/{id} [post]
+// @Router /groups/{id} [post]
 func UpdateGroupById(c *gin.Context) {}
 
 // @Summary put a group by ID
@@ -76,7 +76,7 @@ func UpdateGroupById(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /group/{id} [put]
+// @Router /groups/{id} [put]
 func PutGroupById(c *gin.Context) {}
 
 // @Summary delete a group by ID
@@ -87,5 +87,5 @@ func PutGroupById(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /group/{id} [delete]
+// @Router /groups/{id} [delete]
 func DeleteGroupById(c *gin.Context) {}

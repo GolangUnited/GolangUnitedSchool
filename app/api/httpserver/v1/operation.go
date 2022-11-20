@@ -22,7 +22,7 @@ func NewOperation(lg logger.Logger) *OperationHandlers {
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation [post]
+// @Router /log/operations [post]
 func (h *OperationHandlers) AddOperatioLog(c *gin.Context) {}
 
 // @Summary get all items in the operations list
@@ -32,7 +32,7 @@ func (h *OperationHandlers) AddOperatioLog(c *gin.Context) {}
 // @Success 200 {object} []model.Operation
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation [get]
+// @Router /log/operations [get]
 func (h *OperationHandlers) GetOperations(c *gin.Context) {}
 
 // @Summary get a operation by ID
@@ -42,7 +42,8 @@ func (h *OperationHandlers) GetOperations(c *gin.Context) {}
 // @Param id path string true "operation id"
 // @Success 200 {object} model.Operation
 // @Failure 404 {object} model.ResponseMessage
-// @Router /operation/{id} [get]
+// @Failure 500 {object} model.ResponseMessage
+// @Router /logs/operations/{id} [get]
 func (h *OperationHandlers) GetOperationById(c *gin.Context) {}
 
 // @Summary update a operation by ID
@@ -56,7 +57,7 @@ func (h *OperationHandlers) GetOperationById(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation/{id} [post]
+// @Router /logs/operations/{id} [post]
 func (h *OperationHandlers) UpdateOperationById(c *gin.Context) {}
 
 // @Summary put a operation by ID
@@ -70,7 +71,7 @@ func (h *OperationHandlers) UpdateOperationById(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation/{id} [put]
+// @Router /logs/operations/{id} [put]
 func (h *OperationHandlers) PutOperationById(c *gin.Context) {}
 
 // @Summary delete a operation by ID
@@ -81,5 +82,5 @@ func (h *OperationHandlers) PutOperationById(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /operation/{id} [delete]
+// @Router /logs/operations/{id} [delete]
 func (h *OperationHandlers) DeleteOperationById(c *gin.Context) {}
