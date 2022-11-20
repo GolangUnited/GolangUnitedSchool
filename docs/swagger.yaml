@@ -980,7 +980,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete a course lecture by id
       tags:
-      - courses
       - courseLectures
     put:
       description: отредактировать лекцию курса с указанным lecture_id

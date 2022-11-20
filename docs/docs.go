@@ -432,7 +432,6 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseLectures"
                 ],
                 "summary": "delete a course lecture by id",
