@@ -16,7 +16,9 @@ func NewRoleHandlers(lg logger.Logger,
 	return &RoleHandlers{lg: lg, usecase: usecase}
 }
 
+// GetRoleById
 // @Summary get a role by ID
+// @Description возвращает роль с указанным id
 // @ID get-role-by-id
 // @Tags roles
 // @Produce json
@@ -26,7 +28,9 @@ func NewRoleHandlers(lg logger.Logger,
 // @Router /role/{id} [get]
 func (h *RoleHandlers) GetRoleById(c *gin.Context) {}
 
+// GetRoles
 // @Summary get all items in the role list
+// @Description возвращает все роли
 // @ID get-all-roles
 // @Tags roles
 // @Produce json
@@ -36,7 +40,9 @@ func (h *RoleHandlers) GetRoleById(c *gin.Context) {}
 // @Router /role [get]
 func (h *RoleHandlers) GetRoles(c *gin.Context) {}
 
+// AddRole
 // @Summary add new role to the course list
+// @Description добавляет новую роль
 // @ID create-role
 // @Tags roles
 // @Produce json
@@ -48,21 +54,9 @@ func (h *RoleHandlers) GetRoles(c *gin.Context) {}
 // @Router /role [post]
 func (h *RoleHandlers) AddRole(c *gin.Context) {}
 
-// @Summary update a role by ID
-// @ID update-role-by-id
-// @Tags roles
-// @Param id path string true "role id"
-// @Param role body model.RoleCU true "role"
-// @Produce json
-// @Consume json
-// @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
-// @Failure 500 {object} model.ResponseMessage
-// @Router /role/{id} [post]
-func (h *RoleHandlers) UpadateRoleById(c *gin.Context) {}
-
+// UpdateRoleById
 // @Summary put a role by ID
+// @Description изменяет роль с указанным id
 // @ID put-role-by-id
 // @Tags roles
 // @Param id path string true "role id"
@@ -74,9 +68,11 @@ func (h *RoleHandlers) UpadateRoleById(c *gin.Context) {}
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /role/{id} [put]
-func (h *RoleHandlers) PutRoleById(c *gin.Context) {}
+func (h *RoleHandlers) UpdateRoleById(c *gin.Context) {}
 
+// DeleteRoleById
 // @Summary delete a role by ID
+// @Description удаляет роль с указанным id
 // @ID delete-role-by-id
 // @Tags roles
 // @Param id path string true "role id"

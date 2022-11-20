@@ -13,10 +13,11 @@ func NewOperationType(lg logger.Logger) *OperationTypeHandlers {
 	return &OperationTypeHandlers{lg: lg}
 }
 
-// AddOperationLog
+// AddOperationType
 // @Summary add new item to the operation types list
+// @Description добавляет новый тип операции
 // @ID create-operation-type
-// @Tags operation-types
+// @Tags operationTypes
 // @Produce json
 // @Consume json
 // @Param operation-type body model.OperationType true "operation-type"
@@ -24,12 +25,13 @@ func NewOperationType(lg logger.Logger) *OperationTypeHandlers {
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /operation-type [post]
-func (h *OperationTypeHandlers) AddOperationLog(c *gin.Context) {}
+func (h *OperationTypeHandlers) AddOperationType(c *gin.Context) {}
 
 // GetOperationTypes
 // @Summary get all items in the operation type list
+// @Description возвращает все типы операций
 // @ID get-all-operation-types
-// @Tags operation-types
+// @Tags operationTypes
 // @Produce json
 // @Success 200 {object} []model.OperationType
 // @Failure 400 {object} model.ResponseMessage
@@ -39,8 +41,9 @@ func (h *OperationTypeHandlers) GetOperationTypes(c *gin.Context) {}
 
 // GetOperationTypeById
 // @Summary get a operation type by ID
+// @Description возвращает тип операции с указанным id
 // @ID get-operation-type-by-id
-// @Tags operation-types
+// @Tags operationTypes
 // @Produce json
 // @Param id path string true "operation-type id"
 // @Success 200 {object} model.OperationType
@@ -49,24 +52,10 @@ func (h *OperationTypeHandlers) GetOperationTypes(c *gin.Context) {}
 func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 
 // UpdateOperationTypeById
-// @Summary update a operation type by ID
-// @ID update-operation-type-by-id
-// @Tags operation-types
-// @Param id path string true "operation type id"
-// @Param operation_type body model.OperationType true "role"
-// @Produce json
-// @Consume json
-// @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
-// @Failure 500 {object} model.ResponseMessage
-// @Router /operation-type/{id} [post]
-func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
-
-// PutOperationTypeById
 // @Summary put a operation type by ID
+// @Description изменяет тип указанному операции с указанным id
 // @ID update-operation-type-by-id
-// @Tags operation-types
+// @Tags operationTypes
 // @Param id path string true "operation type id"
 // @Param operation_type body model.OperationType true "role"
 // @Produce json
@@ -76,12 +65,13 @@ func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /operation-type/{id} [put]
-func (h *OperationTypeHandlers) PutOperationTypeById(c *gin.Context) {}
+func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
 
 // DeleteOperationTypeById
 // @Summary delete a operation type by ID
+// @Description  удаляет тип операции с указанным id
 // @ID delete-operation-type-by-id
-// @Tags operation-types
+// @Tags operationTypes
 // @Param id path string true "operation type id"
 // @Produce json
 // @Success 200 {object} model.ResponseMessage

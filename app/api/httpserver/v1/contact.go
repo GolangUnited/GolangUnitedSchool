@@ -25,7 +25,7 @@ func NewContactHandler(
 // @Summary get all contacts
 // @Description возвращает все контакты всех пользователей
 // @ID get-all-contacts
-// @Tags persons, contacts
+// @Tags contacts
 // @Produce json
 // @Success 200 {object} model.ContactsListDto
 // @Failure 500 {object} model.ResponseMessage
@@ -35,8 +35,8 @@ func (h *ContactHandlers) GetContacts(c *gin.Context) {}
 // GetPersonContacts
 // @Summary get all person's contacts
 // @Description возвращает все контакты пользователя с указанным person_id
-// @ID get-person_contacts
-// @Tags persons, contacts
+// @ID get-person-contacts
+// @Tags contacts
 // @Produce json
 // @Param id path string true "person_id"
 // @Success 200 {object} model.ContactsListDto
@@ -47,8 +47,8 @@ func (h *ContactHandlers) GetPersonContacts(c *gin.Context) {}
 // GetPersonContact
 // @Summary get person's contact by contact_id
 // @Description возвращает контакт c указанным contact_id пользователя с указанным person_id
-// @ID get-person_contact
-// @Tags persons, contacts
+// @ID get-person-contact
+// @Tags contacts
 // @Produce json
 // @Param id path string true "person_id"
 // @Param id path string true "contact_id"
@@ -60,8 +60,8 @@ func (h *ContactHandlers) GetPersonContact(c *gin.Context) {}
 // AddPersonContact
 // @Summary add new person contact
 // @Description создает новый пользовательский контакт
-// @ID add-person_contact
-// @Tags persons, contacts
+// @ID add-person-contact
+// @Tags contacts
 // @Produce json
 // @Param contact body model.Contact true "contact"
 // @Success 200 {object} model.ResponseMessage
@@ -72,8 +72,8 @@ func (h *ContactHandlers) AddPersonContact(c *gin.Context) {}
 // UpdatePersonContact
 // @Summary add new person contact
 // @Description изменяет пользовательский контакт
-// @ID put-person_contact
-// @Tags persons, contacts
+// @ID put-person-contact
+// @Tags contacts
 // @Produce json
 // @Param contact body model.Contact true "contact"
 // @Success 200 {object} model.ResponseMessage
@@ -84,8 +84,8 @@ func (h *ContactHandlers) UpdatePersonContact(c *gin.Context) {}
 // DeletePersonContact
 // @Summary delete person's contact by contact_id
 // @Description удаляет контакт c указанным contact_id
-// @ID delete-person_contact
-// @Tags persons, contacts
+// @ID delete-person-contact
+// @Tags contacts
 // @Produce json
 // @Param id path string true "person_id"
 // @Success 200 {object} model.ResponseMessage

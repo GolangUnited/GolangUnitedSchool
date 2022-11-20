@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// @Description
 type MentorNote struct {
 	MentorNoteId int64     `json:"mentor_note_id" validate:"numeric,gt=0"`
 	StudentId    int64     `json:"student_id" validate:"numeric,gt=0"`

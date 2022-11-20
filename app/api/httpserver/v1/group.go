@@ -18,7 +18,9 @@ func NewGroup(lg logger.Logger, u usecase.GroupUsecaseInterface) *GroupHandlers 
 	}
 }
 
+// CreateGroup
 // @Summary add new item to the group list
+// @Description создает новую группу
 // @ID create-group
 // @Tags groups
 // @Produce json
@@ -30,7 +32,9 @@ func NewGroup(lg logger.Logger, u usecase.GroupUsecaseInterface) *GroupHandlers 
 // @Router /group [post]
 func CreateGroup(c *gin.Context) {}
 
+// GetGroupById
 // @Summary get a group by ID
+// @Description возвращает группу с указанным id
 // @ID get-group-by-id
 // @Tags groups
 // @Produce json
@@ -41,7 +45,9 @@ func CreateGroup(c *gin.Context) {}
 // @Router /group/{id} [get]
 func GetGroupById(c *gin.Context) {}
 
+// GetGroups
 // @Summary get all items in the group list
+// @Description возвращает все группы
 // @ID get-all-groups
 // @Tags groups
 // @Produce json
@@ -51,21 +57,9 @@ func GetGroupById(c *gin.Context) {}
 // @Router /group [get]
 func GetGroups(c *gin.Context) {}
 
-// @Summary update a group by ID
-// @ID update-group-by-id
-// @Tags groups
-// @Param id path string true "group id"
-// @Param group body model.GroupCU true "group"
-// @Produce json
-// @Consume json
-// @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
-// @Failure 500 {object} model.ResponseMessage
-// @Router /group/{id} [post]
-func UpdateGroupById(c *gin.Context) {}
-
+// PutGroupById
 // @Summary put a group by ID
+// @Description изменяет группу с указанным id
 // @ID update-group-by-id
 // @Tags groups
 // @Param id path string true "group id"
@@ -79,7 +73,9 @@ func UpdateGroupById(c *gin.Context) {}
 // @Router /group/{id} [put]
 func PutGroupById(c *gin.Context) {}
 
+// DeleteGroupById
 // @Summary delete a group by ID
+// @Description удаляет группу с указанным id
 // @ID delete-group-by-id
 // @Tags groups
 // @Param id path string true "group id"

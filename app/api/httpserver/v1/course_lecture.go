@@ -25,7 +25,7 @@ func NewCourseLectureHandler(
 // @Summary get all course lectures
 // @Description возвращает список всех лекций всех курсов
 // @ID get-all-course-lectures
-// @Tags courses, courseLectures
+// @Tags courseLectures
 // @Produce json
 // @Success 200 {object} model.CourseLecturesListDto
 // @Failure 500 {object} model.ResponseMessage
@@ -35,7 +35,7 @@ func (h *CourseLectureHandlers) GetCourseLectures(c *gin.Context) {}
 // GetAllCourseLectures
 // @Summary get a course lecture by id
 // @ID get-course-lectures-by-course-id
-// @Tags courses, courseLectures
+// @Tags courseLectures
 // @Description возвращает все лекции определенного курса
 // @Produce json
 // @Param id path string true "course_id"
@@ -48,7 +48,7 @@ func (h *CourseLectureHandlers) GetAllCourseLectures(c *gin.Context) {}
 // @Summary get concrete lecture from course
 // @Description возвращает лекцию с указанным lecture_id с курса course_id
 // @ID get-lecture-by-id-from-course
-// @Tags courses, courseLectures
+// @Tags courseLectures
 // @Produce json
 // @Param course_id path string true "course_id"
 // @Param lecture_id path string true "lecture_id"
@@ -61,7 +61,7 @@ func (h *CourseLectureHandlers) GetCourseLecture(c *gin.Context) {}
 // @Summary add new course lecture
 // @ID add-course-lecture-by-id
 // @Description добавить новую лекцию на курс
-// @Tags courses, courseLectures
+// @Tags courseLectures
 // @Produce json
 // @Consume json
 // @Param course_lecture body model.CourseLecture true "course_lecture"
@@ -75,7 +75,7 @@ func (h *CourseLectureHandlers) AddCourseLecture(c *gin.Context) {}
 // @Summary update course lecture by id
 // @Description отредактировать лекцию курса с указанным lecture_id
 // @ID update-course-lecture-by-id
-// @Tags courses, courseLectures
+// @Tags courseLectures
 // @Param id path string true "lecture_id"
 // @Param course_lecture body model.CourseLecture true "course_lecture"
 // @Produce json

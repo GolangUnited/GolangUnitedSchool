@@ -13,7 +13,9 @@ func NewOperation(lg logger.Logger) *OperationHandlers {
 	return &OperationHandlers{lg: lg}
 }
 
+// AddOperation
 // @Summary add new item to the operations list
+// @Description добавляет новую операцию
 // @ID create-operation
 // @Tags operations
 // @Produce json
@@ -23,9 +25,11 @@ func NewOperation(lg logger.Logger) *OperationHandlers {
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /operation [post]
-func (h *OperationHandlers) AddOperatioLog(c *gin.Context) {}
+func (h *OperationHandlers) AddOperation(c *gin.Context) {}
 
+// GetOperations
 // @Summary get all items in the operations list
+// @Description возвращает все операции
 // @ID get-all-operations
 // @Tags operations
 // @Produce json
@@ -35,7 +39,9 @@ func (h *OperationHandlers) AddOperatioLog(c *gin.Context) {}
 // @Router /operation [get]
 func (h *OperationHandlers) GetOperations(c *gin.Context) {}
 
+// GetOperationById
 // @Summary get a operation by ID
+// @Description возвращает операцию с указанным id
 // @ID get-operation-by-id
 // @Tags operations
 // @Produce json
@@ -45,21 +51,9 @@ func (h *OperationHandlers) GetOperations(c *gin.Context) {}
 // @Router /operation/{id} [get]
 func (h *OperationHandlers) GetOperationById(c *gin.Context) {}
 
-// @Summary update a operation by ID
-// @ID update-operation-by-id
-// @Tags operations
-// @Param id path string true "operation id"
-// @Param operation body model.Operation true "role"
-// @Produce json
-// @Consume json
-// @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
-// @Failure 500 {object} model.ResponseMessage
-// @Router /operation/{id} [post]
-func (h *OperationHandlers) UpdateOperationById(c *gin.Context) {}
-
+// PutOperationById
 // @Summary put a operation by ID
+// @Description изменяет операцию по указанному id
 // @ID update-operation-by-id
 // @Tags operations
 // @Param id path string true "operation id"
@@ -73,7 +67,9 @@ func (h *OperationHandlers) UpdateOperationById(c *gin.Context) {}
 // @Router /operation/{id} [put]
 func (h *OperationHandlers) PutOperationById(c *gin.Context) {}
 
+// DeleteOperationById
 // @Summary delete a operation by ID
+// @Description удаляет операцию по указанному id
 // @ID delete-operation-by-id
 // @Tags operations
 // @Param id path string true "operation id"

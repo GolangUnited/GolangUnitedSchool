@@ -23,8 +23,9 @@ func NewStudentNoteHandler(
 
 // GetStudentNotesByStudentId
 // @Summary get all student notes by student id
+// @Description возвращает все заметки по студенту с указанным id
 // @ID get-student-notes
-// @Tags student_notes
+// @Tags studentNotes
 // @Produce json
 // @Param id path string true "student_id"
 // @Success 200 {object} model.StudentNotesListDto
@@ -34,8 +35,9 @@ func (h *StudentNoteHandlers) GetStudentNotesByStudentId(c *gin.Context) {}
 
 // GetStudentNoteByStudentNoteId
 // @Summary get concrete student's note from concrete student
+// @Description возвращает заметку с указанным id для студента с указанным id
 // @ID get-student-note-by-student-note-id
-// @Tags student_notes
+// @Tags studentNotes
 // @Produce json
 // @Param id path string true "student_id"
 // @Param id path string true "student_note_id"
@@ -46,8 +48,9 @@ func (h *StudentNoteHandlers) GetStudentNoteByStudentNoteId(c *gin.Context) {}
 
 // AddStudentNote
 // @Summary add new note to student
+// @Description добавляет заметку студента
 // @ID add-new-student-note
-// @Tags student_notes
+// @Tags studentNotes
 // @Produce json
 // @Consume json
 // @Param student_note body model.NewStudentNoteDto true "student_note"
@@ -60,8 +63,9 @@ func (h *StudentNoteHandlers) AddStudentNote(c *gin.Context) {}
 
 // UpdateStudentNoteByStudentNoteId
 // @Summary update student note
+// @Description изменяет заметку студента с указанным id студента
 // @ID update-student-note
-// @Tags student_notes
+// @Tags studentNotes
 // @Param id path string true "course id"
 // @Param id path string true "student_id"
 // @Param id path string true "student_note_id"
@@ -76,8 +80,9 @@ func (h *StudentNoteHandlers) UpdateStudentNoteByStudentNoteId(c *gin.Context) {
 
 // DeleteStudentNote
 // @Summary delete student note
+// @Description удаляет заметку студента с указанным id студента
 // @ID delete-student-note
-// @Tags student_notes
+// @Tags studentNotes
 // @Param id path string true "student_note_id"
 // @Produce json
 // @Success 200 {object} model.ResponseMessage

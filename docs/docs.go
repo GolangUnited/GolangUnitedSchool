@@ -26,7 +26,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "certificates"
                 ],
                 "summary": "get all items in the certificate template list",
                 "operationId": "get-all-certificate-templates",
@@ -46,6 +46,7 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новый шаблон сертификата",
                 "produces": [
                     "application/json"
                 ],
@@ -89,6 +90,7 @@ const docTemplate = `{
         },
         "/certificate-templates/{id}": {
             "get": {
+                "description": "возвращает шаблон сертификата с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -128,6 +130,7 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет существующий щаблон сертификата с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -182,6 +185,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "description": "удаляет шаблон сертификата с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -223,6 +227,7 @@ const docTemplate = `{
         },
         "/courses": {
             "get": {
+                "description": "возвращает все курсы",
                 "produces": [
                     "application/json"
                 ],
@@ -253,6 +258,7 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "создает новый курс",
                 "produces": [
                     "application/json"
                 ],
@@ -301,7 +307,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseLectures"
                 ],
                 "summary": "get all course lectures",
@@ -327,7 +332,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseLectures"
                 ],
                 "summary": "add new course lecture",
@@ -372,7 +376,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseLectures"
                 ],
                 "summary": "update course lecture by id",
@@ -465,7 +468,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseStatuses"
                 ],
                 "summary": "get all course statuses",
@@ -491,7 +493,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseStatuses"
                 ],
                 "summary": "add new course status",
@@ -530,7 +531,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseStatuses"
                 ],
                 "summary": "get course status by id",
@@ -565,7 +565,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseStatuses"
                 ],
                 "summary": "update course status",
@@ -600,7 +599,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseStatuses"
                 ],
                 "summary": "delete course status",
@@ -637,7 +635,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseLectures"
                 ],
                 "summary": "get a course lecture by id",
@@ -674,7 +671,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "courses",
                     "courseLectures"
                 ],
                 "summary": "get concrete lecture from course",
@@ -713,6 +709,7 @@ const docTemplate = `{
         },
         "/courses/{id}": {
             "get": {
+                "description": "возвращает курс с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -752,6 +749,7 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет курс с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -805,55 +803,8 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "courses"
-                ],
-                "summary": "update a course by ID",
-                "operationId": "update-course-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "course id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "course",
-                        "name": "course",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.CourseUpdate"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
             "delete": {
+                "description": "удаляет курс с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -895,6 +846,7 @@ const docTemplate = `{
         },
         "/group": {
             "get": {
+                "description": "возвращает все группы",
                 "produces": [
                     "application/json"
                 ],
@@ -928,6 +880,7 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "создает новую группу",
                 "produces": [
                     "application/json"
                 ],
@@ -971,6 +924,7 @@ const docTemplate = `{
         },
         "/group/{id}": {
             "get": {
+                "description": "возвращает группу с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -1010,6 +964,7 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет группу с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -1063,61 +1018,8 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "groups"
-                ],
-                "summary": "update a group by ID",
-                "operationId": "update-group-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "group id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "group",
-                        "name": "group",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.GroupCU"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
             "delete": {
+                "description": "удаляет группу с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -1164,7 +1066,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "groups",
                     "groupContacts"
                 ],
                 "summary": "get all group contacts",
@@ -1190,7 +1091,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "groups",
                     "groupContacts"
                 ],
                 "summary": "add new group contact",
@@ -1235,7 +1135,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "groups",
                     "groupContacts"
                 ],
                 "summary": "update group contact",
@@ -1285,7 +1184,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "groups",
                     "groupContacts"
                 ],
                 "summary": "delete group contact by id",
@@ -1328,7 +1226,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "groups",
                     "groupContacts"
                 ],
                 "summary": "get group contacts by  group id",
@@ -1365,7 +1262,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "groups",
                     "groupContacts"
                 ],
                 "summary": "get group contact",
@@ -1404,11 +1300,12 @@ const docTemplate = `{
         },
         "/homeworks": {
             "get": {
+                "description": "возвращает все домашние работы",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "homeworks"
                 ],
                 "summary": "get all items in the homework list",
                 "operationId": "get-all-homeworks",
@@ -1428,11 +1325,12 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новую домашнюю работу",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "homeworks"
                 ],
                 "summary": "add new homework to the homework list",
                 "operationId": "create-homework",
@@ -1471,11 +1369,12 @@ const docTemplate = `{
         },
         "/homeworks/{id}": {
             "get": {
+                "description": "возвращает домашнюю работу с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "homeworks"
                 ],
                 "summary": "get a homework by ID",
                 "operationId": "get-homework-by-id",
@@ -1510,11 +1409,12 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет домашнюю работу с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "homeworks"
                 ],
                 "summary": "update a homework by ID",
                 "operationId": "update-homework-by-id",
@@ -1564,11 +1464,12 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "description": "удаляет домашнюю работу с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "homeworks"
                 ],
                 "summary": "delete a homework by ID",
                 "operationId": "delete-homework-by-id",
@@ -1605,6 +1506,7 @@ const docTemplate = `{
         },
         "/interview": {
             "get": {
+                "description": "возвращает все интервью",
                 "produces": [
                     "application/json"
                 ],
@@ -1638,6 +1540,7 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новое интервью новое интервью",
                 "produces": [
                     "application/json"
                 ],
@@ -1681,6 +1584,7 @@ const docTemplate = `{
         },
         "/interview/{id}": {
             "get": {
+                "description": "возвращает интервью с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -1720,6 +1624,7 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет интервью с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -1773,61 +1678,8 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "interviews"
-                ],
-                "summary": "update a interview by ID",
-                "operationId": "update-interview-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "interview id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "interview",
-                        "name": "interview",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Interview"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
             "delete": {
+                "description": "удаляет интервью с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -1869,11 +1721,12 @@ const docTemplate = `{
         },
         "/lectures": {
             "get": {
+                "description": "возвращает все лекции",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "lectures"
                 ],
                 "summary": "get all items in the lecture list",
                 "operationId": "get-all-lectures",
@@ -1893,11 +1746,12 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет лекцию",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "lectures"
                 ],
                 "summary": "add new lecture to the lecture list",
                 "operationId": "create-lecture",
@@ -1936,11 +1790,12 @@ const docTemplate = `{
         },
         "/lectures/{id}": {
             "get": {
+                "description": "возвращает лекцию с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "lectures"
                 ],
                 "summary": "get a lecture by ID",
                 "operationId": "get-lecture-by-id",
@@ -1975,11 +1830,12 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет лекцию с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "lectures"
                 ],
                 "summary": "update a lecture by ID",
                 "operationId": "update-lecture-by-id",
@@ -2029,11 +1885,12 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "description": "удалаяет лекцию с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "lectures"
                 ],
                 "summary": "delete a lecture by ID",
                 "operationId": "delete-lecture-by-id",
@@ -2070,11 +1927,12 @@ const docTemplate = `{
         },
         "/lectures/{lecture_id}/homeworks": {
             "get": {
+                "description": "возвращает домашнюю работы по указанному id лекции",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "courses"
+                    "homeworks"
                 ],
                 "summary": "get items in the homework list by lecture ID",
                 "operationId": "get-homeworks-by-lecture-id",
@@ -2143,7 +2001,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "mentor_notes"
+                    "mentorNotes"
                 ],
                 "summary": "get all mentor notes",
                 "operationId": "get-all-mentor-notes",
@@ -2170,7 +2028,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "mentor_notes"
+                    "mentorNotes"
                 ],
                 "summary": "update mentor note",
                 "operationId": "update-mentor-note",
@@ -2206,7 +2064,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "mentor_notes"
+                    "mentorNotes"
                 ],
                 "summary": "add new mentor note",
                 "operationId": "add-mentor-note",
@@ -2244,7 +2102,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "mentor_notes"
+                    "mentorNotes"
                 ],
                 "summary": "delete mentor note",
                 "operationId": "delete-note-from-mentor",
@@ -2341,7 +2199,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "mentor_notes"
+                    "mentorNotes"
                 ],
                 "summary": "get all notes from concrete mentor",
                 "operationId": "get-all-notes-from-mentor",
@@ -2377,7 +2235,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "mentor_notes"
+                    "mentorNotes"
                 ],
                 "summary": "get concrete note of mentor",
                 "operationId": "get-note-from-mentor",
@@ -2496,6 +2354,7 @@ const docTemplate = `{
         },
         "/operation": {
             "get": {
+                "description": "возвращает все операции",
                 "produces": [
                     "application/json"
                 ],
@@ -2529,6 +2388,7 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новую операцию",
                 "produces": [
                     "application/json"
                 ],
@@ -2572,11 +2432,12 @@ const docTemplate = `{
         },
         "/operation-log": {
             "get": {
+                "description": "возвращает все логи по операциям",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-logs"
+                    "operationLogs"
                 ],
                 "summary": "get all items in the operation log list",
                 "operationId": "get-all-operation-logs",
@@ -2605,11 +2466,12 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новый операционный лог",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-logs"
+                    "operationLogs"
                 ],
                 "summary": "add new item to the operation logs list",
                 "operationId": "create-operation-log",
@@ -2648,11 +2510,12 @@ const docTemplate = `{
         },
         "/operation-log/{id}": {
             "get": {
+                "description": "возвращает лог операции с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-logs"
+                    "operationLogs"
                 ],
                 "summary": "get a operation log by ID",
                 "operationId": "get-operation-log-by-id",
@@ -2681,65 +2544,12 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет лог операции с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-logs"
-                ],
-                "summary": "put a operation log by ID",
-                "operationId": "update-operation-log-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "operation log id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "role",
-                        "name": "operation_log",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.OperationLog"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "operation-logs"
+                    "operationLogs"
                 ],
                 "summary": "update a operation log by ID",
                 "operationId": "update-operation-log-by-id",
@@ -2789,11 +2599,12 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "description": "удаляет лог операции с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-logs"
+                    "operationLogs"
                 ],
                 "summary": "delete a operation log by ID",
                 "operationId": "delete-operation-log-by-id",
@@ -2830,11 +2641,12 @@ const docTemplate = `{
         },
         "/operation-type": {
             "get": {
+                "description": "возвращает все типы операций",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-types"
+                    "operationTypes"
                 ],
                 "summary": "get all items in the operation type list",
                 "operationId": "get-all-operation-types",
@@ -2863,11 +2675,12 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новый тип операции",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-types"
+                    "operationTypes"
                 ],
                 "summary": "add new item to the operation types list",
                 "operationId": "create-operation-type",
@@ -2906,11 +2719,12 @@ const docTemplate = `{
         },
         "/operation-type/{id}": {
             "get": {
+                "description": "возвращает тип операции с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-types"
+                    "operationTypes"
                 ],
                 "summary": "get a operation type by ID",
                 "operationId": "get-operation-type-by-id",
@@ -2939,11 +2753,12 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет тип указанному операции с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-types"
+                    "operationTypes"
                 ],
                 "summary": "put a operation type by ID",
                 "operationId": "update-operation-type-by-id",
@@ -2992,66 +2807,13 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "operation-types"
-                ],
-                "summary": "update a operation type by ID",
-                "operationId": "update-operation-type-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "operation type id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "role",
-                        "name": "operation_type",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.OperationType"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
             "delete": {
+                "description": "удаляет тип операции с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "operation-types"
+                    "operationTypes"
                 ],
                 "summary": "delete a operation type by ID",
                 "operationId": "delete-operation-type-by-id",
@@ -3088,6 +2850,7 @@ const docTemplate = `{
         },
         "/operation/{id}": {
             "get": {
+                "description": "возвращает операцию с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -3121,6 +2884,7 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет операцию по указанному id",
                 "produces": [
                     "application/json"
                 ],
@@ -3174,61 +2938,8 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "operations"
-                ],
-                "summary": "update a operation by ID",
-                "operationId": "update-operation-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "operation id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "role",
-                        "name": "operation",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Operation"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
             "delete": {
+                "description": "удаляет операцию по указанному id",
                 "produces": [
                     "application/json"
                 ],
@@ -3344,7 +3055,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
                     "contacts"
                 ],
                 "summary": "get all contacts",
@@ -3370,11 +3080,10 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
                     "contacts"
                 ],
                 "summary": "add new person contact",
-                "operationId": "put-person_contact",
+                "operationId": "put-person-contact",
                 "parameters": [
                     {
                         "description": "contact",
@@ -3407,11 +3116,10 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
                     "contacts"
                 ],
                 "summary": "add new person contact",
-                "operationId": "add-person_contact",
+                "operationId": "add-person-contact",
                 "parameters": [
                     {
                         "description": "contact",
@@ -3446,8 +3154,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
-                    "contacts",
                     "contactTypes"
                 ],
                 "summary": "get all contact types",
@@ -3473,8 +3179,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
-                    "contacts",
                     "contactTypes"
                 ],
                 "summary": "update contact type",
@@ -3511,8 +3215,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
-                    "contacts",
                     "contactTypes"
                 ],
                 "summary": "get contact type",
@@ -3551,8 +3253,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
-                    "contacts",
                     "contactTypes"
                 ],
                 "summary": "delete contact type",
@@ -3589,8 +3289,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
-                    "contacts",
                     "contactTypes"
                 ],
                 "summary": "get contact type",
@@ -3627,11 +3325,10 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
                     "contacts"
                 ],
                 "summary": "delete person's contact by contact_id",
-                "operationId": "delete-person_contact",
+                "operationId": "delete-person-contact",
                 "parameters": [
                     {
                         "type": "string",
@@ -3789,11 +3486,10 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
                     "contacts"
                 ],
                 "summary": "get all person's contacts",
-                "operationId": "get-person_contacts",
+                "operationId": "get-person-contacts",
                 "parameters": [
                     {
                         "type": "string",
@@ -3826,11 +3522,10 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "persons",
                     "contacts"
                 ],
                 "summary": "get person's contact by contact_id",
-                "operationId": "get-person_contact",
+                "operationId": "get-person-contact",
                 "parameters": [
                     {
                         "type": "string",
@@ -3865,6 +3560,7 @@ const docTemplate = `{
         },
         "/role": {
             "get": {
+                "description": "возвращает все роли",
                 "produces": [
                     "application/json"
                 ],
@@ -3898,6 +3594,7 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новую роль",
                 "produces": [
                     "application/json"
                 ],
@@ -3941,6 +3638,7 @@ const docTemplate = `{
         },
         "/role/{id}": {
             "get": {
+                "description": "возвращает роль с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -3974,6 +3672,7 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет роль с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -4027,61 +3726,8 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "roles"
-                ],
-                "summary": "update a role by ID",
-                "operationId": "update-role-by-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "role id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "role",
-                        "name": "role",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.RoleCU"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
             "delete": {
+                "description": "удаляет роль с указанным id",
                 "produces": [
                     "application/json"
                 ],
@@ -4531,8 +4177,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
-                    "homeworks"
+                    "studentHomeworks"
                 ],
                 "summary": "get all homeworks",
                 "operationId": "get-students-homeworks",
@@ -4557,8 +4202,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
-                    "homeworks"
+                    "studentHomeworks"
                 ],
                 "summary": "update student homework",
                 "operationId": "update-student-homework",
@@ -4594,8 +4238,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
-                    "homeworks"
+                    "studentHomeworks"
                 ],
                 "summary": "get contact type",
                 "operationId": "add-contact-type",
@@ -4633,8 +4276,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
-                    "homeworks"
+                    "studentHomeworks"
                 ],
                 "summary": "delete student homework",
                 "operationId": "delete-student-homework",
@@ -4665,11 +4307,12 @@ const docTemplate = `{
         },
         "/students/notes/types": {
             "get": {
+                "description": "возвращает все типы студенческих заметок",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_note_types"
+                    "studentNoteTypes"
                 ],
                 "summary": "get list of student note types",
                 "operationId": "get-all-student-note-types",
@@ -4689,11 +4332,12 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет новый тип студенческой заметки",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_note_types"
+                    "studentNoteTypes"
                 ],
                 "summary": "add new student type note",
                 "operationId": "create-note-types",
@@ -4732,11 +4376,12 @@ const docTemplate = `{
         },
         "/students/notes/types/{student_note_type_id}": {
             "get": {
+                "description": "возвращает тип студенческой заметки с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_note_types"
+                    "studentNoteTypes"
                 ],
                 "summary": "get student note type by id",
                 "operationId": "get-student-student-note-type-by-id",
@@ -4765,11 +4410,12 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет тип студенческой заметки с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_note_types"
+                    "studentNoteTypes"
                 ],
                 "summary": "update student note type",
                 "operationId": "update-student-note-type",
@@ -4818,7 +4464,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "student_note_types"
+                    "studentNoteTypes"
                 ],
                 "summary": "delete student note type by id",
                 "operationId": "delete-student-note-type-by-id",
@@ -4855,11 +4501,12 @@ const docTemplate = `{
         },
         "/students/notes/{student_note_id}": {
             "delete": {
+                "description": "удаляет заметку студента с указанным id студента",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_notes"
+                    "studentNotes"
                 ],
                 "summary": "delete student note",
                 "operationId": "delete-student-note",
@@ -5144,8 +4791,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
-                    "homeworks"
+                    "studentHomeworks"
                 ],
                 "summary": "get contact type",
                 "operationId": "get-all-student-homeworks",
@@ -5181,8 +4827,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
-                    "homeworks"
+                    "studentHomeworks"
                 ],
                 "summary": "get student's homework",
                 "operationId": "get-student-homework",
@@ -5220,11 +4865,12 @@ const docTemplate = `{
         },
         "/students/{student_id}/notes": {
             "get": {
+                "description": "возвращает все заметки по студенту с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_notes"
+                    "studentNotes"
                 ],
                 "summary": "get all student notes by student id",
                 "operationId": "get-student-notes",
@@ -5253,11 +4899,12 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "description": "добавляет заметку студента",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_notes"
+                    "studentNotes"
                 ],
                 "summary": "add new note to student",
                 "operationId": "add-new-student-note",
@@ -5303,11 +4950,12 @@ const docTemplate = `{
         },
         "/students/{student_id}/notes/{student_note_id}": {
             "get": {
+                "description": "возвращает заметку с указанным id для студента с указанным id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_notes"
+                    "studentNotes"
                 ],
                 "summary": "get concrete student's note from concrete student",
                 "operationId": "get-student-note-by-student-note-id",
@@ -5343,11 +4991,12 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "description": "изменяет заметку студента с указанным id студента",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "student_notes"
+                    "studentNotes"
                 ],
                 "summary": "update student note",
                 "operationId": "update-student-note",
@@ -5421,6 +5070,7 @@ const docTemplate = `{
             }
         },
         "model.CertificateTemplateList": {
+            "description": "kekekek",
             "type": "object",
             "properties": {
                 "_metadata": {

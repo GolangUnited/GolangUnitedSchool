@@ -25,7 +25,7 @@ func NewContactTypeHandler(
 // @Summary get all contact types
 // @Description возвращает все типы контактов
 // @ID get-all-contact-types
-// @Tags persons, contacts, contactTypes
+// @Tags contactTypes
 // @Produce json
 // @Success 200 {object} model.ContactTypesListDto
 // @Failure 500 {object} model.ResponseMessage
@@ -37,7 +37,7 @@ func (h *ContactTypeHandlers) GetContactTypes(c *gin.Context) {}
 // @Description возвращает тип контакта с указанным contact_type_id
 // @ID get-contact-type
 // @Param id path string true "contact_type_id"
-// @Tags persons, contacts, contactTypes
+// @Tags contactTypes
 // @Produce json
 // @Success 200 {object} model.ContactType
 // @Failure 500 {object} model.ResponseMessage
@@ -49,7 +49,7 @@ func (h *ContactTypeHandlers) GetContactType(c *gin.Context) {}
 // @Description добавляет новый тип контакта
 // @ID add-contact-type
 // @Param contact_type body model.NewContactTypeDto true "contact_type"
-// @Tags persons, contacts, contactTypes
+// @Tags contactTypes
 // @Produce json
 // @Success 200 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -61,7 +61,7 @@ func (h *ContactTypeHandlers) AddContactType(c *gin.Context) {}
 // @Description изменяет тип контакта
 // @ID update-contact-type
 // @Param contact_type body model.ContactType true "contact_type"
-// @Tags persons, contacts, contactTypes
+// @Tags contactTypes
 // @Produce json
 // @Success 200 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -73,7 +73,7 @@ func (h *ContactHandlers) UpdateContactType(c *gin.Context) {}
 // @Description удаляет тип контакта с указанным contact_type_id
 // @ID delete-contact-type
 // @Param id path string true "contact_type_id"
-// @Tags persons, contacts, contactTypes
+// @Tags contactTypes
 // @Produce json
 // @Success 200 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage

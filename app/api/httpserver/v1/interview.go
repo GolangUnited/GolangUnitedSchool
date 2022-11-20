@@ -18,7 +18,9 @@ func NewInterview(lg logger.Logger, u usecase.InterviewUsecaseInterface) *Interv
 	}
 }
 
+// AddInterview
 // @Summary add new item to the interview list
+// @Description добавляет новое интервью новое интервью
 // @ID create-interview
 // @Tags interviews
 // @Produce json
@@ -30,7 +32,9 @@ func NewInterview(lg logger.Logger, u usecase.InterviewUsecaseInterface) *Interv
 // @Router /interview [post]
 func AddInterview(c *gin.Context) {}
 
+// GetInterviews
 // @Summary get all items in the interview list
+// @Description возвращает все интервью
 // @ID get-all-interviews
 // @Tags interviews
 // @Produce json
@@ -40,7 +44,9 @@ func AddInterview(c *gin.Context) {}
 // @Router /interview [get]
 func GetInterviews(c *gin.Context) {}
 
+// GetInterviewById
 // @Summary get a interview by ID
+// @Description возвращает интервью с указанным id
 // @ID get-interview-by-id
 // @Tags interviews
 // @Produce json
@@ -51,21 +57,9 @@ func GetInterviews(c *gin.Context) {}
 // @Router /interview/{id} [get]
 func GetInterviewById(c *gin.Context) {}
 
-// @Summary update a interview by ID
-// @ID update-interview-by-id
-// @Tags interviews
-// @Param id path string true "interview id"
-// @Param interview body model.Interview true "interview"
-// @Produce json
-// @Consume json
-// @Success 200 {object} model.ResponseMessage
-// @Failure 400 {object} model.ResponseMessage
-// @Failure 404 {object} model.ResponseMessage
-// @Failure 500 {object} model.ResponseMessage
-// @Router /interview/{id} [post]
-func UpdateInterviewById(c *gin.Context) {}
-
+// PutInterviewById
 // @Summary put a interview by ID
+// @Description изменяет интервью с указанным id
 // @ID update-interview-by-id
 // @Tags interviews
 // @Param id path string true "interview id"
@@ -79,7 +73,9 @@ func UpdateInterviewById(c *gin.Context) {}
 // @Router /interview/{id} [put]
 func PutInterviewById(c *gin.Context) {}
 
+// DeleteInterviewById
 // @Summary delete a interview by ID
+// @Description удаляет интервью с указанным id
 // @ID delete-interview-by-id
 // @Tags interviews
 // @Param id path string true "interview id"

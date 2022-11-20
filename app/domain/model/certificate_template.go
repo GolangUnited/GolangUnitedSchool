@@ -5,6 +5,7 @@ type CertificateTemplate struct {
 	Template string `json:"template" example:"some template"`
 }
 
+// @Description
 type CertificateTemplateList struct {
 	Metadata             PaginationResponse    `json:"_metadata"`
 	CertificateTemplates []CertificateTemplate `json:"certificate_templates"`
