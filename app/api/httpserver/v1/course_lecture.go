@@ -90,7 +90,7 @@ func (h *CourseLectureHandlers) UpdateCourseLectureById(c *gin.Context) {}
 // @Summary delete a course lecture by id
 // @Description удалить лекцию с указанным lecture_id
 // @ID delete-course-lecture-by-id
-// @Tags courses, courseLectures
+// @Tags courseLectures
 // @Param id path string true "course_lecture_id"
 // @Produce json
 // @Success 200 {object} model.ResponseMessage

@@ -54,7 +54,7 @@ func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 
 // @Summary update a operation type by ID
 // @ID update-operation-type-by-id
-// @Tags operation-types
+// @Tags operationTypes
 // @Param id path string true "operation type id"
 // @Param operation type body model.OperationType true "role"
 // @Produce json

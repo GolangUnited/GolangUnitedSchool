@@ -10,7 +10,6 @@ definitions:
         type: string
     type: object
   model.CertificateTemplateList:
-    description: kekekek
     properties:
       _metadata:
         $ref: '#/definitions/model.PaginationResponse'
@@ -1016,6 +1015,33 @@ paths:
       summary: update course lecture by id
       tags:
       - courseLectures
+  /courses/name/{course_name}:
+    get:
+      operationId: get-course-by-name
+      parameters:
+      - description: course name
+        in: path
+        name: course_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Course'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a course by name
+      tags:
+      - courses
   /courses/statuses:
     get:
       description: возвращает список всех статусов курса
@@ -1128,7 +1154,7 @@ paths:
       summary: update course status
       tags:
       - courseStatuses
-  /group:
+  /groups:
     get:
       description: возвращает все группы
       operationId: get-all-groups
@@ -1178,98 +1204,6 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new item to the group list
-      tags:
-      - groups
-  /group/{id}:
-    delete:
-      description: удаляет группу с указанным id
-      operationId: delete-group-by-id
-      parameters:
-      - description: group id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: delete a group by ID
-      tags:
-      - groups
-    get:
-      description: возвращает группу с указанным id
-      operationId: get-group-by-id
-      parameters:
-      - description: group id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Group'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get a group by ID
-      tags:
-      - groups
-    put:
-      description: изменяет группу с указанным id
-      operationId: update-group-by-id
-      parameters:
-      - description: group id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: group
-        in: body
-        name: group
-        required: true
-        schema:
-          $ref: '#/definitions/model.GroupCU'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: put a group by ID
       tags:
       - groups
   /groups/{group_id}/contacts:
@@ -1325,6 +1259,134 @@ paths:
       summary: get group contact
       tags:
       - groupContacts
+  /groups/{id}:
+    delete:
+      description: удаляет группу с указанным id
+      operationId: delete-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a group by ID
+      tags:
+      - groups
+    get:
+      description: возвращает группу с указанным id
+      operationId: get-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Group'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a group by ID
+      tags:
+      - groups
+    post:
+      operationId: update-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: group
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupCU'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a group by ID
+      tags:
+      - groups
+    put:
+      description: изменяет группу с указанным id
+      operationId: update-group-by-id
+      parameters:
+      - description: group id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: group
+        in: body
+        name: group
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupCU'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a group by ID
+      tags:
+      - groups
   /groups/contacts:
     get:
       description: возвращает все контакты всех группы
@@ -1570,58 +1632,6 @@ paths:
       summary: update a homework by ID
       tags:
       - homeworks
-  /interview:
-    get:
-      description: возвращает все интервью
-      operationId: get-all-interviews
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/model.Interview'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all items in the interview list
-      tags:
-      - interviews
-    post:
-      description: добавляет новое интервью новое интервью
-      operationId: create-interview
-      parameters:
-      - description: interview
-        in: body
-        name: interview
-        required: true
-        schema:
-          $ref: '#/definitions/model.Interview'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: add new item to the interview list
-      tags:
-      - interviews
   /interview/{id}:
     delete:
       description: удаляет интервью с указанным id
@@ -1712,6 +1722,58 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: put a interview by ID
+      tags:
+      - interviews
+  /interviews:
+    get:
+      description: возвращает все интервью
+      operationId: get-all-interviews
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Interview'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the interview list
+      tags:
+      - interviews
+    post:
+      description: добавляет новое интервью новое интервью
+      operationId: create-interview
+      parameters:
+      - description: interview
+        in: body
+        name: interview
+        required: true
+        schema:
+          $ref: '#/definitions/model.Interview'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the interview list
       tags:
       - interviews
   /lectures:
@@ -1880,6 +1942,548 @@ paths:
       summary: get items in the homework list by lecture ID
       tags:
       - homeworks
+  /log/operations:
+    get:
+      description: возвращает все операции
+      operationId: get-all-operations
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Operation'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the operations list
+      tags:
+      - operations
+    post:
+      description: добавляет новую операцию
+      operationId: create-operation
+      parameters:
+      - description: operation
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/model.Operation'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the operations list
+      tags:
+      - operations
+  /log/operations/types:
+    get:
+      description: возвращает все типы операций
+      operationId: get-all-operation-types
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.OperationType'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the operation type list
+      tags:
+      - operationTypes
+    post:
+      description: добавляет новый тип операции
+      operationId: create-operation-type
+      parameters:
+      - description: operation-type
+        in: body
+        name: operation-type
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationType'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the operation types list
+      tags:
+      - operationTypes
+  /log/operations/types/{id}:
+    delete:
+      description: удаляет тип операции с указанным id
+      operationId: delete-operation-type-by-id
+      parameters:
+      - description: operation type id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a operation type by ID
+      tags:
+      - operationTypes
+    get:
+      description: возвращает тип операции с указанным id
+      operationId: get-operation-type-by-id
+      parameters:
+      - description: operation-type id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationType'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a operation type by ID
+      tags:
+      - operationTypes
+    post:
+      operationId: update-operation-type-by-id
+      parameters:
+      - description: operation type id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: type
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a operation type by ID
+      tags:
+      - operationTypes
+    put:
+      description: изменяет тип указанному операции с указанным id
+      operationId: update-operation-type-by-id
+      parameters:
+      - description: operation type id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: operation_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a operation type by ID
+      tags:
+      - operationTypes
+  /logs:
+    get:
+      description: возвращает все логи по операциям
+      operationId: get-all-operation-logs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.OperationLog'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the operation log list
+      tags:
+      - operationLogs
+    post:
+      description: добавляет новый операционный лог
+      operationId: create-operation-log
+      parameters:
+      - description: operation-log
+        in: body
+        name: operation-log
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationLog'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new item to the operation logs list
+      tags:
+      - operationLogs
+  /logs/{id}:
+    delete:
+      description: удаляет лог операции с указанным id
+      operationId: delete-operation-log-by-id
+      parameters:
+      - description: operation log id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a operation log by ID
+      tags:
+      - operationLogs
+    get:
+      description: возвращает лог операции с указанным id
+      operationId: get-operation-log-by-id
+      parameters:
+      - description: operation-log id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.OperationLog'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a operation log by ID
+      tags:
+      - operationLogs
+    post:
+      description: изменяет лог операции с указанным id
+      operationId: update-operation-log-by-id
+      parameters:
+      - description: operation log id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: log
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationLog'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a operation log by ID
+      tags:
+      - operationLogs
+    put:
+      operationId: update-operation-log-by-id
+      parameters:
+      - description: operation log id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: log
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationLog'
+      - description: role
+        in: body
+        name: operation_log
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperationLog'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a operation log by ID
+      tags:
+      - operationLogs
+  /logs/operations/{id}:
+    delete:
+      description: удаляет операцию по указанному id
+      operationId: delete-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a operation by ID
+      tags:
+      - operations
+    get:
+      description: возвращает операцию с указанным id
+      operationId: get-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Operation'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a operation by ID
+      tags:
+      - operations
+    post:
+      operationId: update-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/model.Operation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a operation by ID
+      tags:
+      - operations
+    put:
+      description: изменяет операцию по указанному id
+      operationId: update-operation-by-id
+      parameters:
+      - description: operation id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/model.Operation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put a operation by ID
+      tags:
+      - operations
   /mentors:
     get:
       description: получить список всех менторов
@@ -2137,426 +2741,6 @@ paths:
       summary: delete mentor note
       tags:
       - mentorNotes
-  /operation:
-    get:
-      description: возвращает все операции
-      operationId: get-all-operations
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/model.Operation'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all items in the operations list
-      tags:
-      - operations
-    post:
-      description: добавляет новую операцию
-      operationId: create-operation
-      parameters:
-      - description: operation
-        in: body
-        name: operation
-        required: true
-        schema:
-          $ref: '#/definitions/model.Operation'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: add new item to the operations list
-      tags:
-      - operations
-  /operation-log:
-    get:
-      description: возвращает все логи по операциям
-      operationId: get-all-operation-logs
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/model.OperationLog'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all items in the operation log list
-      tags:
-      - operationLogs
-    post:
-      description: добавляет новый операционный лог
-      operationId: create-operation-log
-      parameters:
-      - description: operation-log
-        in: body
-        name: operation-log
-        required: true
-        schema:
-          $ref: '#/definitions/model.OperationLog'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: add new item to the operation logs list
-      tags:
-      - operationLogs
-  /operation-log/{id}:
-    delete:
-      description: удаляет лог операции с указанным id
-      operationId: delete-operation-log-by-id
-      parameters:
-      - description: operation log id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: delete a operation log by ID
-      tags:
-      - operationLogs
-    get:
-      description: возвращает лог операции с указанным id
-      operationId: get-operation-log-by-id
-      parameters:
-      - description: operation-log id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.OperationLog'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get a operation log by ID
-      tags:
-      - operationLogs
-    put:
-      description: изменяет лог операции с указанным id
-      operationId: update-operation-log-by-id
-      parameters:
-      - description: operation log id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: role
-        in: body
-        name: operation_log
-        required: true
-        schema:
-          $ref: '#/definitions/model.OperationLog'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: update a operation log by ID
-      tags:
-      - operationLogs
-  /operation-type:
-    get:
-      description: возвращает все типы операций
-      operationId: get-all-operation-types
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/model.OperationType'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all items in the operation type list
-      tags:
-      - operationTypes
-    post:
-      description: добавляет новый тип операции
-      operationId: create-operation-type
-      parameters:
-      - description: operation-type
-        in: body
-        name: operation-type
-        required: true
-        schema:
-          $ref: '#/definitions/model.OperationType'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: add new item to the operation types list
-      tags:
-      - operationTypes
-  /operation-type/{id}:
-    delete:
-      description: удаляет тип операции с указанным id
-      operationId: delete-operation-type-by-id
-      parameters:
-      - description: operation type id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: delete a operation type by ID
-      tags:
-      - operationTypes
-    get:
-      description: возвращает тип операции с указанным id
-      operationId: get-operation-type-by-id
-      parameters:
-      - description: operation-type id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.OperationType'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get a operation type by ID
-      tags:
-      - operationTypes
-    put:
-      description: изменяет тип указанному операции с указанным id
-      operationId: update-operation-type-by-id
-      parameters:
-      - description: operation type id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: role
-        in: body
-        name: operation_type
-        required: true
-        schema:
-          $ref: '#/definitions/model.OperationType'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: put a operation type by ID
-      tags:
-      - operationTypes
-  /operation/{id}:
-    delete:
-      description: удаляет операцию по указанному id
-      operationId: delete-operation-by-id
-      parameters:
-      - description: operation id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: delete a operation by ID
-      tags:
-      - operations
-    get:
-      description: возвращает операцию с указанным id
-      operationId: get-operation-by-id
-      parameters:
-      - description: operation id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.Operation'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get a operation by ID
-      tags:
-      - operations
-    put:
-      description: изменяет операцию по указанному id
-      operationId: update-operation-by-id
-      parameters:
-      - description: operation id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: role
-        in: body
-        name: operation
-        required: true
-        schema:
-          $ref: '#/definitions/model.Operation'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: put a operation by ID
-      tags:
-      - operations
   /persons:
     get:
       description: возвращает список всех пользователей
@@ -2945,7 +3129,7 @@ paths:
       summary: get contact type
       tags:
       - contactTypes
-  /role:
+  /roles:
     get:
       description: возвращает все роли
       operationId: get-all-roles
@@ -2997,7 +3181,7 @@ paths:
       summary: add new role to the course list
       tags:
       - roles
-  /role/{id}:
+  /roles/{id}:
     delete:
       description: удаляет роль с указанным id
       operationId: delete-role-by-id
@@ -3045,7 +3229,47 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get a role by ID
+      tags:
+      - roles
+    post:
+      operationId: update-role-by-id
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/model.RoleCU'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a role by ID
       tags:
       - roles
     put:
@@ -3309,7 +3533,7 @@ paths:
       - studentHomeworks
   /students/{student_id}/homeworks/{homework_id}:
     get:
-      description: возвращает определенную лекцию указанного стцдента
+      description: возвращает определенную домашку указанного студента
       operationId: get-student-homework
       parameters:
       - description: student_id
