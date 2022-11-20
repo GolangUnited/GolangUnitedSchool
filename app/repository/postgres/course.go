@@ -155,25 +155,25 @@ func (r *PostgresRepository) UpdateCourseByID(
 	// title
 	if course.Title != nil {
 		args = append(args, course.Title)
-		keys = append(keys, fmt.Sprintf("title = %d", len(args)))
+		keys = append(keys, fmt.Sprintf("title = &%d", len(args)))
 	}
 
 	// status
 	if course.Status != nil {
 		args = append(args, course.Status)
-		keys = append(keys, fmt.Sprintf("status = %d", len(args)))
+		keys = append(keys, fmt.Sprintf("status = &%d", len(args)))
 	}
 
 	// start date
 	if course.StartDate != nil {
 		args = append(args, course.StartDate)
-		keys = append(keys, fmt.Sprintf("start_date = %d", len(args)))
+		keys = append(keys, fmt.Sprintf("start_date = &%d", len(args)))
 	}
 
 	// end date
 	if course.EndDate != nil {
 		args = append(args, course.EndDate)
-		keys = append(keys, fmt.Sprintf("endt_date = %d", len(args)))
+		keys = append(keys, fmt.Sprintf("endt_date = &%d", len(args)))
 	}
 
 	// id
@@ -181,7 +181,7 @@ func (r *PostgresRepository) UpdateCourseByID(
 
 	query := fmt.Sprintf(`UPDATE course 
 				SET %s
-				WHERE id = %d`, strings.Join(keys, ","), len(args))
+				WHERE id = &%d`, strings.Join(keys, ","), len(args))
 
 	cmn, err := r.pool.Exec(ctx, query, args...)
 	if err != nil {
