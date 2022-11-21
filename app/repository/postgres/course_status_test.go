@@ -44,7 +44,6 @@ func (s *CourseStatusTestSuite) SetupTest() {
 		_, err := s.testRepo.pool.Exec(ctxB, r.Resuest)
 		if err != nil {
 			s.Error(err)
-			s.Fail("setup failed")
 			return
 		}
 	}

@@ -1,0 +1,34 @@
+conf: 
+  setup: 
+    requests:
+      - request: CREATE 
+                TABLE course_status (
+                    id serial NOT NULL,
+                    title VARCHAR(256) UNIQUE NOT NULL
+                );
+      - request: INSERT 
+                  INTO course_status 
+                  (title) VALUES 
+                  ('active'),
+                  ('done'),
+                  ('inactive'),
+                  ('created');
+      - request: CREATE 
+                  TABLE course ( 
+                    id serial NOT NULL, 
+                    title string NOT NULL unique,
+                    start_date TIMESTAMP NOT NULL,
+                    end_date TIMESTAMP NOT NULL,
+                    course_status_id integer references course_status(id)
+                  );
+      - request: INSERT 
+                  INTO course (
+                    title, start_date, end_date, course_status_id
+                  ) VALUES 
+                  ('some title 1', '21-11-2022', '31-12-2022', 1);
+  teardown:
+    requests: 
+      - request: DROP TABLE course CASCADE;
+      - request: DROP TABLE course_status CASCADE;
+
+                
