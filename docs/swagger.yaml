@@ -276,6 +276,13 @@ definitions:
       title:
         type: string
     type: object
+  model.NewCourseStatusDto:
+    properties:
+      title:
+        maxLength: 20
+        minLength: 2
+        type: string
+    type: object
   model.NewMentorNoteDto:
     properties:
       created_at:
@@ -291,7 +298,7 @@ definitions:
     type: object
   model.NewPersonDto:
     properties:
-      firsName:
+      firstName:
         type: string
       lastName:
         type: string
@@ -565,6 +572,36 @@ definitions:
           $ref: '#/definitions/model.Student'
         type: array
     type: object
+  model.UpdatePersonDto:
+    properties:
+      first_name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      last_name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      login:
+        maxLength: 50
+        minLength: 2
+        type: string
+      passwd:
+        maxLength: 20
+        minLength: 8
+        type: string
+      patronymic:
+        maxLength: 50
+        minLength: 2
+        type: string
+      updated_at:
+        type: string
+    required:
+    - first_name
+    - last_name
+    - login
+    - passwd
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -804,12 +841,16 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
-            $ref: '#/definitions/model.CourseLecture'
-        "404":
-          description: Not Found
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get concrete lecture from course
@@ -1068,7 +1109,7 @@ paths:
         name: new_course_status
         required: true
         schema:
-          $ref: '#/definitions/model.CourseStatus'
+          $ref: '#/definitions/model.NewCourseStatusDto'
       produces:
       - application/json
       responses:
@@ -1081,6 +1122,44 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new course status
+      tags:
+      - courseStatuses
+  /courses/statuses/{id}:
+    put:
+      description: изменяет статус курса с указанным id с доступом ко всем полям
+      operationId: зге-operation-type-by-id
+      parameters:
+      - description: course_status_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: operation_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.CourseStatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: put course status by id
       tags:
       - courseStatuses
   /courses/statuses/{status_id}:
@@ -1130,7 +1209,7 @@ paths:
       summary: get course status by id
       tags:
       - courseStatuses
-    put:
+    post:
       description: изменяет статус курса с указанным status_id
       operationId: put-course-status
       parameters:
@@ -1139,6 +1218,12 @@ paths:
         name: id
         required: true
         type: string
+      - description: course_status
+        in: body
+        name: update_course_status
+        required: true
+        schema:
+          $ref: '#/definitions/model.NewCourseStatusDto'
       produces:
       - application/json
       responses:
@@ -2110,7 +2195,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: type
+        name: operation_type
         required: true
         schema:
           $ref: '#/definitions/model.OperationType'
@@ -2287,7 +2372,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: log
+        name: operation_log
         required: true
         schema:
           $ref: '#/definitions/model.OperationLog'
@@ -2323,7 +2408,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: log
+        name: operation_log
         required: true
         schema:
           $ref: '#/definitions/model.OperationLog'
@@ -2837,6 +2922,43 @@ paths:
       summary: get person by id
       tags:
       - persons
+    post:
+      description: изменяет пользователя с указанным id, не затрагивая всех полей
+      operationId: update-person-by-id
+      parameters:
+      - description: person_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: update_person
+        in: body
+        name: update_person
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdatePersonDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update person by person id
+      tags:
+      - persons
     put:
       description: изменяет данные пользователя с указанным id
       operationId: update-person-by-id
@@ -2865,6 +2987,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
         "404":
           description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update person by id

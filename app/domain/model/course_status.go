@@ -18,6 +18,10 @@ type CourseStatusesListDto struct {
 	CourseStatusList []CourseStatus
 }
 
+type NewCourseStatusDto struct {
+	Title *string `json:"title" validate:"min=2,max=20,alphaunicode"`
+}
+
 func (n *CourseStatus) ValidateCourseStatus() error {
 	validate := validator.New()
 	english := en.New()

@@ -13,7 +13,7 @@ func NewOperationType(lg logger.Logger) *OperationTypeHandlers {
 	return &OperationTypeHandlers{lg: lg}
 }
 
-// AddOperationType
+// AddOperationLog
 // @Summary add new item to the operation types list
 // @Description добавляет новый тип операции
 // @ID create-operation-type
@@ -25,7 +25,7 @@ func NewOperationType(lg logger.Logger) *OperationTypeHandlers {
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /log/operations/types [post]
-func (h *OperationTypeHandlers) AddOperatioLog(c *gin.Context) {}
+func (h *OperationTypeHandlers) AddOperationLog(c *gin.Context) {}
 
 // GetOperationTypes
 // @Summary get all items in the operation type list
@@ -52,11 +52,12 @@ func (h *OperationTypeHandlers) GetOperationTypes(c *gin.Context) {}
 // @Router /log/operations/types/{id} [get]
 func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 
+// UpdateOperationTypeById
 // @Summary update a operation type by ID
 // @ID update-operation-type-by-id
 // @Tags operationTypes
 // @Param id path string true "operation type id"
-// @Param operation type body model.OperationType true "role"
+// @Param operation_type body model.OperationType true "role"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -66,6 +67,7 @@ func (h *OperationTypeHandlers) GetOperationTypeById(c *gin.Context) {}
 // @Router /log/operations/types/{id} [post]
 func (h *OperationTypeHandlers) UpdateOperationTypeById(c *gin.Context) {}
 
+// PutOperationTypeById
 // @Summary put a operation type by ID
 // @Description изменяет тип указанному операции с указанным id
 // @ID update-operation-type-by-id

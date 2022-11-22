@@ -52,8 +52,9 @@ func (h *CourseLectureHandlers) GetAllCourseLectures(c *gin.Context) {}
 // @Produce json
 // @Param course_id path string true "course_id"
 // @Param lecture_id path string true "lecture_id"
-// @Success 200 {object} model.CourseLecture
-// @Failure 404 {object} model.ResponseMessage
+// @Success 201 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /courses/{course_id}/lectures/{lecture_id} [get]
 func (h *CourseLectureHandlers) GetCourseLecture(c *gin.Context) {}
 
