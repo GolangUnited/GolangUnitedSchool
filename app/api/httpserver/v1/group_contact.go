@@ -29,6 +29,7 @@ func NewGroupContactHandler(
 // @Produce json
 // @Consume json
 // @Success 201 {object} model.GroupContactsListDto
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /groups/contacts [get]
 func (h *GroupContactHandlers) GetGroupContacts(c *gin.Context) {}
@@ -42,6 +43,7 @@ func (h *GroupContactHandlers) GetGroupContacts(c *gin.Context) {}
 // @Param id path string true "group_id"
 // @Success 200 {object} model.GroupContactsListDto
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /groups/{group_id}/contacts [get]
 func (h *GroupContactHandlers) GetGroupContactsByGroupId(c *gin.Context) {}
 
@@ -59,7 +61,7 @@ func (h *GroupContactHandlers) GetGroupContactsByGroupId(c *gin.Context) {}
 // @Router /groups/contacts [post]
 func (h *GroupContactHandlers) AddGroupContact(c *gin.Context) {}
 
-// UpdateGroupContact
+// PutGroupContact
 // @Summary update group contact
 // @Description изменяет контакт группы
 // @Tags groupContacts
@@ -71,7 +73,23 @@ func (h *GroupContactHandlers) AddGroupContact(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /groups/contacts/{group_contact_id} [put]
+func (h *GroupContactHandlers) PutGroupContact(c *gin.Context) {}
+
+// UpdateGroupContact
+// @Summary update group contact by Id
+// @ID update-group-contact-by-id
+// @Tags groupContacts
+// @Param id path string true "group_contact_id"
+// @Param group_contact body model.GroupContactsUpdateDto true "group_contact"
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /groups/contacts/{group_contact_id} [post]
 func (h *GroupContactHandlers) UpdateGroupContact(c *gin.Context) {}
 
 // DeleteGroupContact
@@ -97,5 +115,6 @@ func (h *GroupContactHandlers) DeleteGroupContact(c *gin.Context) {}
 // @Param id path string true "group_contact_id"
 // @Success 200 {object} model.GroupContact
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /groups/{group_id}/contacts/{group_contact_id} [get]
 func (h *GroupContactHandlers) GetGroupContact(c *gin.Context) {}

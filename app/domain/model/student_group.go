@@ -18,6 +18,14 @@ type StudentGroupListDto struct {
 	StudentGroupsList []StudentGroup     `json:"student_group_list"`
 }
 
+type NewStudentGroupDto struct {
+	GroupId int64 `json:"group_id" validate:"numeric,gt=0"`
+}
+
+type UpdateStudentGroupDto struct {
+	GroupId *int64 `json:"group_id" validate:"numeric,gt=0"`
+}
+
 func (n *StudentGroup) ValidateStudentGroup() error {
 	validate := validator.New()
 	english := en.New()

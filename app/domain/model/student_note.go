@@ -23,8 +23,17 @@ type StudentNotesListDto struct {
 }
 
 type NewStudentNoteDto struct {
-	Note      string    `json:"note" validate:"gte=2,lte=255"`
-	CreatedAt time.Time `json:"created_at" validate:"omitempty"`
+	StudentId         int64     `json:"student_id" validate:"numeric,gt=0"`
+	StudentNoteTypeId int64     `json:"student_note_type_id" validate:"numeric,gt=0"`
+	Note              string    `json:"note" validate:"gte=2,lte=255"`
+	CreatedAt         time.Time `json:"created_at" validate:"omitempty"`
+}
+
+type UpdateStudentNoteDto struct {
+	StudentId         *int64     `json:"student_id" validate:"numeric,gt=0"`
+	StudentNoteTypeId *int64     `json:"student_note_type_id" validate:"numeric,gt=0"`
+	Note              *string    `json:"note" validate:"gte=2,lte=255"`
+	CreatedAt         *time.Time `json:"created_at" validate:"omitempty"`
 }
 
 func (n *StudentNote) ValidateStudentNote() error {

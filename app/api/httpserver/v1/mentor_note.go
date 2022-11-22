@@ -28,6 +28,7 @@ func NewMentorNoteHandler(
 // @Tags mentorNotes
 // @Produce json
 // @Success 200 {object} model.MentorNotesListDto
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/notes [get]
 func (h *MentorNoteHandlers) GetMentorNotes(c *gin.Context) {}
@@ -40,6 +41,7 @@ func (h *MentorNoteHandlers) GetMentorNotes(c *gin.Context) {}
 // @Produce json
 // @Param id path string true "mentor_id"
 // @Success 200 {object} model.MentorNotesListDto
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/{mentor_id}/notes [get]
 func (h *MentorNoteHandlers) GetMentorNotesByMentorId(c *gin.Context) {}
@@ -53,6 +55,7 @@ func (h *MentorNoteHandlers) GetMentorNotesByMentorId(c *gin.Context) {}
 // @Param id path string true "mentor_id"
 // @Param id path string true "mentor_note_id"
 // @Success 200 {object} model.MentorNotesListDto
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/{mentor_id}/notes/{mentor_note_id} [get]
 func (h *MentorNoteHandlers) GetMentorNoteByMentorNoteId(c *gin.Context) {}
@@ -65,12 +68,13 @@ func (h *MentorNoteHandlers) GetMentorNoteByMentorNoteId(c *gin.Context) {}
 // @Produce json
 // @Consume json
 // @Param mentor_note body model.NewMentorNoteDto true "new_mentor_note"
-// @Success 200 {object} model.ResponseMessage
+// @Success 201 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/notes/ [post]
 func (h *MentorNoteHandlers) AddMentorNote(c *gin.Context) {}
 
-// UpdateMentorNoteByMentorNoteId
+// PutMentorNoteByMentorNoteId
 // @Summary update mentor note
 // @Description изменить менторскую заметку
 // @ID update-mentor-note
@@ -81,6 +85,21 @@ func (h *MentorNoteHandlers) AddMentorNote(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/notes/ [put]
+func (h *MentorNoteHandlers) PutMentorNoteByMentorNoteId(c *gin.Context) {}
+
+// UpdateMentorNoteByMentorNoteId
+// @Summary update mentor note by mentor note id
+// @ID update-mentor-note-by-id
+// @Tags mentorNotes
+// @Param id path string true "mentor_note_id"
+// @Param operation_type body model.UpdateMentorNoteDto true "mentor note "
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /mentors/notes/{mentor_note_id} [post]
 func (h *MentorNoteHandlers) UpdateMentorNoteByMentorNoteId(c *gin.Context) {}
 
 // DeleteMentorNoteByMentorNoteId
