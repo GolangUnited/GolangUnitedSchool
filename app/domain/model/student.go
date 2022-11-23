@@ -25,11 +25,6 @@ type StudentCertificateList struct {
 	StudentCertificates []StudentCertificate `json:"student_certificates"`
 }
 
-type StudentCertificatesListDto struct {
-	Metadata                PaginationResponse
-	StudentCertificatesList []StudentCertificate
-}
-
 type StudentHomework struct {
 	ID         int64     `json:"id"`
 	StudentID  int64     `json:"student_id"`
@@ -42,9 +37,4 @@ type StudentHomework struct {
 type StudentHomeworkList struct {
 	Metadata         PaginationResponse `json:"_metadata"`
 	StudentHomeworks []StudentHomework  `json:"student_homeworks"`
-}
-
-type StudentHomeworksListDto struct {
-	MetaData              PaginationResponse
-	StudentsHomeworksList []StudentHomework
 }

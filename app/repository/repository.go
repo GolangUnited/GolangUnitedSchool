@@ -132,4 +132,12 @@ type RepositoryInterface interface {
 	UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error
 	PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error
 	DeleteGroupById(ctx context.Context, id int64) error
+
+	GetProjects(ctx context.Context) ([]model.Project, error)
+	GetProjectsByCourseId(ctx context.Context, courseId int64) ([]model.Project, error)
+	GetProjectsByGroupId(ctx context.Context, groupId int64) ([]model.Project, error)
+	GetProjectById(ctx context.Context, id int64) (*model.Project, error)
+	CreateProject(ctx context.Context, data *model.Project) error
+	UpdateProject(ctx context.Context, id int64, data *model.Project) error
+	DeleteProject(ctx context.Context, id int64) error
 }
