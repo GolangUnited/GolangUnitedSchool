@@ -57,7 +57,7 @@ func (h *OperationLogHandlers) GetOperationLogById(c *gin.Context) {}
 // @ID update-operation-log-by-id
 // @Tags operationLogs
 // @Param id path string true "operation log id"
-// @Param operation log body model.OperationLog true "role"
+// @Param operation_log body model.OperationLog true "role"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -67,11 +67,12 @@ func (h *OperationLogHandlers) GetOperationLogById(c *gin.Context) {}
 // @Router /logs/{id} [post]
 func (h *OperationLogHandlers) UpdateOperationLogById(c *gin.Context) {}
 
+// PutOperationLogById
 // @Summary put a operation log by ID
 // @ID update-operation-log-by-id
 // @Tags operationLogs
 // @Param id path string true "operation log id"
-// @Param operation log body model.OperationLog true "role"
+// @Param operation_log body model.OperationLog true "role"
 // @Param operation_log body model.OperationLog true "role"
 // @Produce json
 // @Consume json

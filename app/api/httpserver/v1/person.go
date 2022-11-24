@@ -58,7 +58,7 @@ func (h *PersonHandlers) AddNewPerson(c *gin.Context) {}
 // @Router /persons/{person_id} [get]
 func (h *PersonHandlers) GetPersonById(c *gin.Context) {}
 
-// UpdatePersonById
+// PutPersonById
 // @Summary update person by id
 // @ID update-person-by-id
 // @Description изменяет данные пользователя с указанным id
@@ -69,7 +69,24 @@ func (h *PersonHandlers) GetPersonById(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /persons/{person_id} [put]
+func (h *PersonHandlers) PutPersonById(c *gin.Context) {}
+
+// UpdatePersonById
+// @Summary update person by person id
+// @Description изменяет пользователя с указанным id, не затрагивая всех полей
+// @ID update-person-by-id
+// @Tags persons
+// @Param id path string true "person_id"
+// @Param update_person body model.UpdatePersonDto true "update_person"
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /persons/{person_id} [post]
 func (h *PersonHandlers) UpdatePersonById(c *gin.Context) {}
 
 // DeletePersonById

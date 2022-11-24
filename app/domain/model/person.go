@@ -28,12 +28,21 @@ type PersonListDto struct {
 }
 
 type NewPersonDto struct {
-	FirsName   string
+	FirstName  string
 	LastName   string
 	Patronymic string
 	Login      string
 	RoleId     string
 	Passwd     string
+}
+
+type UpdatePersonDto struct {
+	FirstName  *string    `json:"first_name" validate:"required,min=2,max=50"`
+	LastName   *string    `json:"last_name" validate:"required,min=2,max=50"`
+	Patronymic *string    `json:"patronymic" validate:"omitempty,min=2,max=50"`
+	Login      *string    `json:"login" validate:"required,ascii,min=2,max=50"`
+	Passwd     *string    `json:"passwd" validate:"required,ascii,min=8,max=20"`
+	UpdatedAt  *time.Time `json:"updated_at" validate:"omitempty"`
 }
 
 func translateError(err error, trans ut.Translator) (errs []error) {

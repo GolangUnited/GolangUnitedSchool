@@ -184,6 +184,22 @@ definitions:
           $ref: '#/definitions/model.GroupContact'
         type: array
     type: object
+  model.GroupContactsUpdateDto:
+    properties:
+      contact_type_id:
+        maximum: 7
+        type: integer
+      contact_value:
+        maxLength: 70
+        minLength: 2
+        type: string
+      group_id:
+        type: integer
+      is_primary:
+        type: boolean
+    required:
+    - is_primary
+    type: object
   model.Homework:
     properties:
       id:
@@ -276,6 +292,13 @@ definitions:
       title:
         type: string
     type: object
+  model.NewCourseStatusDto:
+    properties:
+      title:
+        maxLength: 20
+        minLength: 2
+        type: string
+    type: object
   model.NewMentorNoteDto:
     properties:
       created_at:
@@ -291,7 +314,7 @@ definitions:
     type: object
   model.NewPersonDto:
     properties:
-      firsName:
+      firstName:
         type: string
       lastName:
         type: string
@@ -304,6 +327,11 @@ definitions:
       roleId:
         type: string
     type: object
+  model.NewStudentGroupDto:
+    properties:
+      group_id:
+        type: integer
+    type: object
   model.NewStudentNoteDto:
     properties:
       created_at:
@@ -312,6 +340,10 @@ definitions:
         maxLength: 255
         minLength: 2
         type: string
+      student_id:
+        type: integer
+      student_note_type_id:
+        type: integer
     type: object
   model.NewStudentNoteTypeDto:
     properties:
@@ -412,6 +444,28 @@ definitions:
           $ref: '#/definitions/model.Person'
         type: array
     type: object
+  model.Project:
+    properties:
+      course_id:
+        type: integer
+      description:
+        type: string
+      group_id:
+        type: integer
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  model.ProjectList:
+    properties:
+      _metadata:
+        $ref: '#/definitions/model.PaginationResponse'
+      projects:
+        items:
+          $ref: '#/definitions/model.Project'
+        type: array
+    type: object
   model.ResponseMessage:
     properties:
       id:
@@ -467,15 +521,6 @@ definitions:
           $ref: '#/definitions/model.StudentCertificate'
         type: array
     type: object
-  model.StudentCertificatesListDto:
-    properties:
-      metadata:
-        $ref: '#/definitions/model.PaginationResponse'
-      studentCertificatesList:
-        items:
-          $ref: '#/definitions/model.StudentCertificate'
-        type: array
-    type: object
   model.StudentGroup:
     properties:
       group_id:
@@ -507,11 +552,11 @@ definitions:
       student_id:
         type: integer
     type: object
-  model.StudentHomeworksListDto:
+  model.StudentHomeworkList:
     properties:
-      metaData:
+      _metadata:
         $ref: '#/definitions/model.PaginationResponse'
-      studentsHomeworksList:
+      student_homeworks:
         items:
           $ref: '#/definitions/model.StudentHomework'
         type: array
@@ -565,6 +610,74 @@ definitions:
           $ref: '#/definitions/model.Student'
         type: array
     type: object
+  model.UpdateMentorNoteDto:
+    properties:
+      created_at:
+        type: string
+      mentor_id:
+        type: integer
+      note:
+        maxLength: 255
+        minLength: 2
+        type: string
+      student_id:
+        type: integer
+    type: object
+  model.UpdatePersonDto:
+    properties:
+      first_name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      last_name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      login:
+        maxLength: 50
+        minLength: 2
+        type: string
+      passwd:
+        maxLength: 20
+        minLength: 8
+        type: string
+      patronymic:
+        maxLength: 50
+        minLength: 2
+        type: string
+      updated_at:
+        type: string
+    required:
+    - first_name
+    - last_name
+    - login
+    - passwd
+    type: object
+  model.UpdateStudentGroupDto:
+    properties:
+      group_id:
+        type: integer
+    type: object
+  model.UpdateStudentNoteDto:
+    properties:
+      created_at:
+        type: string
+      note:
+        maxLength: 255
+        minLength: 2
+        type: string
+      student_id:
+        type: integer
+      student_note_type_id:
+        type: integer
+    type: object
+  model.UpdateStudentNoteTypeDto:
+    properties:
+      title:
+        maxLength: 10
+        minLength: 2
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -591,7 +704,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all items in the certificate template list
       tags:
-      - certificates
+      - certificateTemplates
     post:
       description: добавляет новый шаблон сертификата
       operationId: create-certificate-template
@@ -619,7 +732,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new certificate template to the certificate template list
       tags:
-      - courses
+      - certificateTemplates
   /certificate-templates/{id}:
     delete:
       description: удаляет шаблон сертификата с указанным id
@@ -647,7 +760,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete a certificate template by ID
       tags:
-      - courses
+      - certificateTemplates
     get:
       description: возвращает шаблон сертификата с указанным id
       operationId: get-certificate-template-by-id
@@ -674,7 +787,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get a certificate template by ID
       tags:
-      - courses
+      - certificateTemplates
     put:
       description: изменяет существующий щаблон сертификата с указанным id
       operationId: update-certificate-template-by-id
@@ -711,7 +824,7 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update a certificate template by ID
       tags:
-      - courses
+      - certificateTemplates
   /courses:
     get:
       description: возвращает все курсы
@@ -762,6 +875,34 @@ paths:
       summary: add new course to the course list
       tags:
       - courses
+  /courses/{course_id}/certificates:
+    get:
+      description: возвращает сертификаты с указанным id курса
+      operationId: get-student-certificates-by-course-id
+      parameters:
+      - description: course id
+        in: path
+        name: course_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificateList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get certificates by course ID
+      tags:
+      - studentCertificates
   /courses/{course_id}/lectures:
     get:
       description: возвращает все лекции определенного курса
@@ -804,17 +945,49 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
-            $ref: '#/definitions/model.CourseLecture'
-        "404":
-          description: Not Found
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get concrete lecture from course
       tags:
       - courseLectures
+  /courses/{course_id}/projects:
+    get:
+      description: возвращает проекты по указанному id курса
+      operationId: get-projects-by-course-id
+      parameters:
+      - description: course id
+        in: path
+        name: course_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ProjectList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get items in the project list by course ID
+      tags:
+      - projects
   /courses/{id}:
     delete:
       description: удаляет курс с указанным id
@@ -1052,6 +1225,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.CourseStatusesListDto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
@@ -1068,6 +1245,40 @@ paths:
         name: new_course_status
         required: true
         schema:
+          $ref: '#/definitions/model.NewCourseStatusDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new course status
+      tags:
+      - courseStatuses
+  /courses/statuses/{id}:
+    put:
+      description: изменяет статус курса с указанным id с доступом ко всем полям
+      operationId: зге-operation-type-by-id
+      parameters:
+      - description: course_status_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: role
+        in: body
+        name: operation_type
+        required: true
+        schema:
           $ref: '#/definitions/model.CourseStatus'
       produces:
       - application/json
@@ -1076,11 +1287,19 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: add new course status
+      summary: put course status by id
       tags:
       - courseStatuses
   /courses/statuses/{status_id}:
@@ -1098,6 +1317,10 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
         "500":
@@ -1123,6 +1346,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.CourseStatus'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
@@ -1130,7 +1357,7 @@ paths:
       summary: get course status by id
       tags:
       - courseStatuses
-    put:
+    post:
       description: изменяет статус курса с указанным status_id
       operationId: put-course-status
       parameters:
@@ -1139,11 +1366,25 @@ paths:
         name: id
         required: true
         type: string
+      - description: course_status
+        in: body
+        name: update_course_status
+        required: true
+        schema:
+          $ref: '#/definitions/model.NewCourseStatusDto'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
         "500":
@@ -1226,6 +1467,10 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get group contacts by  group id
       tags:
       - groupContacts
@@ -1255,9 +1500,41 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get group contact
       tags:
       - groupContacts
+  /groups/{group_id}/projects:
+    get:
+      description: возвращает проекты по указанному id группы
+      operationId: get-projects-by-group-id
+      parameters:
+      - description: group id
+        in: path
+        name: group_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ProjectList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get items in the project list by group ID
+      tags:
+      - projects
   /groups/{id}:
     delete:
       description: удаляет группу с указанным id
@@ -1397,6 +1674,10 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/model.GroupContactsListDto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
@@ -1460,6 +1741,42 @@ paths:
       summary: delete group contact by id
       tags:
       - groupContacts
+    post:
+      operationId: update-group-contact-by-id
+      parameters:
+      - description: group_contact_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: group_contact
+        in: body
+        name: group_contact
+        required: true
+        schema:
+          $ref: '#/definitions/model.GroupContactsUpdateDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update group contact by Id
+      tags:
+      - groupContacts
     put:
       description: изменяет контакт группы
       operationId: update-group-contact-by-id
@@ -1488,6 +1805,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
         "404":
           description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update group contact
@@ -1915,7 +2236,7 @@ paths:
       - lectures
   /lectures/{lecture_id}/homeworks:
     get:
-      description: возвращает домашнюю работы по указанному id лекции
+      description: возвращает домашние работы по указанному id лекции
       operationId: get-homeworks-by-lecture-id
       parameters:
       - description: lecture id
@@ -2110,7 +2431,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: type
+        name: operation_type
         required: true
         schema:
           $ref: '#/definitions/model.OperationType'
@@ -2287,7 +2608,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: log
+        name: operation_log
         required: true
         schema:
           $ref: '#/definitions/model.OperationLog'
@@ -2323,7 +2644,7 @@ paths:
         type: string
       - description: role
         in: body
-        name: log
+        name: operation_log
         required: true
         schema:
           $ref: '#/definitions/model.OperationLog'
@@ -2559,6 +2880,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.MentorNotesListDto'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
@@ -2588,6 +2913,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.MentorNotesListDto'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
@@ -2622,7 +2951,7 @@ paths:
       - mentors
     put:
       description: изменить пользователя группы "менторы"
-      operationId: гзвфеу-mentor
+      operationId: put-mentor
       parameters:
       - description: mentor_id
         in: path
@@ -2660,6 +2989,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.MentorNotesListDto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
@@ -2681,8 +3014,12 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/model.ResponseMessage'
         "500":
@@ -2738,6 +3075,42 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete mentor note
+      tags:
+      - mentorNotes
+    post:
+      operationId: update-mentor-note-by-id
+      parameters:
+      - description: mentor_note_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'mentor note '
+        in: body
+        name: operation_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateMentorNoteDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update mentor note by mentor note id
       tags:
       - mentorNotes
   /persons:
@@ -2837,6 +3210,43 @@ paths:
       summary: get person by id
       tags:
       - persons
+    post:
+      description: изменяет пользователя с указанным id, не затрагивая всех полей
+      operationId: update-person-by-id
+      parameters:
+      - description: person_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: update_person
+        in: body
+        name: update_person
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdatePersonDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update person by person id
+      tags:
+      - persons
     put:
       description: изменяет данные пользователя с указанным id
       operationId: update-person-by-id
@@ -2865,6 +3275,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
         "404":
           description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update person by id
@@ -3128,6 +3542,144 @@ paths:
       summary: get contact type
       tags:
       - contactTypes
+  /projects:
+    get:
+      description: возвращает все проекты
+      operationId: get-all-projects
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ProjectList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the project list
+      tags:
+      - projects
+    post:
+      description: добавляет проект
+      operationId: create-project
+      parameters:
+      - description: project
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/model.Project'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: add new project to the project list
+      tags:
+      - projects
+  /projects/{id}:
+    delete:
+      description: удалаяет проект с указанным id
+      operationId: delete-project-by-id
+      parameters:
+      - description: project id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete a project by ID
+      tags:
+      - projects
+    get:
+      description: возвращает проект с указанным id
+      operationId: get-project-by-id
+      parameters:
+      - description: project id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Project'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get a project by ID
+      tags:
+      - projects
+    put:
+      description: изменяет проект с указанным id
+      operationId: update-project-by-id
+      parameters:
+      - description: project id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: project
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/model.Project'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update a project by ID
+      tags:
+      - projects
   /roles:
     get:
       description: возвращает все роли
@@ -3308,23 +3860,6 @@ paths:
       summary: put a role by ID
       tags:
       - roles
-  /student-certificates:
-    get:
-      operationId: get-all-student-certificates
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StudentCertificateList'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get all items in the student certificate list
-      tags:
-      - students
   /students:
     get:
       description: возвращает список всех пользователей группы "student"
@@ -3451,6 +3986,7 @@ paths:
       - students
   /students/{student_id}/certificates:
     get:
+      description: возвращает сертификаты с указанным id студента
       operationId: get-student-certificates-by-student-id
       parameters:
       - description: student id
@@ -3475,45 +4011,15 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get items in the student certificate list by student ID
       tags:
-      - students
-  /students/{student_id}/certificates/{certificate_od}:
-    get:
-      description: возвращает сертификат студента с указанным id
-      operationId: get-student-certificate
-      parameters:
-      - description: certificate_id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: student_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StudentCertificate'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get student certificate
-      tags:
-      - students
-      - certificates
+      - studentCertificates
   /students/{student_id}/homeworks:
     get:
-      description: возвращает все домашние работы студента с указанным student_id
-      operationId: get-all-student-homeworks
+      description: возвращает все домашние задания студента с указанным id студента
+      operationId: get-student-homeworks-by-student-id
       parameters:
-      - description: student_id
+      - description: student id
         in: path
-        name: id
+        name: student_id
         required: true
         type: string
       produces:
@@ -3522,41 +4028,16 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.StudentHomeworksListDto'
+            $ref: '#/definitions/model.StudentHomeworkList'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: get contact type
-      tags:
-      - studentHomeworks
-  /students/{student_id}/homeworks/{homework_id}:
-    get:
-      description: возвращает определенную домашку указанного студента
-      operationId: get-student-homework
-      parameters:
-      - description: student_id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: homework_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StudentHomework'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get student's homework
+      summary: get student homeworks by student ID
       tags:
       - studentHomeworks
   /students/{student_id}/notes:
@@ -3578,6 +4059,10 @@ paths:
             $ref: '#/definitions/model.StudentNotesListDto'
         "404":
           description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all student notes by student id
@@ -3642,6 +4127,10 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get concrete student's note from concrete student
       tags:
       - studentNotes
@@ -3649,11 +4138,6 @@ paths:
       description: изменяет заметку студента с указанным id студента
       operationId: update-student-note
       parameters:
-      - description: course id
-        in: path
-        name: id
-        required: true
-        type: string
       - description: student_id
         in: path
         name: id
@@ -3669,7 +4153,7 @@ paths:
         name: student_note
         required: true
         schema:
-          $ref: '#/definitions/model.NewStudentNoteDto'
+          $ref: '#/definitions/model.StudentNote'
       produces:
       - application/json
       responses:
@@ -3685,12 +4169,33 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: update student note
       tags:
       - studentNotes
   /students/certificates:
+    get:
+      description: возвращает все сертификаты
+      operationId: get-all-student-certificates
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificateList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get all items in the student certificate list
+      tags:
+      - studentCertificates
     post:
-      description: добавляет новый сертификат студента
+      description: добавляет новый сертификат
       operationId: add-student-certificate
       parameters:
       - description: certificate
@@ -3706,18 +4211,81 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add student certificate
       tags:
-      - students
-      - certificates
-    put:
-      description: изменяет новый сертификат студента
-      operationId: put-student-certificate
+      - studentCertificates
+  /students/certificates/{id}:
+    delete:
+      description: удаляет сертификат с указанным id
+      operationId: delete-student-certificate-by-id
       parameters:
+      - description: certificate id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: delete student certificate by ID
+      tags:
+      - studentCertificates
+    get:
+      description: возвращает сертификат с указанным id
+      operationId: get-student-certificate-by-id
+      parameters:
+      - description: certificate id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentCertificate'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get student certificate by ID
+      tags:
+      - studentCertificates
+    put:
+      description: изменяет сертификат с указанным id
+      operationId: update-student-certificate-by-id
+      parameters:
+      - description: certificate id
+        in: path
+        name: id
+        required: true
+        type: string
       - description: certificate
         in: body
         name: certificate
@@ -3731,65 +4299,21 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: update student certificate
-      tags:
-      - students
-      - certificates
-  /students/certificates/{certificate_id}:
-    delete:
-      description: удаляет сертификат студента
-      operationId: delete-student-certificate
-      parameters:
-      - description: certificate_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: delete student certificate
+      summary: update student certificate by ID
       tags:
-      - students
-      - certificates
-  /students/certificates/courses/{course_id}:
-    get:
-      description: возвращает сертификаты курса
-      operationId: get-course-certificates
-      parameters:
-      - description: course_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.StudentCertificatesListDto'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get certificates by course
-      tags:
-      - students
-      - certificates
-      - courses
+      - studentCertificates
   /students/groups:
     get:
       description: возвращает список всех студенческих групп
@@ -3807,7 +4331,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get all student groups
       tags:
-      - students
       - studentGroups
     post:
       description: добавляет новую студенческую группу
@@ -3818,7 +4341,7 @@ paths:
         name: student_group
         required: true
         schema:
-          $ref: '#/definitions/model.StudentGroup'
+          $ref: '#/definitions/model.NewStudentGroupDto'
       produces:
       - application/json
       responses:
@@ -3836,7 +4359,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new student group
       tags:
-      - students
       - studentGroups
   /students/groups/{group_id}:
     delete:
@@ -3865,7 +4387,6 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: delete student group by id
       tags:
-      - students
       - studentGroups
     get:
       description: возвращает группу с указанным id
@@ -3889,11 +4410,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: get student group by id
       tags:
-      - students
       - studentGroups
     put:
-      description: изменяет данные студенческой группы
-      operationId: update-student-group-by-id
+      description: изменяет данные студенческой группы с доступом ко всем полям
+      operationId: put-student-group-by-id
       parameters:
       - description: group_id
         in: path
@@ -3923,19 +4443,55 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update student group by group id
       tags:
-      - students
       - studentGroups
-  /students/homeworks:
-    get:
-      description: возвращает все домашние работы всех студентов в виде списка
-      operationId: get-students-homeworks
+  /students/groups/{student_group_id}:
+    post:
+      operationId: update-student-group-by-id
+      parameters:
+      - description: student_group_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: update_student_group
+        in: body
+        name: update_student_group
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateStudentGroupDto'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.StudentHomeworksListDto'
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student group by id
+      tags:
+      - studentGroups
+  /students/homeworks:
+    get:
+      description: возвращает все домашние задания всех студентов в виде списка
+      operationId: get-all-students-homeworks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentHomeworkList'
         "500":
           description: Internal Server Error
           schema:
@@ -3944,34 +4500,10 @@ paths:
       tags:
       - studentHomeworks
     post:
-      description: добавляет новый тип контакта
-      operationId: add-contact-type
+      description: добавляет новое домашнее задание студента
+      operationId: create-student-homework
       parameters:
-      - description: contact_type
-        in: body
-        name: contact_type
-        required: true
-        schema:
-          $ref: '#/definitions/model.NewContactTypeDto'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/model.ResponseMessage'
-      summary: get contact type
-      tags:
-      - studentHomeworks
-    put:
-      description: изменяет домашнюю работу студента
-      operationId: update-student-homework
-      parameters:
-      - description: student_homework
+      - description: student homework
         in: body
         name: student_homework
         required: true
@@ -3984,19 +4516,23 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: update student homework
+      summary: create student homework
       tags:
       - studentHomeworks
-  /students/homeworks/{:contact_type_id}:
+  /students/homeworks/{id}:
     delete:
-      description: удаляет домашнюю работу студента
-      operationId: delete-student-homework
+      description: удаляет домашнее задание студента с указанным id
+      operationId: delete-student-homework-by-id
       parameters:
-      - description: student_homework_id
+      - description: student homework id
         in: path
         name: id
         required: true
@@ -4008,13 +4544,118 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
-      summary: delete student homework
+      summary: delete student homework by ID
       tags:
       - studentHomeworks
+    get:
+      description: возвращает домашнее задание студента с указанным id
+      operationId: get-student-homework-by-id
+      parameters:
+      - description: homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.StudentHomework'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: get student homework by ID
+      tags:
+      - studentHomeworks
+    put:
+      description: изменяет домашнее задание студента с указанным id
+      operationId: update-student-homework-by-id
+      parameters:
+      - description: student homework id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student homework
+        in: body
+        name: student_homework
+        required: true
+        schema:
+          $ref: '#/definitions/model.StudentHomework'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student homework by ID
+      tags:
+      - studentHomeworks
+  /students/notes/{student_id}:
+    post:
+      operationId: update-student-note-by-id
+      parameters:
+      - description: student_note_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_note
+        in: body
+        name: student_note
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateStudentNoteDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student note by Id
+      tags:
+      - studentNotes
   /students/notes/{student_note_id}:
     delete:
       description: удаляет заметку студента с указанным id студента
@@ -4054,6 +4695,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.StudentNoteTypesListDto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
         "500":
           description: Internal Server Error
           schema:
@@ -4087,6 +4732,43 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: add new student type note
+      tags:
+      - studentNoteTypes
+  /students/notes/types/{id}:
+    post:
+      operationId: update-student-note-type-by-id
+      parameters:
+      - description: student_note_type_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student_note_type
+        in: body
+        name: student_note_type
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateStudentNoteTypeDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+      summary: update student note type bu id
       tags:
       - studentNoteTypes
   /students/notes/types/{student_note_type_id}:
@@ -4137,6 +4819,10 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
       summary: get student note type by id
       tags:
       - studentNoteTypes
@@ -4168,6 +4854,10 @@ paths:
             $ref: '#/definitions/model.ResponseMessage'
         "404":
           description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseMessage'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/model.ResponseMessage'
       summary: update student note type

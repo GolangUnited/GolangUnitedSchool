@@ -35,7 +35,7 @@ func (h *HomeworkHandlers) GetHomeworks(c *gin.Context) {
 
 // GetHomeworksByLectureId
 // @Summary get items in the homework list by lecture ID
-// @Description возвращает домашнюю работы по указанному id лекции
+// @Description возвращает домашние работы по указанному id лекции
 // @ID get-homeworks-by-lecture-id
 // @Tags homeworks
 // @Produce json

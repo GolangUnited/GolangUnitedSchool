@@ -25,7 +25,7 @@ func NewCertificateTemplateHandler(
 // @Summary get all items in the certificate template list
 // Description возвращает все доступные шаблоны сертификатов
 // @ID get-all-certificate-templates
-// @Tags certificates
+// @Tags certificateTemplates
 // @Produce json
 // @Success 200 {object} model.CertificateTemplateList
 // @Failure 500 {object} model.ResponseMessage
@@ -37,7 +37,7 @@ func (h *CertificateTemplateHandlers) GetCertificateTemplates(c *gin.Context) {
 // @Summary get a certificate template by ID
 // @Description возвращает шаблон сертификата с указанным id
 // @ID get-certificate-template-by-id
-// @Tags courses
+// @Tags certificateTemplates
 // @Produce json
 // @Param id path string true "certificate template id"
 // @Success 200 {object} model.CertificateTemplate
@@ -51,7 +51,7 @@ func (h *CertificateTemplateHandlers) GetCertificateTemplateById(c *gin.Context)
 // @Summary add new certificate template to the certificate template list
 // @Description добавляет новый шаблон сертификата
 // @ID create-certificate-template
-// @Tags courses
+// @Tags certificateTemplates
 // @Produce json
 // @Consume json
 // @Param certificate_template body model.CertificateTemplate true "certificate template"
@@ -66,7 +66,7 @@ func (h *CertificateTemplateHandlers) AddCertificateTemplate(c *gin.Context) {
 // @Summary update a certificate template by ID
 // @Description изменяет существующий щаблон сертификата с указанным id
 // @ID update-certificate-template-by-id
-// @Tags courses
+// @Tags certificateTemplates
 // @Produce json
 // @Consume json
 // @Param id path string true "certificate template id"
@@ -83,7 +83,7 @@ func (h *CertificateTemplateHandlers) UpdateCertificateTemplate(c *gin.Context) 
 // @Summary delete a certificate template by ID
 // @Description удаляет шаблон сертификата с указанным id
 // @ID delete-certificate-template-by-id
-// @Tags courses
+// @Tags certificateTemplates
 // @Produce json
 // @Param id path string true "certificate template id"
 // @Success 200 {object} model.ResponseMessage

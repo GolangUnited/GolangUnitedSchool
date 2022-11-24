@@ -6,17 +6,18 @@ import (
 )
 
 type RepositoryInterface interface {
-	//Person
-	GetPersons(ctx context.Context) ([]model.Person, error)
+	//Person //
+	GetPersons(ctx context.Context) (model.PersonListDto, error)
 	GetPersonById(ctx context.Context, id int64) (*model.Person, error)
-	AddNewPerson(ctx context.Context, data *model.Person) error
-	UpdatePersonById(ctx context.Context, id int64, data *model.Person) error
+	AddNewPerson(ctx context.Context, data *model.NewPersonDto) error
+	UpdatePersonById(ctx context.Context, id int64, data model.UpdatePersonDto) error
+	PutPersonById(ctx context.Context, id int64, data *model.Person) error
 	DeletePersonById(ctx context.Context, id int64) error
-	//student
-	GetStudents(ctx context.Context) ([]model.Student, error)
+	//student //
+	GetStudents(ctx context.Context) (model.StudentsListDto, error)
 	GetStudentByStudentId(ctx context.Context, id int64) (*model.Student, error)
 	AddStudent(ctx context.Context, data *model.Student) error
-	UpdateStudentByStudentId(ctx context.Context, id int64, data *model.Student) error
+	PutStudentByStudentId(ctx context.Context, id int64, data *model.Student) error
 	DeleteStudentByStudentId(ctx context.Context, id int64) error
 	//mentor
 	GetMentors(ctx context.Context) ([]model.Mentor, error)
@@ -132,4 +133,12 @@ type RepositoryInterface interface {
 	UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error
 	PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error
 	DeleteGroupById(ctx context.Context, id int64) error
+
+	GetProjects(ctx context.Context) ([]model.Project, error)
+	GetProjectsByCourseId(ctx context.Context, courseId int64) ([]model.Project, error)
+	GetProjectsByGroupId(ctx context.Context, groupId int64) ([]model.Project, error)
+	GetProjectById(ctx context.Context, id int64) (*model.Project, error)
+	CreateProject(ctx context.Context, data *model.Project) error
+	UpdateProject(ctx context.Context, id int64, data *model.Project) error
+	DeleteProject(ctx context.Context, id int64) error
 }

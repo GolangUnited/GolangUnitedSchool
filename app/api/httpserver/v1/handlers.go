@@ -22,6 +22,8 @@ type Handlers struct {
 	Mentor              *MentorHandlers
 	MentorNote          *MentorNoteHandlers
 	GroupContact        *GroupContactHandlers
+	Group               *GroupHandlers
+	Project             *ProjectHandlers
 }
 
 func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
@@ -43,5 +45,7 @@ func InitHandlers(lg logger.Logger, u usecase.Usecases) *Handlers {
 		GroupContact:        NewGroupContactHandler(lg, u.GroupContact),
 		StudentNoteType:     NewStudentNoteTypeHandler(lg, u.StudentNoteType),
 		MentorNote:          NewMentorNoteHandler(lg, u.MentorNote),
+		Group:               NewGroup(lg, u.Group),
+		Project:             NewProjectHandler(lg, u.Project),
 	}
 }

@@ -41,6 +41,7 @@ func NewRouter(
 	certificateTemplateRouter(api, handlers.CertificateTemplate)
 	studentHomeworkRouter(api, handlers.StudentHomework)
 	studentCertificateRouter(api, handlers.StudentCertificate)
+	projectRouter(api, handlers.Project)
 
 	return router
 }
@@ -84,7 +85,7 @@ func studentRouter(
 		student.GET("/:student_id", h.Student.GetStudentByStudentId)
 		student.DELETE("/:student_id", h.Student.DeleteStudentByStudentId)
 		student.POST("", h.Student.AddStudent)
-		student.PUT("/:student_id", h.Student.UpdateStudentByStudentId)
+		student.PUT("/:student_id", h.Student.PutStudentByStudentId)
 
 	}
 }
@@ -99,7 +100,7 @@ func mentorRouter(
 		mentor.GET("/:mentor_id", h.Mentor.GetMentorByMentorId)
 		mentor.POST("", h.Mentor.AddMentor)
 		mentor.DELETE("/:mentor_id", h.Mentor.DeleteMentorByMentorId)
-		mentor.PUT("/:mentor_id", h.Mentor.UpdateMentorByMentorId)
+		mentor.PUT("/:mentor_id", h.Mentor.PutMentorByMentorId)
 
 	}
 }
@@ -129,7 +130,7 @@ func studentNoteRouter(
 		studentNote.GET("/:student_id", h.StudentNote.GetStudentNotesByStudentId)
 		// studentNote.GET("/:student_note_id", h.StudentNote.GetStudentNoteByStudentNoteId)
 		studentNote.POST("", h.StudentNote.AddStudentNote)
-		studentNote.PUT("/:student_note_id", h.StudentNote.UpdateStudentNoteByStudentNoteId)
+		studentNote.PUT("/:student_note_id", h.StudentNote.PutStudentNoteByStudentNoteId)
 		studentNote.DELETE("/:student_note_id", h.StudentNote.DeleteStudentNote)
 	}
 }
@@ -254,7 +255,7 @@ func studentCertificateRouter(
 	api *gin.RouterGroup,
 	h *v1.StudentCertificateHandlers,
 ) {
-	studentCertificate := api.Group("/student-certificates")
+	studentCertificate := api.Group("/students/certificates")
 	{
 		studentCertificate.GET("", h.GetStudentCertificates)
 		studentCertificate.GET("/:student_certificate_id", h.GetStudentCertificateById)
@@ -272,7 +273,7 @@ func studentHomeworkRouter(
 	api *gin.RouterGroup,
 	h *v1.StudentHomeworkHandlers,
 ) {
-	studentHomework := api.Group("/student-homeworks")
+	studentHomework := api.Group("/students/homeworks")
 	{
 		studentHomework.GET("", h.GetStudentHomeworks)
 		studentHomework.GET("/:student_homework_id", h.GetStudentHomeworkById)
@@ -282,4 +283,32 @@ func studentHomeworkRouter(
 	}
 
 	api.GET("/students/:student_id/homeworks", h.GetStudentHomeworksByStudentId)
+}
+
+func groupRouter(
+	api *gin.RouterGroup,
+	h *v1.GroupHandlers,
+) {
+	Group := api.Group("/groups")
+	{
+		Group.GET("")
+	}
+}
+
+func projectRouter(
+	api *gin.RouterGroup,
+	h *v1.ProjectHandlers,
+) {
+	studentHomework := api.Group("/projects")
+	{
+		studentHomework.GET("", h.GetProjects)
+		studentHomework.GET("/:project_id", h.GetProjectById)
+		studentHomework.POST("", h.CreateProject)
+		studentHomework.PUT("/:project_id", h.UpdateProject)
+		studentHomework.DELETE("/:project_id", h.DeleteProject)
+	}
+
+	api.GET("/courses/:course_id/projects", h.GetProjectsByCourseId)
+
+	api.GET("/groups/:group_id/projects", h.GetProjectsByGroupId)
 }
