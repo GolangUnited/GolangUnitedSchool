@@ -34,6 +34,7 @@ type Usecases struct {
 	Interview           InterviewUsecaseInterface
 	StudentNoteType     StudentNoteUseCaseInterface
 	MentorNote          MentorNoteUseCaseInterface
+	Project             ProjectUsecaseInterface
 }
 
 func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecases {
@@ -54,6 +55,7 @@ func InitUsecases(lg logger.Logger, repo repository.RepositoryInterface) *Usecas
 		GroupContact:        group.NewGroupContact(lg, repo),
 		Group:               group.NewGroup(lg, repo),
 		Interview:           interview.NewInterviewUsecase(lg, repo),
+		Project:             course.NewProject(lg, repo),
 	}
 }
 
@@ -162,4 +164,14 @@ type InterviewUsecaseInterface interface {
 	AddInterview(context.Context, *model.Interview) (int64, error)
 	UpdateInterviewById(context.Context, int64, *model.Interview) error
 	DeleteInterviewById(context.Context, int64) error
+}
+
+type ProjectUsecaseInterface interface {
+	GetProjects(ctx context.Context) ([]model.Project, error)
+	GetProjectsByCourseId(ctx context.Context, courseId int64) ([]model.Project, error)
+	GetProjectsByGroupId(ctx context.Context, groupId int64) ([]model.Project, error)
+	GetProjectById(ctx context.Context, id int64) (*model.Project, error)
+	CreateProject(ctx context.Context, data *model.Project) error
+	UpdateProject(ctx context.Context, id int64, data *model.Project) error
+	DeleteProject(ctx context.Context, id int64) error
 }

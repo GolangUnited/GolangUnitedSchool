@@ -23,19 +23,21 @@ func NewStudentCertificateHandler(
 
 // GetStudentCertificates
 // @Summary get all items in the student certificate list
+// @Description возвращает все сертификаты
 // @ID get-all-student-certificates
-// @Tags students
+// @Tags studentCertificates
 // @Produce json
 // @Success 200 {object} model.StudentCertificateList
 // @Failure 500 {object} model.ResponseMessage
-// @Router /student-certificates [get]
+// @Router /students/certificates [get]
 func (h *StudentCertificateHandlers) GetStudentCertificates(c *gin.Context) {
 }
 
 // GetStudentCertificatesByStudentId
 // @Summary get items in the student certificate list by student ID
+// @Description возвращает сертификаты с указанным id студента
 // @ID get-student-certificates-by-student-id
-// @Tags students
+// @Tags studentCertificates
 // @Produce json
 // @Param student_id path string true "student id"
 // @Success 200 {object} model.StudentCertificateList
@@ -46,67 +48,75 @@ func (h *StudentCertificateHandlers) GetStudentCertificatesByStudentId(c *gin.Co
 }
 
 // GetStudentCertificatesByCourseId
-// @Summary get certificates by course
-// @ID get-course-certificates
-// @Description возвращает сертификаты курса
-// @Param id path string true "course_id"
-// @Tags students, certificates, courses
+// @Summary get certificates by course ID
+// @Description возвращает сертификаты с указанным id курса
+// @ID get-student-certificates-by-course-id
+// @Tags studentCertificates
 // @Produce json
-// @Success 200 {object} model.StudentCertificatesListDto
+// @Param course_id path string true "course id"
+// @Success 200 {object} model.StudentCertificateList
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/certificates/courses/{course_id} [get] ///
+// @Router /courses/{course_id}/certificates [get]
 func (h *StudentCertificateHandlers) GetStudentCertificatesByCourseId(c *gin.Context) {
 }
 
 // GetStudentCertificateById
-// @Summary get student certificate
-// @ID get-student-certificate
-// @Description возвращает сертификат студента с указанным id
-// @Param id path string true "certificate_id"
-// @Param id path string true "student_id"
-// @Tags students, certificates
+// @Summary get student certificate by ID
+// @ID get-student-certificate-by-id
+// @Description возвращает сертификат с указанным id
+// @Tags studentCertificates
 // @Produce json
+// @Param id path string true "certificate id"
 // @Success 200 {object} model.StudentCertificate
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/{student_id}/certificates/{certificate_od} [get]
+// @Router /students/certificates/{id} [get]
 func (h *StudentCertificateHandlers) GetStudentCertificateById(c *gin.Context) {
 }
 
 // AddStudentCertificate
 // @Summary add student certificate
-// @Description добавляет новый сертификат студента
+// @Description добавляет новый сертификат
 // @ID add-student-certificate
-// @Param certificate body model.StudentCertificate true "certificate"
-// @Tags students, certificates
+// @Tags studentCertificates
 // @Produce json
+// @Consume json
+// @Param certificate body model.StudentCertificate true "certificate"
 // @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /students/certificates [post]
 func (h *StudentCertificateHandlers) AddStudentCertificate(c *gin.Context) {
 }
 
 // UpdateStudentCertificate
-// @Summary update student certificate
-// @Description изменяет новый сертификат студента
-// @ID put-student-certificate
-// @Param certificate body model.StudentCertificate true "certificate"
-// @Tags students, certificates
+// @Summary update student certificate by ID
+// @Description изменяет сертификат с указанным id
+// @ID update-student-certificate-by-id
+// @Tags studentCertificates
 // @Produce json
+// @Consume json
+// @Param id path string true "certificate id"
+// @Param certificate body model.StudentCertificate true "certificate"
 // @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/certificates [put]
+// @Router /students/certificates/{id} [put]
 func (h *StudentCertificateHandlers) UpdateStudentCertificate(c *gin.Context) {
 }
 
 // DeleteStudentCertificate
-// @Summary delete student certificate
-// @Description удаляет сертификат студента
-// @ID delete-student-certificate
-// @Param id path string true "certificate_id"
-// @Tags students, certificates
+// @Summary delete student certificate by ID
+// @Description удаляет сертификат с указанным id
+// @ID delete-student-certificate-by-id
+// @Tags studentCertificates
 // @Produce json
+// @Param id path string true "certificate id"
 // @Success 200 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/certificates/{certificate_id} [delete]
+// @Router /students/certificates/{id} [delete]
 func (h *StudentCertificateHandlers) DeleteStudentCertificate(c *gin.Context) {
 }
