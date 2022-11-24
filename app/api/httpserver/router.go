@@ -77,7 +77,7 @@ func studentRouter(
 		student.GET("/:student_id", h.Student.GetStudentByStudentId)
 		student.DELETE("/:student_id", h.Student.DeleteStudentByStudentId)
 		student.POST("", h.Student.AddStudent)
-		student.PUT("/:student_id", h.Student.UpdateStudentByStudentId)
+		student.PUT("/:student_id", h.Student.PutStudentByStudentId)
 
 	}
 }
@@ -92,7 +92,7 @@ func mentorRouter(
 		mentor.GET("/:mentor_id", h.Mentor.GetMentorByMentorId)
 		mentor.POST("", h.Mentor.AddMentor)
 		mentor.DELETE("/:mentor_id", h.Mentor.DeleteMentorByMentorId)
-		mentor.PUT("/:mentor_id", h.Mentor.UpdateMentorByMentorId)
+		mentor.PUT("/:mentor_id", h.Mentor.PutMentorByMentorId)
 
 	}
 }
@@ -122,7 +122,7 @@ func studentNoteRouter(
 		studentNote.GET("/:student_id", h.StudentNote.GetStudentNotesByStudentId)
 		// studentNote.GET("/:student_note_id", h.StudentNote.GetStudentNoteByStudentNoteId)
 		studentNote.POST("", h.StudentNote.AddStudentNote)
-		studentNote.PUT("/:student_note_id", h.StudentNote.UpdateStudentNoteByStudentNoteId)
+		studentNote.PUT("/:student_note_id", h.StudentNote.PutStudentNoteByStudentNoteId)
 		studentNote.DELETE("/:student_note_id", h.StudentNote.DeleteStudentNote)
 	}
 }
@@ -275,4 +275,14 @@ func studentHomeworkRouter(
 	}
 
 	api.GET("/students/:student_id/homeworks", h.GetStudentHomeworksByStudentId)
+}
+
+func GroupHandler(
+	api *gin.RouterGroup,
+	h *v1.GroupHandlers,
+) {
+	Group := api.Group("/groups")
+	{
+		Group.GET("")
+	}
 }
