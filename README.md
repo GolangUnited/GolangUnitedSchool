@@ -38,7 +38,13 @@
 * to see swagger documentations 
   go run cmd/missionPossible/main.go 
   [GET] http://localhost:8080/docs/index.html
-  
+
 * to get offline html analog of swagger:
     - npm install -g redoc-cli
     - in docs dir: redoc-cli bundle -o index.html swagger.json
+
+* to build and upload to AWS 
+    - GOOS=linux GOARCH=amd64 go build -o bin/application cmd/missionPossible/main.go
+    - 7z a eb.zip bin/ # we deploy just binary 
+     AWS 
+    - then upload zip archive into AWS elastic beanstalk # 
