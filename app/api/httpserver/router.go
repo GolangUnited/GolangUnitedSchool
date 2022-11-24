@@ -278,8 +278,7 @@ func studentHomeworkRouter(
 	api.GET("/students/:student_id/homeworks", h.GetStudentHomeworksByStudentId)
 }
 
-<<<<<<< HEAD
-func GroupHandler(
+func groupRouter(
 	api *gin.RouterGroup,
 	h *v1.GroupHandlers,
 ) {
@@ -287,7 +286,8 @@ func GroupHandler(
 	{
 		Group.GET("")
 	}
-=======
+}
+
 func projectRouter(
 	api *gin.RouterGroup,
 	h *v1.ProjectHandlers,
@@ -304,5 +304,4 @@ func projectRouter(
 	api.GET("/courses/:course_id/projects", h.GetProjectsByCourseId)
 
 	api.GET("/groups/:group_id/projects", h.GetProjectsByGroupId)
->>>>>>> develop_mri
 }
