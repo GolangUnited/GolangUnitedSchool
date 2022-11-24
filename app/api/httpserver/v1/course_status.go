@@ -28,6 +28,7 @@ func NewCourseStatusHandler(
 // @Tags courseStatuses
 // @Produce json
 // @Success 200 {object} model.CourseStatusesListDto
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /courses/statuses [get]
 func (h *CourseStatusHandlers) GetCourseStatuses(c *gin.Context) {}
@@ -40,6 +41,7 @@ func (h *CourseStatusHandlers) GetCourseStatuses(c *gin.Context) {}
 // @Produce json
 // @Param id path string true "status_id"
 // @Success 200 {object} model.CourseStatus
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /courses/statuses/{status_id} [get]
 func (h *CourseStatusHandlers) GetCourseStatusById(c *gin.Context) {}
@@ -50,8 +52,9 @@ func (h *CourseStatusHandlers) GetCourseStatusById(c *gin.Context) {}
 // @ID add-course-status
 // @Tags courseStatuses
 // @Produce json
-// @Param new_course_status body model.CourseStatus true "new_course_status"
-// @Success 200 {object} model.ResponseMessage
+// @Param new_course_status body model.NewCourseStatusDto true "new_course_status"
+// @Success 201 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /courses/statuses [post]
 func (h *CourseStatusHandlers) AddCourseStatus(c *gin.Context) {}
@@ -63,10 +66,29 @@ func (h *CourseStatusHandlers) AddCourseStatus(c *gin.Context) {}
 // @Tags courseStatuses
 // @Produce json
 // @Param id path string true "status_id"
+// @Param update_course_status body model.NewCourseStatusDto true "course_status"
 // @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /courses/statuses/{status_id} [put]
+// @Router /courses/statuses/{status_id} [post]
 func (h *CourseStatusHandlers) UpdateCourseStatusById(c *gin.Context) {}
+
+// PutCourseStatusById
+// @Summary put course status by id
+// @Description изменяет статус курса с указанным id с доступом ко всем полям
+// @ID зге-operation-type-by-id
+// @Tags courseStatuses
+// @Param id path string true "course_status_id"
+// @Param operation_type body model.CourseStatus true "role"
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /courses/statuses/{id} [put]
+func (h *CourseStatusHandlers) PutCourseStatusById(c *gin.Context) {}
 
 // DeleteCourseStatusById
 // @Summary delete course status
@@ -76,6 +98,7 @@ func (h *CourseStatusHandlers) UpdateCourseStatusById(c *gin.Context) {}
 // @Produce json
 // @Param id path string true "status_id"
 // @Success 200 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /courses/statuses/{status_id} [delete]
 func (h *CourseStatusHandlers) DeleteCourseStatusById(c *gin.Context) {}

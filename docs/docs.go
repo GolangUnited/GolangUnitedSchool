@@ -526,6 +526,12 @@ var doc = `{
                             "$ref": "#/definitions/model.CourseStatusesListDto"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -551,6 +557,57 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
+                            "$ref": "#/definitions/model.NewCourseStatusDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/courses/statuses/{id}": {
+            "put": {
+                "description": "изменяет статус курса с указанным id с доступом ко всем полям",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "courseStatuses"
+                ],
+                "summary": "put course status by id",
+                "operationId": "зге-operation-type-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "course_status_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "role",
+                        "name": "operation_type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
                             "$ref": "#/definitions/model.CourseStatus"
                         }
                     }
@@ -558,6 +615,18 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -598,6 +667,12 @@ var doc = `{
                             "$ref": "#/definitions/model.CourseStatus"
                         }
                     },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -606,7 +681,7 @@ var doc = `{
                     }
                 }
             },
-            "put": {
+            "post": {
                 "description": "изменяет статус курса с указанным status_id",
                 "produces": [
                     "application/json"
@@ -623,11 +698,32 @@ var doc = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "course_status",
+                        "name": "update_course_status",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.NewCourseStatusDto"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -662,6 +758,12 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -739,14 +841,20 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/model.CourseLecture"
+                            "$ref": "#/definitions/model.ResponseMessage"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -987,6 +1095,12 @@ var doc = `{
                             "$ref": "#/definitions/model.GroupContactsListDto"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -1085,6 +1199,66 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "groupContacts"
+                ],
+                "summary": "update group contact by Id",
+                "operationId": "update-group-contact-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "group_contact_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "group_contact",
+                        "name": "group_contact",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.GroupContactsUpdateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
                     }
                 }
             },
@@ -1161,6 +1335,12 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
                     }
                 }
             }
@@ -1201,6 +1381,12 @@ var doc = `{
                     },
                     "404": {
                         "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -2339,7 +2525,7 @@ var doc = `{
                     },
                     {
                         "description": "role",
-                        "name": "type",
+                        "name": "operation_type",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -2738,7 +2924,7 @@ var doc = `{
                     },
                     {
                         "description": "role",
-                        "name": "log",
+                        "name": "operation_log",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -2802,7 +2988,7 @@ var doc = `{
                     },
                     {
                         "description": "role",
-                        "name": "log",
+                        "name": "operation_log",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -2923,6 +3109,12 @@ var doc = `{
                             "$ref": "#/definitions/model.MentorNotesListDto"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -2991,8 +3183,14 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -3007,6 +3205,60 @@ var doc = `{
             }
         },
         "/mentors/notes/{mentor_note_id}": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentorNotes"
+                ],
+                "summary": "update mentor note by mentor note id",
+                "operationId": "update-mentor-note-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mentor_note_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "mentor note ",
+                        "name": "operation_type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateMentorNoteDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
             "delete": {
                 "description": "удалить заметку ментора",
                 "produces": [
@@ -3130,6 +3382,12 @@ var doc = `{
                             "$ref": "#/definitions/model.MentorNotesListDto"
                         }
                     },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -3173,6 +3431,12 @@ var doc = `{
                             "$ref": "#/definitions/model.MentorNotesListDto"
                         }
                     },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -3192,7 +3456,7 @@ var doc = `{
                     "mentors"
                 ],
                 "summary": "update mentor by mentor id",
-                "operationId": "гзвфеу-mentor",
+                "operationId": "put-mentor",
                 "parameters": [
                     {
                         "type": "string",
@@ -3716,6 +3980,67 @@ var doc = `{
                     },
                     "404": {
                         "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "изменяет пользователя с указанным id, не затрагивая всех полей",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "persons"
+                ],
+                "summary": "update person by person id",
+                "operationId": "update-person-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "update_person",
+                        "name": "update_person",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdatePersonDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -4322,7 +4647,6 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
                     "studentGroups"
                 ],
                 "summary": "get all student groups",
@@ -4348,7 +4672,6 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
                     "studentGroups"
                 ],
                 "summary": "add new student group",
@@ -4360,7 +4683,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.StudentGroup"
+                            "$ref": "#/definitions/model.NewStudentGroupDto"
                         }
                     }
                 ],
@@ -4393,7 +4716,6 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
                     "studentGroups"
                 ],
                 "summary": "get student group by id",
@@ -4423,16 +4745,15 @@ var doc = `{
                 }
             },
             "put": {
-                "description": "изменяет данные студенческой группы",
+                "description": "изменяет данные студенческой группы с доступом ко всем полям",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "students",
                     "studentGroups"
                 ],
                 "summary": "update student group by group id",
-                "operationId": "update-student-group-by-id",
+                "operationId": "put-student-group-by-id",
                 "parameters": [
                     {
                         "type": "string",
@@ -4478,7 +4799,6 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "students",
                     "studentGroups"
                 ],
                 "summary": "delete student group by id",
@@ -4495,6 +4815,62 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/groups/{student_group_id}": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "studentGroups"
+                ],
+                "summary": "update student group by id",
+                "operationId": "update-student-group-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_group_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "update_student_group",
+                        "name": "update_student_group",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateStudentGroupDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -4667,6 +5043,12 @@ var doc = `{
                             "$ref": "#/definitions/model.StudentNoteTypesListDto"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -4718,6 +5100,62 @@ var doc = `{
                 }
             }
         },
+        "/students/notes/types/{id}": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "studentNoteTypes"
+                ],
+                "summary": "update student note type bu id",
+                "operationId": "update-student-note-type-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_note_type_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "student_note_type",
+                        "name": "student_note_type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateStudentNoteTypeDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/students/notes/types/{student_note_type_id}": {
             "get": {
                 "description": "возвращает тип студенческой заметки с указанным id",
@@ -4747,6 +5185,12 @@ var doc = `{
                     },
                     "404": {
                         "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -4799,6 +5243,12 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
                     }
                 }
             },
@@ -4824,6 +5274,62 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/notes/{student_id}": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "studentNotes"
+                ],
+                "summary": "update student note by Id",
+                "operationId": "update-student-note-by-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_note_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "student_note",
+                        "name": "student_note",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateStudentNoteDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -5239,6 +5745,12 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
                     }
                 }
             },
@@ -5331,6 +5843,12 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
                     }
                 }
             },
@@ -5345,13 +5863,6 @@ var doc = `{
                 "summary": "update student note",
                 "operationId": "update-student-note",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "course id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
                     {
                         "type": "string",
                         "description": "student_id",
@@ -5372,7 +5883,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.NewStudentNoteDto"
+                            "$ref": "#/definitions/model.StudentNote"
                         }
                     }
                 ],
@@ -5391,6 +5902,12 @@ var doc = `{
                     },
                     "404": {
                         "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }
@@ -5680,6 +6197,29 @@ var doc = `{
                 }
             }
         },
+        "model.GroupContactsUpdateDto": {
+            "type": "object",
+            "required": [
+                "is_primary"
+            ],
+            "properties": {
+                "contact_type_id": {
+                    "type": "integer",
+                    "maximum": 7
+                },
+                "contact_value": {
+                    "type": "string",
+                    "maxLength": 70,
+                    "minLength": 2
+                },
+                "group_id": {
+                    "type": "integer"
+                },
+                "is_primary": {
+                    "type": "boolean"
+                }
+            }
+        },
         "model.Homework": {
             "type": "object",
             "properties": {
@@ -5822,6 +6362,16 @@ var doc = `{
                 }
             }
         },
+        "model.NewCourseStatusDto": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 2
+                }
+            }
+        },
         "model.NewMentorNoteDto": {
             "type": "object",
             "properties": {
@@ -5844,7 +6394,7 @@ var doc = `{
         "model.NewPersonDto": {
             "type": "object",
             "properties": {
-                "firsName": {
+                "firstName": {
                     "type": "string"
                 },
                 "lastName": {
@@ -5864,6 +6414,14 @@ var doc = `{
                 }
             }
         },
+        "model.NewStudentGroupDto": {
+            "type": "object",
+            "properties": {
+                "group_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "model.NewStudentNoteDto": {
             "type": "object",
             "properties": {
@@ -5874,6 +6432,12 @@ var doc = `{
                     "type": "string",
                     "maxLength": 255,
                     "minLength": 2
+                },
+                "student_id": {
+                    "type": "integer"
+                },
+                "student_note_type_id": {
+                    "type": "integer"
                 }
             }
         },
@@ -6252,6 +6816,101 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/model.Student"
                     }
+                }
+            }
+        },
+        "model.UpdateMentorNoteDto": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "mentor_id": {
+                    "type": "integer"
+                },
+                "note": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
+                },
+                "student_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdatePersonDto": {
+            "type": "object",
+            "required": [
+                "first_name",
+                "last_name",
+                "login",
+                "passwd"
+            ],
+            "properties": {
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "login": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "passwd": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 8
+                },
+                "patronymic": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 2
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateStudentGroupDto": {
+            "type": "object",
+            "properties": {
+                "group_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateStudentNoteDto": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
+                },
+                "student_id": {
+                    "type": "integer"
+                },
+                "student_note_type_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateStudentNoteTypeDto": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "maxLength": 10,
+                    "minLength": 2
                 }
             }
         }

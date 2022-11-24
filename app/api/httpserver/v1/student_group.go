@@ -25,7 +25,7 @@ func NewStudentGroupHandler(
 // @Summary get all student groups
 // @Description возвращает список всех студенческих групп
 // @ID get-student-groups
-// @Tags students, studentGroups
+// @Tags studentGroups
 // @Produce json
 // @Success 200 {object} model.StudentGroupListDto
 // @Failure 500 {object} model.ResponseMessage
@@ -36,7 +36,7 @@ func (h *StudentGroupHandlers) GetStudentGroups(c *gin.Context) {}
 // @Summary get student group by id
 // @Description возвращает группу с указанным id
 // @ID get_student_group_by_id
-// @Tags students, studentGroups
+// @Tags studentGroups
 // @Produce json
 // @Param id path string true "group_id"
 // @Success 200 {object} model.StudentGroup
@@ -48,21 +48,21 @@ func (h *StudentGroupHandlers) GetStudentGroupById(c *gin.Context) {}
 // @Summary add new student group
 // @Description добавляет новую студенческую группу
 // @ID add-student-group
-// @Tags students, studentGroups
+// @Tags studentGroups
 // @Produce json
 // @Consume json
-// @Param student_group body model.StudentGroup true "student_group"
+// @Param student_group body model.NewStudentGroupDto true "student_group"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /students/groups [post]
 func (h *StudentGroupHandlers) AddStudentGroup(c *gin.Context) {}
 
-// UpdateStudentGroupById
+// PutStudentGroupById
 // @Summary update student group by group id
-// @Description изменяет данные студенческой группы
-// @ID update-student-group-by-id
-// @Tags students, studentGroups
+// @Description изменяет данные студенческой группы с доступом ко всем полям
+// @ID put-student-group-by-id
+// @Tags studentGroups
 // @Param id path string true "group_id"
 // @Param student_group body model.StudentGroup true "student_group"
 // @Produce json
@@ -71,13 +71,28 @@ func (h *StudentGroupHandlers) AddStudentGroup(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Router /students/groups/{group_id} [put]
+func (h *StudentGroupHandlers) PutStudentGroupById(c *gin.Context) {}
+
+// UpdateStudentGroupById
+// @Summary update student group by id
+// @ID update-student-group-by-id
+// @Tags studentGroups
+// @Param id path string true "student_group_id"
+// @Param update_student_group body model.UpdateStudentGroupDto true "update_student_group"
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /students/groups/{student_group_id} [post]
 func (h *StudentGroupHandlers) UpdateStudentGroupById(c *gin.Context) {}
 
 // DeleteStudentGroupById
 // @Summary delete student group by id
 // @Description удаляет студенческую группу с указанным id
 // @ID delete-student-group-by-id
-// @Tags students, studentGroups
+// @Tags studentGroups
 // @Param id path string true "group_id"
 // @Produce json
 // @Success 200 {object} model.ResponseMessage

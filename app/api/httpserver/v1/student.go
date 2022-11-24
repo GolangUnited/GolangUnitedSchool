@@ -48,7 +48,7 @@ func (h *StudentHandlers) AddStudent(c *gin.Context) {}
 // @Router /students/{student_id} [delete]
 func (h *StudentHandlers) DeleteStudentByStudentId(c *gin.Context) {}
 
-// UpdateStudentByStudentId
+// PutStudentByStudentId
 // @Summary update student by student id
 // @Description пока не слишком понятно, нужен ли этот хендлер
 // @ID update-student-by-student-id
@@ -60,7 +60,7 @@ func (h *StudentHandlers) DeleteStudentByStudentId(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Router /students/{student_id} [put]
-func (h *StudentHandlers) UpdateStudentByStudentId(c *gin.Context) {}
+func (h *StudentHandlers) PutStudentByStudentId(c *gin.Context) {}
 
 // GetStudentByStudentId
 // @Summary get student by student id

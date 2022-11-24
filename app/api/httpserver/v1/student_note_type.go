@@ -28,6 +28,7 @@ func NewStudentNoteTypeHandler(
 // @Tags studentNoteTypes
 // @Produce json
 // @Success 200 {object} model.StudentNoteTypesListDto
+// @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /students/notes/types [get]
 func (h *StudentNoteTypeHandlers) GetStudentNoteTypes(c *gin.Context) {}
@@ -41,6 +42,7 @@ func (h *StudentNoteTypeHandlers) GetStudentNoteTypes(c *gin.Context) {}
 // @Param id path string true "Student_note_type_id"
 // @Success 200 {object} model.StudentNoteType
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /students/notes/types/{student_note_type_id} [get]
 func (h *StudentNoteTypeHandlers) GetStudentNoteTypeById(c *gin.Context) {}
 
@@ -58,7 +60,7 @@ func (h *StudentNoteTypeHandlers) GetStudentNoteTypeById(c *gin.Context) {}
 // @Router /students/notes/types [post]
 func (h *StudentNoteTypeHandlers) AddStudentNoteType(c *gin.Context) {}
 
-// UpdateStudentNoteTypeById
+// PutStudentNoteTypeById
 // @Summary update student note type
 // @Description изменяет тип студенческой заметки с указанным id
 // @ID update-student-note-type
@@ -70,7 +72,23 @@ func (h *StudentNoteTypeHandlers) AddStudentNoteType(c *gin.Context) {}
 // @Success 200 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
 // @Router /students/notes/types/{student_note_type_id} [put]
+func (h *StudentNoteTypeHandlers) PutStudentNoteTypeById(c *gin.Context) {}
+
+// UpdateStudentNoteTypeById
+// @Summary update student note type bu id
+// @ID update-student-note-type-by-id
+// @Tags studentNoteTypes
+// @Param id path string true "student_note_type_id"
+// @Param student_note_type body model.UpdateStudentNoteTypeDto true "student_note_type"
+// @Produce json
+// @Consume json
+// @Success 200 {object} model.ResponseMessage
+// @Failure 400 {object} model.ResponseMessage
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /students/notes/types/{id} [post]
 func (h *StudentNoteTypeHandlers) UpdateStudentNoteTypeById(c *gin.Context) {}
 
 // DeleteStudentNoteTypeById
