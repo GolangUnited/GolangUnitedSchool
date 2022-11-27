@@ -70,7 +70,7 @@ func (h *MentorHandlers) PutMentorByMentorId(c *gin.Context) {}
 
 // DeleteMentorByMentorId
 // @Summary delete mentor by mentor id
-// @Description удалить пользователя из группы менторов
+// @Description удалить пользователя из группы менторов //
 // @ID delete-mentor-by-id
 // @Tags mentors
 // @Produce json
