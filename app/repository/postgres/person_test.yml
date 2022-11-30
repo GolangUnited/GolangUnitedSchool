@@ -1,0 +1,25 @@
+conf:
+  setup:
+    requests:
+      - request: CREATE
+          TABLE person (
+          "id" serial NOT NULL,
+          "first_name" VARCHAR(255) NOT NULL,
+          "last_name" VARCHAR(255) NOT NULL,
+          "patronymic" VARCHAR(255) NULL,
+          "login" VARCHAR(255) NOT NULL unique ,
+          "role_id" integer NOT NULL,
+          "passwd" VARCHAR(255) NOT NULL,
+          "updated_at" TIMESTAMP NOT NULL default current_timestamp,
+          "deleted" BOOLEAN NOT NULL default false,
+          CONSTRAINT "person_pk" PRIMARY KEY ("id")
+          );
+      - request: INSERT
+          INTO person
+          (first_name, last_name, patronymic, login, role_id, passwd, deleted, updated_at) VALUES
+          ('Vasiliy', 'Vasiliev', 'Vasilievich', 'vasya', 3, '12345678', 'false', '2006-01-02T15:04:05Z07:00'),
+          ('Petr', 'Petrov', 'Petrovich', 'petya', 3, '12345678', 'false', '2006-01-03T15:04:05Z07:00'),
+          ('Aleksandr', 'Aleksandrov', 'Aleksandrovich', 'sanya', 3, '12345678', 'false', '2006-01-03T15:04:05Z07:00'),;
+  teardown:
+    requests:
+      - request: DROP TABLE person CASCADE;
