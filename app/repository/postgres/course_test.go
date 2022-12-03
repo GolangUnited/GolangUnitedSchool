@@ -41,7 +41,7 @@ func (s *CourseTestSuite) SetupSuite() {
 }
 
 func (s *CourseTestSuite) TearDownSuite() {
-	defer s.testRepo.pool.Close()
+	s.testRepo.pool.Close()
 }
 
 func (s *CourseTestSuite) SetupTest() {

@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
@@ -11,6 +12,11 @@ import (
 type CourseLecture struct {
 	CourseId  int64 `json:"course_id" validate:"numeric,gt=0"`
 	LectureId int64 `json:"lecture_id" validate:"numeric,gt=0"`
+}
+
+type CourseLectureQueryParams struct {
+	CourseId  *int64
+	LectureId *int64
 }
 
 type CourseLecturesListDto struct {
