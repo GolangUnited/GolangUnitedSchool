@@ -14,9 +14,10 @@ type CourseLecture struct {
 	LectureId int64 `json:"lecture_id" validate:"numeric,gt=0"`
 }
 
-type CourseLectureQueryParams struct {
+type CourseLectureListParams struct {
 	CourseId  *int64
 	LectureId *int64
+	PaginationParams
 }
 
 type CourseLecturesListDto struct {

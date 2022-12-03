@@ -13,26 +13,30 @@ var (
 	ErrorCourseLectureAlreadyExists = "course lecture already exists"
 )
 
-func (r *PostgresRepository) GetCourseLectures(ctx context.Context, queryParams model.CourseLectureQueryParams) ([]model.CourseLecture, error) {
-	query := `SELECT course_id, lecture_id 
-				FROM course_lecture`
-
+func (r *PostgresRepository) GetCourseLectures(ctx context.Context, params model.CourseLectureListParams) ([]model.CourseLecture, error) {
 	var args []interface{}
-	qWhere := " 1=1"
-	if queryParams.CourseId != nil {
-		args = append(args, queryParams.CourseId)
+	qWhere := "WHERE 1=1"
+	if params.CourseId != nil {
+		args = append(args, params.CourseId)
 		qWhere += fmt.Sprintf(" AND course_id=&%d", len(args))
 	}
-	if queryParams.LectureId != nil {
-		args = append(args, queryParams.LectureId)
+	if params.LectureId != nil {
+		args = append(args, params.LectureId)
 		qWhere += fmt.Sprintf(" AND lecture_id=&%d", len(args))
 	}
+
+	query := fmt.Sprintf(`SELECT course_id, lecture_id 
+				FROM course_lecture
+				%s`, qWhere)
+
+	r.lg.Debug(query)
 
 	var courses []model.CourseLecture
 	rows, err := r.pool.Query(ctx, query, args...)
 	if err != nil {
 		return nil, errors.Wrap(err, "couldn't get course lectures query error")
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var course model.CourseLecture
@@ -86,6 +90,7 @@ func (r *PostgresRepository) AddCourseLecture(ctx context.Context, data *model.C
 
 	return nil
 }
+
 func (r *PostgresRepository) UpdateCourseLecture(ctx context.Context, course_id, lecture_id int64, data *model.CourseLecture) error {
 	pct, err := r.pool.Exec(ctx,
 		`UPDATE course_lecture 

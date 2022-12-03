@@ -4,8 +4,8 @@ import "testing"
 
 func TestCourseStatus_ValidateCourseStatus(t *testing.T) {
 	type fields struct {
-		CourseStatusId int64
-		Title          string
+		Id    int64
+		Title string
 	}
 	tests := []struct {
 		name    string
@@ -15,37 +15,37 @@ func TestCourseStatus_ValidateCourseStatus(t *testing.T) {
 		{
 			name: "valid data",
 			fields: fields{
-				CourseStatusId: 1,
-				Title:          "qwerty",
+				Id:    1,
+				Title: "qwerty",
 			},
 			wantErr: false,
 		},
 		{
 			name: "short title",
 			fields: fields{
-				CourseStatusId: 1,
-				Title:          "w",
+				Id:    1,
+				Title: "w",
 			},
 			wantErr: true,
 		},
 		{
 			name: "long title",
 			fields: fields{
-				CourseStatusId: 1,
-				Title:          "qwertqwertqwertqwertqwert",
+				Id:    1,
+				Title: "qwertqwertqwertqwertqwert",
 			},
 			wantErr: true,
 		},
 		{
 			name: "non alphaunicode title",
 			fields: fields{
-				CourseStatusId: 1,
-				Title:          "qw:::",
+				Id:    1,
+				Title: "qw:::",
 			},
 			wantErr: true,
 		},
 		{
-			name: "empty courseStatusId",
+			name: "empty Id",
 			fields: fields{
 
 				Title: "qwqrt",
@@ -55,7 +55,7 @@ func TestCourseStatus_ValidateCourseStatus(t *testing.T) {
 		{
 			name: "empty title",
 			fields: fields{
-				CourseStatusId: 1,
+				Id: 1,
 			},
 			wantErr: true,
 		},
@@ -63,8 +63,8 @@ func TestCourseStatus_ValidateCourseStatus(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			n := &CourseStatus{
-				CourseStatusId: tt.fields.CourseStatusId,
-				Title:          tt.fields.Title,
+				Id:    tt.fields.Id,
+				Title: tt.fields.Title,
 			}
 			if err := n.ValidateCourseStatus(); (err != nil) != tt.wantErr {
 				t.Errorf("ValidateCourseStatus() error = %v, wantErr %v", err, tt.wantErr)
