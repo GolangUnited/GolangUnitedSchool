@@ -9,14 +9,26 @@ import (
 
 func (r *PostgresRepository) GetPersons(ctx context.Context) ([]model.Person, error) {
 	var persons []model.Person
-	rows, err := r.pool.Query(ctx, `SELECT first_name, last_name, updated_at FROM person`)
+	rows, err := r.pool.Query(ctx, `SELECT * FROM person`)
 	if err != nil {
 		return nil, errors.Wrap(err, "couldn't get list of persons")
 	}
 
 	for rows.Next() {
 		var c model.Person
-		err := rows.Scan(&c.FirstName, &c.LastName, &c.UpdatedAt)
+		err := rows.Scan(&c.PersonId,
+			&c.FirstName,
+			&c.LastName,
+			&c.Patronymic,
+			&c.Login,
+			&c.RoleId,
+			&c.Passwd,
+			&c.UpdatedAt,
+			&c.Deleted,
+			&c.CreatedAt,
+			&c.Email,
+			&c.Birthday,
+		)
 		if err != nil {
 			return nil, errors.Wrap(err, "couldn't scan person")
 		}
@@ -31,7 +43,25 @@ func (r *PostgresRepository) GetPersons(ctx context.Context) ([]model.Person, er
 
 }
 func (r *PostgresRepository) GetPersonById(ctx context.Context, id int64) (*model.Person, error) {
-	panic("empty")
+	query := `SELECT * FROM person WHERE id=$1`
+	var c model.Person
+	err := r.pool.QueryRow(ctx, query, id).
+		Scan(&c.PersonId,
+			&c.FirstName,
+			&c.LastName,
+			&c.Patronymic,
+			&c.Login,
+			&c.RoleId,
+			&c.Passwd,
+			&c.UpdatedAt,
+			&c.Deleted,
+			&c.CreatedAt,
+			&c.Email,
+			&c.Birthday)
+	if err != nil {
+		return nil, errors.Wrap(err, "couldn't get person by id")
+	}
+	return &c, nil
 }
 func (r *PostgresRepository) AddNewPerson(ctx context.Context, data *model.NewPersonDto) error {
 	panic("empty")

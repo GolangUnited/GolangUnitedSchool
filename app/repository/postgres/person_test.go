@@ -72,9 +72,9 @@ func (s *PersonTestSuite) TestPostgresRepository_GetPersons() {
 			name: "get course statuses",
 			ctx:  context.Background(),
 			expectedResult: []model.Person{
-				{FirstName: "1", LastName: "1", UpdatedAt: kek},
-				{FirstName: "2", LastName: "2", UpdatedAt: kek},
-				{FirstName: "3", LastName: "3", UpdatedAt: kek},
+				{Passwd: "1", RoleId: 1, PersonId: 1, FirstName: "1", LastName: "1", Patronymic: "1", Login: "1", UpdatedAt: kek, CreatedAt: kek},
+				{Passwd: "2", RoleId: 2, PersonId: 2, FirstName: "2", LastName: "2", Patronymic: "2", Login: "2", UpdatedAt: kek, CreatedAt: kek},
+				{Passwd: "3", RoleId: 3, PersonId: 3, FirstName: "3", LastName: "3", Patronymic: "3", Login: "3", UpdatedAt: kek, CreatedAt: kek},
 			},
 		},
 		{
@@ -101,6 +101,49 @@ func (s *PersonTestSuite) TestPostgresRepository_GetPersons() {
 			} else {
 				s.Nil(result, "case [%d]", i)
 				s.EqualError(err, tt.expectedErr.Error(), "case [%d]", i)
+			}
+		})
+	}
+}
+
+func (s *PersonTestSuite) TestGetPersonById() {
+	kek, _ := time.Parse("2006-01-02", "2006-01-02")
+	type args struct {
+		ctx context.Context
+		id  int64
+	}
+	tests := []struct {
+		name           string
+		args           args
+		expectedErr    error
+		expectedResult *model.Person
+	}{
+		{
+			name: "get person by id  success",
+			args: args{
+				ctx: context.Background(),
+				id:  2,
+			},
+			expectedResult: &model.Person{Passwd: "2", RoleId: 2, PersonId: 2, FirstName: "2", LastName: "2", Patronymic: "2", Login: "2", UpdatedAt: kek, CreatedAt: kek},
+		},
+		{
+			name: "person with such id doesn't exists",
+			args: args{
+				ctx: context.Background(),
+				id:  7,
+			},
+			expectedErr: errors.New("couldn't get person by id: no rows in result set"),
+		},
+	}
+	for i, tt := range tests {
+		s.Run(tt.name, func() {
+			result, err := s.testRepo.GetPersonById(tt.args.ctx, tt.args.id)
+			if tt.expectedErr == nil {
+				s.Nil(err, "case[%d]", i)
+				s.Equal(tt.expectedResult, result, "case[%d]", i)
+			} else {
+				s.EqualError(err, tt.expectedErr.Error(), "case[%d]", i)
+				s.Nil(result, "case[%d]", i)
 			}
 		})
 	}
