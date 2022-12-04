@@ -3,9 +3,11 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"testing"
-
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
+	"github.com/pkg/errors"
 	"github.com/stretchr/testify/suite"
+	"testing"
+	"time"
 )
 
 type PersonTestSuite struct {
@@ -55,6 +57,51 @@ func (s *PersonTestSuite) TearDownTest() {
 	}
 }
 
-func (s *PersonTestSuite) TestAddNewPerson() {
+func (s *PersonTestSuite) TestPostgresRepository_GetPersons() {
+	kek, _ := time.Parse("2006-01-02", "2006-01-02")
+	fmt.Println(kek)
+	tests := []struct {
+		name           string
+		ctx            context.Context
+		isConnClosed   bool
+		expectedErr    error
+		expectedResult []model.Person
+	}{
+		{
 
+			name: "get course statuses",
+			ctx:  context.Background(),
+			expectedResult: []model.Person{
+				{FirstName: "1", LastName: "1", UpdatedAt: kek},
+				{FirstName: "2", LastName: "2", UpdatedAt: kek},
+				{FirstName: "3", LastName: "3", UpdatedAt: kek},
+			},
+		},
+		{
+			name:         "db pool is closed",
+			ctx:          context.Background(),
+			isConnClosed: true,
+			expectedErr:  errors.New("couldn't get course statuses: closed pool"),
+		},
+	}
+	for i, tt := range tests {
+		s.Run(tt.name, func() {
+			if tt.isConnClosed {
+				s.testRepo.pool.Close()
+				defer func() {
+					// reconnect
+					s.testRepo.pool, _ = NewDbPool(tt.ctx, testDSN)
+				}()
+			}
+
+			result, err := s.testRepo.GetPersons(tt.ctx)
+			if tt.expectedErr == nil {
+				s.Nil(err, "case [%d]", i)
+				s.Equal(result, tt.expectedResult, "case [%d]", i)
+			} else {
+				s.Nil(result, "case [%d]", i)
+				s.EqualError(err, tt.expectedErr.Error(), "case [%d]", i)
+			}
+		})
+	}
 }

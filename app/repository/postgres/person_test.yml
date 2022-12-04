@@ -20,9 +20,9 @@ conf:
       - request: INSERT
           INTO person
           (first_name, last_name, patronymic, login, role_id, passwd, deleted, updated_at) VALUES
-          ('Vasiliy', 'Vasiliev', 'Vasilievich', 'vasya', 3, '12345678', 'false', '2006-01-02T15:04:05Z07:00'),
-          ('Petr', 'Petrov', 'Petrovich', 'petya', 3, '12345678', 'false', '2006-01-03T15:04:05Z07:00'),
-          ('Aleksandr', 'Aleksandrov', 'Aleksandrovich', 'sanya', 3, '12345678', 'false', '2006-01-03T15:04:05Z07:00');
+          ('1', '1', '1', '1', 1, '1', 'false', '2006-01-02'),
+          ('2', '2', '2', '2', 2, '2', 'false', '2006-01-02'),
+          ('3', '3', '3', '3', 3, '3', 'false', '2006-01-02');
   teardown:
     requests:
       - request: DROP TABLE person CASCADE;
