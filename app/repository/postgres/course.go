@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"fmt"
+	"log"
 	"strings"
 
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/model"
@@ -45,6 +46,7 @@ func (r *PostgresRepository) CreateCourse(ctx context.Context, course *model.Cou
 		strings.Join(keys, ", "),
 		strings.Join(values, ", "),
 	)
+	log.Print(query)
 
 	r.lg.Debug("query", query)
 
