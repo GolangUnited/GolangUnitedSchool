@@ -3,7 +3,7 @@ conf:
     requests:
       - request: CREATE 
                 TABLE course_status (
-                    id serial NOT NULL,
+                    id serial NOT NULL UNIQUE,
                     title VARCHAR(256) UNIQUE NOT NULL
                 );
       - request: INSERT 
@@ -15,17 +15,17 @@ conf:
                   ('created');
       - request: CREATE 
                   TABLE course ( 
-                    id serial NOT NULL, 
-                    title string NOT NULL unique,
-                    start_date TIMESTAMP NOT NULL,
-                    end_date TIMESTAMP NOT NULL,
+                    id serial NOT NULL UNIQUE, 
+                    title TEXT NOT NULL unique,
+                    start_date TIMESTAMP,
+                    end_date TIMESTAMP,
                     course_status_id integer references course_status(id)
                   );
       - request: INSERT 
                   INTO course (
                     title, start_date, end_date, course_status_id
                   ) VALUES 
-                  ('some title 1', '21-11-2022', '31-12-2022', 1);
+                  ('some title 1', '2022-10-20', '2022-12-25', 1);
   teardown:
     requests: 
       - request: DROP TABLE course CASCADE;

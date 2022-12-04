@@ -1,6 +1,8 @@
 package httpserver
 
 import (
+	"net/http"
+
 	_ "github.com/lozovoya/GolangUnitedSchool/docs"
 
 	"github.com/gin-gonic/gin"
@@ -13,6 +15,11 @@ func NewRouter(
 	handlers *v1.Handlers,
 ) *gin.Engine {
 	router := gin.Default()
+
+	// hello page
+	router.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello everything is ok!")
+	})
 
 	// docs route
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

@@ -3,9 +3,9 @@ package model
 import "time"
 
 type Course struct {
-	ID        int64
+	Id        int64
 	Title     string    `json:"title"`
-	Status    string    `json:"status"`
+	StatusId  int64     `json:"status"`
 	StartDate time.Time `json:"start_date"`
 	EndDate   time.Time `json:"end_date"`
 }
@@ -18,7 +18,7 @@ type CourseCreate struct {
 
 type CourseUpdate struct {
 	Title     *string    `json:"title"`
-	Status    *string    `json:"status"`
+	StatusId  *int64     `json:"status"`
 	StartDate *time.Time `json:"start_date"`
 	EndDate   *time.Time `json:"end_date"`
 }
