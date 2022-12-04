@@ -12,6 +12,9 @@ conf:
           "passwd" VARCHAR(255) NOT NULL,
           "updated_at" TIMESTAMP NOT NULL default current_timestamp,
           "deleted" BOOLEAN NOT NULL default false,
+          "created_at" TIMESTAMP NOT NULL default current_timestamp,
+          "email" VARCHAR(255) NOT NULL default '',
+          "birthday" VARCHAR(255) NOT NULL default '',
           CONSTRAINT "person_pk" PRIMARY KEY ("id")
           );
       - request: INSERT
@@ -19,7 +22,7 @@ conf:
           (first_name, last_name, patronymic, login, role_id, passwd, deleted, updated_at) VALUES
           ('Vasiliy', 'Vasiliev', 'Vasilievich', 'vasya', 3, '12345678', 'false', '2006-01-02T15:04:05Z07:00'),
           ('Petr', 'Petrov', 'Petrovich', 'petya', 3, '12345678', 'false', '2006-01-03T15:04:05Z07:00'),
-          ('Aleksandr', 'Aleksandrov', 'Aleksandrovich', 'sanya', 3, '12345678', 'false', '2006-01-03T15:04:05Z07:00'),;
+          ('Aleksandr', 'Aleksandrov', 'Aleksandrovich', 'sanya', 3, '12345678', 'false', '2006-01-03T15:04:05Z07:00');
   teardown:
     requests:
       - request: DROP TABLE person CASCADE;
