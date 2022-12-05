@@ -39,11 +39,9 @@ func (s *CourseTestSuite) SetupSuite() {
 		s.FailNowf("setup failed: unable to load data from yml file", err.Error())
 	}
 }
-
 func (s *CourseTestSuite) TearDownSuite() {
 	defer s.testRepo.pool.Close()
 }
-
 func (s *CourseTestSuite) SetupTest() {
 	fmt.Println("setup test course")
 	ctxB := context.Background()
@@ -55,7 +53,6 @@ func (s *CourseTestSuite) SetupTest() {
 		}
 	}
 }
-
 func (s *CourseTestSuite) TearDownTest() {
 	fmt.Println("cleaning up database")
 	var err error
@@ -119,7 +116,6 @@ func (s *CourseTestSuite) TestCreateCourse() {
 		})
 	}
 }
-
 func (s *CourseTestSuite) TestGetCourses() {
 	type args struct {
 		ctx        context.Context
@@ -251,7 +247,6 @@ func (s *CourseTestSuite) TestGetCourses() {
 		}
 	}
 }
-
 func (s *CourseTestSuite) TestGetCourseById() {
 	type args struct {
 		ctx context.Context
@@ -305,7 +300,6 @@ func (s *CourseTestSuite) TestGetCourseById() {
 		}
 	}
 }
-
 func (s *CourseTestSuite) TestUpdateCourseById() {
 	type args struct {
 		ctx    context.Context
@@ -388,7 +382,6 @@ func (s *CourseTestSuite) TestUpdateCourseById() {
 		}
 	}
 }
-
 func (s *CourseTestSuite) TestPutCourseById() {
 	type args struct {
 		ctx    context.Context
@@ -476,7 +469,6 @@ func (s *CourseTestSuite) TestPutCourseById() {
 		}
 	}
 }
-
 func (s *CourseTestSuite) TestDeleteCourseById() {
 	type args struct {
 		ctx context.Context

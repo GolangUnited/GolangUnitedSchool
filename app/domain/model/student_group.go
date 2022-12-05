@@ -9,21 +9,14 @@ import (
 )
 
 type StudentGroup struct {
+	Id        int64
 	StudentId int64 `json:"student_id" validate:"numeric,gt=0"`
 	GroupId   int64 `json:"group_id" validate:"numeric,gt=0"`
 }
 
-type StudentGroupListDto struct {
-	Metadata          PaginationResponse `json:"_metadata"`
-	StudentGroupsList []StudentGroup     `json:"student_group_list"`
-}
-
-type NewStudentGroupDto struct {
-	GroupId int64 `json:"group_id" validate:"numeric,gt=0"`
-}
-
-type UpdateStudentGroupDto struct {
-	GroupId *int64 `json:"group_id" validate:"numeric,gt=0"`
+type UpdateStudentGroup struct {
+	StudentId *int64
+	GroupId   *int64 `json:"group_id" validate:"numeric,gt=0"`
 }
 
 func (n *StudentGroup) ValidateStudentGroup() error {

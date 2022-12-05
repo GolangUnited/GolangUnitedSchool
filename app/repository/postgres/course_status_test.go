@@ -243,7 +243,7 @@ func (s *CourseStatusTestSuite) TestDeleteCourseStatusById() {
 	}
 }
 
-func (s *CourseStatusTestSuite) TestDeleteCourseStatusByID() {
+func (s *CourseStatusTestSuite) TestUpdateCourseStatusByID() {
 	type args struct {
 		ctx  context.Context
 		id   int64

@@ -22,43 +22,84 @@ func Test_PersonSuite(t *testing.T) {
 	suite.Run(t, &PersonTestSuite{})
 }
 
-func (s *PersonTestSuite) SetupTest() {
-	fmt.Println("setup test")
+func (s *PersonTestSuite) SetupSuite() {
+	fmt.Println("setup all suite")
 	var err error
 	ctxB := context.Background()
 	s.testRepo.lg, err = zap.NewLogger("debug", "json")
+	if err != nil {
+		s.FailNowf("setup failed: unable to create new logger", err.Error())
+	}
 	s.testRepo.pool, err = NewDbPool(ctxB, testDSN)
 	if err != nil {
-		s.Error(err)
-		s.Fail("setup failed")
-		return
+		s.FailNowf("setup failed: unable to connect to database", err.Error())
 	}
 	s.Data, err = loadTestDataFromYaml("person_test.yml")
 	if err != nil {
-		s.Error(err)
-		s.Fail("setup failed")
-		return
+		s.FailNowf("setup failed: unable to load data from yml file", err.Error())
 	}
-	for _, r := range s.Data.Conf.Setup.Requests {
+}
+func (s *PersonTestSuite) TearDownSuite() {
+	defer s.testRepo.pool.Close()
+}
+func (s *PersonTestSuite) SetupTest() {
+	fmt.Println("setup test course")
+	ctxB := context.Background()
+	for i, r := range s.Data.Conf.Setup.Requests {
 		_, err := s.testRepo.pool.Exec(ctxB, r.Resuest)
 		if err != nil {
-			s.Error(err)
+			s.Errorf(err, "case [%d]", i)
 			return
 		}
 	}
 }
-
 func (s *PersonTestSuite) TearDownTest() {
-	fmt.Println("cleaning up")
+	fmt.Println("cleaning up database")
 	var err error
 	for _, r := range s.Data.Conf.Teardown.Requests {
 		_, err = s.testRepo.pool.Exec(context.Background(), r.Resuest)
 		if err != nil {
 			s.Error(err)
-			s.Fail("cleaning failed", "requet", r.Resuest)
 		}
 	}
 }
+
+//func (s *PersonTestSuite) SetupTest() {
+//	fmt.Println("setup test")
+//	var err error
+//	ctxB := context.Background()
+//	s.testRepo.lg, err = zap.NewLogger("debug", "json")
+//	s.testRepo.pool, err = NewDbPool(ctxB, testDSN)
+//	if err != nil {
+//		s.Error(err)
+//		s.Fail("setup failed")
+//		return
+//	}
+//	s.Data, err = loadTestDataFromYaml("person_test.yml")
+//	if err != nil {
+//		s.Error(err)
+//		s.Fail("setup failed")
+//		return
+//	}
+//	for _, r := range s.Data.Conf.Setup.Requests {
+//		_, err := s.testRepo.pool.Exec(ctxB, r.Resuest)
+//		if err != nil {
+//			s.Error(err)
+//			return
+//		}
+//	}
+//}
+//func (s *PersonTestSuite) TearDownTest() {
+//	fmt.Println("cleaning up")
+//	var err error
+//	for _, r := range s.Data.Conf.Teardown.Requests {
+//		_, err = s.testRepo.pool.Exec(context.Background(), r.Resuest)
+//		if err != nil {
+//			s.Error(err)
+//			s.Fail("cleaning failed", "requet", r.Resuest)
+//		}
+//	}
+//}
 
 func (s *PersonTestSuite) TestPostgresRepository_GetPersons() {
 	kek, _ := time.Parse("2006-01-02", "2006-01-02")
@@ -108,7 +149,6 @@ func (s *PersonTestSuite) TestPostgresRepository_GetPersons() {
 		})
 	}
 }
-
 func (s *PersonTestSuite) TestGetPersonById() {
 	kek, _ := time.Parse("2006-01-02", "2006-01-02")
 	type args struct {
@@ -151,7 +191,6 @@ func (s *PersonTestSuite) TestGetPersonById() {
 		})
 	}
 }
-
 func (s *PersonTestSuite) TestAddNewPerson() {
 	type args struct {
 		ctx    context.Context
@@ -229,7 +268,6 @@ func (s *PersonTestSuite) TestAddNewPerson() {
 		})
 	}
 }
-
 func (s *PersonTestSuite) TestUpdatePersonById() {
 	type args struct {
 		ctx    context.Context
@@ -343,7 +381,6 @@ func (s *PersonTestSuite) TestUpdatePersonById() {
 		}
 	}
 }
-
 func (s *PersonTestSuite) TestPutPersonById() {
 	type args struct {
 		ctx    context.Context
@@ -457,7 +494,6 @@ func (s *PersonTestSuite) TestPutPersonById() {
 		}
 	}
 }
-
 func (s *PersonTestSuite) TestDeletePersonById() {
 	type args struct {
 		ctx context.Context

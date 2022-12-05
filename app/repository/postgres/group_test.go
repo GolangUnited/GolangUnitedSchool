@@ -37,11 +37,9 @@ func (s *GroupTestSuite) SetupSuite() {
 		s.FailNowf("setup failed: unable to load data from yml file", err.Error())
 	}
 }
-
 func (s *GroupTestSuite) TearDownSuite() {
 	defer s.testRepo.pool.Close()
 }
-
 func (s *GroupTestSuite) SetupTest() {
 	fmt.Println("setup test group")
 	ctxB := context.Background()
@@ -53,7 +51,6 @@ func (s *GroupTestSuite) SetupTest() {
 		}
 	}
 }
-
 func (s *GroupTestSuite) TearDownTest() {
 	fmt.Println("cleaning up database")
 	var err error
@@ -113,7 +110,6 @@ func (s *GroupTestSuite) TestCreateGroup() {
 		})
 	}
 }
-
 func (s *GroupTestSuite) TestGetGroupById() {
 	type args struct {
 		ctx context.Context
@@ -162,7 +158,6 @@ func (s *GroupTestSuite) TestGetGroupById() {
 		}
 	}
 }
-
 func (s *GroupTestSuite) TestGetGroups() {
 	//kek, _ := time.Parse("2006-01-02", "2006-01-02")
 	tests := []struct {
@@ -209,7 +204,6 @@ func (s *GroupTestSuite) TestGetGroups() {
 		})
 	}
 }
-
 func (s *GroupTestSuite) TestDeleteCourseById() {
 	type args struct {
 		ctx context.Context
@@ -262,7 +256,6 @@ func (s *GroupTestSuite) TestDeleteCourseById() {
 		}
 	}
 }
-
 func (s *GroupTestSuite) TestUpdateGroupById() {
 	type args struct {
 		ctx   context.Context
@@ -340,7 +333,6 @@ func (s *GroupTestSuite) TestUpdateGroupById() {
 		}
 	}
 }
-
 func (s *GroupTestSuite) TestPutGroupById() {
 	type args struct {
 		ctx   context.Context
