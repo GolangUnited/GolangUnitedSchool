@@ -158,10 +158,7 @@ func (r *PostgresRepository) GetCourses(ctx context.Context, params *model.Pagin
 	return list, nil
 }
 
-func (r *PostgresRepository) UpdateCourseByID(
-	ctx context.Context,
-	id int64,
-	course *model.CourseUpdate) error {
+func (r *PostgresRepository) UpdateCourseByID(ctx context.Context, id int64, course *model.CourseUpdate) error {
 	var args []interface{}
 	var keys []string
 

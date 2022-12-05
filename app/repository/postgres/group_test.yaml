@@ -1,0 +1,60 @@
+conf:
+  setup:
+    requests:
+      - request: CREATE
+            TABLE course_status (
+            id serial NOT NULL UNIQUE,
+            title VARCHAR(256) UNIQUE NOT NULL
+            );
+      - request: INSERT
+            INTO course_status
+            (title) VALUES
+            ('active'),
+            ('done'),
+            ('inactive'),
+            ('created');
+      - request: CREATE
+          TABLE course (
+          id serial NOT NULL UNIQUE,
+          title TEXT NOT NULL unique,
+          start_date TIMESTAMP,
+          end_date TIMESTAMP,
+          course_status_id integer references course_status(id)
+          );
+      - request: INSERT
+          INTO course (
+          title, start_date, end_date, course_status_id
+          ) VALUES
+          ('some title 1', '2022-10-20', '2022-12-25', 1),
+          ('some title 2', '2022-10-21', '2022-12-25', 1);
+
+      - request: CREATE
+          TABLE mentor (
+          id serial NOT NULL unique
+          );
+      - request: INSERT 
+          INTO mentor (
+          id) VALUES
+          (1),
+          (2),
+          (3);
+
+      - request: CREATE
+          TABLE groups (
+          id serial NOT NULL UNIQUE,
+          course_id integer references course(id),
+          mentor_id integer references mentor(id),
+          title TEXT NOT NULL unique
+          );
+      - request: INSERT
+          INTO groups (
+           course_id, mentor_id, title) VALUES
+          ('1', '1', 'kek'),
+          ('2', '2', 'kok');
+  teardown:
+    requests:
+      - request: DROP TABLE groups CASCADE;
+      - request: DROP TABLE mentor CASCADE;
+      - request: DROP TABLE course CASCADE;
+      - request: DROP TABLE course_status CASCADE;
+

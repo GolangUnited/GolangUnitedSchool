@@ -9,6 +9,6 @@ type Group struct {
 
 // group create and update struct
 type GroupCU struct {
-	MentorId *int64
-	Title    *string
+	MentorId int64
+	Title    string
 }

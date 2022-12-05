@@ -458,7 +458,7 @@ func (s *PersonTestSuite) TestPutPersonById() {
 	}
 }
 
-func (s *CourseTestSuite) TestDeletePersonById() {
+func (s *PersonTestSuite) TestDeletePersonById() {
 	type args struct {
 		ctx context.Context
 		id  int64
