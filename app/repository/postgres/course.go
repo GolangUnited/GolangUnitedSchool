@@ -197,7 +197,7 @@ func (r *PostgresRepository) UpdateCourseByID(
 
 	query := fmt.Sprintf(`UPDATE course 
 				SET %s
-				WHERE id = $%d`, strings.Join(keys, ","), len(args))
+				WHERE id = $%d`, strings.Join(keys, ", "), len(args))
 
 	cmn, err := r.pool.Exec(ctx, query, args...)
 	if err != nil {

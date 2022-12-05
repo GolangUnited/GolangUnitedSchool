@@ -4,10 +4,15 @@ import (
 	"context"
 	"time"
 
+	"github.com/jackc/pgx"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/lozovoya/GolangUnitedSchool/app/logger"
 	"github.com/pkg/errors"
 )
+
+type ContextKey string
+
+var TransactionCtxKey ContextKey = "pg_transaction"
 
 type PostgresRepository struct {
 	lg   logger.Logger
@@ -42,4 +47,27 @@ func NewDbPool(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
 	}
 
 	return dbPool, nil
+}
+
+func (r *PostgresRepository) BeginTx(ctx context.Context) (context.Context, error) {
+	tx, err := r.pool.Begin(ctx)
+	if err != nil {
+		return ctx, errors.Wrap(err, "")
+	}
+
+	ctxV := context.WithValue(ctx, TransactionCtxKey, tx)
+
+	return ctxV, nil
+}
+
+type DbWrapper interface {
+}
+
+func (r *PostgresRepository) GetDbWrapper(ctx context.Context) DbWrapper {
+	tx, ok := ctx.Value(TransactionCtxKey).(pgx.Tx)
+	if ok {
+		return tx
+	}
+
+	return r.pool
 }
