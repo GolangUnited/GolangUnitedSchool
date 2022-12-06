@@ -1,0 +1,20 @@
+conf:
+  setup:
+    requests:
+      - request: CREATE
+          TABLE group_contacts (
+          id serial NOT NULL,
+          contact_value VARCHAR(256) NOT NULL unique,
+          is_primary BOOLEAN NOT NULL default false,
+          contact_type integer NOT NULL,
+          group_id integer NOT NULL
+          );
+      - request: INSERT
+          INTO group_contacts
+          (contact_value, is_primary, contact_type, group_id) VALUES
+          ('one', false, '1', '1'),
+          ('two', true, '2', '2');
+
+  teardown:
+    requests:
+      - request: DROP TABLE group_contacts CASCADE;

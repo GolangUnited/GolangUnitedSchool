@@ -204,7 +204,7 @@ func (s *GroupTestSuite) TestGetGroups() {
 		})
 	}
 }
-func (s *GroupTestSuite) TestDeleteCourseById() {
+func (s *GroupTestSuite) TestDeleteGroupById() {
 	type args struct {
 		ctx context.Context
 		id  int64

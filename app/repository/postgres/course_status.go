@@ -35,7 +35,6 @@ func (r *PostgresRepository) GetCourseStatuses(ctx context.Context) ([]model.Cou
 
 	return statuses, nil
 }
-
 func (r *PostgresRepository) GetCourseStatusById(ctx context.Context, id int64) (*model.CourseStatus, error) {
 	var c model.CourseStatus
 	err := r.pool.QueryRow(
@@ -51,7 +50,6 @@ func (r *PostgresRepository) GetCourseStatusById(ctx context.Context, id int64) 
 	}
 	return &c, nil
 }
-
 func (r *PostgresRepository) AddCourseStatus(ctx context.Context, data *model.CourseStatus) (int64, error) {
 	var id int64
 	err := r.pool.QueryRow(
@@ -66,7 +64,6 @@ func (r *PostgresRepository) AddCourseStatus(ctx context.Context, data *model.Co
 
 	return id, nil
 }
-
 func (r *PostgresRepository) UpdateCourseStatusById(ctx context.Context, id int64, data *model.CourseStatus) error {
 
 	_, err := r.pool.Exec(
