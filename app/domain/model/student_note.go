@@ -10,26 +10,21 @@ import (
 )
 
 type StudentNote struct {
-	StudentNoteId     int64     `json:"student_note_id" validate:"numeric,gt=0"`
+	Id                int64     `json:"student_note_id" validate:"numeric,gt=0"`
 	StudentId         int64     `json:"student_id" validate:"numeric,gt=0"`
 	StudentNoteTypeId int64     `json:"student_note_type_id" validate:"numeric,gt=0"`
 	Note              string    `json:"note" validate:"gte=2,lte=255"`
 	CreatedAt         time.Time `json:"created_at" validate:"omitempty"`
 }
 
-type StudentNotesListDto struct {
-	StudentId       int64
-	StudentNoteList []StudentNote
-}
-
-type NewStudentNoteDto struct {
+type NewStudentNote struct {
 	StudentId         int64     `json:"student_id" validate:"numeric,gt=0"`
 	StudentNoteTypeId int64     `json:"student_note_type_id" validate:"numeric,gt=0"`
 	Note              string    `json:"note" validate:"gte=2,lte=255"`
 	CreatedAt         time.Time `json:"created_at" validate:"omitempty"`
 }
 
-type UpdateStudentNoteDto struct {
+type UpdateStudentNote struct {
 	StudentId         *int64     `json:"student_id" validate:"numeric,gt=0"`
 	StudentNoteTypeId *int64     `json:"student_note_type_id" validate:"numeric,gt=0"`
 	Note              *string    `json:"note" validate:"gte=2,lte=255"`

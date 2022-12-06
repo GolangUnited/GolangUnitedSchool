@@ -1,0 +1,54 @@
+conf:
+  setup:
+    requests:
+      - request: CREATE
+          TABLE students (
+          id serial not null unique,
+          student_id integer NOT NULL unique
+          );
+
+      - request: INSERT
+          INTO students (student_id) VALUES
+          (1),
+          (2),
+          (3);
+
+      - request: CREATE
+          TABLE student_note_types (
+          id serial not null unique,
+          title varchar(255) not null unique
+          );
+      - request: INSERT
+          INTO student_note_types (title) VALUES
+          ('work'),
+          ('exp'),
+          ('self');
+
+      - request: CREATE
+          TABLE student_notes (
+          id serial not null unique,
+          student_id integer references students(id),
+          student_note_type_id integer references student_note_types(id),
+          note varchar(255) not null,
+          created_at timestamp not null default current_timestamp
+          );
+
+      - request: INSERT
+          INTO student_notes (
+          student_id,
+          student_note_type_id,
+          note,
+          created_at
+          ) VALUES
+          ('1', '1', 'kek', '2006-01-02'),
+          ('2', '2', 'kok', '2006-01-02'),
+          ('3', '3', 'kak', '2006-01-02');
+
+
+  teardown:
+    requests:
+      - request: drop table student_notes cascade;
+      - request: drop table student_note_types cascade;
+      - request: DROP TABLE students CASCADE;
+
+
