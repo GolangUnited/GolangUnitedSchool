@@ -20,15 +20,11 @@ type StudentNoteType struct {
 	Title             string `json:"title" validate:"gte=2,lte=10"`
 }
 
-type StudentNoteTypesListDto struct {
-	StudentNoteTypeList []StudentNoteType
+type NewStudentNoteType struct {
+	Title string
 }
 
-type NewStudentNoteTypeDto struct {
-	Title string `json:"title" validate:"gte=2,lte=10"`
-}
-
-type UpdateStudentNoteTypeDto struct {
+type UpdateStudentNoteType struct {
 	Title *string `json:"title" validate:"gte=2,lte=10"`
 }
 
