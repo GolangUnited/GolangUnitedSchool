@@ -10,7 +10,7 @@ type RepositoryInterface interface {
 	GetPersons(ctx context.Context) (model.PersonListDto, error)
 	GetPersonById(ctx context.Context, id int64) (*model.Person, error)
 	AddNewPerson(ctx context.Context, data *model.NewPersonDto) error
-	UpdatePersonById(ctx context.Context, id int64, data model.UpdatePersonDto) error
+	UpdatePersonById(ctx context.Context, id int64, data model.UpdatePerson) error
 	PutPersonById(ctx context.Context, id int64, data *model.Person) error
 	DeletePersonById(ctx context.Context, id int64) error
 	//student //

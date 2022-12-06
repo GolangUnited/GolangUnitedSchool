@@ -1,0 +1,22 @@
+conf:
+  setup:
+    requests:
+      - request: CREATE
+          TABLE students (
+          id serial not null unique,
+          student_id integer NOT NULL unique
+          );
+
+      - request: INSERT
+          INTO students (student_id) VALUES
+          (1),
+          (2),
+          (3);
+
+
+  teardown:
+    requests:
+
+      - request: DROP TABLE students CASCADE;
+
+

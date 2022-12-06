@@ -4,7 +4,12 @@ import "time"
 
 // no testing
 type Student struct {
+	Id        int64
 	StudentId int64 `json:"student_id" validate:"required,numeric,gte=0"`
+}
+
+type StudentUpdate struct {
+	StudentId *int64
 }
 
 type StudentsListDto struct {
