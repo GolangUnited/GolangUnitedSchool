@@ -44,6 +44,7 @@ func (r *PostgresRepository) GetRoles(ctx context.Context) ([]model.Role, error)
 	if err != nil {
 		return nil, errors.Wrap(err, "couldn't query get all roles")
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var r model.Role

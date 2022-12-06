@@ -99,7 +99,7 @@ CREATE TABLE public.project (
 
 
 
-CREATE TABLE public.courses_status (
+CREATE TABLE public.course_status (
 	"id" serial NOT NULL,
 	"title" VARCHAR(255) NOT NULL,
 	CONSTRAINT "courses_status_pk" PRIMARY KEY ("id")

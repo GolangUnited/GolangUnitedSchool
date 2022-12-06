@@ -63,11 +63,11 @@ type RepositoryInterface interface {
 	UpdateCourseStatusById(ctx context.Context, id int64, data *model.CourseStatus) error
 	DeleteCourseStatusById(ctx context.Context, id int64) error
 	// course lecture
-	GetCourseLectures(ctx context.Context) ([]model.CourseLecture, error)
-	GetCourseLectureById(ctx context.Context, id int64) (*model.CourseLecture, error)
-	AddCourseLecture(ctx context.Context, data *model.CourseLecture) error
-	UpdateCourseLectureById(ctx context.Context, id int64, data *model.CourseLecture) error
-	DeleteCourseLectureById(ctx context.Context, id int64) error
+	// GetCourseLectures(ctx context.Context) ([]model.CourseLecture, error)
+	// GetCourseLectureById(ctx context.Context, id int64) (*model.CourseLecture, error)
+	// AddCourseLecture(ctx context.Context, data *model.CourseLecture) error
+	// UpdateCourseLectureById(ctx context.Context, id int64, data *model.CourseLecture) error
+	// DeleteCourseLectureById(ctx context.Context, id int64) error
 
 	GetCertificateTemplates(ctx context.Context) ([]model.CertificateTemplate, error)
 	GetCertificateTemplateById(ctx context.Context, id int64) (*model.CertificateTemplate, error)
@@ -104,12 +104,12 @@ type RepositoryInterface interface {
 	DeleteStudentCertificate(ctx context.Context, id int64) error
 
 	// Course repo interfaces
-	CreateCourse(context.Context, *model.CourseCreate) (int64, error)
-	GetCourseByID(context.Context, int64) (*model.Course, error)
-	GetCourses(context.Context, *model.PaginationParams) (*model.CourseList, error)
-	UpdateCourseByID(context.Context, int64, *model.CourseUpdate) error
-	PutCourseByID(context.Context, int64, *model.CourseUpdate) error
-	DeleteCourseByID(context.Context, int64) error
+	// CreateCourse(context.Context, *model.CourseCreate) (int64, error)
+	// GetCourseByID(context.Context, int64) (*model.Course, error)
+	// GetCourses(context.Context, *model.PaginationParams) (*model.CourseList, error)
+	// UpdateCourseByID(context.Context, int64, *model.CourseUpdate) error
+	// PutCourseByID(context.Context, int64, *model.CourseUpdate) error
+	// DeleteCourseByID(context.Context, int64) error
 
 	// interview
 	GetInterviewById(context.Context, int64) (*model.Interview, error)

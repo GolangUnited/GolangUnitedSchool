@@ -58,24 +58,28 @@ func (r *PostgresRepository) CreateCourse(ctx context.Context, course *model.Cou
 	return id, nil
 }
 
-func (r *PostgresRepository) GetCourseByID(ctx context.Context, id int64) (*model.Course, error) {
-	var course model.Course
+func (r *PostgresRepository) GetCourseByID(ctx context.Context, id int64) (*model.CourseDTO, error) {
+	var course model.CourseDTO
 	err := r.pool.QueryRow(ctx, `
 		SELECT 
 			id, 
-			title, 
-			course_status_id,  
+			title,  
 			start_date, 
-			end_date 
+			end_date, 
+			status_id,
+			title 
 		FROM course 
-		WHERE id = $1 
-	`, id).Scan(
-		&course.Id,
-		&course.Title,
-		&course.StatusId,
-		&course.StartDate,
-		&course.EndDate,
-	)
+			INNER JOIN course_status 
+				ON course.status_id = course_status.id
+		WHERE id = $1`, id).
+		Scan(
+			&course.Id,
+			&course.Title,
+			&course.StartDate,
+			&course.EndDate,
+			&course.Status.Id,
+			&course.Status.Title,
+		)
 	if err != nil {
 		return nil, errors.Wrapf(err, "couldn't get course by id: %d", id)
 	}
@@ -116,6 +120,7 @@ func (r *PostgresRepository) GetCourses(ctx context.Context, params *model.Pagin
 	if err != nil {
 		return nil, errors.Wrap(err, "get courses: could't make query")
 	}
+	defer rows.Close()
 
 	courses := make([]model.Course, 0, params.PageSize)
 	for rows.Next() {
@@ -191,7 +196,7 @@ func (r *PostgresRepository) UpdateCourseByID(ctx context.Context, id int64, cou
 
 	query := fmt.Sprintf(`UPDATE course 
 				SET %s
-				WHERE id = $%d`, strings.Join(keys, ","), len(args))
+				WHERE id = $%d`, strings.Join(keys, ", "), len(args))
 
 	cmn, err := r.pool.Exec(ctx, query, args...)
 	if err != nil {

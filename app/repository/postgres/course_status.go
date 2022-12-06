@@ -9,14 +9,20 @@ import (
 
 func (r *PostgresRepository) GetCourseStatuses(ctx context.Context) ([]model.CourseStatus, error) {
 	var statuses []model.CourseStatus
-	rows, err := r.pool.Query(ctx, `SELECT id, title FROM course_status`)
+	rows, err := r.pool.Query(
+		ctx,
+		`SELECT 
+			id, 
+			title 
+		FROM course_status`)
 	if err != nil {
 		return nil, errors.Wrap(err, "couldn't get course statuses")
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var c model.CourseStatus
-		err := rows.Scan(&c.CourseStatusId, &c.Title)
+		err := rows.Scan(&c.Id, &c.Title)
 		if err != nil {
 			return nil, errors.Wrap(err, "couldn't scan course status")
 		}
@@ -31,10 +37,15 @@ func (r *PostgresRepository) GetCourseStatuses(ctx context.Context) ([]model.Cou
 }
 
 func (r *PostgresRepository) GetCourseStatusById(ctx context.Context, id int64) (*model.CourseStatus, error) {
-	query := `SELECT id, title FROM course_status WHERE id=$1`
 	var c model.CourseStatus
-	err := r.pool.QueryRow(ctx, query, id).
-		Scan(&c.CourseStatusId, &c.Title)
+	err := r.pool.QueryRow(
+		ctx,
+		`SELECT 
+			id, 
+			title 
+		FROM course_status 
+		WHERE id=$1`, id).
+		Scan(&c.Id, &c.Title)
 	if err != nil {
 		return nil, errors.Wrap(err, "couldn't get course status")
 	}
@@ -43,8 +54,11 @@ func (r *PostgresRepository) GetCourseStatusById(ctx context.Context, id int64) 
 
 func (r *PostgresRepository) AddCourseStatus(ctx context.Context, data *model.CourseStatus) (int64, error) {
 	var id int64
-	err := r.pool.QueryRow(ctx,
-		`INSERT INTO course_status (title) VALUES ($1) RETURNING id`, data.Title).
+	err := r.pool.QueryRow(
+		ctx,
+		`INSERT INTO course_status 
+			(title) VALUES ($1) 
+		RETURNING id`, data.Title).
 		Scan(&id)
 	if err != nil {
 		return id, errors.Wrap(err, "couldn't add course status")
@@ -57,7 +71,9 @@ func (r *PostgresRepository) UpdateCourseStatusById(ctx context.Context, id int6
 
 	_, err := r.pool.Exec(
 		ctx,
-		`UPDATE course_status SET title=$1 WHERE id=$2`,
+		`UPDATE course_status 
+			SET title=$1 
+			WHERE id=$2`,
 		data.Title, id)
 	if err != nil {
 		return errors.Wrap(err, "couldn't update course status")
@@ -66,7 +82,11 @@ func (r *PostgresRepository) UpdateCourseStatusById(ctx context.Context, id int6
 	return nil
 }
 func (r *PostgresRepository) DeleteCourseStatusById(ctx context.Context, id int64) error {
-	_, err := r.pool.Exec(ctx, `DELETE FROM course_status WHERE id=$1`, id)
+	_, err := r.pool.Exec(
+		ctx,
+		`DELETE 
+			FROM course_status 
+			WHERE id=$1`, id)
 	if err != nil {
 		return errors.Wrap(err, "couldn't delete course status")
 	}
