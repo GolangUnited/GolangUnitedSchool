@@ -47,7 +47,7 @@ conf:
       - request: CREATE
           TABLE mentors (
           mentor_id serial not null unique,
-          user_id integer not null     
+          user_id integer not null unique     
           );
 
       - request: INSERT
