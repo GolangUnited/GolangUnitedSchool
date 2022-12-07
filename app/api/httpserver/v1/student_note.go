@@ -8,7 +8,7 @@ import (
 
 type StudentNoteHandlers struct {
 	lg      logger.Logger
-	useCase usecase.CourseUsecaseInterface
+	useCase usecase.StudentNoteUseCaseInterface
 }
 
 func NewStudentNoteHandler(
@@ -45,7 +45,7 @@ func (h *StudentNoteHandlers) GetStudentNotesByStudentId(c *gin.Context) {}
 // @Success 200 {object} model.StudentNote
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/{student_id}/notes/{student_note_id} [get]
+// @Router /students/notes/{student_note_id} [get]
 func (h *StudentNoteHandlers) GetStudentNoteByStudentNoteId() {}
 
 // AddStudentNote
@@ -77,7 +77,7 @@ func (h *StudentNoteHandlers) AddStudentNote(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/{student_id}/notes/{student_note_id} [put]
+// @Router /students/notes/{student_note_id} [put]
 func (h *StudentNoteHandlers) PutStudentNoteByStudentNoteId(c *gin.Context) {}
 
 // UpdateStudentNoteByStudentNoteId
@@ -92,7 +92,7 @@ func (h *StudentNoteHandlers) PutStudentNoteByStudentNoteId(c *gin.Context) {}
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /students/notes/{student_id} [post]
+// @Router /students/notes/{student_note_id} [post]
 func (h *StudentGroupHandlers) UpdateStudentNoteByStudentNoteId(c *gin.Context) {}
 
 // DeleteStudentNote

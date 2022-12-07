@@ -8,12 +8,12 @@ import (
 
 type GroupContactHandlers struct {
 	lg      logger.Logger
-	useCase usecase.CourseStatusUseCaseInterface
+	useCase usecase.GroupContactUseCaseInterface
 }
 
 func NewGroupContactHandler(
 	lg logger.Logger,
-	useCase usecase.CourseStatusUseCaseInterface,
+	useCase usecase.GroupContactUseCaseInterface,
 ) *GroupContactHandlers {
 	return &GroupContactHandlers{
 		lg:      lg,
@@ -116,5 +116,5 @@ func (h *GroupContactHandlers) DeleteGroupContact(c *gin.Context) {}
 // @Success 200 {object} model.GroupContact
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /groups/{group_id}/contacts/{group_contact_id} [get]
+// @Router /groups/contacts/{group_contact_id} [get]
 func (h *GroupContactHandlers) GetGroupContact(c *gin.Context) {}

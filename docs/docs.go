@@ -1230,6 +1230,53 @@ const docTemplate = `{
             }
         },
         "/groups/contacts/{group_contact_id}": {
+            "get": {
+                "description": "возвращает контакт group_contact_id группы с group_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "groupContacts"
+                ],
+                "summary": "get group contact",
+                "operationId": "get-group-contact",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "group_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "group_contact_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.GroupContact"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
             "put": {
                 "description": "изменяет контакт группы",
                 "produces": [
@@ -1405,55 +1452,6 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/model.GroupContactsListDto"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            }
-        },
-        "/groups/{group_id}/contacts/{group_contact_id}": {
-            "get": {
-                "description": "возвращает контакт group_contact_id группы с group_id",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "groupContacts"
-                ],
-                "summary": "get group contact",
-                "operationId": "get-group-contact",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "group_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "group_contact_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.GroupContact"
                         }
                     },
                     "404": {
@@ -3330,6 +3328,53 @@ const docTemplate = `{
             }
         },
         "/mentors/notes/{mentor_note_id}": {
+            "get": {
+                "description": "получить определенную заметку, оставленную ментором",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mentorNotes"
+                ],
+                "summary": "get concrete note of mentor",
+                "operationId": "get-note-from-mentor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "mentor_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "mentor_note_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Mentor"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
             "post": {
                 "produces": [
                     "application/json"
@@ -3508,55 +3553,6 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/model.MentorNote"
                             }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            }
-        },
-        "/mentors/{mentor_id}/notes/{mentor_note_id}": {
-            "get": {
-                "description": "получить определенную заметку, оставленную ментором",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "mentorNotes"
-                ],
-                "summary": "get concrete note of mentor",
-                "operationId": "get-note-from-mentor",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "mentor_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "mentor_note_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.Mentor"
                         }
                     },
                     "404": {
@@ -5739,7 +5735,116 @@ const docTemplate = `{
                 }
             }
         },
-        "/students/notes/{student_id}": {
+        "/students/notes/{student_note_id}": {
+            "get": {
+                "description": "возвращает заметку с указанным id для студента с указанным id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "studentNotes"
+                ],
+                "summary": "get concrete student's note from concrete student",
+                "operationId": "get-student-note-by-student-note-id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "student_note_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.StudentNote"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "изменяет заметку студента с указанным id студента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "studentNotes"
+                ],
+                "summary": "update student note",
+                "operationId": "update-student-note",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "student_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "student_note_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "student_note",
+                        "name": "student_note",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateStudentNote"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            },
             "post": {
                 "produces": [
                     "application/json"
@@ -5793,9 +5898,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/students/notes/{student_note_id}": {
+            },
             "delete": {
                 "description": "удаляет заметку студента с указанным id студента",
                 "produces": [
@@ -6160,117 +6263,6 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            }
-        },
-        "/students/{student_id}/notes/{student_note_id}": {
-            "get": {
-                "description": "возвращает заметку с указанным id для студента с указанным id",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "studentNotes"
-                ],
-                "summary": "get concrete student's note from concrete student",
-                "operationId": "get-student-note-by-student-note-id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "student_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "student_note_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.StudentNote"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "изменяет заметку студента с указанным id студента",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "studentNotes"
-                ],
-                "summary": "update student note",
-                "operationId": "update-student-note",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "student_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "student_note_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "student_note",
-                        "name": "student_note",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.UpdateStudentNote"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/model.ResponseMessage"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/model.ResponseMessage"
                         }

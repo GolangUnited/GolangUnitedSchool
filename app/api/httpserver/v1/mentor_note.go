@@ -8,12 +8,12 @@ import (
 
 type MentorNoteHandlers struct {
 	lg      logger.Logger
-	useCase usecase.CourseUsecaseInterface
+	useCase usecase.MentorNoteUseCaseInterface
 }
 
 func NewMentorNoteHandler(
 	lg logger.Logger,
-	useCase usecase.MentorUseCaseInterface,
+	useCase usecase.MentorNoteUseCaseInterface,
 ) *MentorNoteHandlers {
 	return &MentorNoteHandlers{
 		lg:      lg,
@@ -57,7 +57,7 @@ func (h *MentorNoteHandlers) GetMentorNotesByMentorId(c *gin.Context) {}
 // @Success 200 {object} model.Mentor
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
-// @Router /mentors/{mentor_id}/notes/{mentor_note_id} [get]
+// @Router /mentors/notes/{mentor_note_id} [get]
 func (h *MentorNoteHandlers) GetMentorNoteByMentorNoteId(c *gin.Context) {}
 
 // AddMentorNote

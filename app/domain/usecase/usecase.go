@@ -86,6 +86,9 @@ type StudentUseCaseInterface interface {
 	//DeleteStudent
 	//DeleteStudentByStudentId
 }
+
+type StudentNoteTypeUseCaseInterface interface {
+}
 type MentorUseCaseInterface interface {
 }
 

@@ -57,7 +57,6 @@ func (r *PostgresRepository) CreateCourse(ctx context.Context, course *model.Cou
 
 	return id, nil
 }
-
 func (r *PostgresRepository) GetCourseByID(ctx context.Context, id int64) (*model.CourseDTO, error) {
 	var course model.CourseDTO
 	err := r.pool.QueryRow(ctx, `
@@ -86,7 +85,6 @@ func (r *PostgresRepository) GetCourseByID(ctx context.Context, id int64) (*mode
 
 	return &course, nil
 }
-
 func (r *PostgresRepository) GetCourses(ctx context.Context, params *model.PaginationParams) (*model.CourseList, error) {
 	// check if page and page size ok
 	if params == nil || params.Page <= 0 || params.PageSize <= 0 {
@@ -162,7 +160,6 @@ func (r *PostgresRepository) GetCourses(ctx context.Context, params *model.Pagin
 
 	return list, nil
 }
-
 func (r *PostgresRepository) UpdateCourseByID(ctx context.Context, id int64, course *model.CourseUpdate) error {
 	var args []interface{}
 	var keys []string
@@ -210,7 +207,6 @@ func (r *PostgresRepository) UpdateCourseByID(ctx context.Context, id int64, cou
 	}
 	return nil
 }
-
 func (r *PostgresRepository) PutCourseByID(ctx context.Context, id int64, course *model.CourseUpdate) error {
 	query := `UPDATE course 
 				SET 
@@ -238,7 +234,6 @@ func (r *PostgresRepository) PutCourseByID(ctx context.Context, id int64, course
 
 	return nil
 }
-
 func (r *PostgresRepository) DeleteCourseByID(ctx context.Context, id int64) error {
 	pgt, err := r.pool.Exec(ctx, `DELETE FROM course WHERE id = $1`, id)
 	if err != nil {
@@ -250,7 +245,6 @@ func (r *PostgresRepository) DeleteCourseByID(ctx context.Context, id int64) err
 	}
 	return nil
 }
-
 func (r *PostgresRepository) getCoursesTotalCount(ctx context.Context) (int64, error) {
 	var count int64
 
