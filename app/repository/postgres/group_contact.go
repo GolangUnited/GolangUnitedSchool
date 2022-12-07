@@ -176,3 +176,6 @@ func (r *PostgresRepository) DeleteGroupContactById(ctx context.Context, id int6
 	}
 	return nil
 }
+
+///еще одна функция на все контакты одной группы
+/// еще одна функция на все коннтакты в принципе

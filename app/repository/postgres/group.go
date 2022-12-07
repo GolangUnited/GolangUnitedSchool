@@ -32,7 +32,6 @@ func (r *PostgresRepository) GetGroupById(ctx context.Context, id int64) (*model
 
 	return &group, nil
 }
-
 func (r *PostgresRepository) GetGroups(ctx context.Context) ([]model.Group, error) {
 	var groups []model.Group
 	rows, err := r.pool.Query(ctx, `SELECT * FROM groups`)
@@ -59,7 +58,6 @@ func (r *PostgresRepository) GetGroups(ctx context.Context) ([]model.Group, erro
 
 	return groups, nil
 }
-
 func (r *PostgresRepository) CreateGroup(ctx context.Context, group *model.GroupCU) (int64, error) {
 	var args []interface{}
 	var keys []string
@@ -96,7 +94,6 @@ func (r *PostgresRepository) CreateGroup(ctx context.Context, group *model.Group
 
 	return id, nil
 }
-
 func (r *PostgresRepository) UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error {
 
 	var args []interface{}
@@ -132,7 +129,6 @@ func (r *PostgresRepository) UpdateGroupById(ctx context.Context, id int64, grou
 	}
 	return nil
 }
-
 func (r *PostgresRepository) PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error {
 	query := `UPDATE groups 
 				SET 
@@ -156,7 +152,6 @@ func (r *PostgresRepository) PutGroupById(ctx context.Context, id int64, group *
 
 	return nil
 }
-
 func (r *PostgresRepository) DeleteGroupById(ctx context.Context, id int64) error {
 	pgt, err := r.pool.Exec(ctx, `DELETE FROM groups WHERE id = $1`, id)
 	if err != nil {

@@ -27,7 +27,7 @@ func NewMentorHandler(
 // @ID get-all-mentors
 // @Tags mentors
 // @Produce json
-// @Success 200 {object} model.MentorsListDto
+// @Success 200 {object} []model.Mentor
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors [get]
 func (h *MentorHandlers) GetMentors(c *gin.Context) {}
@@ -49,7 +49,7 @@ func (h *MentorHandlers) GetMentorByMentorId(c *gin.Context) {}
 // @ID add-mentor
 // @Tags mentors
 // @Produce json
-// @Param mentor body model.Mentor true "mentor"
+// @Param mentor body model.UpdateMentor true "mentor"
 // @Success 200 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/{person_id} [post]
@@ -62,7 +62,7 @@ func (h *MentorHandlers) AddMentor(c *gin.Context) {}
 // @Tags mentors
 // @Produce json
 // @Param id path string true "mentor_id"
-// @Param mentor body model.Mentor true "mentor"
+// @Param mentor body model.UpdateMentor true "mentor"
 // @Success 200 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /mentors/{person_id} [put]

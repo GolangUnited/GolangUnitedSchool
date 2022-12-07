@@ -79,7 +79,7 @@ func (h *PersonHandlers) PutPersonById(c *gin.Context) {}
 // @ID update-person-by-id
 // @Tags persons
 // @Param id path string true "person_id"
-// @Param update_person body model.UpdatePersonDto true "update_person"
+// @Param update_person body model.UpdatePerson true "update_person"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage

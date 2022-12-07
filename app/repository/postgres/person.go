@@ -203,7 +203,6 @@ func (r *PostgresRepository) UpdatePersonByID(ctx context.Context, id int64, dat
 	}
 	return nil
 }
-
 func (r *PostgresRepository) PutPersonByID(ctx context.Context, id int64, data *model.UpdatePerson) error {
 	query := `UPDATE person 
 				SET 
@@ -243,7 +242,6 @@ func (r *PostgresRepository) PutPersonByID(ctx context.Context, id int64, data *
 
 	return nil
 }
-
 func (r *PostgresRepository) DeletePersonById(ctx context.Context, id int64) error {
 	pgt, err := r.pool.Exec(ctx, `DELETE FROM person WHERE id = $1`, id)
 	if err != nil {

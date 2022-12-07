@@ -27,7 +27,7 @@ func NewContactHandler(
 // @ID get-all-contacts
 // @Tags contacts
 // @Produce json
-// @Success 200 {object} model.ContactsListDto
+// @Success 200 {object} []model.Contact
 // @Failure 500 {object} model.ResponseMessage
 // @Router /persons/contacts [get]
 func (h *ContactHandlers) GetContacts(c *gin.Context) {}
@@ -39,7 +39,7 @@ func (h *ContactHandlers) GetContacts(c *gin.Context) {}
 // @Tags contacts
 // @Produce json
 // @Param id path string true "person_id"
-// @Success 200 {object} model.ContactsListDto
+// @Success 200 {object} []model.Contact
 // @Failure 500 {object} model.ResponseMessage
 // @Router /persons/{person_id}/contacts [get]
 func (h *ContactHandlers) GetPersonContacts(c *gin.Context) {}

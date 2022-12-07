@@ -27,7 +27,7 @@ func NewStudentGroupHandler(
 // @ID get-student-groups
 // @Tags studentGroups
 // @Produce json
-// @Success 200 {object} model.StudentGroupListDto
+// @Success 200 {object} []model.StudentGroup
 // @Failure 500 {object} model.ResponseMessage
 // @Router /students/groups [get]
 func (h *StudentGroupHandlers) GetStudentGroups(c *gin.Context) {}
@@ -51,7 +51,7 @@ func (h *StudentGroupHandlers) GetStudentGroupById(c *gin.Context) {}
 // @Tags studentGroups
 // @Produce json
 // @Consume json
-// @Param student_group body model.NewStudentGroupDto true "student_group"
+// @Param student_group body model.StudentGroup true "student_group"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -64,7 +64,7 @@ func (h *StudentGroupHandlers) AddStudentGroup(c *gin.Context) {}
 // @ID put-student-group-by-id
 // @Tags studentGroups
 // @Param id path string true "group_id"
-// @Param student_group body model.StudentGroup true "student_group"
+// @Param student_group body model.UpdateStudentGroup true "student_group"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -78,7 +78,7 @@ func (h *StudentGroupHandlers) PutStudentGroupById(c *gin.Context) {}
 // @ID update-student-group-by-id
 // @Tags studentGroups
 // @Param id path string true "student_group_id"
-// @Param update_student_group body model.UpdateStudentGroupDto true "update_student_group"
+// @Param update_student_group body model.UpdateStudentGroup true "update_student_group"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage

@@ -28,7 +28,7 @@ func NewStudentNoteHandler(
 // @Tags studentNotes
 // @Produce json
 // @Param id path string true "student_id"
-// @Success 200 {object} model.StudentNotesListDto
+// @Success 200 {object} []model.StudentNote
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /students/{student_id}/notes [get]
@@ -55,7 +55,7 @@ func (h *StudentNoteHandlers) GetStudentNoteByStudentNoteId() {}
 // @Tags studentNotes
 // @Produce json
 // @Consume json
-// @Param student_note body model.NewStudentNoteDto true "student_note"
+// @Param student_note body model.NewStudentNote true "student_note"
 // @Param id path string true "student_id"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
@@ -70,7 +70,7 @@ func (h *StudentNoteHandlers) AddStudentNote(c *gin.Context) {}
 // @Tags studentNotes
 // @Param id path string true "student_id"
 // @Param id path string true "student_note_id"
-// @Param student_note body model.StudentNote true "student_note"
+// @Param student_note body model.UpdateStudentNote true "student_note"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -85,7 +85,7 @@ func (h *StudentNoteHandlers) PutStudentNoteByStudentNoteId(c *gin.Context) {}
 // @ID update-student-note-by-id
 // @Tags studentNotes
 // @Param id path string true "student_note_id"
-// @Param student_note body model.UpdateStudentNoteDto true "student_note"
+// @Param student_note body model.UpdateStudentNote true "student_note"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage

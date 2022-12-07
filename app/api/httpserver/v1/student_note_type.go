@@ -27,7 +27,7 @@ func NewStudentNoteTypeHandler(
 // @ID get-all-student-note-types
 // @Tags studentNoteTypes
 // @Produce json
-// @Success 200 {object} model.StudentNoteTypesListDto
+// @Success 200 {object} []model.StudentNoteType
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /students/notes/types [get]
@@ -53,7 +53,7 @@ func (h *StudentNoteTypeHandlers) GetStudentNoteTypeById(c *gin.Context) {}
 // @Tags studentNoteTypes
 // @Produce json
 // @Consume json
-// @Param new_student_note_type body model.NewStudentNoteTypeDto true "student note type"
+// @Param new_student_note_type body model.NewStudentNoteType true "student note type"
 // @Success 201 {object} model.ResponseMessage
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
@@ -66,7 +66,7 @@ func (h *StudentNoteTypeHandlers) AddStudentNoteType(c *gin.Context) {}
 // @ID update-student-note-type
 // @Tags studentNoteTypes
 // @Param id path string true "student_note_type_id"
-// @Param student_note_type body model.StudentNoteType true "student note type"
+// @Param student_note_type body model.UpdateStudentNoteType true "student note type"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage
@@ -81,7 +81,7 @@ func (h *StudentNoteTypeHandlers) PutStudentNoteTypeById(c *gin.Context) {}
 // @ID update-student-note-type-by-id
 // @Tags studentNoteTypes
 // @Param id path string true "student_note_type_id"
-// @Param student_note_type body model.UpdateStudentNoteTypeDto true "student_note_type"
+// @Param student_note_type body model.UpdateStudentNoteType true "student_note_type"
 // @Produce json
 // @Consume json
 // @Success 200 {object} model.ResponseMessage

@@ -18,10 +18,6 @@ type MentorNote struct {
 	CreatedAt    time.Time `json:"created_at" validate:"omitempty"`
 }
 
-type MentorNotesListDto struct {
-	MentorNoteList []MentorNote
-}
-
 type NewMentorNote struct {
 	StudentId int64     `json:"student_id" validate:"numeric,gt=0"`
 	MentorId  int64     `json:"mentor_id" validate:"numeric,gt=0"`

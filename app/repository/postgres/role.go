@@ -98,7 +98,7 @@ func (r *PostgresRepository) PutRoleById(ctx context.Context, id int64, role *mo
 	return nil
 }
 
-func (r *PostgresRepository) UpadateRoleById(ctx context.Context, id int64, role *model.RoleCU) error {
+func (r *PostgresRepository) UpdateRoleById(ctx context.Context, id int64, role *model.RoleCU) error {
 	var args []interface{}
 	var keys []string
 	// role name
