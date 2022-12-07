@@ -9,11 +9,12 @@ import (
 )
 
 type Mentor struct {
-	MentorId int64 `json:"mentor_id" validate:"numeric,gt=0"`
+	MentorId int64
+	PersonId int64 `json:"mentor_id" validate:"numeric,gt=0"`
 }
 
-type MentorsListDto struct {
-	MentorList []Mentor
+type UpdateMentor struct {
+	PersonId *int64
 }
 
 func (n *Mentor) ValidateMentor() error {

@@ -22,14 +22,14 @@ type MentorNotesListDto struct {
 	MentorNoteList []MentorNote
 }
 
-type NewMentorNoteDto struct {
+type NewMentorNote struct {
 	StudentId int64     `json:"student_id" validate:"numeric,gt=0"`
 	MentorId  int64     `json:"mentor_id" validate:"numeric,gt=0"`
 	Note      string    `json:"note" validate:"gte=2,lte=255"`
 	CreatedAt time.Time `json:"created_at" validate:"omitempty"`
 }
 
-type UpdateMentorNoteDto struct {
+type UpdateMentorNote struct {
 	StudentId *int64     `json:"student_id" validate:"numeric,gt=0"`
 	MentorId  *int64     `json:"mentor_id" validate:"numeric,gt=0"`
 	Note      *string    `json:"note" validate:"gte=2,lte=255"`

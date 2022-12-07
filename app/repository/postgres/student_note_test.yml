@@ -44,11 +44,46 @@ conf:
           ('2', '2', 'kok', '2006-01-02'),
           ('3', '3', 'kak', '2006-01-02');
 
+      - request: CREATE
+          TABLE mentors (
+          mentor_id serial not null unique,
+          user_id integer not null     
+          );
+
+      - request: INSERT
+          INTO mentors (user_id) VALUES
+          ('1'),
+          ('2'),
+          ('3'),
+          ('4');
+
+      - request: CREATE TABLE mentor_notes (
+          mentor_note_id serial not null unique,
+          student_id integer not null references students(id),
+          mentor_id integer not null references mentors(mentor_id),
+          note varchar(255) not null unique,
+          created_at timestamp not null default current_timestamp
+          );
+
+      - request: INSERT
+          INTO mentor_notes (
+          student_id,
+          mentor_id,
+          note,
+          created_at
+          ) VALUES
+          ('1','1','kekeke', '2006-01-02'),
+          ('2','2','kokoko', '2006-01-02'),
+          ('3','3','kakaka', '2006-01-02');
+
+
 
   teardown:
     requests:
       - request: drop table student_notes cascade;
       - request: drop table student_note_types cascade;
       - request: DROP TABLE students CASCADE;
+      - request: drop table mentors cascade;
+      - request: drop table mentor_notes cascade;
 
 
