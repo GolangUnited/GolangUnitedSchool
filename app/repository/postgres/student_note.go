@@ -175,3 +175,30 @@ func (r *PostgresRepository) DeleteStudentNoteByStudentNoteId(ctx context.Contex
 	}
 	return nil
 }
+func (r *PostgresRepository) GetStudentsNotesByStudentId(ctx context.Context, id int64) ([]model.StudentNote, error) {
+	var studentNote []model.StudentNote
+	rows, err := r.pool.Query(ctx, `SELECT * FROM student_notes WHERE student_id = $1 `, id)
+	if err != nil {
+		return nil, errors.Wrap(err, "couldn't get list of student's notes")
+	}
+
+	for rows.Next() {
+		var c model.StudentNote
+		err := rows.Scan(&c.Id,
+			&c.StudentId,
+			&c.StudentNoteTypeId,
+			&c.Note,
+			&c.CreatedAt,
+		)
+		if err != nil {
+			return nil, errors.Wrap(err, "couldn't scan list of student's notes")
+		}
+
+		studentNote = append(studentNote, c)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, errors.Wrap(err, "student's notes rows error")
+	}
+
+	return studentNote, nil
+}

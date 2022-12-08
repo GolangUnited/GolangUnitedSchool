@@ -131,7 +131,7 @@ func (s *MentorNoteTestSuite) TestGetMentorNotes() {
 			name: "get mentor notes",
 			ctx:  context.Background(),
 			expectedResult: []model.MentorNote{
-				{1, 1, 1, "kekeke", kek},
+				{1, 1, 2, "kekeke", kek},
 				{2, 2, 2, "kokoko", kek},
 				{3, 3, 3, "kakaka", kek},
 			},
@@ -274,7 +274,7 @@ func (s *MentorNoteTestSuite) TestGetMentorNoteById() {
 			expectedResult: &model.MentorNote{
 				MentorNoteId: 1,
 				StudentId:    1,
-				MentorId:     1,
+				MentorId:     2,
 				Note:         "kekeke",
 				CreatedAt:    kek,
 			},
@@ -435,5 +435,53 @@ func (s *MentorNoteTestSuite) TestPutMentorNoteById() {
 			s.Nilf(err, "case [%d]", i)
 			s.Equalf(tt.expectedResult, result, "case [%d]", i)
 		}
+	}
+}
+func (s *MentorNoteTestSuite) TestGetMentorNotesByMentorId() {
+	kek, _ := time.Parse("2006-01-02", "2006-01-02")
+	tests := []struct {
+		name           string
+		ctx            context.Context
+		isConnClosed   bool
+		mentorId       int64
+		expectedErr    error
+		expectedResult []model.MentorNote
+	}{
+		{
+
+			name:     "get group contacts",
+			ctx:      context.Background(),
+			mentorId: 2,
+			expectedResult: []model.MentorNote{
+				{1, 1, 2, "kekeke", kek},
+				{2, 2, 2, "kokoko", kek},
+			},
+		},
+		{
+			name:         "db pool is closed",
+			ctx:          context.Background(),
+			isConnClosed: true,
+			expectedErr:  errors.New("couldn't get list of mentor's notes: closed pool"),
+		},
+	}
+	for i, tt := range tests {
+		s.Run(tt.name, func() {
+			if tt.isConnClosed {
+				s.testRepo.pool.Close()
+				defer func() {
+					// reconnect
+					s.testRepo.pool, _ = NewDbPool(tt.ctx, testDSN)
+				}()
+			}
+
+			result, err := s.testRepo.GetMentorNotesByMentorId(tt.ctx, tt.mentorId)
+			if tt.expectedErr == nil {
+				s.Nil(err, "case [%d]", i)
+				s.Equal(result, tt.expectedResult, "case [%d]", i)
+			} else {
+				s.Nil(result, "case [%d]", i)
+				s.EqualError(err, tt.expectedErr.Error(), "case [%d]", i)
+			}
+		})
 	}
 }

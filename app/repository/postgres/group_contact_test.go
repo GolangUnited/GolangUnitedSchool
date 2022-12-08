@@ -94,9 +94,9 @@ func (s *GroupContactTestSuite) TestGetGroupContactById() {
 			name: "doesn't exists",
 			args: args{
 				ctx: ctxB,
-				id:  3,
+				id:  4,
 			},
-			expectedError: "couldn't get group contact by id: 3: no rows in result set",
+			expectedError: "couldn't get group contact by id: 4: no rows in result set",
 		},
 	}
 
@@ -118,6 +118,54 @@ func (s *GroupContactTestSuite) TestGetGroupContacts() {
 		name           string
 		ctx            context.Context
 		isConnClosed   bool
+		groupId        int64
+		expectedErr    error
+		expectedResult []model.GroupContact
+	}{
+		{
+
+			name:    "get group contacts",
+			ctx:     context.Background(),
+			groupId: 2,
+			expectedResult: []model.GroupContact{
+				{2, 2, 2, true, "two"},
+				{3, 2, 3, true, "lelele"},
+			},
+		},
+		{
+			name:         "db pool is closed",
+			ctx:          context.Background(),
+			isConnClosed: true,
+			expectedErr:  errors.New("couldn't get list of group's contacts: closed pool"),
+		},
+	}
+	for i, tt := range tests {
+		s.Run(tt.name, func() {
+			if tt.isConnClosed {
+				s.testRepo.pool.Close()
+				defer func() {
+					// reconnect
+					s.testRepo.pool, _ = NewDbPool(tt.ctx, testDSN)
+				}()
+			}
+
+			result, err := s.testRepo.GetGroupContacts(tt.ctx, tt.groupId)
+			if tt.expectedErr == nil {
+				s.Nil(err, "case [%d]", i)
+				s.Equal(result, tt.expectedResult, "case [%d]", i)
+			} else {
+				s.Nil(result, "case [%d]", i)
+				s.EqualError(err, tt.expectedErr.Error(), "case [%d]", i)
+			}
+		})
+	}
+}
+func (s *GroupContactTestSuite) TestGetAllGroupContacts() {
+	//kek, _ := time.Parse("2006-01-02", "2006-01-02")
+	tests := []struct {
+		name           string
+		ctx            context.Context
+		isConnClosed   bool
 		expectedErr    error
 		expectedResult []model.GroupContact
 	}{
@@ -128,6 +176,7 @@ func (s *GroupContactTestSuite) TestGetGroupContacts() {
 			expectedResult: []model.GroupContact{
 				{1, 1, 1, false, "one"},
 				{2, 2, 2, true, "two"},
+				{3, 2, 3, true, "lelele"},
 			},
 		},
 		{
@@ -147,7 +196,7 @@ func (s *GroupContactTestSuite) TestGetGroupContacts() {
 				}()
 			}
 
-			result, err := s.testRepo.GetGroupContacts(tt.ctx)
+			result, err := s.testRepo.GetAllGroupContacts(tt.ctx)
 			if tt.expectedErr == nil {
 				s.Nil(err, "case [%d]", i)
 				s.Equal(result, tt.expectedResult, "case [%d]", i)
@@ -181,7 +230,7 @@ func (s *GroupContactTestSuite) TestAddGroupContact() {
 					ContactValue:  "kek",
 				},
 			},
-			ExpectedResult: 3,
+			ExpectedResult: 4,
 		},
 		{
 			name: "error: duplicate title",

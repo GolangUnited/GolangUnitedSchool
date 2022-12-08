@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func (r *PostgresRepository) GetGroupContacts(ctx context.Context) ([]model.GroupContact, error) {
+func (r *PostgresRepository) GetAllGroupContacts(ctx context.Context) ([]model.GroupContact, error) {
 	var groups []model.GroupContact
 	rows, err := r.pool.Query(ctx, `SELECT * FROM group_contacts`)
 	if err != nil {
@@ -176,6 +176,32 @@ func (r *PostgresRepository) DeleteGroupContactById(ctx context.Context, id int6
 	}
 	return nil
 }
+func (r *PostgresRepository) GetGroupContacts(ctx context.Context, id int64) ([]model.GroupContact, error) {
+	var groupContacts []model.GroupContact
+	rows, err := r.pool.Query(ctx, `SELECT * FROM group_contacts WHERE group_id = $1 `, id)
+	if err != nil {
+		return nil, errors.Wrap(err, "couldn't get list of group's contacts")
+	}
+
+	for rows.Next() {
+		var c model.GroupContact
+		err := rows.Scan(&c.GroupContactId,
+			&c.ContactValue,
+			&c.IsPrimary,
+			&c.ContactTypeId,
+			&c.GroupId,
+		)
+		if err != nil {
+			return nil, errors.Wrap(err, "couldn't scan list of group's contacts")
+		}
+
+		groupContacts = append(groupContacts, c)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, errors.Wrap(err, "group contacts rows error")
+	}
+
+	return groupContacts, nil
+}
 
 ///еще одна функция на все контакты одной группы
-/// еще одна функция на все коннтакты в принципе

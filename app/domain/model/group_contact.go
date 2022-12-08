@@ -28,7 +28,7 @@ type GroupContact struct {
 	ContactValue   string `json:"contact_value" validate:"min=2,max=70"`
 }
 
-type GroupContactsListDto struct {
+type GroupContactsList struct {
 	Metadata      PaginationResponse `json:"_metadata"`
 	GroupContacts []GroupContact
 }

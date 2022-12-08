@@ -28,7 +28,7 @@ func NewGroupContactHandler(
 // @Tags groupContacts
 // @Produce json
 // @Consume json
-// @Success 201 {object} model.GroupContactsListDto
+// @Success 201 {object} model.GroupContactsList
 // @Failure 400 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /groups/contacts [get]
@@ -41,7 +41,7 @@ func (h *GroupContactHandlers) GetGroupContacts(c *gin.Context) {}
 // @Tags groupContacts
 // @Produce json
 // @Param id path string true "group_id"
-// @Success 200 {object} model.GroupContactsListDto
+// @Success 200 {object} model.GroupContactsList
 // @Failure 404 {object} model.ResponseMessage
 // @Failure 500 {object} model.ResponseMessage
 // @Router /groups/{group_id}/contacts [get]

@@ -78,7 +78,7 @@ func (s *StudentNoteTestSuite) TestGetStudentNotes() {
 			name: "get student notes",
 			ctx:  context.Background(),
 			expectedResult: []model.StudentNote{
-				{1, 1, 1, "kek", kek},
+				{1, 2, 1, "kek", kek},
 				{2, 2, 2, "kok", kek},
 				{3, 3, 3, "kak", kek},
 			},
@@ -435,5 +435,53 @@ func (s *StudentNoteTestSuite) TestDeleteStudentNoteById() {
 		} else {
 			s.Nilf(err, "case [%d]", i)
 		}
+	}
+}
+func (s *StudentNoteTestSuite) TestGetStudentsNotesByStudentId() {
+	kek, _ := time.Parse("2006-01-02", "2006-01-02")
+	tests := []struct {
+		name           string
+		ctx            context.Context
+		isConnClosed   bool
+		studentId      int64
+		expectedErr    error
+		expectedResult []model.StudentNote
+	}{
+		{
+
+			name:      "get group contacts",
+			ctx:       context.Background(),
+			studentId: 2,
+			expectedResult: []model.StudentNote{
+				{1, 2, 1, "kek", kek},
+				{2, 2, 2, "kok", kek},
+			},
+		},
+		{
+			name:         "db pool is closed",
+			ctx:          context.Background(),
+			isConnClosed: true,
+			expectedErr:  errors.New("couldn't get list of student's notes: closed pool"),
+		},
+	}
+	for i, tt := range tests {
+		s.Run(tt.name, func() {
+			if tt.isConnClosed {
+				s.testRepo.pool.Close()
+				defer func() {
+					// reconnect
+					s.testRepo.pool, _ = NewDbPool(tt.ctx, testDSN)
+				}()
+			}
+
+			result, err := s.testRepo.GetStudentsNotesByStudentId(tt.ctx, tt.studentId)
+			if tt.expectedErr == nil {
+				s.Nil(err, "case [%d]", i)
+				s.Equal(result, tt.expectedResult, "case [%d]", i)
+			} else {
+				s.Nil(result, "case [%d]", i)
+				s.EqualError(err, tt.expectedErr.Error(), "case [%d]", i)
+			}
+		})
 	}
 }

@@ -1169,7 +1169,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/model.GroupContactsListDto"
+                            "$ref": "#/definitions/model.GroupContactsList"
                         }
                     },
                     "400": {
@@ -1451,7 +1451,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.GroupContactsListDto"
+                            "$ref": "#/definitions/model.GroupContactsList"
                         }
                     },
                     "404": {
@@ -5464,6 +5464,42 @@ const docTemplate = `{
                 }
             }
         },
+        "/students/notes": {
+            "get": {
+                "description": "возвращает все заметки студентов",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "studentNotes"
+                ],
+                "summary": "get all student notes",
+                "operationId": "get-students-notes",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.StudentNote"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/students/notes/types": {
             "get": {
                 "description": "возвращает все типы студенческих заметок",
@@ -6530,7 +6566,7 @@ const docTemplate = `{
                 }
             }
         },
-        "model.GroupContactsListDto": {
+        "model.GroupContactsList": {
             "type": "object",
             "properties": {
                 "_metadata": {

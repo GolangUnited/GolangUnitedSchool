@@ -37,7 +37,31 @@ func (r *PostgresRepository) GetMentorNotes(ctx context.Context) ([]model.Mentor
 	return mentorNotes, nil
 }
 func (r *PostgresRepository) GetMentorNotesByMentorId(ctx context.Context, id int64) ([]model.MentorNote, error) {
-	panic("empty")
+	var mentorNotes []model.MentorNote
+	rows, err := r.pool.Query(ctx, `SELECT * FROM mentor_notes WHERE mentor_id = $1 `, id)
+	if err != nil {
+		return nil, errors.Wrap(err, "couldn't get list of mentor's notes")
+	}
+
+	for rows.Next() {
+		var c model.MentorNote
+		err := rows.Scan(&c.MentorNoteId,
+			&c.StudentId,
+			&c.MentorId,
+			&c.Note,
+			&c.CreatedAt,
+		)
+		if err != nil {
+			return nil, errors.Wrap(err, "couldn't scan list of mentor's notes")
+		}
+
+		mentorNotes = append(mentorNotes, c)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, errors.Wrap(err, "mentor's notes rows error")
+	}
+
+	return mentorNotes, nil
 }
 func (r *PostgresRepository) GetMentorNoteByMentorNoteId(ctx context.Context, id int64) (*model.MentorNote, error) {
 	var mentorNote model.MentorNote

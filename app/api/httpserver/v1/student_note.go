@@ -21,6 +21,18 @@ func NewStudentNoteHandler(
 	}
 }
 
+// GetStudentsNotes
+// @Summary get all student notes
+// @Description возвращает все заметки студентов
+// @ID get-students-notes
+// @Tags studentNotes
+// @Produce json
+// @Success 200 {object} []model.StudentNote
+// @Failure 404 {object} model.ResponseMessage
+// @Failure 500 {object} model.ResponseMessage
+// @Router /students/notes [get]
+func (h *StudentNoteHandlers) GetStudentsNotes(c *gin.Context) {}
+
 // GetStudentNotesByStudentId
 // @Summary get all student notes by student id
 // @Description возвращает все заметки по студенту с указанным id

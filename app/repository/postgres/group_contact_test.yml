@@ -13,7 +13,8 @@ conf:
           INTO group_contacts
           (contact_value, is_primary, contact_type, group_id) VALUES
           ('one', false, '1', '1'),
-          ('two', true, '2', '2');
+          ('two', true, '2', '2'),
+          ('lelele', true, '3', '2');
 
   teardown:
     requests:
