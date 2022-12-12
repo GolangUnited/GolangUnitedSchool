@@ -6,56 +6,66 @@ import (
 )
 
 type RepositoryInterface interface {
-	//Person //
-	GetPersons(ctx context.Context) (model.PersonListDto, error)
+	GetPersons(ctx context.Context) ([]model.Person, error)
 	GetPersonById(ctx context.Context, id int64) (*model.Person, error)
-	AddNewPerson(ctx context.Context, data *model.NewPersonDto) error
-	UpdatePersonById(ctx context.Context, id int64, data model.UpdatePerson) error
-	PutPersonById(ctx context.Context, id int64, data *model.Person) error
+	AddNewPerson(ctx context.Context, data *model.NewPersonDto) (int64, error)
+	UpdatePersonByID(ctx context.Context, id int64, data *model.UpdatePerson) error
+	PutPersonByID(ctx context.Context, id int64, data *model.UpdatePerson) error
 	DeletePersonById(ctx context.Context, id int64) error
 	//student //
-	GetStudents(ctx context.Context) (model.StudentsListDto, error)
+	GetStudents(ctx context.Context) ([]model.Student, error)
 	GetStudentByStudentId(ctx context.Context, id int64) (*model.Student, error)
-	AddStudent(ctx context.Context, data *model.Student) error
-	PutStudentByStudentId(ctx context.Context, id int64, data *model.Student) error
+	AddStudent(ctx context.Context, data *model.Student) (int64, error)
+	UpdateStudentByStudentId(ctx context.Context, id int64, data *model.StudentUpdate) error
 	DeleteStudentByStudentId(ctx context.Context, id int64) error
+	PutStudentByStudentId(ctx context.Context, id int64, data *model.StudentUpdate) error
 	//mentor
 	GetMentors(ctx context.Context) ([]model.Mentor, error)
 	GetMentorById(ctx context.Context, id int64) (*model.Mentor, error)
-	AddMentor(ctx context.Context, data *model.Mentor) error
-	UpdateMentorByMentorId(ctx context.Context, id int64, data *model.Mentor) error
+	AddMentor(ctx context.Context, data *model.UpdateMentor) (int64, error)
+	UpdateMentorByMentorId(ctx context.Context, id int64, data *model.UpdateMentor) error
 	DeleteMentorByMentorId(ctx context.Context, id int64) error
+	PutMentorById(ctx context.Context, id int64, data *model.UpdateMentor) error
 	//mentor note
 	GetMentorNotes(ctx context.Context) ([]model.MentorNote, error)
 	GetMentorNotesByMentorId(ctx context.Context, id int64) ([]model.MentorNote, error)
 	GetMentorNoteByMentorNoteId(ctx context.Context, id int64) (*model.MentorNote, error)
-	AddMentorNote(ctx context.Context, data *model.MentorNote) error
-	UpdateMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.MentorNote) error
+	AddMentorNote(ctx context.Context, data *model.NewMentorNote) (int64, error)
+	UpdateMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.UpdateMentorNote) error
 	DeleteMentorNoteByMentorNoteId(ctx context.Context, id int64) error
+	PutMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.UpdateMentorNote) error
 	//student note
 	GetStudentNotes(ctx context.Context) ([]model.StudentNote, error)
-	GetStudentNoteByStudentId(ctx context.Context, id int64) (*model.StudentNote, error)
-	AddStudentNote(ctx context.Context, data *model.StudentNote) error
-	UpdateStudentNoteByStudentId(ctx context.Context, id int64, data *model.StudentNote) error
+	GetStudentNoteById(ctx context.Context, id int64) (*model.StudentNote, error)
+	AddStudentNote(ctx context.Context, data *model.NewStudentNote) (int64, error)
+	UpdateStudentNoteByStudentId(ctx context.Context, id int64, data *model.UpdateStudentNote) error
+	PutStudentNoteById(ctx context.Context, id int64, data *model.UpdateStudentNote) error
 	DeleteStudentNoteByStudentNoteId(ctx context.Context, id int64) error
+	GetStudentsNotesByStudentId(ctx context.Context, id int64) ([]model.StudentNote, error)
+
 	//student note type
 	GetStudentNoteTypes(ctx context.Context) ([]model.StudentNoteType, error)
 	GetStudentNoteTypeById(ctx context.Context, id int64) (*model.StudentNoteType, error)
-	AddStudentNoteType(ctx context.Context, data *model.StudentNoteType) error
-	UpdateStudentNoteTypeById(ctx context.Context, id int64, data *model.StudentNoteType) error
-	DeleteStudentNoteTypeById(ctx context.Context, is int64) error
+	AddStudentNoteType(ctx context.Context, data *model.NewStudentNoteType) (int64, error)
+	UpdateStudentNoteTypeById(ctx context.Context, id int64, data *model.UpdateStudentNoteType) error
+	PutStudentNoteTypeById(ctx context.Context, id int64, data *model.UpdateStudentNoteType) error
+	DeleteStudentNoteTypeById(ctx context.Context, id int64) error
 	//group contact
-	GetGroupContacts(ctx context.Context) ([]model.GroupContact, error)
+	GetAllGroupContacts(ctx context.Context) ([]model.GroupContact, error)
 	GetGroupContactById(ctx context.Context, id int64) (*model.GroupContact, error)
-	AddGroupContact(ctx context.Context, data *model.GroupContact) error
-	UpdateGroupContactById(ctx context.Context, id int64, data *model.GroupContact) error
+	AddGroupContact(ctx context.Context, data *model.GroupContactCU) (int64, error)
+	PutGroupContactById(ctx context.Context, id int64, data *model.GroupContactCU) error
+	UpdateGroupContactById(ctx context.Context, id int64, data *model.GroupContactUpdate) error
 	DeleteGroupContactById(ctx context.Context, id int64) error
+	GetGroupContacts(ctx context.Context, id int64) ([]model.GroupContact, error)
+
 	// student group
 	GetStudentGroups(ctx context.Context) ([]model.StudentGroup, error)
 	GetStudentGroupById(ctx context.Context, id int64) (*model.StudentGroup, error)
-	AddStudentGroup(ctx context.Context, data *model.StudentGroup) error
-	UpdateStudentGroupById(ctx context.Context, id int64, data *model.StudentGroup) error
+	CreateStudentGroup(ctx context.Context, data *model.StudentGroup) (int64, error)
+	PutStudentGroupById(ctx context.Context, id int64, data *model.UpdateStudentGroup) error
 	DeleteStudentGroupById(ctx context.Context, id int64) error
+
 	// course status
 	GetCourseStatuses(ctx context.Context) ([]model.CourseStatus, error)
 	GetCourseStatusById(ctx context.Context, id int64) (*model.CourseStatus, error)
@@ -103,14 +113,6 @@ type RepositoryInterface interface {
 	UpdateStudentCertificate(ctx context.Context, id int64, data *model.StudentCertificate) error
 	DeleteStudentCertificate(ctx context.Context, id int64) error
 
-	// Course repo interfaces
-	// CreateCourse(context.Context, *model.CourseCreate) (int64, error)
-	// GetCourseByID(context.Context, int64) (*model.Course, error)
-	// GetCourses(context.Context, *model.PaginationParams) (*model.CourseList, error)
-	// UpdateCourseByID(context.Context, int64, *model.CourseUpdate) error
-	// PutCourseByID(context.Context, int64, *model.CourseUpdate) error
-	// DeleteCourseByID(context.Context, int64) error
-
 	// interview
 	GetInterviewById(context.Context, int64) (*model.Interview, error)
 	GetInterviews(context.Context) ([]model.Interview, error)
@@ -122,17 +124,17 @@ type RepositoryInterface interface {
 	GetRoleById(ctx context.Context, id int64) (*model.Role, error)
 	GetRoles(ctx context.Context) ([]model.Role, error)
 	AddRole(ctx context.Context, role *model.RoleCU) (int64, error)
-	UpadateRoleById(ctx context.Context, id int64, role *model.RoleCU) error
+	UpdateRoleById(ctx context.Context, id int64, role *model.RoleCU) error
 	PutRoleById(ctx context.Context, id int64, role *model.Role) error
 	DeleteRoleById(ctx context.Context, id int64) error
 
-	// group
-	GetGroupById(ctx context.Context, id int64) (*model.Group, error)
-	GetGroups(ctx context.Context) ([]model.Group, error)
-	CreateGroup(ctx context.Context, group *model.Group) (int64, error)
-	UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error
-	PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error
-	DeleteGroupById(ctx context.Context, id int64) error
+	//// group
+	//GetGroupById(ctx context.Context, id int64) (*model.Group, error)
+	//GetGroups(ctx context.Context) ([]model.Group, error)
+	//CreateGroup(ctx context.Context, group *model.Group) (int64, error)
+	//UpdateGroupById(ctx context.Context, id int64, group *model.GroupCU) error
+	//PutGroupById(ctx context.Context, id int64, group *model.GroupCU) error
+	//DeleteGroupById(ctx context.Context, id int64) error
 
 	GetProjects(ctx context.Context) ([]model.Project, error)
 	GetProjectsByCourseId(ctx context.Context, courseId int64) ([]model.Project, error)

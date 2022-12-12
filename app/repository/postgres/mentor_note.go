@@ -203,3 +203,11 @@ func (r *PostgresRepository) PutMentorNoteByMentorNoteId(ctx context.Context, id
 
 	return nil
 }
+
+//GetMentorNotes(ctx context.Context) ([]model.MentorNote, error)
+//GetMentorNotesByMentorId(ctx context.Context, id int64) ([]model.MentorNote, error)
+//GetMentorNoteByMentorNoteId(ctx context.Context, id int64) (*model.MentorNote, error)
+//AddMentorNote(ctx context.Context, data *model.NewMentorNote) (int64, error)
+//UpdateMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.UpdateMentorNote) error
+//DeleteMentorNoteByMentorNoteId(ctx context.Context, id int64) error
+//PutMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.UpdateMentorNote) error

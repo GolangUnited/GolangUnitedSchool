@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/group"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/interview"
 	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase/mentor"
@@ -27,12 +26,12 @@ type Usecases struct {
 	Person              PersonUseCaseInterface
 	Student             StudentUseCaseInterface
 	StudentGroup        StudentGroupUseCaseInterface
-	StudentNote         StudentUseCaseInterface
+	StudentNote         StudentNoteUseCaseInterface
 	Mentor              MentorUseCaseInterface
 	GroupContact        GroupContactUseCaseInterface
 	Group               GroupUsecaseInterface
 	Interview           InterviewUsecaseInterface
-	StudentNoteType     StudentNoteUseCaseInterface
+	StudentNoteType     StudentNoteTypeUseCaseInterface
 	MentorNote          MentorNoteUseCaseInterface
 	Project             ProjectUsecaseInterface
 }
@@ -75,21 +74,37 @@ type CourseUsecaseInterface interface {
 }
 
 type PersonUseCaseInterface interface {
-	// GetPersonByField() (Person, error)
-	// GetPersonById(int64) (Person, error)
-	// AddNewPerson() error
-	// UpdatePersonById (int64) error
-	// RemovePersonById (int64) error
+	GetPersons(ctx context.Context) ([]model.Person, error)
+	GetPersonById(ctx context.Context, id int64) (*model.Person, error)
+	AddNewPerson(ctx context.Context, data *model.NewPersonDto) (int64, error)
+	UpdatePersonByID(ctx context.Context, id int64, data *model.UpdatePerson) error
+	PutPersonByID(ctx context.Context, id int64, data *model.UpdatePerson) error
+	DeletePersonById(ctx context.Context, id int64) error
 }
 type StudentUseCaseInterface interface {
-	//AddStudent
-	//DeleteStudent
-	//DeleteStudentByStudentId
+	GetStudents(ctx context.Context) ([]model.Student, error)
+	GetStudentByStudentId(ctx context.Context, id int64) (*model.Student, error)
+	AddStudent(ctx context.Context, data *model.Student) (int64, error)
+	UpdateStudentByStudentId(ctx context.Context, id int64, data *model.StudentUpdate) error
+	DeleteStudentByStudentId(ctx context.Context, id int64) error
+	PutStudentByStudentId(ctx context.Context, id int64, data *model.StudentUpdate) error
 }
 
 type StudentNoteTypeUseCaseInterface interface {
+	GetStudentNoteTypes(ctx context.Context) ([]model.StudentNoteType, error)
+	GetStudentNoteTypeById(ctx context.Context, id int64) (*model.StudentNoteType, error)
+	AddStudentNoteType(ctx context.Context, data *model.NewStudentNoteType) (int64, error)
+	UpdateStudentNoteTypeById(ctx context.Context, id int64, data *model.UpdateStudentNoteType) error
+	PutStudentNoteTypeById(ctx context.Context, id int64, data *model.UpdateStudentNoteType) error
+	DeleteStudentNoteTypeById(ctx context.Context, id int64) error
 }
 type MentorUseCaseInterface interface {
+	GetMentors(ctx context.Context) ([]model.Mentor, error)
+	GetMentorById(ctx context.Context, id int64) (*model.Mentor, error)
+	AddMentor(ctx context.Context, data *model.UpdateMentor) (int64, error)
+	UpdateMentorByMentorId(ctx context.Context, id int64, data *model.UpdateMentor) error
+	DeleteMentorByMentorId(ctx context.Context, id int64) error
+	PutMentorById(ctx context.Context, id int64, data *model.UpdateMentor) error
 }
 
 type CertificateTemplateUsecaseInterface interface {
@@ -136,12 +151,43 @@ type StudentCertificateUsecaseInterface interface {
 	DeleteStudentCertificate(ctx context.Context, id int64) error
 }
 
-type MentorNoteUseCaseInterface interface{}
-type StudentNoteUseCaseInterface interface{}
+type MentorNoteUseCaseInterface interface {
+	GetMentorNotes(ctx context.Context) ([]model.MentorNote, error)
+	GetMentorNotesByMentorId(ctx context.Context, id int64) ([]model.MentorNote, error)
+	GetMentorNoteByMentorNoteId(ctx context.Context, id int64) (*model.MentorNote, error)
+	AddMentorNote(ctx context.Context, data *model.NewMentorNote) (int64, error)
+	UpdateMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.UpdateMentorNote) error
+	DeleteMentorNoteByMentorNoteId(ctx context.Context, id int64) error
+	PutMentorNoteByMentorNoteId(ctx context.Context, id int64, data *model.UpdateMentorNote) error
+}
+
+type StudentNoteUseCaseInterface interface {
+	GetStudentNotes(ctx context.Context) ([]model.StudentNote, error)
+	GetStudentNoteById(ctx context.Context, id int64) (*model.StudentNote, error)
+	AddStudentNote(ctx context.Context, data *model.NewStudentNote) (int64, error)
+	UpdateStudentNoteByStudentId(ctx context.Context, id int64, data *model.UpdateStudentNote) error
+	PutStudentNoteById(ctx context.Context, id int64, data *model.UpdateStudentNote) error
+	DeleteStudentNoteByStudentNoteId(ctx context.Context, id int64) error
+	GetStudentsNotesByStudentId(ctx context.Context, id int64) ([]model.StudentNote, error)
+}
 type CourseStatusUseCaseInterface interface{}
-type StudentGroupUseCaseInterface interface{}
+type StudentGroupUseCaseInterface interface {
+	GetStudentGroups(ctx context.Context) ([]model.StudentGroup, error)
+	GetStudentGroupById(ctx context.Context, id int64) (*model.StudentGroup, error)
+	CreateStudentGroup(ctx context.Context, data *model.StudentGroup) (int64, error)
+	PutStudentGroupById(ctx context.Context, id int64, data *model.UpdateStudentGroup) error
+	DeleteStudentGroupById(ctx context.Context, id int64) error
+}
 type CourseLectureUseCaseInterface interface{}
-type GroupContactUseCaseInterface interface{}
+type GroupContactUseCaseInterface interface {
+	GetAllGroupContacts(ctx context.Context) ([]model.GroupContact, error)
+	GetGroupContactById(ctx context.Context, id int64) (*model.GroupContact, error)
+	AddGroupContact(ctx context.Context, data *model.GroupContactCU) (int64, error)
+	PutGroupContactById(ctx context.Context, id int64, data *model.GroupContactCU) error
+	UpdateGroupContactById(ctx context.Context, id int64, data *model.GroupContactUpdate) error
+	DeleteGroupContactById(ctx context.Context, id int64) error
+	GetGroupContacts(ctx context.Context, id int64) ([]model.GroupContact, error)
+}
 
 type RoleUsecaseInterface interface {
 	GetRoleById(ctx context.Context, id int64) (*model.Role, error)

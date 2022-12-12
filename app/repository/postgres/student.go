@@ -120,3 +120,10 @@ func (r *PostgresRepository) PutStudentByStudentId(ctx context.Context, id int64
 	}
 	return nil
 }
+
+//GetStudents(ctx context.Context) ([]model.Student, error)
+//GetStudentByStudentId(ctx context.Context, id int64) (*model.Student, error)
+//AddStudent(ctx context.Context, data *model.Student) (int64, error)
+//UpdateStudentByStudentId(ctx context.Context, id int64, data *model.StudentUpdate) error
+//DeleteStudentByStudentId(ctx context.Context, id int64) error
+//PutStudentByStudentId(ctx context.Context, id int64, data *model.StudentUpdate) error

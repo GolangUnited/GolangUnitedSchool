@@ -142,3 +142,10 @@ func (r *PostgresRepository) DeleteStudentNoteTypeById(ctx context.Context, id i
 	}
 	return nil
 }
+
+//GetStudentNoteTypes(ctx context.Context) ([]model.StudentNoteType, error)
+//GetStudentNoteTypeById(ctx context.Context, id int64) (*model.StudentNoteType, error)
+//AddStudentNoteType(ctx context.Context, data *model.NewStudentNoteType) (int64, error)
+//UpdateStudentNoteTypeById(ctx context.Context, id int64, data *model.UpdateStudentNoteType) error
+//PutStudentNoteTypeById(ctx context.Context, id int64, data *model.UpdateStudentNoteType) error
+//DeleteStudentNoteTypeById(ctx context.Context, id int64) error

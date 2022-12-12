@@ -204,4 +204,10 @@ func (r *PostgresRepository) GetGroupContacts(ctx context.Context, id int64) ([]
 	return groupContacts, nil
 }
 
-///еще одна функция на все контакты одной группы
+//GetAllGroupContacts(ctx context.Context) ([]model.GroupContact, error)
+//GetGroupContactById(ctx context.Context, id int64) (*model.GroupContact, error)
+//AddGroupContact(ctx context.Context, data *model.GroupContactCU) (int64, error)
+//PutGroupContactById(ctx context.Context, id int64, data *model.GroupContactCU) error
+//UpdateGroupContactById(ctx context.Context, id int64, data *model.GroupContactUpdate) error
+//DeleteGroupContactById(ctx context.Context, id int64) error
+//GetGroupContacts(ctx context.Context, id int64) ([]model.GroupContact, error)

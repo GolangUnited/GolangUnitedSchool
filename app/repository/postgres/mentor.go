@@ -137,3 +137,10 @@ func (r *PostgresRepository) PutMentorById(ctx context.Context, id int64, data *
 
 	return nil
 }
+
+//GetMentors(ctx context.Context) ([]model.Mentor, error)
+//GetMentorById(ctx context.Context, id int64) (*model.Mentor, error)
+//AddMentor(ctx context.Context, data *model.UpdateMentor) (int64, error)
+//UpdateMentorByMentorId(ctx context.Context, id int64, data *model.UpdateMentor) error
+//DeleteMentorByMentorId(ctx context.Context, id int64) error
+//PutMentorById(ctx context.Context, id int64, data *model.UpdateMentor) error
