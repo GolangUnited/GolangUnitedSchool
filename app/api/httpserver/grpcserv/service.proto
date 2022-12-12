@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "./";
+
+service StudentService {
+  rpc AddUser(AddUserRequest) returns (AddUserResponse){}
+}
+
+message AddUserRequest{
+  string FirtsName = 1;
+  string LastName = 2;
+  string Login = 3;
+}
+
+message AddUserResponse{
+  string UserAdded =1;
+  int64 UserId = 2;
+}

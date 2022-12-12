@@ -1,6 +1,16 @@
 package main
 
 import (
+	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver"
+	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver/grpcserv"
+	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver/grpcserv/api"
+	v1 "github.com/lozovoya/GolangUnitedSchool/app/api/httpserver/v1"
+	"github.com/lozovoya/GolangUnitedSchool/app/config"
+	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase"
+	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
+	"github.com/lozovoya/GolangUnitedSchool/app/repository/postgres"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
 	"log"
 	"net"
 	"net/http"
@@ -8,14 +18,6 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/lozovoya/GolangUnitedSchool/app/api/httpserver"
-	v1 "github.com/lozovoya/GolangUnitedSchool/app/api/httpserver/v1"
-	"github.com/lozovoya/GolangUnitedSchool/app/config"
-	"github.com/lozovoya/GolangUnitedSchool/app/domain/usecase"
-	"github.com/lozovoya/GolangUnitedSchool/app/logger/zap"
-	"github.com/lozovoya/GolangUnitedSchool/app/repository/postgres"
-	"golang.org/x/net/context"
 )
 
 // @title GolangUnitedSchool
@@ -29,6 +31,8 @@ import (
 // @BasePath /api/v1
 // @schemes http
 func main() {
+
+	executeGrpc()
 	cfg, err := config.Load()
 	if err != nil {
 		log.Println(err)
@@ -38,6 +42,21 @@ func main() {
 	if err := execute(cfg); err != nil {
 		log.Println(err)
 		os.Exit(1)
+	}
+}
+
+func executeGrpc() {
+	s := grpc.NewServer()
+	serve := &grpcserv.StudentServer{}
+	api.RegisterStudentServiceServer(s, serve)
+
+	l, err := net.Listen("tcp", ":8000")
+	if err != nil {
+		panic("failed")
+	}
+
+	if err := s.Serve(l); err != nil {
+		log.Fatal("kek")
 	}
 }
 
