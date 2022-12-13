@@ -1,20 +1,39 @@
 syntax = "proto3";
-
+//protoc --go-grpc_out=require_unimplemented_servers=false[,other options...]:. can solve this problem.
 package grpc;
 
 option go_package = "./";
 
 service StudentService {
-  rpc AddUser(AddUserRequest) returns (AddUserResponse){}
+  rpc AddNewPerson(AddUserRequest) returns (AddUserResponse){}
+  rpc GetPersons(Empty) returns (PersonsList){}
+}
+// All
+message Empty{
+
 }
 
-message AddUserRequest{
-  string FirtsName = 1;
+// AddNewPerson
+message User {
+  string FirstName = 1;
   string LastName = 2;
   string Login = 3;
+  string Patronymic = 4;
+  string Email = 5;
+  string Birthday = 6;
+  string RoleId = 7; // set in db by default as student
+  string Passwd = 8;
+}
+message AddUserRequest{
+  User user = 1;
 }
 
 message AddUserResponse{
-  string UserAdded =1;
   int64 UserId = 2;
+  string Error = 1;
 }
+//GetPersons
+message PersonsList{
+   repeated User PersonList = 1;
+}
+

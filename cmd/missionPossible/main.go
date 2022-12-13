@@ -33,24 +33,24 @@ import (
 func main() {
 
 	executeGrpc()
-	cfg, err := config.Load()
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	if err := execute(cfg); err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
+	//cfg, err := config.Load()
+	//if err != nil {
+	//	log.Println(err)
+	//	return
+	//}
+	//
+	//if err := execute(cfg); err != nil {
+	//	log.Println(err)
+	//	os.Exit(1)
+	//}
 }
 
 func executeGrpc() {
 	s := grpc.NewServer()
 	serve := &grpcserv.StudentServer{}
-	api.RegisterStudentServiceServer(s, serve)
+	__.RegisterStudentServiceServer(s, serve)
 
-	l, err := net.Listen("tcp", ":8000")
+	l, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		panic("failed")
 	}

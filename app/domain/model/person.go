@@ -38,7 +38,7 @@ type NewPersonDto struct {
 	Email      string `json:"email" validate:"omitempty"`
 	Birthday   string `json:"birthday" validate:"omitempty"`
 	RoleId     int    `json:"role_id" validate:"omitempty,numeric,gte=1,lte=6"`
-	Passwd     string `json:"passwd_hash" validate:"required,ascii,min=8,max=20"`
+	Passwd     string `json:"passwd" validate:"required,ascii,min=8,max=20"`
 	//CreatedAt  time.Time `json:"created_at" validate:"omitempty"`
 	//Deleted    bool      `json:"deleted" validate:"omitempty"`
 }
